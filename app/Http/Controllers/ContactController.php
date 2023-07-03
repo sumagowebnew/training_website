@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use  App\Models\Contact;
+use Validator;
 
 class ContactController extends Controller
 {
@@ -15,21 +16,28 @@ class ContactController extends Controller
     }
     public function Add(Request $request)
     {
-        $contactEnquiries = new Contact();
-        // $data = [
-        //     'name'      => $request->name,
-        //     'mobile_no' => $request->mobile_no,
-        //     'email'     => $request->email,
-        //     'messege'   => $request->messege,
-        // ];
-        $contactEnquiries->name = $request->name;
-        $contactEnquiries->subject = $request->subject;
-        $contactEnquiries->email = $request->email;
-        $contactEnquiries->phone = $request->phone;
-        $contactEnquiries->message = $request->message;
-        $contactEnquiries->save();
-        // $insert_data = ContactEnquiries::insert($data);
-        return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
+        $validator = Validator::make($request->all(), [
+            'name'=>'required',
+            'subject'=>'required',
+            'email'=>'required'|'email',
+            'phone' => 'required|numeric|digits:10',
+            'message' => 'required',
+            ]);
+        
+            if ($validator->fails()) {
+                    return $validator->errors()->all();
+        
+                }else{
+                        $contactEnquiries = new Contact();
+                        $contactEnquiries->name = $request->name;
+                        $contactEnquiries->subject = $request->subject;
+                        $contactEnquiries->email = $request->email;
+                        $contactEnquiries->phone = $request->phone;
+                        $contactEnquiries->message = $request->message;
+                        $contactEnquiries->save();
+                        // $insert_data = ContactEnquiries::insert($data);
+                        return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
+                }
     }
     public function delete($id)
     {

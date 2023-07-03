@@ -81,5 +81,10 @@ Route::group([
     Route::post('update_about_counter/{id}', 'AboutCounterController@update');
     Route::delete('delete_about_counter/{id}', 'AboutCounterController@delete');
 
+    Route::get('get_teacher', 'TeacherController@index');
+    Route::post('add_teacher', 'TeacherController@add');
+    Route::post('update_teacher/{id}', 'TeacherController@update');
+    Route::delete('delete_teacher/{id}', 'TeacherController@delete');
+
 });
 

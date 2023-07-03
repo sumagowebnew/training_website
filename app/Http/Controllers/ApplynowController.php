@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use  App\Models\ApplyNow;
@@ -48,47 +48,61 @@ class ApplynowController extends Controller
     }
     public function add(Request $request)
     {
-        $existingRecord = ApplyNow::first();
-        $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
+        $validator = Validator::make($request->all(), [
+            'name'=>'required',
+            'contact' => 'required|numeric|digits:10|min:8',
+            'email'=>'required'|'email',
+            'technology'=>'required',
+            'cv'=>'required|mimetypes:application/pdf',
+            'cover_letter'=>'required|mimetypes:application/pdf',
+            'duration'=>'required'
+            ]);
 
-        // Extract the CV and cover letter files from the base64 encoded data
-        $cvFileData = base64_decode($request->input('cv'));
-        $coverLetterFileData = base64_decode($request->input('cover_letter'));
+        if ($validator->fails()) {
+            return $validator->errors()->all();
 
-        // Generate unique file names for the CV and cover letter files
-        $cvFileName = 'cv_' . $recordId . '.pdf';
-        $coverLetterFileName = 'cover_letter_' . $recordId . '.pdf';
+        }else{
+            $existingRecord = ApplyNow::first();
+            $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
 
-        //  $folderPath = "uploads/cv_files/";
-         $folderPath = str_replace('\\', '/', base_path())."/uploads/cv_files/";
+            // Extract the CV and cover letter files from the base64 encoded data
+            $cvFileData = base64_decode($request->input('cv'));
+            $coverLetterFileData = base64_decode($request->input('cover_letter'));
 
-        $folderPath1 = str_replace('\\', '/', base_path())."/uploads/cover_letter_files/";
-        
-        // $file = $recordId . '.' .$imageType;
-        $file_dir = $folderPath . $cvFileName;
-        $file_dir1 = $folderPath1 . $coverLetterFileName;
+            // Generate unique file names for the CV and cover letter files
+            $cvFileName = 'cv_' . $recordId . '.pdf';
+            $coverLetterFileName = 'cover_letter_' . $recordId . '.pdf';
 
-        file_put_contents($file_dir, $cvFileData);
+            //  $folderPath = "uploads/cv_files/";
+            $folderPath = str_replace('\\', '/', base_path())."/uploads/cv_files/";
 
-        file_put_contents($file_dir1, $coverLetterFileData);
-        // Store the CV and cover letter files in the storage path
-        // Storage::put('uploads/cv_files/' . $cvFileName, $cvFileData);
-        // Storage::put('uploads/cover_letter_files/' . $coverLetterFileName, $coverLetterFileData);
+            $folderPath1 = str_replace('\\', '/', base_path())."/uploads/cover_letter_files/";
+            
+            // $file = $recordId . '.' .$imageType;
+            $file_dir = $folderPath . $cvFileName;
+            $file_dir1 = $folderPath1 . $coverLetterFileName;
 
-        // Create a new applicant record
-        $applicant = new ApplyNow();
-        $applicant->name = $request->input('name');
-        $applicant->email = $request->input('email');
-        $applicant->contact = $request->input('contact');
-        $applicant->technology = $request->input('technology');
-        $applicant->cv = $cvFileName;
-        $applicant->cover_letter = $coverLetterFileName;
-        $applicant->duration = $request->input('duration');
-        $applicant->save();
+            file_put_contents($file_dir, $cvFileData);
 
-        // Return a response indicating success
-        return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
+            file_put_contents($file_dir1, $coverLetterFileData);
+            // Store the CV and cover letter files in the storage path
+            // Storage::put('uploads/cv_files/' . $cvFileName, $cvFileData);
+            // Storage::put('uploads/cover_letter_files/' . $coverLetterFileName, $coverLetterFileData);
 
+            // Create a new applicant record
+            $applicant = new ApplyNow();
+            $applicant->name = $request->input('name');
+            $applicant->email = $request->input('email');
+            $applicant->contact = $request->input('contact');
+            $applicant->technology = $request->input('technology');
+            $applicant->cv = $cvFileName;
+            $applicant->cover_letter = $coverLetterFileName;
+            $applicant->duration = $request->input('duration');
+            $applicant->save();
+
+            // Return a response indicating success
+            return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
+        }
     }
     public function delete($id)
     {
