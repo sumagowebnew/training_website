@@ -61,5 +61,25 @@ Route::group([
     Route::get('get_certificate', 'CertificateController@index');
     Route::post('add_certificate', 'CertificateController@add');
     Route::delete('delete_certificate/{id}', 'CertificateController@delete');
+
+    Route::get('get_enquiry', 'EnquiryController@index');
+    Route::post('add_enquiry', 'EnquiryController@add');
+    Route::delete('delete_enquiry/{id}', 'EnquiryController@delete');
+
+    Route::get('get_home_counter', 'HomeCounterController@index');
+    Route::post('add_home_counter', 'HomeCounterController@add');
+    Route::post('update_home_counter/{id}', 'HomeCounterController@update');
+    Route::delete('delete_home_counter/{id}', 'HomeCounterController@delete');
+
+
+    Route::get('get_applyNow', 'ApplynowController@index');
+    Route::post('add_applyNow', 'ApplynowController@add');
+    Route::delete('delete_applyNow/{id}', 'ApplynowController@delete');
+
+    Route::get('get_about_counter', 'AboutCounterController@index');
+    Route::post('add_about_counter', 'AboutCounterController@add');
+    Route::post('update_about_counter/{id}', 'AboutCounterController@update');
+    Route::delete('delete_about_counter/{id}', 'AboutCounterController@delete');
+
 });
 
