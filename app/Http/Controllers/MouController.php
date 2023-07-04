@@ -33,7 +33,7 @@ class MouController extends Controller
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'image'=>'required|mimetypes:jpeg,png,jpg,gif',
+            'image'=>'required',
             ]);
         
             if ($validator->fails()){

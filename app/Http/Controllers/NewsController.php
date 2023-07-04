@@ -35,7 +35,7 @@ class NewsController extends Controller
     {
         
         $validator = Validator::make($request->all(), [
-            'image'=>'required|mimetypes:jpeg,png,jpg,gif',
+            'image'=>'required',
             ]);
         
             if ($validator->fails()){

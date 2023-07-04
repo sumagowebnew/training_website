@@ -51,10 +51,10 @@ class ApplynowController extends Controller
         $validator = Validator::make($request->all(), [
             'name'=>'required',
             'contact' => 'required|numeric|digits:10|min:8',
-            'email'=>'required'|'email',
+            'email'=>'required|email',
             'technology'=>'required',
-            'cv'=>'required|mimetypes:application/pdf',
-            'cover_letter'=>'required|mimetypes:application/pdf',
+            'cv'=>'required',
+            'cover_letter'=>'required',
             'duration'=>'required'
             ]);
 

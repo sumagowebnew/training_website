@@ -35,7 +35,7 @@ class TeacherController extends Controller
         $validator = Validator::make($request->all(), [
             'name'=>'required',
             'designation'=>'required',
-            'image'=>'required|mimetypes:jpeg,png,jpg,gif',
+            'image'=>'required',
             ]);
         
             if ($validator->fails()){
