@@ -106,5 +106,10 @@ Route::group([
     Route::post('update_popularCoursesDetails/{id}', 'PopularCoursesDetailsController@update');
     Route::delete('delete_popularCoursesDetails/{id}', 'PopularCoursesDetailsController@delete');
 
+    Route::get('get_events', 'EventsController@index');
+    Route::post('add_events', 'EventsController@add');
+    Route::post('update_events/{id}', 'EventsController@update');
+    Route::delete('delete_events/{id}', 'EventsController@delete');
+
 });
 
