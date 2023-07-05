@@ -12,7 +12,8 @@
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.4",
-        "phpunit/phpunit": "^9.5.10"
+        "phpunit/phpunit": "^9.5.10",
+        "laravel/passport": "^10.4"
     },
     "autoload": {
         "psr-4": {
