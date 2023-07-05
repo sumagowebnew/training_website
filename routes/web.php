@@ -91,15 +91,20 @@ Route::group([
     Route::post('update_ourProgram/{id}', 'OurProgramController@update');
     Route::delete('delete_ourProgram/{id}', 'OurProgramController@delete');
 
+    Route::get('get_programdetails', 'ProgramDetailsController@index');
+    Route::post('add_programdetails', 'ProgramDetailsController@add');
+    Route::post('update_programdetails/{id}', 'ProgramDetailsController@update');
+    Route::delete('delete_programdetails/{id}', 'ProgramDetailsController@delete');
+
     Route::get('get_popularCourses', 'PopularCoursesController@index');
     Route::post('add_popularCourses', 'PopularCoursesController@add');
     Route::post('update_popularCourses/{id}', 'PopularCoursesController@update');
     Route::delete('delete_popularCourses/{id}', 'PopularCoursesController@delete');
 
-    Route::get('get_programdetails', 'ProgramDetailsController@index');
-    Route::post('add_programdetails', 'ProgramDetailsController@add');
-    Route::post('update_programdetails/{id}', 'ProgramDetailsController@update');
-    Route::delete('delete_programdetails/{id}', 'ProgramDetailsController@delete');
+    Route::get('get_popularCoursesDetails', 'PopularCoursesDetailsController@index');
+    Route::post('add_popularCoursesDetails', 'PopularCoursesDetailsController@add');
+    Route::post('update_popularCoursesDetails/{id}', 'PopularCoursesDetailsController@update');
+    Route::delete('delete_popularCoursesDetails/{id}', 'PopularCoursesDetailsController@delete');
 
 });
 
