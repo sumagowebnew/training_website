@@ -29,9 +29,7 @@ Route::group([
     'prefix' => 'api'
 
 ],function ($router) {
-    // Route::post('login', 'AuthController@login')->middleware('cors_new');
-    Route::post('login',['middleware'=>'cors_new','uses' => 'AuthController@login']);
-    // Route::post('login', 'AuthController@login');
+    Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('user-profile', 'AuthController@me');
@@ -97,6 +95,11 @@ Route::group([
     Route::post('add_popularCourses', 'PopularCoursesController@add');
     Route::post('update_popularCourses/{id}', 'PopularCoursesController@update');
     Route::delete('delete_popularCourses/{id}', 'PopularCoursesController@delete');
+
+    Route::get('get_programdetails', 'ProgramDetailsController@index');
+    Route::post('add_programdetails', 'ProgramDetailsController@add');
+    Route::post('update_programdetails/{id}', 'ProgramDetailsController@update');
+    Route::delete('delete_programdetails/{id}', 'ProgramDetailsController@delete');
 
 });
 
