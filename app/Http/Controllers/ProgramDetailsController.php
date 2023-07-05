@@ -9,10 +9,28 @@ use Validator;
 
 class ProgramDetailsController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $all_data = ProgramDetails::get()->toArray();
-        return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+        // Get all data from the database
+        $programdetails = ProgramDetails::get();
+
+        $response = [];
+
+        foreach ($programdetails as $item) {
+            $data = $item->toArray();
+
+            $logo = $data['image'];
+
+            $imagePath =str_replace('\\', '/', base_path())."/uploads/programdetails/" . $logo;
+
+            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+
+            $data['image'] = $base64;
+
+            $response[] = $data;
+        }
+
+        return response()->json($response);
     }
     public function Add(Request $request)
     {
@@ -33,7 +51,23 @@ class ProgramDetailsController extends Controller
                     return $validator->errors()->all();
         
                 }else{
+                    $existingRecord = ProgramDetails::first();
+                    $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
+            
+                    $img_path = $request->image;
+                    $folderPath = str_replace('\\', '/', base_path()) ."/uploads/programdetails/";
+                    $base64Image = explode(";base64,", $img_path);
+                    $explodeImage = explode("image/", $base64Image[0]);
+                    $imageType = $explodeImage[1];
+                    $image_base64 = base64_decode($base64Image[1]);
+            
+                    $file = $recordId . '.' . $imageType;
+                    $file_dir = $folderPath . $file;
+            
+                    file_put_contents($file_dir, $image_base64);
+                       
                         $courses = new ProgramDetails();
+                        $courses->image = $file;
                         $courses->program_id = $request->program_id;
                         $courses->introduction = $request->introduction;
                         $courses->course_overview = $request->course_overview;
@@ -52,7 +86,22 @@ class ProgramDetailsController extends Controller
 
     public function update(Request $request, $id)
     {
+        $existingRecord = ProgramDetails::first();
+        $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
+
+        $img_path = $request->image;
+        $folderPath = str_replace('\\', '/', base_path()) ."/uploads/programdetails/";
+        $base64Image = explode(";base64,", $img_path);
+        $explodeImage = explode("image/", $base64Image[0]);
+        $imageType = $explodeImage[1];
+        $image_base64 = base64_decode($base64Image[1]);
+
+        $file = $recordId . '.' . $imageType;
+        $file_dir = $folderPath . $file;
+
+        file_put_contents($file_dir, $image_base64);
         $courses = ProgramDetails::find($id);
+        $courses->image = $file;
         $courses->program_id = $request->program_id;
         $courses->introduction = $request->introduction;
         $courses->course_overview = $request->course_overview;
