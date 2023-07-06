@@ -32,6 +32,28 @@ class PopularCoursesDetailsController extends Controller
 
         return response()->json($response);
     }
+    public function view($id)
+    {
+        // Get all data from the database
+        $popularCoursesDetails = PopularCoursesDetails::Where('popularcourses_id', $id)->get();
+        $response = [];
+
+        foreach ($popularCoursesDetails as $item) {
+            $data = $item->toArray();
+
+            $logo = $data['image'];
+
+            $imagePath =str_replace('\\', '/', base_path())."/uploads/popularcoursesdetails/" . $logo;
+
+            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+
+            $data['image'] = $base64;
+
+            $response[] = $data;
+        }
+
+        return response()->json($response);
+    }
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
