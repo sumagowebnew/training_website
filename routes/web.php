@@ -26,6 +26,15 @@ $router->get('/version', function () use ($router) {
 
 Route::group([
 
+  'prefix' => 'admin_api'
+
+],function ($router) {
+
+
+});
+
+Route::group([
+
     'prefix' => 'api'
 
 ],function ($router) {

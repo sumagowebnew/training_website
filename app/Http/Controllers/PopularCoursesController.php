@@ -11,9 +11,27 @@ class PopularCoursesController extends Controller
 {
     public function index(Request $request)
     {
-        $all_data = PopularCourses::get()->toArray();
-        return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+        $popularCourses = PopularCourses::get();
+
+        $response = [];
+
+        foreach ($popularCourses as $item) {
+            $data = $item->toArray();
+
+            $logo = $data['image'];
+
+            $imagePath =str_replace('\\', '/', base_path())."/uploads/popularcourses/" . $logo;
+
+            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+
+            $data['image'] = $base64;
+
+            $response[] = $data;
+        }
+
+        return response()->json($response);
     }
+
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
