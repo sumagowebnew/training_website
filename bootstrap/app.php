@@ -71,7 +71,7 @@ $app->configure('app');
 | route or middleware that'll be assigned to some specific routes.
 |
 */
-
+$app->configure('jwt');
 $app->middleware([
     App\Http\Middleware\ExampleMiddleware::class,
     App\Http\Middleware\CorsMiddleware::class

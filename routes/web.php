@@ -23,17 +23,11 @@ $router->get('/', function () use ($router) {
 $router->get('/version', function () use ($router) {
     return $router->app->version();
 });
-
-Route::group([
-
-  'prefix' => 'admin_api'
-
-],function ($router) {
+$router->group(['middleware' => 'auth','prefix' => 'api'], function ($router) 
+{
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
-    Route::post('user-profile', 'AuthController@me');
-
-    Route::post('add_contact', 'ContactController@add');
+   
     Route::delete('delete_contact/{id}', 'ContactController@delete');
 
     Route::post('add_award', 'AwardController@add');
@@ -61,7 +55,7 @@ Route::group([
     Route::post('update_home_counter/{id}', 'HomeCounterController@update');
     Route::delete('delete_home_counter/{id}', 'HomeCounterController@delete');
 
-    Route::post('add_applyNow', 'ApplynowController@add');
+    
     Route::delete('delete_applyNow/{id}', 'ApplynowController@delete');
 
     Route::post('add_about_counter', 'AboutCounterController@add');
@@ -91,6 +85,7 @@ Route::group([
     Route::post('add_events', 'EventsController@add');
     Route::post('update_events/{id}', 'EventsController@update');
     Route::delete('delete_events/{id}', 'EventsController@delete');
+    Route::post('user-profile', 'AuthController@me');
 });
 
 Route::group([
@@ -116,6 +111,8 @@ Route::group([
     Route::get('get_popularCourses', 'PopularCoursesController@index');
     Route::get('get_popularCoursesDetails', 'PopularCoursesDetailsController@index');
     Route::get('get_events', 'EventsController@index');
+    Route::post('add_applyNow', 'ApplynowController@add');
+    Route::post('add_contact', 'ContactController@add');
    
     Route::get('view_popularCourseDetails/{id}', 'PopularCoursesDetailsController@view');
     Route::get('view_programdetails/{id}', 'ProgramDetailsController@view');

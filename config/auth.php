@@ -2,12 +2,12 @@
 
 return [
     'defaults' => [
-        'guard' => 'admin_api',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
     'guards' => [
-        'admin_api' => [
+        'api' => [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
