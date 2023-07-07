@@ -56,23 +56,41 @@ class EventDetailsController extends Controller
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
                     $imageDataArray = $request->input('images');
                   
-                    foreach ($imageDataArray as $imageData) {
-                        // Decode the base64 image data
-                        $decodedImage = base64_decode($imageData);
+                    // foreach ($imageDataArray as $imageData) {
+                    //     // Decode the base64 image data
+                    //     $decodedImage = base64_decode($imageData);
             
-                        // Generate a unique file name for the image
-                        $fileName = uniqid() . '.jpg';
+                    //     // Generate a unique file name for the image
+                    //     $fileName = uniqid() . '.jpg';
             
-                        // Store the image in a directory (e.g., public/storage/images)
-                        Storage::disk('public')->put('uploads/events/' . $fileName, $decodedImage);
+                    //     // Store the image in a directory (e.g., public/storage/images)
+                    //     Storage::disk('public')->put('uploads/events/' . $fileName, $decodedImage);
             
-                        // Create a new image record in the database
-                        $image = new EventDetails();
-                        $image->images = $fileName;
-                        $image->event_id = $request->event_id;
-                        $image->name = $request->name;
-                        $image->save();
-                    }
+                    //     // Create a new image record in the database
+                    //     $image = new EventDetails();
+                    //     $image->images = $fileName;
+                    //     $image->event_id = $request->event_id;
+                    //     $image->name = $request->name;
+                    //     $image->save();
+                    // }/
+
+                            $i=0;
+                            foreach($imageDataArray as $name)
+                            {
+
+                                list($type, $name) = explode(';', $name);
+                                list(, $name)      = explode(',', $name);
+                                $data = base64_decode($name);
+                                $i +=1;
+
+                                $imagename= 'Image'.$i.'.jpeg';
+                                // $destinationPath = public_path('images');
+                                $path = str_replace('\\', '/', base_path()) ."/uploads/events/".$imagename;
+                                $res = file_put_contents($path, $data);
+
+                                /*$saveInlistingimages = DB::insert('INSERT INTO listingimages (Listing, Image) values (?, ?)', [$lastId, $path]);*/
+
+                            }
                         return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
                 }
     }

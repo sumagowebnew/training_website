@@ -11,8 +11,25 @@ class ExpertReviewController extends Controller
 {
     public function index(Request $request)
     {
-        $all_data = ExpertReview::get()->toArray();
-        return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+        $expertReview = ExpertReview::get();
+
+        $response = [];
+
+        foreach ($expertReview as $item) {
+            $data = $item->toArray();
+
+            $logo = $data['image'];
+
+            $imagePath =str_replace('\\', '/', base_path())."/uploads/expert_review/" . $logo;
+
+            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+
+            $data['image'] = $base64;
+
+            $response[] = $data;
+        }
+
+        return response()->json($response);
     }
     public function Add(Request $request)
     {
