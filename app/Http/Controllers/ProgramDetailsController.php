@@ -36,7 +36,6 @@ class ProgramDetailsController extends Controller
     public function view($id)
     {
         // Get all data from the database
-        $programdetails = ProgramDetails::get();
         $programdetails = ProgramDetails::Where('program_id', $id)->get();
 
         $response = [];

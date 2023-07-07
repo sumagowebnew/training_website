@@ -89,6 +89,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
 
     Route::post('add_eventDetails', 'EventDetailsController@add');
 
+
     Route::post('add_expertReview', 'ExpertReviewController@add');
     Route::post('update_expertReview/{id}', 'ExpertReviewController@update');
     Route::delete('delete_expertReview/{id}', 'ExpertReviewController@delete');
@@ -124,7 +125,8 @@ Route::group([
     Route::get('view_programdetails/{id}', 'ProgramDetailsController@view');
 
     Route::get('get_expertReview', 'ExpertReviewController@index');
-    
+    Route::get('view_eventDetails/{id}', 'EventDetailsController@view');
+
 
 });
 
