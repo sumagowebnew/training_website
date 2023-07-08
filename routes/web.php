@@ -100,6 +100,14 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::get('get_consulting', 'ConsultingController@index');
     Route::post('update_consulting/{id}', 'ConsultingController@update');
     Route::delete('delete_consulting/{id}', 'ConsultingController@delete');
+
+    Route::get('get_brochuer', 'BrochureController@index');
+    Route::post('update_brochuer/{id}', 'BrochureController@update');
+    Route::delete('delete_brochuer/{id}', 'BrochureController@delete');
+
+    Route::post('add_googleReview', 'GoogleReviewsController@add');
+    Route::post('update_googleReview/{id}', 'GoogleReviewsController@update');
+    Route::delete('delete_googleReview/{id}', 'GoogleReviewsController@delete');
 });
 
 Route::group([
@@ -134,6 +142,9 @@ Route::group([
     Route::get('get_expertReview', 'ExpertReviewController@index');
     Route::get('view_eventDetails/{id}', 'EventDetailsController@view');
     Route::post('add_consulting', 'ConsultingController@add');
+    Route::post('add_brochuer', 'BrochureController@add');
+
+    Route::get('get_googleReview', 'GoogleReviewsController@index');
 
 });
 

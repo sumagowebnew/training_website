@@ -67,11 +67,18 @@ class ApplynowController extends Controller
 
             // Extract the CV and cover letter files from the base64 encoded data
             $cvFileData = base64_decode($request->input('cv'));
-            $coverLetterFileData = base64_decode($request->input('cover_letter'));
-
+            $base64cv = explode(";base64,", $request->input('cv'));
+            $explodecv = explode("/", $base64cv[0]);
+            $cvfileType = $explodecv[1];
             // Generate unique file names for the CV and cover letter files
-            $cvFileName = 'cv_' . $recordId . '.pdf';
-            $coverLetterFileName = 'cover_letter_' . $recordId . '.pdf';
+            $cvFileName = 'cv_' . $recordId . $cvfileType;
+
+            $coverLetterFileData = base64_decode($request->input('cover_letter'));
+            $base64cl = explode(";base64,", $request->input('cover_letter'));
+            $explodecl = explode("/", $base64cl[0]);
+            $clfileType = $explodecl[1];
+            
+            $coverLetterFileName = 'cover_letter_' . $recordId .  $clfileType;
 
             //  $folderPath = "uploads/cv_files/";
             $folderPath = str_replace('\\', '/', base_path())."/uploads/cv_files/";
