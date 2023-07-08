@@ -87,12 +87,19 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::delete('delete_events/{id}', 'EventsController@delete');
     Route::post('user-profile', 'AuthController@me');
 
+    Route::get('get_eventDetails', 'EventDetailsController@index');
     Route::post('add_eventDetails', 'EventDetailsController@add');
+    Route::post('update_eventDetails/{id}', 'EventDetailsController@update');
+    Route::delete('delete_eventDetails/{id}', 'EventsController@delete');
 
 
     Route::post('add_expertReview', 'ExpertReviewController@add');
     Route::post('update_expertReview/{id}', 'ExpertReviewController@update');
     Route::delete('delete_expertReview/{id}', 'ExpertReviewController@delete');
+
+    Route::get('get_consulting', 'ConsultingController@index');
+    Route::post('update_consulting/{id}', 'ConsultingController@update');
+    Route::delete('delete_consulting/{id}', 'ConsultingController@delete');
 });
 
 Route::group([
@@ -126,7 +133,7 @@ Route::group([
 
     Route::get('get_expertReview', 'ExpertReviewController@index');
     Route::get('view_eventDetails/{id}', 'EventDetailsController@view');
-
+    Route::post('add_consulting', 'ConsultingController@add');
 
 });
 
