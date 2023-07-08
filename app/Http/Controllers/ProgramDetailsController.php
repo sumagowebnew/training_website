@@ -69,6 +69,11 @@ class ProgramDetailsController extends Controller
             'batch'=>'required',
             'project'=>'required',
             'average_salary'=>'required',
+            'course_Name'=>'required',
+            'career_opportunity'=>'required',
+            'why_sumago'=>'required',
+            'trainee'=>'required',
+            'course_level'=>'required',
             ]);
         
             if ($validator->fails()) {
@@ -102,6 +107,11 @@ class ProgramDetailsController extends Controller
                         $courses->batch = $request->batch;
                         $courses->project = $request->project;
                         $courses->average_salary = $request->average_salary;
+                        $courses->course_Name = $request->course_Name;
+                        $courses->career_opportunity = $request->career_opportunity;
+                        $courses->why_sumago = $request->why_sumago;
+                        $courses->trainee = $request->trainee;
+                        $courses->course_level = $request->course_level;
                         $courses->save();
                         // $insert_data = courses::insert($data);
                         return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
@@ -136,6 +146,11 @@ class ProgramDetailsController extends Controller
         $courses->batch = $request->batch;
         $courses->project = $request->project;
         $courses->average_salary = $request->average_salary;
+        $courses->course_Name = $request->course_Name;
+        $courses->career_opportunity = $request->career_opportunity;
+        $courses->why_sumago = $request->why_sumago;
+        $courses->trainee = $request->trainee;
+        $courses->course_level = $request->course_level;
 
         $update_data = $courses->update();
         return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
