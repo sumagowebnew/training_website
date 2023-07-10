@@ -105,6 +105,8 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_brochuer/{id}', 'BrochureController@update');
     Route::delete('delete_brochuer/{id}', 'BrochureController@delete');
 
+    // Route::post('view_googleReview/{id}', 'GoogleReviewsController@view');
+
     Route::post('add_googleReview', 'GoogleReviewsController@add');
     Route::post('update_googleReview/{id}', 'GoogleReviewsController@update');
     Route::delete('delete_googleReview/{id}', 'GoogleReviewsController@delete');
