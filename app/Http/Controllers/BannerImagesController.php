@@ -111,6 +111,8 @@ class BannerImagesController extends Controller
                                 // Create a new image record in the database
                                     $image = new BannerImages();
                                     $image->images = $imagename;
+                                    $image->title = $request->input('title');
+                                    $image->description = $request->input('description');
                                     $image->save();
 
                             }
