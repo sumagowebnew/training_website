@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use HasFactory;
-class OurCourses extends Model
+class CourseCategory extends Model
 {
     //
     
-    protected $table = 'ourcourses';
+    protected $table = 'coursecategory';
 }

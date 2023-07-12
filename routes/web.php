@@ -66,9 +66,9 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_teacher/{id}', 'TeacherController@update');
     Route::delete('delete_teacher/{id}', 'TeacherController@delete');
 
-    Route::post('add_ourcourses', 'OurCoursesController@add');
-    Route::post('update_ourcourses/{id}', 'OurCoursesController@update');
-    Route::delete('delete_ourcourses/{id}', 'OurCoursesController@delete');
+    Route::post('add_coursecategory', 'CourseCategoryController@add');
+    Route::post('update_coursecategory/{id}', 'CourseCategoryController@update');
+    Route::delete('delete_coursecategory/{id}', 'CourseCategoryController@delete');
 
     Route::post('add_programdetails', 'ProgramDetailsController@add');
     Route::post('update_programdetails/{id}', 'ProgramDetailsController@update');
@@ -139,7 +139,7 @@ Route::group([
     Route::get('get_applyNow', 'ApplynowController@index');
     Route::get('get_about_counter', 'AboutCounterController@index');
     Route::get('get_teacher', 'TeacherController@index');
-    Route::get('get_ourcourses', 'OurCoursesController@index');
+    Route::get('get_coursecategory', 'CourseCategoryController@index');
     Route::get('get_programdetails', 'ProgramDetailsController@index');
     Route::get('get_popularCourses', 'PopularCoursesController@index');
     Route::get('get_popularCoursesDetails', 'PopularCoursesDetailsController@index');
