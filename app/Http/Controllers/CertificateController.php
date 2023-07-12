@@ -36,6 +36,7 @@ class CertificateController extends Controller
         $validator = Validator::make($request->all(), [
             'image'=>'required',
             'title'=>'required',
+            'description'=>'required',
             ]);
         
             if ($validator->fails())
@@ -63,6 +64,7 @@ class CertificateController extends Controller
                     file_put_contents($file_dir, $image_base64);
                     $news->image = $file;
                     $news->title = $request->title;
+                    $news->description = $request->description;
                     $news->save();
             
                     return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);

@@ -122,6 +122,14 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_hired/{id}', 'GetHiredController@update');
     Route::delete('delete_hired/{id}', 'GetHiredController@delete');
 
+    Route::post('add_mentor', 'MentorController@add');
+    Route::post('update_mentor/{id}', 'MentorController@update');
+    Route::delete('delete_mentor/{id}', 'MentorController@delete');
+
+    Route::post('add_faq', 'FaqController@add');
+    Route::post('update_faq/{id}', 'FaqController@update');
+    Route::delete('delete_faq/{id}', 'FaqController@delete');
+
 
 });
 
@@ -162,5 +170,8 @@ Route::group([
     Route::get('get_googleReview', 'GoogleReviewsController@index');
     Route::get('get_bannerImages', 'BannerImagesController@index');
     Route::get('get_hired', 'GetHiredController@index');
+    Route::get('get_mentor', 'MentorController@index');
+    Route::get('get_faq', 'FaqController@index');
+
 });
 
