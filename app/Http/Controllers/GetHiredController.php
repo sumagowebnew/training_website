@@ -4,24 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use  App\Models\Award;
+use  App\Models\GetHired;
 use Validator;
 
-class AwardController extends Controller
+class GetHiredController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Get all data from the database
-        $award = Award::get();
+        $gethired = GetHired::get();
 
         $response = [];
 
-        foreach ($award as $item) {
+        foreach ($gethired as $item) {
             $data = $item->toArray();
 
             $logo = $data['image'];
 
-            $imagePath =str_replace('\\', '/', base_path())."/uploads/award/" . $logo;
+            $imagePath =str_replace('\\', '/', base_path())."/uploads/gethired/" . $logo;
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
@@ -36,6 +35,8 @@ class AwardController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'image'=>'required',
+            'title'=>'required',
+            'description'=>'required',
             ]);
         
             if ($validator->fails())
@@ -44,27 +45,27 @@ class AwardController extends Controller
         
             }else{
                 try {
-                    $award = new Award();
+                    $news = new GetHired();
                     
                     // Check if there are any existing records
-                    $existingRecord = Award::orderBy('id','DESC')->first();
+                    $existingRecord = GetHired::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
-            
+                    $title = $request->title;
                     $img_path = $request->image;
-                    $folderPath = str_replace('\\', '/', base_path()) ."/uploads/award/";
-                    
+                    $folderPath = str_replace('\\', '/', base_path()) ."/uploads/gethired/";
                     $base64Image = explode(";base64,", $img_path);
                     $explodeImage = explode("image/", $base64Image[0]);
                     $imageType = $explodeImage[1];
                     $image_base64 = base64_decode($base64Image[1]);
             
                     $file = $recordId . '.' . $imageType;
-                    $file_dir = $folderPath.$file;
+                    $file_dir = $folderPath . $file;
             
                     file_put_contents($file_dir, $image_base64);
-                    $award->image = $file;
-                    
-                    $award->save();
+                    $news->image = $file;
+                    $news->title = $request->title;
+                    $news->description = $request->description;
+                    $news->save();
             
                     return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
                 } 
@@ -73,11 +74,34 @@ class AwardController extends Controller
                 }
             }
     }
+    public function update(Request $request, $id)
+    {
+        $count = GetHired::find($id);
+        $existingRecord = GetHired::orderBy('id','DESC')->first();
+   
+        $img_path = $request->image;
+        $folderPath = str_replace('\\', '/', base_path()) ."/uploads/gethired/";
+        $base64Image = explode(";base64,", $img_path);
+        $explodeImage = explode("image/", $base64Image[0]);
+        $imageType = $explodeImage[1];
+        $image_base64 = base64_decode($base64Image[1]);
+
+        $file = $id . '_updated.' . $imageType;
+        $file_dir = $folderPath . $file;
+
+        file_put_contents($file_dir, $image_base64);
+        $count->image = $file;
+        $count->title = $request->title;
+        $count->description = $request->description;
+
+        $update_data = $count->update();
+        return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+    }
     public function delete($id)
     {
         $all_data=[];
-        $award_details = Award::find($id);
-        $award_details->delete();
+        $certificate = GetHired::find($id);
+        $certificate->delete();
         return response()->json(['status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
         // return response()->json("Contact Enquiry Deleted Successfully!");
     }

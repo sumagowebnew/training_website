@@ -118,6 +118,10 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_bannerImages/{id}', 'BannerImagesController@update');
     Route::delete('delete_bannerImages/{id}', 'BannerImagesController@delete');
 
+    Route::post('add_hired', 'GetHiredController@add');
+    Route::post('update_hired/{id}', 'GetHiredController@update');
+    Route::delete('delete_hired/{id}', 'GetHiredController@delete');
+
 
 });
 
@@ -157,5 +161,6 @@ Route::group([
 
     Route::get('get_googleReview', 'GoogleReviewsController@index');
     Route::get('get_bannerImages', 'BannerImagesController@index');
+    Route::get('get_hired', 'GetHiredController@index');
 });
 
