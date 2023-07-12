@@ -110,6 +110,15 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('add_googleReview', 'GoogleReviewsController@add');
     Route::post('update_googleReview/{id}', 'GoogleReviewsController@update');
     Route::delete('delete_googleReview/{id}', 'GoogleReviewsController@delete');
+
+    Route::get('download_applynow_cv/{id}', 'ApplynowController@downloadCV');
+    Route::get('download_applynow_cl/{id}', 'ApplynowController@downloadCoverLetter');
+
+    Route::post('add_bannerImages', 'BannerImagesController@add');
+    Route::post('update_bannerImages/{id}', 'BannerImagesController@update');
+    Route::delete('delete_bannerImages/{id}', 'BannerImagesController@delete');
+
+
 });
 
 Route::group([
@@ -147,6 +156,6 @@ Route::group([
     Route::post('add_brochuer', 'BrochureController@add');
 
     Route::get('get_googleReview', 'GoogleReviewsController@index');
-
+    Route::get('get_bannerImages', 'BannerImagesController@index');
 });
 

@@ -62,31 +62,37 @@ class ApplynowController extends Controller
             return $validator->errors()->all();
 
         }else{
-            $existingRecord = ApplyNow::first();
+            $existingRecord = ApplyNow::orderBy('id', 'DESC')->first();
             $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
 
             // Extract the CV and cover letter files from the base64 encoded data
             $cvFileData = base64_decode($request->input('cv'));
             $base64cv = explode(";base64,", $request->input('cv'));
+            $cvFileData =$base64cv[0];
+
+            // dd($cvFileData);
             $explodecv = explode("/", $base64cv[0]);
             $cvfileType = $explodecv[1];
             // Generate unique file names for the CV and cover letter files
-            $cvFileName = 'cv_' . $recordId . $cvfileType;
+            $cvFileName = 'cv_'.$recordId.'.pdf';
 
             $coverLetterFileData = base64_decode($request->input('cover_letter'));
             $base64cl = explode(";base64,", $request->input('cover_letter'));
             $explodecl = explode("/", $base64cl[0]);
+            $coverLetterFileData =$base64cv[0];
             $clfileType = $explodecl[1];
             
-            $coverLetterFileName = 'cover_letter_' . $recordId .  $clfileType;
+            $coverLetterFileName = 'cover_letter_'.$recordId.'.'.$clfileType;
 
             //  $folderPath = "uploads/cv_files/";
             $folderPath = str_replace('\\', '/', base_path())."/uploads/cv_files/";
+            
 
             $folderPath1 = str_replace('\\', '/', base_path())."/uploads/cover_letter_files/";
             
             // $file = $recordId . '.' .$imageType;
             $file_dir = $folderPath . $cvFileName;
+            // dd($file_dir);
             $file_dir1 = $folderPath1 . $coverLetterFileName;
 
             file_put_contents($file_dir, $cvFileData);
