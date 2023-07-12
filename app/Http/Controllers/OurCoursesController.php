@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use  App\Models\OurProgram;
+use  App\Models\OurCourses;
 use Validator;
 
-class OurProgramController extends Controller
+class OurCoursesController extends Controller
 {
     public function index(Request $request)
     {
-        $all_data = OurProgram::get()->toArray();
+        $all_data = OurCourses::get()->toArray();
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
     public function Add(Request $request)
@@ -24,7 +24,7 @@ class OurProgramController extends Controller
                     return $validator->errors()->all();
         
                 }else{
-                        $programs = new OurProgram();
+                        $programs = new OurCourses();
                         $programs->name = $request->name;
                         $programs->save();
                         // $insert_data = programs::insert($data);
@@ -34,7 +34,7 @@ class OurProgramController extends Controller
 
     public function update(Request $request, $id)
     {
-        $count = OurProgram::find($id);
+        $count = OurCourses::find($id);
         $count->name = $request->name;
 
         $update_data = $count->update();
@@ -44,7 +44,7 @@ class OurProgramController extends Controller
     public function delete($id)
     {
         $all_data=[];
-        $Contact_enquiries = OurProgram::find($id);
+        $Contact_enquiries = OurCourses::find($id);
         $Contact_enquiries->delete();
         return response()->json(['status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
         // return response()->json("Contact Enquiry Deleted Successfully!");
