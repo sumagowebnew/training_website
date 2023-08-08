@@ -76,24 +76,6 @@ class BannerImagesController extends Controller
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
                     $imageDataArray = $request->input('images');
                    
-                    // foreach ($imageDataArray as $imageData) {
-                    //     // Decode the base64 image data
-                    //     $decodedImage = base64_decode($imageData);
-            
-                    //     // Generate a unique file name for the image
-                    //     $fileName = uniqid() . '.jpg';
-            
-                    //     // Store the image in a directory (e.g., public/storage/images)
-                    //     Storage::disk('public')->put('uploads/events/' . $fileName, $decodedImage);
-            
-                    //     // Create a new image record in the database
-                    //     $image = new EventDetails();
-                    //     $image->images = $fileName;
-                    //     $image->event_id = $request->event_id;
-                    //     $image->name = $request->name;
-                    //     $image->save();
-                    // }/
-
                             $i=0;
                             foreach($imageDataArray as $name)
                             {
