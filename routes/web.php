@@ -146,6 +146,10 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_logo/{id}', 'LogoController@update');
     Route::delete('delete_logo/{id}', 'LogoController@delete');
 
+    Route::post('add_product', 'ProductController@add');
+    Route::post('update_product/{id}', 'ProductController@update');
+    Route::delete('delete_product/{id}', 'ProductController@delete');
+
 
 });
 
@@ -192,6 +196,7 @@ Route::group([
     Route::get('get_companyDetails', 'CompanyDetailsController@index');
     Route::get('get_ourOffice', 'OurOfficeController@index');
     Route::get('get_logo', 'LogoController@index');
+    Route::get('get_product', 'ProductController@index');
 
 
 });
