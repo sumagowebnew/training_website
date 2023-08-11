@@ -42,7 +42,7 @@ class PopularCoursesController extends Controller
                     return $validator->errors()->all();
         
                 }else{
-                    $existingRecord = PopularCourses::first();
+                    $existingRecord = PopularCourses::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
             
                     $img_path = $request->image;

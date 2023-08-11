@@ -134,6 +134,10 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_alumini/{id}', 'AluminiController@update');
     Route::delete('delete_alumini/{id}', 'AluminiController@delete');
 
+    Route::post('add_companyDetails', 'CompanyDetailsController@add');
+    Route::post('update_companyDetails/{id}', 'CompanyDetailsController@update');
+    Route::delete('delete_companyDetails/{id}', 'CompanyDetailsController@delete');
+
 
 });
 
@@ -177,6 +181,7 @@ Route::group([
     Route::get('get_mentor', 'MentorController@index');
     Route::get('get_faq', 'FaqController@index');
     Route::get('get_alumini', 'AluminiController@index');
+    Route::get('get_companyDetails', 'CompanyDetailsController@index');
 
 });
 

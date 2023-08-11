@@ -48,7 +48,7 @@ class CertificateController extends Controller
                     $news = new Certificate();
                     
                     // Check if there are any existing records
-                    $existingRecord = Certificate::first();
+                    $existingRecord = Certificate::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
                     $title = $request->title;
                     $img_path = $request->image;

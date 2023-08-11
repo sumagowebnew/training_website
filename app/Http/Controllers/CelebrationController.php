@@ -45,7 +45,7 @@ class CelebrationController extends Controller
                     $news = new Celebration();
                     
                     // Check if there are any existing records
-                    $existingRecord = Celebration::first();
+                    $existingRecord = Celebration::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
             
                     $img_path = $request->image;

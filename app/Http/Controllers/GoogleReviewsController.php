@@ -47,7 +47,7 @@ class GoogleReviewsController extends Controller
                     $googlereviews = new GoogleReviews();
                     
                     // Check if there are any existing records
-                    $existingRecord = GoogleReviews::first();
+                    $existingRecord = GoogleReviews::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
             
                     $img_path = $request->image;

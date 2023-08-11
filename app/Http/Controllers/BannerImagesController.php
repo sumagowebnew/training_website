@@ -72,7 +72,7 @@ class BannerImagesController extends Controller
                     $BannerImages = new BannerImages();
             
             // Check if there are any existing records
-                    $existingRecord = BannerImages::first();
+                    $existingRecord = BannerImages::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
                     $imageDataArray = $request->input('images');
                    

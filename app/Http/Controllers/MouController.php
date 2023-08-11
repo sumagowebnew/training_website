@@ -44,7 +44,7 @@ class MouController extends Controller
                     $news = new Mou();
                     
                     // Check if there are any existing records
-                    $existingRecord = Mou::first();
+                    $existingRecord = Mou::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
             
                     $img_path = $request->image;

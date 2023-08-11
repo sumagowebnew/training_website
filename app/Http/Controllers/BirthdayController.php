@@ -47,7 +47,7 @@ class BirthdayController extends Controller
                     $news = new Birthday();
                     
                     // Check if there are any existing records
-                    $existingRecord = Birthday::first();
+                    $existingRecord = Birthday::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
             
                     $img_path = $request->image;

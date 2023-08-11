@@ -46,7 +46,7 @@ class NewsController extends Controller
                     $news = new News();
                     
                     // Check if there are any existing records
-                    $existingRecord = News::first();
+                    $existingRecord = News::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
             
                     $img_path = $request->image;

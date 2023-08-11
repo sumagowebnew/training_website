@@ -46,7 +46,7 @@ class TeacherController extends Controller
                     $news = new Teacher();
                     
                     // Check if there are any existing records
-                    $existingRecord = Teacher::first();
+                    $existingRecord = Teacher::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
                     $name = $request->name;
                     $img_path = $request->image;

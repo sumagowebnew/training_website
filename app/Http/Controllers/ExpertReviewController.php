@@ -50,7 +50,7 @@ class ExpertReviewController extends Controller
                     $news = new ExpertReview();
                     
                     // Check if there are any existing records
-                    $existingRecord = ExpertReview::first();
+                    $existingRecord = ExpertReview::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
                     $title = $request->title;
                     $img_path = $request->image;
