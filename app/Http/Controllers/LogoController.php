@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OurOffice;
+use App\Models\Logo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
-class OurOfficeController extends Controller
+class LogoController extends Controller
 {
     public function add(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'title'=>'required',
             'description'=>'required',
-            'link' => 'required',
             ]);
         
         if ($validator->fails())
@@ -22,12 +21,12 @@ class OurOfficeController extends Controller
     
         }else
         {
-            $existingRecord = OurOffice::orderBy('id','DESC')->first();
+            $existingRecord = Logo::orderBy('id','DESC')->first();
             $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
     
             $image = $request->image;
-            createDirecrotory('/all_web_data/images/ourOffice/');
-            $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/ourOffice/";
+            createDirecrotory('/all_web_data/images/logo/');
+            $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/logo/";
             
             $base64Image = explode(";base64,", $image);
             $explodeImage = explode("image/", $base64Image[0]);
@@ -38,11 +37,11 @@ class OurOfficeController extends Controller
             $file_dir = $folderPath.$file;
     
             file_put_contents($file_dir, $image_base64);
-            $contactDetails = new OurOffice();
+            $contactDetails = new Logo();
             $contactDetails->image = $file;
             $contactDetails->title = $request->title;
             $contactDetails->description = $request->description;
-            $contactDetails->link = $request->link;
+          
             $contactDetails->save();
             return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
         }
@@ -51,8 +50,8 @@ class OurOfficeController extends Controller
     public function update(Request $request, $id)
     {
         $image = $request->image;
-        createDirecrotory('/all_web_data/images/ourOffice/');
-        $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/ourOffice/";
+        createDirecrotory('/all_web_data/images/logo/');
+        $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/logo/";
         
         $base64Image = explode(";base64,", $image);
         $explodeImage = explode("image/", $base64Image[0]);
@@ -63,10 +62,9 @@ class OurOfficeController extends Controller
         $file_dir = $folderPath.$file;
 
         file_put_contents($file_dir, $image_base64);
-            $contact_details = OurOffice::find($id);
+            $contact_details = Logo::find($id);
             $contact_details->title = $request->title;
             $contact_details->description = $request->description;
-            $contact_details->link = $request->link;
             $update_data = $contact_details->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
 
@@ -75,7 +73,7 @@ class OurOfficeController extends Controller
     public function index()
     {
         // Get all data from the database
-        $award = OurOffice::get();
+        $award = Logo::get();
 
         $response = [];
 
@@ -84,7 +82,7 @@ class OurOfficeController extends Controller
 
             $logo = $data['image'];
 
-            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/ourOffice/" . $logo;
+            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/logo/" . $logo;
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
@@ -99,7 +97,7 @@ class OurOfficeController extends Controller
     public function delete($id)
     {
         $all_data=[];
-        $Contact_delete = OurOffice::find($id);
+        $Contact_delete = Logo::find($id);
         $Contact_delete->delete();
         return response()->json(['status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
 
