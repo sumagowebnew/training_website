@@ -164,11 +164,22 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::delete('delete_handson_category/{id}', 'HandonProjectControllerController@deleteCategory');
     Route::get('get_category', 'HandonProjectControllerController@getCategory');
 
+    Route::get('get_handson_project_details', 'HandonProjectControllerController@getProjectDetails');
+    Route::post('add_handson_project_details', 'HandonProjectControllerController@addProjectDetails');
+    Route::post('update_handson_project_details/{id}', 'HandonProjectControllerController@updateProjectDetails');
+    Route::delete('delete_handson_project_details/{id}', 'HandonProjectControllerController@deleteProjectDetails');
 
     Route::post('add_module', 'ModuleController@add');
     Route::post('update_module/{id}', 'ModuleController@update');
     Route::delete('delete_module/{id}', 'ModuleController@delete');
 
+    Route::post('add_learner_review', 'LearnerReviewController@add');
+    Route::post('update_learner_review/{id}', 'LearnerReviewController@update');
+    Route::delete('delete_learner_review/{id}', 'LearnerReviewController@delete');
+
+    Route::post('add_next_cohorts_dates', 'NextCohortsDatesController@add');
+    Route::post('update_next_cohorts_dates/{id}', 'NextCohortsDatesController@update');
+    Route::delete('delete_next_cohorts_dates/{id}', 'NextCohortsDatesController@delete');
     Route::post('add_highlight', 'HighlightController@add');
     Route::post('update_highlight/{id}', 'HighlightController@update');
     Route::delete('delete_highlight/{id}', 'HighlightController@delete');
@@ -185,9 +196,6 @@ Route::group([
 
 ],function ($router) {
 
-    Route::post('add_handson_project_details', 'HandonProjectControllerController@addDetails');
-    Route::post('update_handson_project_details/{id}', 'HandonProjectControllerController@updateDetails');
-    Route::delete('delete_handson_project_details/{id}', 'HandonProjectControllerController@deleteDetails');
 
     Route::post('login', 'AuthController@login');
     Route::get('get_contact', 'ContactController@index');
@@ -233,10 +241,16 @@ Route::group([
     Route::get('get_subcourse_details/{id}', 'SubcourseDetailsController@index');
 
     Route::get('get_module', 'ModuleController@index');
+    Route::get('get_learner_review', 'LearnerReviewController@index');
+    Route::get('get_next_cohorts_dates', 'NextCohortsDatesController@index');
     Route::get('get_highlight', 'HighlightController@index');
     Route::get('get_trainedStudentsCount', 'TrainedStudentsCountController@index');
 
 
+    Route::post('get_handson_category_by_course_id', 'HandonProjectControllerController@getCategoryByCouseId');
+    Route::post('get_handson_project_by_handson_id', 'HandonProjectControllerController@getHandsonByHandsonId');
+
+    
 
 });
 
