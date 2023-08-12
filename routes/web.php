@@ -45,6 +45,8 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('add_mou', 'MouController@add');
     Route::delete('delete_mou/{id}', 'MouController@delete');
 
+    Route::get('get_all_certificate', 'CertificateController@all_certificate');
+    Route::post('update_certificate/{id}', 'CertificateController@add');
     Route::post('add_certificate', 'CertificateController@add');
     Route::delete('delete_certificate/{id}', 'CertificateController@delete');
 
@@ -82,6 +84,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_popularCoursesDetails/{id}', 'PopularCoursesDetailsController@update');
     Route::delete('delete_popularCoursesDetails/{id}', 'PopularCoursesDetailsController@delete');
 
+    Route::get('get_all_events', 'EventsController@all_events');
     Route::post('add_events', 'EventsController@add');
     Route::post('update_events/{id}', 'EventsController@update');
     Route::delete('delete_events/{id}', 'EventsController@delete');
@@ -122,6 +125,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_hired/{id}', 'GetHiredController@update');
     Route::delete('delete_hired/{id}', 'GetHiredController@delete');
 
+    Route::get('get_all_mentors', 'MentorController@all_mentors');
     Route::post('add_mentor', 'MentorController@add');
     Route::post('update_mentor/{id}', 'MentorController@update');
     Route::delete('delete_mentor/{id}', 'MentorController@delete');
@@ -130,6 +134,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_faq/{id}', 'FaqController@update');
     Route::delete('delete_faq/{id}', 'FaqController@delete');
 
+    Route::get('get_all_alumini', 'AluminiController@all_alumini');
     Route::post('add_alumini', 'AluminiController@add');
     Route::post('update_alumini/{id}', 'AluminiController@update');
     Route::delete('delete_alumini/{id}', 'AluminiController@delete');
@@ -212,7 +217,7 @@ Route::group([
     Route::get('get_celebration', 'CelebrationController@index');
     Route::get('get_birthday', 'BirthdayController@index');
     Route::get('get_mou', 'MouController@index');
-    Route::get('get_certificate', 'CertificateController@index');
+    Route::get('get_certificate/{id}', 'CertificateController@index');
     Route::get('get_enquiry', 'EnquiryController@index');
     Route::get('get_home_counter', 'HomeCounterController@index');
     Route::get('get_applyNow', 'ApplynowController@index');
@@ -222,7 +227,7 @@ Route::group([
     Route::get('get_programdetails', 'ProgramDetailsController@index');
     Route::get('get_popularCourses', 'PopularCoursesController@index');
     Route::get('get_popularCoursesDetails', 'PopularCoursesDetailsController@index');
-    Route::get('get_events', 'EventsController@index');
+    Route::get('get_events/{id}', 'EventsController@index');
     Route::post('add_applyNow', 'ApplynowController@add');
     Route::post('add_contact', 'ContactController@add');
    
@@ -237,9 +242,9 @@ Route::group([
     Route::get('get_googleReview', 'GoogleReviewsController@index');
     Route::get('get_bannerImages', 'BannerImagesController@index');
     Route::get('get_hired', 'GetHiredController@index');
-    Route::get('get_mentor', 'MentorController@index');
-    Route::get('get_faq', 'FaqController@index');
-    Route::get('get_alumini', 'AluminiController@index');
+    Route::get('get_mentor/{id}', 'MentorController@index');
+    Route::get('get_all_faq', 'FaqController@all_faq');
+    Route::get('get_alumini/{id}', 'AluminiController@index');
     Route::get('get_companyDetails', 'CompanyDetailsController@index');
     Route::get('get_ourOffice', 'OurOfficeController@index');
     Route::get('get_logo', 'LogoController@index');
@@ -254,6 +259,8 @@ Route::group([
     Route::get('get_trainedStudentsCount', 'TrainedStudentsCountController@index');
     Route::get('get_syllabus/{id}', 'SyllabusController@index');
     Route::get('get_highlightDetails/{id}', 'HighlightDetailsController@index');
+    Route::get('get_faq/{id}', 'FaqController@index');
+
 
 
 

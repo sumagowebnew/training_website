@@ -11,6 +11,12 @@ class MentorController extends Controller
 {
     public function index(Request $request)
     {
+        $all_data = Mentor::where('course_id',$request->id)->get()->toArray();
+        return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+    }
+
+    public function all_mentors(Request $request)
+    {
         $all_data = Mentor::get()->toArray();
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
@@ -20,7 +26,8 @@ class MentorController extends Controller
             'name'=>'required',
             'designation'=>'required',
             'company'=>'required',
-            'image'=>'required'
+            'image'=>'required',
+            'course_id'=>'required'
 
             ]);
         
@@ -48,6 +55,7 @@ class MentorController extends Controller
                         $programs->image = $file;
                         $programs->designation = $request->designation;
                         $programs->company = $request->company;
+                        $programs->course_id = $request->course_id;
                         $programs->save();
                         // $insert_data = programs::insert($data);
                         return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
@@ -56,27 +64,42 @@ class MentorController extends Controller
 
     public function update(Request $request, $id)
     {
-        $count = Mentor::find($id);
-        $existingRecord = Mentor::orderBy('id','DESC')->first();
+        $validator = Validator::make($request->all(), [
+            'name'=>'required',
+            'designation'=>'required',
+            'company'=>'required',
+            'image'=>'required',
+            'course_id'=>'required'
 
-        $img_path = $request->image;
-        $folderPath = str_replace('\\', '/', base_path()) ."/uploads/events/";
+            ]);
         
-        $base64Image = explode(";base64,", $img_path);
-        $explodeImage = explode("image/", $base64Image[0]);
-        $imageType = $explodeImage[1];
-        $image_base64 = base64_decode($base64Image[1]);
+            if ($validator->fails()) {
+                    return $validator->errors()->all();
+        
+                }else{
+                    $count = Mentor::find($id);
+                    $existingRecord = Mentor::orderBy('id','DESC')->first();
 
-        $file = $id . '.' . $imageType;
-        $file_dir = $folderPath.$file;
+                    $img_path = $request->image;
+                    $folderPath = str_replace('\\', '/', base_path()) ."/uploads/events/";
+                    
+                    $base64Image = explode(";base64,", $img_path);
+                    $explodeImage = explode("image/", $base64Image[0]);
+                    $imageType = $explodeImage[1];
+                    $image_base64 = base64_decode($base64Image[1]);
 
-        file_put_contents($file_dir, $image_base64);
-        $count->name = $request->name;
-        $count->image = $file;
-        $count->designation = $request->designation;
-        $count->company = $request->company;
-        $update_data = $count->update();
-        return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+                    $file = $id . '.' . $imageType;
+                    $file_dir = $folderPath.$file;
+
+                    file_put_contents($file_dir, $image_base64);
+                    $count->name = $request->name;
+                    $count->image = $file;
+                    $count->designation = $request->designation;
+                    $count->company = $request->company;
+                    $count->course_id = $request->course_id;
+                    $update_data = $count->update();
+                    return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+                }
     }
 
     public function delete($id)
