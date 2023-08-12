@@ -169,6 +169,15 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_handson_project_details/{id}', 'HandonProjectControllerController@updateProjectDetails');
     Route::delete('delete_handson_project_details/{id}', 'HandonProjectControllerController@deleteProjectDetails');
 
+
+    Route::get('get_course_fee_details_list', 'CourseFeeDetailsController@getCourseFeeDetailsList');
+    Route::post('add_course_fee_details', 'CourseFeeDetailsController@add');
+    Route::post('update_course_fee_details/{id}', 'CourseFeeDetailsController@update');
+    Route::delete('delete_course_fee_details/{id}', 'CourseFeeDetailsController@delete');
+
+    
+
+
     Route::post('add_module', 'ModuleController@add');
     Route::post('update_module/{id}', 'ModuleController@update');
     Route::delete('delete_module/{id}', 'ModuleController@delete');
@@ -185,6 +194,9 @@ Route::group([
 
 ],function ($router) {
 
+
+
+    
 
     Route::post('login', 'AuthController@login');
     Route::get('get_contact', 'ContactController@index');
@@ -235,6 +247,8 @@ Route::group([
 
     Route::post('get_handson_category_by_course_id', 'HandonProjectControllerController@getCategoryByCouseId');
     Route::post('get_handson_project_by_handson_id', 'HandonProjectControllerController@getHandsonByHandsonId');
+
+    Route::get('get_course_fee_details_by_course_id/{id}', 'CourseFeeDetailsController@getByCourseId');
 
     
 
