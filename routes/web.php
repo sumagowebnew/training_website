@@ -97,9 +97,9 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_expertReview/{id}', 'ExpertReviewController@update');
     Route::delete('delete_expertReview/{id}', 'ExpertReviewController@delete');
 
-    Route::get('get_consulting', 'ConsultingController@index');
-    Route::post('update_consulting/{id}', 'ConsultingController@update');
-    Route::delete('delete_consulting/{id}', 'ConsultingController@delete');
+    Route::get('get_counselling', 'CounsellingController@index');
+    Route::post('update_counselling/{id}', 'CounsellingController@update');
+    Route::delete('delete_counselling/{id}', 'CounsellingController@delete');
 
     Route::get('get_brochuer', 'BrochureController@index');
     Route::post('update_brochuer/{id}', 'BrochureController@update');
@@ -164,10 +164,6 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::delete('delete_handson_category/{id}', 'HandonProjectControllerController@deleteCategory');
     Route::get('get_category', 'HandonProjectControllerController@getCategory');
 
-    Route::get('get_handson_project_details', 'HandonProjectControllerController@getProjectDetails');
-    Route::post('add_handson_project_details', 'HandonProjectControllerController@addProjectDetails');
-    Route::post('update_handson_project_details/{id}', 'HandonProjectControllerController@updateProjectDetails');
-    Route::delete('delete_handson_project_details/{id}', 'HandonProjectControllerController@deleteProjectDetails');
 
 
     Route::get('get_course_fee_details_list', 'CourseFeeDetailsController@getCourseFeeDetailsList');
@@ -186,6 +182,26 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_highlight/{id}', 'HighlightController@update');
     Route::delete('delete_highlight/{id}', 'HighlightController@delete');
 
+    Route::post('add_our_program_cities', 'OurProgramCitiesController@add');
+    Route::post('update_our_program_cities/{id}', 'OurProgramCitiesController@update');
+    Route::delete('delete_our_program_cities/{id}', 'OurProgramCitiesController@delete');
+    
+    Route::post('add_trainedStudentsCount', 'TrainedStudentsCountController@add');
+    Route::post('update_trainedStudentsCount/{id}', 'TrainedStudentsCountController@update');
+    Route::delete('delete_trainedStudentsCount/{id}', 'TrainedStudentsCountController@delete');
+
+    Route::get('get_all_syllabus', 'SyllabusController@all_syllabus');
+    Route::post('add_syllabus', 'SyllabusController@add');
+    Route::post('update_syllabus/{id}', 'SyllabusController@update');
+    Route::delete('delete_syllabus/{id}', 'SyllabusController@delete');
+
+    Route::get('get_all_highlightDetails', 'HighlightDetailsController@all_highlightDetails');
+    Route::post('add_highlightDetails', 'HighlightDetailsController@add');
+    Route::post('update_highlightDetails/{id}', 'HighlightDetailsController@update');
+    Route::delete('delete_highlightDetails/{id}', 'HighlightDetailsController@delete');
+
+
+
 });
 
 Route::group([
@@ -193,7 +209,6 @@ Route::group([
     'prefix' => 'api'
 
 ],function ($router) {
-
 
 
     
@@ -224,7 +239,7 @@ Route::group([
 
     Route::get('get_expertReview', 'ExpertReviewController@index');
     Route::get('view_eventDetails/{id}', 'EventDetailsController@view');
-    Route::post('add_consulting', 'ConsultingController@add');
+    Route::post('add_counselling', 'CounsellingController@add');
     Route::post('add_brochuer', 'BrochureController@add');
 
     Route::get('get_googleReview', 'GoogleReviewsController@index');
@@ -243,12 +258,11 @@ Route::group([
 
     Route::get('get_module', 'ModuleController@index');
     Route::get('get_highlight', 'HighlightController@index');
+    Route::get('get_our_program_cities', 'OurProgramCitiesController@index');
+    Route::get('get_trainedStudentsCount', 'TrainedStudentsCountController@index');
+    Route::get('get_syllabus/{id}', 'SyllabusController@index');
+    Route::get('get_highlightDetails/{id}', 'HighlightDetailsController@index');
 
-
-    Route::post('get_handson_category_by_course_id', 'HandonProjectControllerController@getCategoryByCouseId');
-    Route::post('get_handson_project_by_handson_id', 'HandonProjectControllerController@getHandsonByHandsonId');
-
-    Route::get('get_course_fee_details_by_course_id/{id}', 'CourseFeeDetailsController@getByCourseId');
 
     
 
