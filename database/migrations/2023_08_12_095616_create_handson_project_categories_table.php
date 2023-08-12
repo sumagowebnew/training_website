@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('next_cohorts_dates', function (Blueprint $table) {
-            $table->bigIncrements('id'); 
-            $table->string('start_date');
-            $table->boolean('is_active')->default(true);
-            $table->boolean('is_deleted')->default(false);
+        Schema::create('handson_project_cateories', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('next_cohorts_dates');
+        Schema::dropIfExists('handson_project_cateories');
     }
 };

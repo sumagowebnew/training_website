@@ -169,6 +169,15 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::delete('delete_handson_category/{id}', 'HandonProjectControllerController@deleteCategory');
     Route::get('get_category', 'HandonProjectControllerController@getCategory');
 
+    Route::get('get_handson_project_details', 'HandonProjectControllerController@getProjectDetails');
+    Route::post('add_handson_project_details', 'HandonProjectControllerController@addDetails');
+    Route::post('update_handson_project_details/{id}', 'HandonProjectControllerController@updateDetails');
+    Route::delete('delete_handson_project_details/{id}', 'HandonProjectControllerController@deleteDetails');
+
+    Route::get('get_course_fee_details_list', 'CourseFeeDetailsController@getCourseFeeDetailsList');
+    Route::post('add_course_fee_details', 'CourseFeeDetailsController@add');
+    Route::post('update_course_fee_details/{id}', 'CourseFeeDetailsController@update');
+    Route::delete('delete_course_fee_details/{id}', 'CourseFeeDetailsController@delete');
 
     Route::post('add_module', 'ModuleController@add');
     Route::post('update_module/{id}', 'ModuleController@update');
@@ -206,9 +215,8 @@ Route::group([
 
 ],function ($router) {
 
-    Route::post('add_handson_project_details', 'HandonProjectControllerController@addDetails');
-    Route::post('update_handson_project_details/{id}', 'HandonProjectControllerController@updateDetails');
-    Route::delete('delete_handson_project_details/{id}', 'HandonProjectControllerController@deleteDetails');
+
+    
 
     Route::post('login', 'AuthController@login');
     Route::get('get_contact', 'ContactController@index');
@@ -262,7 +270,11 @@ Route::group([
     Route::get('get_faq/{id}', 'FaqController@index');
 
 
+    Route::get('get_course_fee_details_by_course_id/{id}', 'CourseFeeDetailsController@getByCourseId');
 
+    Route::post('get_handson_category_by_course_id', 'HandonProjectControllerController@getCategoryByCouseId');
+    Route::post('get_handson_project_by_handson_id', 'HandonProjectControllerController@getHandsonByHandsonId');
+    
 
 });
 
