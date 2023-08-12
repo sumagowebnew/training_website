@@ -188,6 +188,9 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_our_program_cities/{id}', 'OurProgramCitiesController@update');
     Route::delete('delete_our_program_cities/{id}', 'OurProgramCitiesController@delete');
     
+    Route::post('add_trainedStudentsCount', 'TrainedStudentsCountController@add');
+    Route::post('update_trainedStudentsCount/{id}', 'TrainedStudentsCountController@update');
+    Route::delete('delete_trainedStudentsCount/{id}', 'TrainedStudentsCountController@delete');
 
 });
 
@@ -246,6 +249,7 @@ Route::group([
     Route::get('get_next_cohorts_dates', 'NextCohortsDatesController@index');
     Route::get('get_highlight', 'HighlightController@index');
     Route::get('get_our_program_cities', 'OurProgramCitiesController@index');
+    Route::get('get_trainedStudentsCount', 'TrainedStudentsCountController@index');
 
 
     Route::post('get_handson_category_by_course_id', 'HandonProjectControllerController@getCategoryByCouseId');
