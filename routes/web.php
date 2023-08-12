@@ -66,9 +66,9 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_teacher/{id}', 'TeacherController@update');
     Route::delete('delete_teacher/{id}', 'TeacherController@delete');
 
-    Route::post('add_coursecategory', 'CourseCategoryController@add');
-    Route::post('update_coursecategory/{id}', 'CourseCategoryController@update');
-    Route::delete('delete_coursecategory/{id}', 'CourseCategoryController@delete');
+    Route::post('add_course', 'CourseCategoryController@add');
+    Route::post('update_course/{id}', 'CourseCategoryController@update');
+    Route::delete('delete_course/{id}', 'CourseCategoryController@delete');
 
     Route::post('add_programdetails', 'ProgramDetailsController@add');
     Route::post('update_programdetails/{id}', 'ProgramDetailsController@update');
@@ -150,10 +150,24 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_product/{id}', 'ProductController@update');
     Route::delete('delete_product/{id}', 'ProductController@delete');
 
+    Route::post('add_subcourse', 'SubcoursesController@add');
+    Route::post('update_subcourse/{id}', 'SubcoursesController@update');
+    Route::delete('delete_subcourse/{id}', 'SubcoursesController@delete');
+
+    Route::get('get_subcourse_details_list', 'SubcourseDetailsController@get_subcourse_details_list');
+    Route::post('add_subcourse_details', 'SubcourseDetailsController@add');
+    Route::post('update_subcourse_details/{id}', 'SubcourseDetailsController@update');
+    Route::delete('delete_subcourse_details/{id}', 'SubcourseDetailsController@delete');
+
     Route::post('add_handson_category', 'HandonProjectControllerController@addCategory');
     Route::post('update_handson_category/{id}', 'HandonProjectControllerController@updateCategory');
     Route::delete('delete_handson_category/{id}', 'HandonProjectControllerController@deleteCategory');
     Route::get('get_category', 'HandonProjectControllerController@getCategory');
+
+    Route::get('get_handson_project_details', 'HandonProjectControllerController@getProjectDetails');
+    Route::post('add_handson_project_details', 'HandonProjectControllerController@addProjectDetails');
+    Route::post('update_handson_project_details/{id}', 'HandonProjectControllerController@updateProjectDetails');
+    Route::delete('delete_handson_project_details/{id}', 'HandonProjectControllerController@deleteProjectDetails');
 
     Route::post('add_module', 'ModuleController@add');
     Route::post('update_module/{id}', 'ModuleController@update');
@@ -166,6 +180,9 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('add_next_cohorts_dates', 'NextCohortsDatesController@add');
     Route::post('update_next_cohorts_dates/{id}', 'NextCohortsDatesController@update');
     Route::delete('delete_next_cohorts_dates/{id}', 'NextCohortsDatesController@delete');
+    Route::post('add_highlight', 'HighlightController@add');
+    Route::post('update_highlight/{id}', 'HighlightController@update');
+    Route::delete('delete_highlight/{id}', 'HighlightController@delete');
 
 });
 
@@ -175,9 +192,6 @@ Route::group([
 
 ],function ($router) {
 
-    Route::post('add_handson_project_details', 'HandonProjectControllerController@addDetails');
-    Route::post('update_handson_project_details/{id}', 'HandonProjectControllerController@updateDetails');
-    Route::delete('delete_handson_project_details/{id}', 'HandonProjectControllerController@deleteDetails');
 
     Route::post('login', 'AuthController@login');
     Route::get('get_contact', 'ContactController@index');
@@ -192,7 +206,7 @@ Route::group([
     Route::get('get_applyNow', 'ApplynowController@index');
     Route::get('get_about_counter', 'AboutCounterController@index');
     Route::get('get_teacher', 'TeacherController@index');
-    Route::get('get_coursecategory', 'CourseCategoryController@index');
+    Route::get('get_course', 'CourseCategoryController@index');
     Route::get('get_programdetails', 'ProgramDetailsController@index');
     Route::get('get_popularCourses', 'PopularCoursesController@index');
     Route::get('get_popularCoursesDetails', 'PopularCoursesDetailsController@index');
@@ -218,11 +232,20 @@ Route::group([
     Route::get('get_ourOffice', 'OurOfficeController@index');
     Route::get('get_logo', 'LogoController@index');
     Route::get('get_product', 'ProductController@index');
+    Route::get('get_subcourse/{id}', 'SubcoursesController@index');
+    Route::get('get_all_courses', 'SubcoursesController@all_course');
+    Route::get('get_subcourse_details/{id}', 'SubcourseDetailsController@index');
 
     Route::get('get_module', 'ModuleController@index');
     Route::get('get_learner_review', 'LearnerReviewController@index');
     Route::get('get_next_cohorts_dates', 'NextCohortsDatesController@index');
+    Route::get('get_highlight', 'HighlightController@index');
 
+
+    Route::post('get_handson_category_by_course_id', 'HandonProjectControllerController@getCategoryByCouseId');
+    Route::post('get_handson_project_by_handson_id', 'HandonProjectControllerController@getHandsonByHandsonId');
+
+    
 
 });
 

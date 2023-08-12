@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('courseslist', function (Blueprint $table) {
+        Schema::create('handson_projects', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('handson_category_id');
+            $table->bigInteger('sub_course_id');
+            $table->string('title');
+            $table->string('desc');
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('courseslist');
+        Schema::dropIfExists('handson_projects');
     }
 };
