@@ -16,9 +16,6 @@ return new class extends Migration
         Schema::create('next_cohorts_dates', function (Blueprint $table) {
             $table->bigIncrements('id'); 
             $table->string('start_date');
-            $table->string('start_time');
-            $table->string('end_time');
-            $table->string('batch_name');
             $table->boolean('is_active')->default(true);
             $table->boolean('is_deleted')->default(false);
             $table->timestamps();
