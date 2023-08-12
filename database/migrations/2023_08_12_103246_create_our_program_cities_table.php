@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('next_cohorts_dates', function (Blueprint $table) {
+        Schema::create('our_program_cities', function (Blueprint $table) {
             $table->bigIncrements('id'); 
-            $table->string('start_date');
-            $table->string('start_time');
-            $table->string('end_time');
-            $table->string('batch_name');
+            $table->string('name');
             $table->boolean('is_active')->default(true);
             $table->boolean('is_deleted')->default(false);
             $table->timestamps();
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('next_cohorts_dates');
+        Schema::dropIfExists('our_program_cities');
     }
 };

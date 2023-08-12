@@ -184,6 +184,11 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_highlight/{id}', 'HighlightController@update');
     Route::delete('delete_highlight/{id}', 'HighlightController@delete');
 
+    Route::post('add_our_program_cities', 'OurProgramCitiesController@add');
+    Route::post('update_our_program_cities/{id}', 'OurProgramCitiesController@update');
+    Route::delete('delete_our_program_cities/{id}', 'OurProgramCitiesController@delete');
+    
+
 });
 
 Route::group([
@@ -240,6 +245,7 @@ Route::group([
     Route::get('get_learner_review', 'LearnerReviewController@index');
     Route::get('get_next_cohorts_dates', 'NextCohortsDatesController@index');
     Route::get('get_highlight', 'HighlightController@index');
+    Route::get('get_our_program_cities', 'OurProgramCitiesController@index');
 
 
     Route::post('get_handson_category_by_course_id', 'HandonProjectControllerController@getCategoryByCouseId');
