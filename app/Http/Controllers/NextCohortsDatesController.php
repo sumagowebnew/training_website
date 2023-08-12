@@ -16,6 +16,7 @@ class NextCohortsDatesController extends Controller
       
         $all_data = NextCohortsDates::where('start_date', '>=', $currentDate)
                                     ->orderBy('start_date')
+                                    ->take(3) // Limit to 3 entries
                                     ->get()
                                     ->toArray();
         
