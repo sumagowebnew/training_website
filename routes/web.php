@@ -155,10 +155,17 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::delete('delete_handson_category/{id}', 'HandonProjectControllerController@deleteCategory');
     Route::get('get_category', 'HandonProjectControllerController@getCategory');
 
-
     Route::post('add_module', 'ModuleController@add');
     Route::post('update_module/{id}', 'ModuleController@update');
     Route::delete('delete_module/{id}', 'ModuleController@delete');
+
+    Route::post('add_learner_review', 'LearnerReviewController@add');
+    Route::post('update_learner_review/{id}', 'LearnerReviewController@update');
+    Route::delete('delete_learner_review/{id}', 'LearnerReviewController@delete');
+
+    Route::post('add_next_cohorts_dates', 'NextCohortsDatesController@add');
+    Route::post('update_next_cohorts_dates/{id}', 'NextCohortsDatesController@update');
+    Route::delete('delete_next_cohorts_dates/{id}', 'NextCohortsDatesController@delete');
 
 });
 
@@ -213,6 +220,8 @@ Route::group([
     Route::get('get_product', 'ProductController@index');
 
     Route::get('get_module', 'ModuleController@index');
+    Route::get('get_learner_review', 'LearnerReviewController@index');
+    Route::get('get_next_cohorts_dates', 'NextCohortsDatesController@index');
 
 
 });
