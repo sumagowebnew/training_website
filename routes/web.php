@@ -173,6 +173,10 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_highlight/{id}', 'HighlightController@update');
     Route::delete('delete_highlight/{id}', 'HighlightController@delete');
 
+    Route::post('add_our_program_cities', 'OurProgramCitiesController@add');
+    Route::post('update_our_program_cities/{id}', 'OurProgramCitiesController@update');
+    Route::delete('delete_our_program_cities/{id}', 'OurProgramCitiesController@delete');
+    
     Route::post('add_trainedStudentsCount', 'TrainedStudentsCountController@add');
     Route::post('update_trainedStudentsCount/{id}', 'TrainedStudentsCountController@update');
     Route::delete('delete_trainedStudentsCount/{id}', 'TrainedStudentsCountController@delete');
@@ -246,6 +250,7 @@ Route::group([
 
     Route::get('get_module', 'ModuleController@index');
     Route::get('get_highlight', 'HighlightController@index');
+    Route::get('get_our_program_cities', 'OurProgramCitiesController@index');
     Route::get('get_trainedStudentsCount', 'TrainedStudentsCountController@index');
     Route::get('get_syllabus/{id}', 'SyllabusController@index');
     Route::get('get_highlightDetails/{id}', 'HighlightDetailsController@index');
