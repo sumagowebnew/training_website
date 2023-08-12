@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\HandsonProjectCategories;
+use App\Models\HandsonProjects;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
@@ -58,6 +60,83 @@ class HandonProjectControllerController extends Controller
         $handson_pro_delete->delete();
         return response()->json(['status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
 
+    }
+
+
+    public function addProjectDetails(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'handson_category_id'=>'required',
+            'sub_course_id'=>'required',
+            'title'=>'required',
+            'desc'=>'required',
+            ]);
+        
+        if ($validator->fails())
+        {
+            return $validator->errors()->all();
+    
+        }else
+        {
+            $contactDetails = new HandsonProjects();
+            $contactDetails->handson_category_id = $request->handson_category_id;
+            $contactDetails->sub_course_id = $request->sub_course_id;
+            $contactDetails->title = $request->title;
+            $contactDetails->desc = $request->desc;
+            $contactDetails->save();
+            return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
+        }
+    }
+
+    public function updateProjectDetails(Request $request, $id)
+    {
+        
+        $validator = Validator::make($request->all(), [
+            'handson_category_id'=>'required',
+            'sub_course_id'=>'required',
+            'title'=>'required',
+            'desc'=>'required',
+            ]);
+        
+        if ($validator->fails())
+        {
+            return $validator->errors()->all();
+    
+        }else
+        {
+            $contact_details = HandsonProjects::find($id);
+            $contact_details->handson_category_id = $request->handson_category_id;
+            $contact_details->sub_course_id = $request->sub_course_id;
+            $contact_details->title = $request->title;
+            $contact_details->desc = $request->desc;
+            $update_data = $contact_details->update();
+            return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+
+        }
+    }
+
+
+    public function deleteProjectDetails($id)
+    {
+        $handson_pro_delete = HandsonProjects::find($id);
+        $handson_pro_delete->delete();
+        return response()->json(['status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
+
+    }
+
+    public function getProjectDetails()
+    {
+        // Get all data from the database
+        $hands_on_pro = HandsonProjects::get();
+
+        $response = [];
+
+        foreach ($hands_on_pro as $item) {
+            $data = $item->toArray();
+            $response[] = $data;
+        }
+
+        return response()->json($response);
     }
 
 
