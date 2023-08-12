@@ -159,6 +159,19 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_subcourse_details/{id}', 'SubcourseDetailsController@update');
     Route::delete('delete_subcourse_details/{id}', 'SubcourseDetailsController@delete');
 
+    Route::post('add_handson_category', 'HandonProjectControllerController@addCategory');
+    Route::post('update_handson_category/{id}', 'HandonProjectControllerController@updateCategory');
+    Route::delete('delete_handson_category/{id}', 'HandonProjectControllerController@deleteCategory');
+    Route::get('get_category', 'HandonProjectControllerController@getCategory');
+
+
+    Route::post('add_module', 'ModuleController@add');
+    Route::post('update_module/{id}', 'ModuleController@update');
+    Route::delete('delete_module/{id}', 'ModuleController@delete');
+
+    Route::post('add_highlight', 'HighlightController@add');
+    Route::post('update_highlight/{id}', 'HighlightController@update');
+    Route::delete('delete_highlight/{id}', 'HighlightController@delete');
 
 });
 
@@ -167,6 +180,11 @@ Route::group([
     'prefix' => 'api'
 
 ],function ($router) {
+
+    Route::post('add_handson_project_details', 'HandonProjectControllerController@addDetails');
+    Route::post('update_handson_project_details/{id}', 'HandonProjectControllerController@updateDetails');
+    Route::delete('delete_handson_project_details/{id}', 'HandonProjectControllerController@deleteDetails');
+
     Route::post('login', 'AuthController@login');
     Route::get('get_contact', 'ContactController@index');
     Route::get('get_award', 'AwardController@index');
@@ -209,6 +227,10 @@ Route::group([
     Route::get('get_subcourse/{id}', 'SubcoursesController@index');
     Route::get('get_all_courses', 'SubcoursesController@all_course');
     Route::get('get_subcourse_details/{id}', 'SubcourseDetailsController@index');
+
+    Route::get('get_module', 'ModuleController@index');
+    Route::get('get_highlight', 'HighlightController@index');
+
 
 
 });
