@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contact', function (Blueprint $table) {
+        Schema::create('subcourses', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('course_id');
             $table->string('name');
-            $table->string('subject');
-            $table->string('email');
-            $table->integer('phone');
-            $table->string('message');
             $table->timestamps();
+            $table->foreign('course_id')
+            ->references('id')->on('coursecategory')->onDelete('cascade');
         });
     }
 
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contact');
+        Schema::dropIfExists('subcourses');
     }
 };

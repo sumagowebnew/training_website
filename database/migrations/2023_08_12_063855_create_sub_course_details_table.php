@@ -13,9 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('courseslist', function (Blueprint $table) {
+        Schema::create('sub_course_details', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('course_id');
+            $table->string('title');
+            $table->longText('description');
+            $table->string('custome_text');
+            $table->string('banner');
             $table->timestamps();
+            $table->foreign('course_id')
+            ->references('id')->on('coursecategory')->onDelete('cascade');
         });
     }
 
@@ -26,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('courseslist');
+        Schema::dropIfExists('sub_course_details');
     }
 };
