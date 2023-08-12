@@ -215,6 +215,10 @@ Route::group([
 
     Route::get('get_module', 'ModuleController@index');
 
+    Route::post('get_handson_category_by_course_id', 'HandonProjectControllerController@getCategoryByCouseId');
+    Route::post('get_handson_project_by_handson_id', 'HandonProjectControllerController@getHandsonByHandsonId');
+
+    
 
 });
 
