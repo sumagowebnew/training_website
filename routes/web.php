@@ -151,6 +151,10 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::delete('delete_product/{id}', 'ProductController@delete');
 
 
+    Route::post('add_module', 'ModuleController@add');
+    Route::post('update_module/{id}', 'ModuleController@update');
+    Route::delete('delete_module/{id}', 'ModuleController@delete');
+
 });
 
 Route::group([
@@ -197,6 +201,8 @@ Route::group([
     Route::get('get_ourOffice', 'OurOfficeController@index');
     Route::get('get_logo', 'LogoController@index');
     Route::get('get_product', 'ProductController@index');
+
+    Route::get('get_module', 'ModuleController@index');
 
 
 });
