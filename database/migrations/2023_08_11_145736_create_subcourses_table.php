@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('handson_project_cateories', function (Blueprint $table) {
+        Schema::create('subcourses', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->unsignedBigInteger('course_id');
+            $table->string('name');
             $table->timestamps();
+            $table->foreign('course_id')
+            ->references('id')->on('coursecategory')->onDelete('cascade');
         });
     }
 
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('handson_project_cateories');
+        Schema::dropIfExists('subcourses');
     }
 };
