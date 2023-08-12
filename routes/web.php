@@ -150,6 +150,11 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_product/{id}', 'ProductController@update');
     Route::delete('delete_product/{id}', 'ProductController@delete');
 
+    Route::post('add_handson_category', 'HandonProjectControllerController@addCategory');
+    Route::post('update_handson_category/{id}', 'HandonProjectControllerController@updateCategory');
+    Route::delete('delete_handson_category/{id}', 'HandonProjectControllerController@deleteCategory');
+    Route::get('get_category', 'HandonProjectControllerController@getCategory');
+
 
     Route::post('add_module', 'ModuleController@add');
     Route::post('update_module/{id}', 'ModuleController@update');
@@ -162,6 +167,11 @@ Route::group([
     'prefix' => 'api'
 
 ],function ($router) {
+
+    Route::post('add_handson_project_details', 'HandonProjectControllerController@addDetails');
+    Route::post('update_handson_project_details/{id}', 'HandonProjectControllerController@updateDetails');
+    Route::delete('delete_handson_project_details/{id}', 'HandonProjectControllerController@deleteDetails');
+
     Route::post('login', 'AuthController@login');
     Route::get('get_contact', 'ContactController@index');
     Route::get('get_award', 'AwardController@index');
