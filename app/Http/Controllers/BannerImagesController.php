@@ -78,7 +78,7 @@ class BannerImagesController extends Controller
                    
                             $i=0;
 
-                            $image = $request->image;
+                            $image = $request->images;
                             createDirecrotory('/all_web_data/images/bannerImages/');
                             $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/bannerImages/";
                             
@@ -129,7 +129,7 @@ class BannerImagesController extends Controller
         $existingRecord = BannerImages::first();
         $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
 
-        $img_path = $request->image;
+        $img_path = $request->images;
         $folderPath = str_replace('\\', '/', base_path()) ."/all_web_data/images/bannerImages/";
         $base64Image = explode(";base64,", $img_path);
         $explodeImage = explode("image/", $base64Image[0]);
