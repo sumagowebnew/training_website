@@ -19,8 +19,8 @@ class CounsellingController extends Controller
         'fullname'=>'required',
         'email'=>'required',
         'contact'=>'required|numeric|digits:10',
-        'work_experience' => 'required',
-        'schedule_datetime' => 'required',
+        'course' => 'required',
+        'duration' => 'required',
         'interest' => 'required',
         
         ]);
@@ -33,8 +33,8 @@ class CounsellingController extends Controller
         $Enquiries->fullname = $request->fullname;
         $Enquiries->email = $request->email;
         $Enquiries->contact = $request->contact;
-        $Enquiries->work_experience = $request->work_experience;
-        $Enquiries->schedule_datetime = $request->schedule_datetime;
+        $Enquiries->course = $request->course;
+        $Enquiries->duration = $request->duration;
         $Enquiries->interest = $request->interest;
         $Enquiries->save();
         // $insert_data = ContactEnquiries::insert($data);
@@ -48,8 +48,8 @@ class CounsellingController extends Controller
             'fullname'=>'required',
             'email'=>'required',
             'contact'=>'required|numeric|digits:10',
-            'work_experience' => 'required',
-            'schedule_datetime' => 'required',
+            'course' => 'required',
+            'duration' => 'required',
             'interest' => 'required',
             
             ]);
@@ -62,8 +62,8 @@ class CounsellingController extends Controller
             $consult->fullname = $request->fullname;
             $consult->email = $request->email;
             $consult->contact = $request->contact;
-            $consult->work_experience = $request->work_experience;
-            $consult->schedule_datetime = $request->schedule_datetime;
+            $consult->course = $request->course;
+            $consult->duration = $request->duration;
             $consult->interest = $request->interest;
 
             $update_data = $consult->update();
