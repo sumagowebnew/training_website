@@ -24,7 +24,7 @@ class BannerImagesController extends Controller
 
             $logo = $item['images'];
 
-            $imagePath =str_replace('\\', '/', base_path())."/all_web_data/images/bannerImages/" . $logo;
+            $imagePath = str_replace('\\', '/', storage_path())."/all_web_data/images/bannerImages/" . $logo;
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
