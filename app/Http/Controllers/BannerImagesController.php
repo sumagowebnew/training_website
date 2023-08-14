@@ -24,7 +24,7 @@ class BannerImagesController extends Controller
 
             $logo = $data['images'];
 
-            $imagePath =str_replace('\\', '/', base_path())."/uploads/bannerImages/" . $logo;
+            $imagePath =str_replace('\\', '/', base_path())."/all_web_data/images/bannerImages/" . $logo;
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
@@ -74,30 +74,52 @@ class BannerImagesController extends Controller
             // Check if there are any existing records
                     $existingRecord = BannerImages::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
-                    $imageDataArray = $request->input('images');
+                    // $imageDataArray = $request->input('images');
                    
                             $i=0;
-                            foreach($imageDataArray as $name)
-                            {
 
-                                list($type, $name) = explode(';', $name);
-                                list(, $name)      = explode(',', $name);
-                                $data = base64_decode($name);
-                                $i +=1;
+                            $image = $request->image;
+                            createDirecrotory('/all_web_data/images/bannerImages/');
+                            $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/bannerImages/";
+                            
+                            $base64Image = explode(";base64,", $image);
+                            $explodeImage = explode("image/", $base64Image[0]);
+                            $imageType = $explodeImage[1];
+                            $image_base64 = base64_decode($base64Image[1]);
+                    
+                            $file = $recordId . '.' . $imageType;
+                            $file_dir = $folderPath.$file;
+                    
+                            file_put_contents($file_dir, $image_base64);
 
-                                $imagename= 'Image'.$i.'.jpeg';
-                                // $destinationPath = public_path('images');
-                                $path = str_replace('\\', '/', base_path()) ."/uploads/bannerImages/".$imagename;
-                                $res = file_put_contents($path, $data);
+                            $image = new BannerImages();
+                            $image->images = $file;
+                            $image->title = $request->input('title');
+                            $image->description = $request->input('description');
+                            $image->save();
 
-                                // Create a new image record in the database
-                                    $image = new BannerImages();
-                                    $image->images = $imagename;
-                                    $image->title = $request->input('title');
-                                    $image->description = $request->input('description');
-                                    $image->save();
 
-                            }
+                            // foreach($imageDataArray as $name)
+                            // {
+
+                            //     list($type, $name) = explode(';', $name);
+                            //     list(, $name)      = explode(',', $name);
+                            //     $data = base64_decode($name);
+                            //     $i +=1;
+
+                            //     $imagename= 'Image'.$i.'.jpeg';
+                            //     // $destinationPath = public_path('images');
+                            //     $path = str_replace('\\', '/', base_path()) ."/uploads/bannerImages/".$imagename;
+                            //     $res = file_put_contents($path, $data);
+
+                            //     // Create a new image record in the database
+                            //         $image = new BannerImages();
+                            //         $image->images = $imagename;
+                            //         $image->title = $request->input('title');
+                            //         $image->description = $request->input('description');
+                            //         $image->save();
+
+                            // }
                         return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
                 }
     }
@@ -108,7 +130,7 @@ class BannerImagesController extends Controller
         $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
 
         $img_path = $request->image;
-        $folderPath = str_replace('\\', '/', base_path()) ."/uploads/bannerImages/";
+        $folderPath = str_replace('\\', '/', base_path()) ."/all_web_data/images/bannerImages/";
         $base64Image = explode(";base64,", $img_path);
         $explodeImage = explode("image/", $base64Image[0]);
         $imageType = $explodeImage[1];
