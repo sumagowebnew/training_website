@@ -11,7 +11,7 @@ class EventsController extends Controller
 {
     public function index(Request $request)
     {
-        $all_data = Events::where('course_id',$request->id)->get()->toArray();
+        $all_data = Events::where('event_id',$request->id)->get()->toArray();
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
 
@@ -24,7 +24,6 @@ class EventsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'=>'required',
-            'course_id'=>'required',
             ]);
         
             if ($validator->fails()) {
@@ -53,7 +52,9 @@ class EventsController extends Controller
                         $programs->start_date = $request->start_date;
                         $programs->duration = $request->duration;
                         $programs->registered_people = $request->registered_people;
-                        $programs->course_id = $request->course_id;
+                        $programs->course_id = '0';
+                        $programs->event_id = $request->event_id;
+
                         $programs->save();
                         // $insert_data = programs::insert($data);
                         return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
@@ -64,7 +65,6 @@ class EventsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'=>'required',
-            'course_id'=>'required',
             ]);
         
         if ($validator->fails()) {
@@ -92,7 +92,8 @@ class EventsController extends Controller
                 $count->start_date = $request->start_date;
                 $count->duration = $request->duration;
                 $count->registered_people = $request->registered_people;
-                $count->course_id = $request->course_id;
+                $count->course_id = '0';
+                $count->event_id = $request->event_id;
                 $update_data = $count->update();
                 return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
             }

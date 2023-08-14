@@ -266,7 +266,7 @@ Route::group([
     Route::get('get_logo', 'LogoController@index');
     Route::get('get_product', 'ProductController@index');
     Route::get('get_subcourse/{id}', 'SubcoursesController@index');
-    Route::get('get_all_courses', 'SubcoursesController@all_course');
+    Route::get('get_all_subcourses', 'SubcoursesController@all_course');
     Route::get('get_subcourse_details/{id}', 'SubcourseDetailsController@index');
 
     Route::get('get_module', 'ModuleController@index');

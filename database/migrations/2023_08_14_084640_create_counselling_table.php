@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('fullname');
             $table->string('email');
             $table->string('contact');
-            $table->string('work_experience');
-            $table->string('schedule_datetime');
+            $table->string('course');
+            $table->string('duration');
             $table->string('interest');
             $table->timestamps();
         });
