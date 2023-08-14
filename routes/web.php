@@ -205,6 +205,9 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_highlightDetails/{id}', 'HighlightDetailsController@update');
     Route::delete('delete_highlightDetails/{id}', 'HighlightDetailsController@delete');
 
+    Route::post('add_event_list', 'EventListController@add');
+    Route::post('update_event_list/{id}', 'EventListController@update');
+    Route::delete('delete_event_list/{id}', 'EventListController@delete');
 
 
 });
@@ -269,6 +272,7 @@ Route::group([
     Route::get('get_highlightDetails/{id}', 'HighlightDetailsController@index');
     Route::get('get_faq/{id}', 'FaqController@index');
 
+    Route::get('get_event_list', 'EventListController@index');
 
     Route::get('get_course_fee_details_by_course_id/{id}', 'CourseFeeDetailsController@getByCourseId');
 
