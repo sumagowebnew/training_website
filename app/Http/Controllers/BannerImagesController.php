@@ -15,14 +15,14 @@ class BannerImagesController extends Controller
     public function index()
     {
         // Get all data from the database
-        $banner = BannerImages::get();
+        $banner = BannerImages::get()->toArray();
 
         $response = [];
 
         foreach ($banner as $item) {
-            $data = $item->toArray();
+            // $data = $item->toArray();
 
-            $logo = $data['images'];
+            $logo = $item['images'];
 
             $imagePath =str_replace('\\', '/', base_path())."/all_web_data/images/bannerImages/" . $logo;
 
