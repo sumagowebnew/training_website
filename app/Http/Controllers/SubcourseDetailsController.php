@@ -52,6 +52,14 @@ class SubcourseDetailsController extends Controller
 
         return response()->json($response);
     }
+
+    
+    public function getSubcourseDetailsByCourseId(Request $request)
+    {
+        $all_data = SubcourseDetails::where('course_id',$request->id)->get();
+        return response()->json(['data' => $all_data,'status' => 'Success', 'message' => 'Sub Cources get successfully','StatusCode'=>'200']);
+    }
+
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(),
