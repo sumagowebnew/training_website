@@ -12,13 +12,13 @@ class SubcoursesController extends Controller
     public function index(Request $request, $id)
     {
         $all_data = Subcourses::join('course_fee_details', function($join) {
-            $join->on('subcourses.id', '=', 'course_fee_details.sub_course_id');
+            $join->on('subcourses.course_id', '=', 'course_fee_details.sub_course_id');
           })
           ->where('subcourses.course_id',$id)
           ->select([
               'subcourses.id as subcourses_id', 
               'subcourses.name as subcourses_name', 
-              'course_fee_details.id as course_fee_details_id',
+              'course_fee_details.sub_course_fee as sub_course_fee',
               'course_fee_details.sub_course_duration as sub_course_duration'             
           ])->get();
 
