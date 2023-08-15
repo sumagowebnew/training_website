@@ -11,7 +11,17 @@ class SubcoursesController extends Controller
 {
     public function index(Request $request)
     {
-        $all_data = Subcourses::where('course_id',$request->id)->get()->toArray();
+        $all_data = Subcourses::join('course_fee_details', function($join) {
+            $join->on('subcourses.id', '=', 'course_fee_details.sub_course_id');
+          })
+          ->where('course_id',$request->id)
+          ->select([
+              'subcourses.id as subcourses_id', 
+              'subcourses.name as subcourses_name', 
+              'course_fee_details.id as course_fee_details_id',
+              'course_fee_details.sub_course_duration as sub_course_duration'             
+          ])->get();
+
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
     public function all_course(Request $request)
