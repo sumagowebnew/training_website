@@ -20,7 +20,7 @@ class AluminiController extends Controller
 
             $logo = $item['image'];
 
-            $imagePath =str_replace('\\', '/', base_path())."/all_web_data/images/alumini/" . $logo;
+            $imagePath =str_replace('\\', '/', base_path())."storage/all_web_data/images/alumini/" . $logo;
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
