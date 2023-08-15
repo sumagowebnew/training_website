@@ -30,7 +30,7 @@ return new class extends Migration
         Schema::table('next_cohorts_dates', function (Blueprint $table) {
             $table->dropColumn('start_time');
             $table->dropColumn('end_time');
-            $table->dropColumn('batch_name');
+            $table->dropColumn('batch_date');
         });
     }
 };
