@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use  App\Models\SubcourseDetails;
+use  App\Models\ {
+    SubcourseDetails,
+    Subcourses
+};
 use Validator;
 
 class SubcourseDetailsController extends Controller
@@ -56,7 +59,7 @@ class SubcourseDetailsController extends Controller
     
     public function getSubcourseDetailsByCourseId(Request $request)
     {
-        $all_data = SubcourseDetails::where('course_id',$request->course_id)->get();
+        $all_data = Subcourses::where('course_id',$request->course_id)->get();
         return response()->json(['data' => $all_data,'status' => 'Success', 'message' => 'Sub Cources get successfully','StatusCode'=>'200']);
     }
 
