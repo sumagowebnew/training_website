@@ -16,6 +16,7 @@ class SubcoursesController extends Controller
           })
           ->where('course_id',$request->id)
           ->select([
+              'subcourses.course_id as subcourses_course_id', 
               'subcourses.id as subcourses_id', 
               'subcourses.name as subcourses_name', 
               'course_fee_details.id as course_fee_details_id',
