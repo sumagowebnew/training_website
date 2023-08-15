@@ -171,7 +171,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::get('get_category', 'HandonProjectControllerController@getCategory');
 
     Route::get('get_handson_project_details', 'HandonProjectControllerController@getProjectDetails');
-    Route::post('add_handson_project_details', 'HandonProjectControllerController@addDetails');
+    Route::post('add_handson_project_details', 'HandonProjectControllerController@addProjectDetails');
     Route::post('update_handson_project_details/{id}', 'HandonProjectControllerController@updateDetails');
     Route::delete('delete_handson_project_details/{id}', 'HandonProjectControllerController@deleteDetails');
 
