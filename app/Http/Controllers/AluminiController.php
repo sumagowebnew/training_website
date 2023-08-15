@@ -29,6 +29,7 @@ class AluminiController extends Controller
             $data['designation'] = $item['designation'];
             $data['company'] = $item['company'];
             $data['name'] = $item['name'];
+            $data['id'] = $item['id'];
 
             $response[] = $data;
         }
