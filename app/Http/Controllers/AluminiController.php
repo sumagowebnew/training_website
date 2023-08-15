@@ -24,7 +24,10 @@ class AluminiController extends Controller
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
-            $data['image'] = $base64;
+            $data['image'] = $base64; 
+            $data['designation'] = $item['designation'];
+            $data['company'] = $item['company'];
+            $data['name'] = $item['name'];
 
             $response[] = $data;
         }
