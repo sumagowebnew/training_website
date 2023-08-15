@@ -160,6 +160,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::delete('delete_subcourse/{id}', 'SubcoursesController@delete');
 
     Route::get('get_subcourse_details_list', 'SubcourseDetailsController@get_subcourse_details_list');
+    Route::post('get_subcourse_details_list_by_course_id', 'SubcourseDetailsController@getSubcourseDetailsByCourseId');
     Route::post('add_subcourse_details', 'SubcourseDetailsController@add');
     Route::post('update_subcourse_details/{id}', 'SubcourseDetailsController@update');
     Route::delete('delete_subcourse_details/{id}', 'SubcourseDetailsController@delete');
@@ -283,10 +284,13 @@ Route::group([
 
     Route::get('get_course_fee_details_by_course_id/{id}', 'CourseFeeDetailsController@getByCourseId');
 
-    Route::post('get_handson_category_by_course_id', 'HandonProjectControllerController@getCategoryByCouseId');
-    Route::post('get_handson_project_by_handson_id', 'HandonProjectControllerController@getHandsonByHandsonId');
+    Route::get('get_handson_category_by_course_id/{id}', 'HandonProjectControllerController@getCategoryByCouseId');
+    Route::get('get_handson_project_by_handson_id/{id}', 'HandonProjectControllerController@getHandsonByHandsonId');
     
     Route::get('get_event_banner_popup', 'EventBannerPopupController@index');
+
+    Route::get('get_learner_review', 'LearnerReviewController@index');
+
     Route::get('get_next_cohorts_dates', 'NextCohortsDatesController@index');
 });
 

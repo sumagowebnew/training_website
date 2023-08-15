@@ -10,10 +10,30 @@ use Config;
 
 class AluminiController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, $id)
     {
-        $all_data = Alumini::where('course_id',$request->id)->get()->toArray();
-        return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+        $all_data = Alumini::where('course_id',$id)->get()->toArray();
+
+        $response = [];
+
+        foreach ($all_data as $item) {
+
+            $logo = $item['image'];
+
+            $imagePath =str_replace('\\', '/', base_path())."/storage/all_web_data/images/alumini/" . $logo;
+
+            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+
+            $data['image'] = $base64; 
+            $data['designation'] = $item['designation'];
+            $data['company'] = $item['company'];
+            $data['name'] = $item['name'];
+
+            $response[] = $data;
+        }
+
+
+        return response()->json(['data'=>$response,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
 
     public function all_alumini(Request $request)
@@ -86,7 +106,7 @@ class AluminiController extends Controller
 
                 $img_path = $request->image;
             
-                $folderPath = str_replace('\\', '/', base_path()) ."/uploads/alumini/";
+                $folderPath = str_replace('\\', '/', base_path()) ."/all_web_data/images/alumini/";
                 
                 $base64Image = explode(";base64,", $img_path);
                 $explodeImage = explode("image/", $base64Image[0]);

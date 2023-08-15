@@ -9,9 +9,20 @@ use Validator;
 
 class SubcoursesController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, $id)
     {
-        $all_data = Subcourses::where('course_id',$request->id)->get()->toArray();
+        $all_data = Subcourses::leftJoin('course_fee_details', function($join) {
+            $join->on('subcourses.id', '=', 'course_fee_details.sub_course_id');
+          })
+          ->where('subcourses.course_id',$id)
+          ->select([
+              'subcourses.course_id as course_id', 
+              'subcourses.id as subcourses_id', 
+              'subcourses.name as subcourses_name', 
+              'course_fee_details.sub_course_fee',
+              'course_fee_details.sub_course_duration as sub_course_duration'             
+          ])->get();
+
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
     public function all_course(Request $request)
