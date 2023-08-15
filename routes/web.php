@@ -213,7 +213,9 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_event_banner_popup/{id}', 'EventBannerPopupController@update');
     Route::delete('delete_event_banner_popup/{id}', 'EventBannerPopupController@delete');
 
-
+    Route::post('add_next_cohorts_dates', 'NextCohortsDatesController@add');
+    Route::post('update_next_cohorts_dates/{id}', 'NextCohortsDatesController@update');
+    Route::delete('delete_next_cohorts_dates/{id}', 'NextCohortsDatesController@delete');
 
 });
 
@@ -285,5 +287,6 @@ Route::group([
     Route::post('get_handson_project_by_handson_id', 'HandonProjectControllerController@getHandsonByHandsonId');
     
     Route::get('get_event_banner_popup', 'EventBannerPopupController@index');
+    Route::get('get_next_cohorts_dates', 'NextCohortsDatesController@index');
 });
 
