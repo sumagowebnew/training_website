@@ -285,5 +285,6 @@ Route::group([
     Route::post('get_handson_project_by_handson_id', 'HandonProjectControllerController@getHandsonByHandsonId');
     
     Route::get('get_event_banner_popup', 'EventBannerPopupController@index');
+    Route::get('get_learner_review', 'LearnerReviewController@index');
 });
 
