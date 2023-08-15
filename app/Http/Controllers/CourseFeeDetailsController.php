@@ -109,7 +109,32 @@ class CourseFeeDetailsController extends Controller
 
     public function getCourseFeeDetailsList()
     {
-        $hands_on_pro = CourseFeeDetails::get();
+        $hands_on_pro = CourseFeeDetails::leftJoin('subcourses', function($join) {
+            $join->on('course_fee_details.sub_course_id', '=', 'subcourses.id');
+          })
+          ->leftJoin('coursecategory', function($join) {
+            $join->on('course_fee_details.course_id', '=', 'coursecategory.id');
+          })
+          ->select(
+            'course_fee_details.pro_max_id',
+            'course_fee_details.course_id',
+            'course_fee_details.sub_course_id',
+            'course_fee_details.sub_course_fee',
+            'course_fee_details.sub_course_duration',
+            'course_fee_details.job_assistance',
+            'course_fee_details.live_class_subscription',
+            'course_fee_details.lms_subscription',
+            'course_fee_details.job_referrals',
+            'course_fee_details.industry_projects',
+            'course_fee_details.capstone_projects',
+            'course_fee_details.domain_training',
+            'course_fee_details.project_certification_from_companies',
+            'course_fee_details.adv_ai_dsa',
+            'course_fee_details.microsoft_certification',
+            'coursecategory.name as course_name',
+            'subcourses.name as sub_course_name',
+          )
+          ->get();
         $response = [];
         foreach ($hands_on_pro as $item) {
             $data = $item->toArray();
