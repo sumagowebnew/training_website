@@ -14,7 +14,7 @@ class SubcoursesController extends Controller
         $all_data = Subcourses::join('course_fee_details', function($join) {
             $join->on('subcourses.id', '=', 'course_fee_details.sub_course_id');
           })
-          ->where('course_id',$request->id)
+          ->where('subcourses.course_id',$request->id)
           ->select([
               'subcourses.course_id as subcourses_course_id', 
               'subcourses.id as subcourses_id', 
