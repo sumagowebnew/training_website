@@ -214,7 +214,9 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_event_banner_popup/{id}', 'EventBannerPopupController@update');
     Route::delete('delete_event_banner_popup/{id}', 'EventBannerPopupController@delete');
 
-
+    Route::post('add_next_cohorts_dates', 'NextCohortsDatesController@add');
+    Route::post('update_next_cohorts_dates/{id}', 'NextCohortsDatesController@update');
+    Route::delete('delete_next_cohorts_dates/{id}', 'NextCohortsDatesController@delete');
 
 });
 
