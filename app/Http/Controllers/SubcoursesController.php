@@ -9,14 +9,13 @@ use Validator;
 
 class SubcoursesController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, $id)
     {
         $all_data = Subcourses::join('course_fee_details', function($join) {
             $join->on('subcourses.id', '=', 'course_fee_details.sub_course_id');
           })
-          ->where('subcourses.course_id',$request->id)
+          ->where('subcourses.course_id',$id)
           ->select([
-              'subcourses.course_id as subcourses_course_id', 
               'subcourses.id as subcourses_id', 
               'subcourses.name as subcourses_name', 
               'course_fee_details.id as course_fee_details_id',
