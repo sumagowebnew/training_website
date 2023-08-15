@@ -116,6 +116,7 @@ class CourseFeeDetailsController extends Controller
             $join->on('course_fee_details.course_id', '=', 'coursecategory.id');
           })
           ->select(
+            'course_fee_details.id as fee_details_id',
             'course_fee_details.pro_max_id',
             'course_fee_details.course_id',
             'course_fee_details.sub_course_id',
