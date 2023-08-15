@@ -11,7 +11,7 @@ use Config;
 class AluminiController extends Controller
 {
 
-    public function getAllAlumini(Request $request, $id)
+    public function getAllAlumini(Request $request)
     {
         $all_data = Alumini::get();
 
