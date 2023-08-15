@@ -139,13 +139,13 @@ class HandonProjectControllerController extends Controller
         return response()->json($response);
     }
 
-    public function getCategoryByCouseId(Request $request)
+    public function getCategoryByCouseId(Request $request, $id)
     {
         // Get all data from the database
         $hands_on_pro = HandsonProjects::join('handson_project_cateories', function($join) {
             $join->on('handson_projects.handson_category_id', '=', 'handson_project_cateories.id');
           })
-          ->where('handson_projects.sub_course_id','=',$request->sub_course_id)
+          ->where('handson_projects.sub_course_id','=',$id)
           ->select([
               'handson_projects.id as handson_projects',
               'handson_projects.title as  projects_title',
@@ -165,13 +165,13 @@ class HandonProjectControllerController extends Controller
         return response()->json($hands_on_pro);
     }
 
-    public function getHandsonByHandsonId(Request $request)
+    public function getHandsonByHandsonId(Request $request, $id)
     {
         // Get all data from the database
         $hands_on_pro = HandsonProjects::join('handson_project_cateories', function($join) {
             $join->on('handson_projects.handson_category_id', '=', 'handson_project_cateories.id');
           })
-          ->where('handson_projects.handson_category_id','=',$request->handson_category_id)
+          ->where('handson_projects.handson_category_id','=',$id)
           ->select([
               'handson_projects.id as handson_projects_id',
               'handson_projects.title as  projects_title',

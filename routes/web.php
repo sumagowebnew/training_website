@@ -281,8 +281,8 @@ Route::group([
 
     Route::get('get_course_fee_details_by_course_id/{id}', 'CourseFeeDetailsController@getByCourseId');
 
-    Route::post('get_handson_category_by_course_id', 'HandonProjectControllerController@getCategoryByCouseId');
-    Route::post('get_handson_project_by_handson_id', 'HandonProjectControllerController@getHandsonByHandsonId');
+    Route::get('get_handson_category_by_course_id/{id}', 'HandonProjectControllerController@getCategoryByCouseId');
+    Route::get('get_handson_project_by_handson_id/{id}', 'HandonProjectControllerController@getHandsonByHandsonId');
     
     Route::get('get_event_banner_popup', 'EventBannerPopupController@index');
 
