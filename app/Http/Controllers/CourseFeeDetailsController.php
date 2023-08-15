@@ -15,6 +15,10 @@ class CourseFeeDetailsController extends Controller
             'pro_max_id' => 'required',
             'course_id' => 'required',
             'sub_course_id' => 'required',
+
+            'sub_course_fee' => 'required',
+            'sub_course_duration' => 'required',
+
             'job_assistance' => 'required',
             'live_class_subscription' => 'required',
             'lms_subscription' => 'required',
@@ -37,6 +41,8 @@ class CourseFeeDetailsController extends Controller
             $contactDetails->pro_max_id = $request->pro_max_id;
             $contactDetails->course_id = $request->course_id;
             $contactDetails->sub_course_id = $request->sub_course_id;
+            $contactDetails->sub_course_fee = $request->sub_course_fee;
+            $contactDetails->sub_course_duration = $request->sub_course_duration;
             $contactDetails->job_assistance =  $request->job_assistance;
             $contactDetails->live_class_subscription =  $request->live_class_subscription;
             $contactDetails->lms_subscription =  $request->lms_subscription;
@@ -58,6 +64,8 @@ class CourseFeeDetailsController extends Controller
         $validator = Validator::make($request->all(), [
             'pro_max_id' => 'required',
             'course_id' => 'required',
+            'sub_course_fee' => 'required',
+            'sub_course_duration' => 'required',
             'sub_course_id' => 'required',
             'job_assistance' => 'required',
             'live_class_subscription' => 'required',
@@ -81,6 +89,8 @@ class CourseFeeDetailsController extends Controller
             $contactDetails->pro_max_id = $request->pro_max_id;
             $contactDetails->course_id = $request->course_id;
             $contactDetails->sub_course_id = $request->sub_course_id;
+            $contactDetails->sub_course_fee = $request->sub_course_fee;
+            $contactDetails->sub_course_duration = $request->sub_course_duration;
             $contactDetails->job_assistance =  $request->job_assistance;
             $contactDetails->live_class_subscription =  $request->live_class_subscription;
             $contactDetails->lms_subscription =  $request->lms_subscription;
