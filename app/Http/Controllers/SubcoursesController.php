@@ -18,7 +18,7 @@ class SubcoursesController extends Controller
           ->select([
               'subcourses.id as subcourses_id', 
               'subcourses.name as subcourses_name', 
-              'course_fee_details.sub_course_fee as sub_course_fee',
+              'course_fee_details.sub_course_fee',
               'course_fee_details.sub_course_duration as sub_course_duration'             
           ])->get();
 
