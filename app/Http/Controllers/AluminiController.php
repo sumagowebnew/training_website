@@ -10,6 +10,34 @@ use Config;
 
 class AluminiController extends Controller
 {
+
+    public function getAllAlumini(Request $request, $id)
+    {
+        $all_data = Alumini::get();
+
+        $response = [];
+
+        foreach ($all_data as $item) {
+
+            $logo = $item['image'];
+
+            $imagePath =str_replace('\\', '/', base_path())."/storage/all_web_data/images/alumini/" . $logo;
+
+            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+
+            $data['image'] = $base64; 
+            $data['designation'] = $item['designation'];
+            $data['company'] = $item['company'];
+            $data['name'] = $item['name'];
+
+            $response[] = $data;
+        }
+
+
+        return response()->json(['data'=>$response,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+    }
+
+
     public function index(Request $request, $id)
     {
         $all_data = Alumini::where('course_id',$id)->get()->toArray();
