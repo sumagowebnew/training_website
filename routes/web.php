@@ -160,7 +160,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::delete('delete_subcourse/{id}', 'SubcoursesController@delete');
 
     Route::get('get_subcourse_details_list', 'SubcourseDetailsController@get_subcourse_details_list');
-    Route::get('get_subcourse_details_list_by_course_id', 'SubcourseDetailsController@getSubcourseDetailsByCourseId');
+    Route::post('get_subcourse_details_list_by_course_id', 'SubcourseDetailsController@getSubcourseDetailsByCourseId');
     Route::post('add_subcourse_details', 'SubcourseDetailsController@add');
     Route::post('update_subcourse_details/{id}', 'SubcourseDetailsController@update');
     Route::delete('delete_subcourse_details/{id}', 'SubcourseDetailsController@delete');
