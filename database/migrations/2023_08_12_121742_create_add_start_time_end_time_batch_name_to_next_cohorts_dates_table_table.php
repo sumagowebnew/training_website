@@ -14,9 +14,9 @@ return new class extends Migration
         public function up()
     {
         Schema::table('next_cohorts_dates', function (Blueprint $table) {
-            $table->boolean('start_time')->nullable();
+            $table->text('start_time')->nullable();
             $table->text('end_time')->nullable();
-            $table->text('batch_date')->nullable();
+            $table->text('batch_name')->nullable();
         });
     }
 

@@ -12,19 +12,46 @@ use Validator;
 
 class BannerImagesController extends Controller
 {
-    public function index()
+//     public function index()
+//     {
+//         // Get all data from the database
+//         // $banner = BannerImages::get()->toArray();
+//         // $banner = BannerImages::get();
+//         $banner = BannerImages::all(); // Use the "all()" method to retrieve all records
+// // echo $banner;
+// // die();
+//         $response = [];
+
+//         foreach ($banner as $item) {
+//             // $data = $item->toArray();
+
+//             $logo = $item['images'];
+
+//             $imagePath = str_replace('\\', '/', storage_path())."/all_web_data/images/bannerImages/" . $logo;
+
+//             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+
+//             $data['images'] = $base64;
+
+//             $response[] = $data;
+//         }
+
+//         return response()->json($response);
+//     }
+
+public function index()
     {
         // Get all data from the database
-        $banner = BannerImages::get()->toArray();
+        $award = BannerImages::get();
 
         $response = [];
 
-        foreach ($banner as $item) {
-            // $data = $item->toArray();
+        foreach ($award as $item) {
+            $data = $item->toArray();
 
-            $logo = $item['images'];
+            $logo = $data['images'];
 
-            $imagePath = str_replace('\\', '/', storage_path())."/all_web_data/images/bannerImages/" . $logo;
+            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/bannerImages/" . $logo;
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
@@ -35,7 +62,6 @@ class BannerImagesController extends Controller
 
         return response()->json($response);
     }
-
     public function view($id)
     {
         // Get all data from the database

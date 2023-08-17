@@ -15,6 +15,10 @@ class CourseFeeDetailsController extends Controller
             'pro_max_id' => 'required',
             'course_id' => 'required',
             'sub_course_id' => 'required',
+
+            'sub_course_fee' => 'required',
+            'sub_course_duration' => 'required',
+
             'job_assistance' => 'required',
             'live_class_subscription' => 'required',
             'lms_subscription' => 'required',
@@ -37,6 +41,8 @@ class CourseFeeDetailsController extends Controller
             $contactDetails->pro_max_id = $request->pro_max_id;
             $contactDetails->course_id = $request->course_id;
             $contactDetails->sub_course_id = $request->sub_course_id;
+            $contactDetails->sub_course_fee = $request->sub_course_fee;
+            $contactDetails->sub_course_duration = $request->sub_course_duration;
             $contactDetails->job_assistance =  $request->job_assistance;
             $contactDetails->live_class_subscription =  $request->live_class_subscription;
             $contactDetails->lms_subscription =  $request->lms_subscription;
@@ -58,6 +64,8 @@ class CourseFeeDetailsController extends Controller
         $validator = Validator::make($request->all(), [
             'pro_max_id' => 'required',
             'course_id' => 'required',
+            'sub_course_fee' => 'required',
+            'sub_course_duration' => 'required',
             'sub_course_id' => 'required',
             'job_assistance' => 'required',
             'live_class_subscription' => 'required',
@@ -81,6 +89,8 @@ class CourseFeeDetailsController extends Controller
             $contactDetails->pro_max_id = $request->pro_max_id;
             $contactDetails->course_id = $request->course_id;
             $contactDetails->sub_course_id = $request->sub_course_id;
+            $contactDetails->sub_course_fee = $request->sub_course_fee;
+            $contactDetails->sub_course_duration = $request->sub_course_duration;
             $contactDetails->job_assistance =  $request->job_assistance;
             $contactDetails->live_class_subscription =  $request->live_class_subscription;
             $contactDetails->lms_subscription =  $request->lms_subscription;
@@ -99,7 +109,33 @@ class CourseFeeDetailsController extends Controller
 
     public function getCourseFeeDetailsList()
     {
-        $hands_on_pro = CourseFeeDetails::get();
+        $hands_on_pro = CourseFeeDetails::leftJoin('subcourses', function($join) {
+            $join->on('course_fee_details.sub_course_id', '=', 'subcourses.id');
+          })
+          ->leftJoin('coursecategory', function($join) {
+            $join->on('course_fee_details.course_id', '=', 'coursecategory.id');
+          })
+          ->select(
+            'course_fee_details.id as fee_details_id',
+            'course_fee_details.pro_max_id',
+            'course_fee_details.course_id',
+            'course_fee_details.sub_course_id',
+            'course_fee_details.sub_course_fee',
+            'course_fee_details.sub_course_duration',
+            'course_fee_details.job_assistance',
+            'course_fee_details.live_class_subscription',
+            'course_fee_details.lms_subscription',
+            'course_fee_details.job_referrals',
+            'course_fee_details.industry_projects',
+            'course_fee_details.capstone_projects',
+            'course_fee_details.domain_training',
+            'course_fee_details.project_certification_from_companies',
+            'course_fee_details.adv_ai_dsa',
+            'course_fee_details.microsoft_certification',
+            'coursecategory.name as course_name',
+            'subcourses.name as sub_course_name',
+          )
+          ->get();
         $response = [];
         foreach ($hands_on_pro as $item) {
             $data = $item->toArray();

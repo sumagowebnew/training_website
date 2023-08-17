@@ -18,6 +18,8 @@ return new class extends Migration
             $table->bigInteger('pro_max_id');
             $table->bigInteger('course_id');
             $table->bigInteger('sub_course_id');
+            $table->bigInteger('sub_course_fee');
+            $table->bigInteger('sub_course_duration');
             $table->string('job_assistance');
             $table->string('live_class_subscription');
             $table->string('lms_subscription');
