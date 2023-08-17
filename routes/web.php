@@ -171,9 +171,9 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::get('get_category', 'HandonProjectControllerController@getCategory');
 
     Route::get('get_handson_project_details', 'HandonProjectControllerController@getProjectDetails');
-    Route::post('add_handson_project_details', 'HandonProjectControllerController@addDetails');
-    Route::post('update_handson_project_details/{id}', 'HandonProjectControllerController@updateDetails');
-    Route::delete('delete_handson_project_details/{id}', 'HandonProjectControllerController@deleteDetails');
+    Route::post('add_handson_project_details', 'HandonProjectControllerController@addProjectDetails');
+    Route::post('update_handson_project_details/{id}', 'HandonProjectControllerController@updateProjectDetails');
+    Route::delete('delete_handson_project_details/{id}', 'HandonProjectControllerController@deleteProjectDetails');
 
     Route::get('get_course_fee_details_list', 'CourseFeeDetailsController@getCourseFeeDetailsList');
     Route::post('add_course_fee_details', 'CourseFeeDetailsController@add');
@@ -263,6 +263,7 @@ Route::group([
     Route::get('get_hired', 'GetHiredController@index');
     Route::get('get_mentor/{id}', 'MentorController@index');
     Route::get('get_all_faq', 'FaqController@all_faq');
+    Route::get('get_alumini', 'AluminiController@getAllAlumini');
     Route::get('get_alumini/{id}', 'AluminiController@index');
     Route::get('get_companyDetails', 'CompanyDetailsController@index');
     Route::get('get_ourOffice', 'OurOfficeController@index');
