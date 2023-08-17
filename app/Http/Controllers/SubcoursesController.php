@@ -18,17 +18,47 @@ class SubcoursesController extends Controller
           ->select([
               'subcourses.course_id as course_id', 
               'subcourses.id as subcourses_id', 
+              'subcourses.image as subcourses_image', 
               'subcourses.name as subcourses_name', 
               'course_fee_details.sub_course_fee',
               'course_fee_details.sub_course_duration as sub_course_duration'             
           ])->get();
 
-        return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+          $response = [];
+          foreach ($all_data as $item) {
+              $data = $item->toArray();
+              $logo = $data['subcourses_image'];
+              $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/subcourse/" . $logo;
+              $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+              $data['image'] = $base64;
+              $response[] = $data;
+          }
+        return response()->json(['data'=>$response,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
     public function all_course(Request $request)
     {
-        $all_data = Subcourses::get()->toArray();
-        return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+        $all_data = Subcourses::leftJoin('course_fee_details', function($join) {
+            $join->on('subcourses.id', '=', 'course_fee_details.sub_course_id');
+          })
+          ->select([
+              'subcourses.course_id as course_id', 
+              'subcourses.id as subcourses_id', 
+              'subcourses.image as subcourses_image', 
+              'subcourses.name as subcourses_name', 
+              'course_fee_details.sub_course_fee',
+              'course_fee_details.sub_course_duration as sub_course_duration'             
+          ])->get();
+
+          $response = [];
+          foreach ($all_data as $item) {
+              $data = $item->toArray();
+              $logo = $data['subcourses_image'];
+              $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/subcourse/" . $logo;
+              $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+              $data['image'] = $base64;
+              $response[] = $data;
+          }
+        return response()->json(['data'=>$response,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
     public function Add(Request $request)
     {
@@ -41,8 +71,25 @@ class SubcoursesController extends Controller
         {
                 return $validator->errors()->all();
         }else{
+            $existingRecord = Subcourses::orderBy('id','DESC')->first();
+            $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
+    
+            $image = $request->image;
+            createDirecrotory('/all_web_data/images/subcourse/');
+            $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/subcourse/";
+            
+            $base64Image = explode(";base64,", $image);
+            $explodeImage = explode("image/", $base64Image[0]);
+            $imageType = $explodeImage[1];
+            $image_base64 = base64_decode($base64Image[1]);
+    
+            $file = $recordId . '.' . $imageType;
+            $file_dir = $folderPath.$file;
+    
+            file_put_contents($file_dir, $image_base64);
                 $programs = new Subcourses();
                 $programs->course_id = $request->course_id;
+                $programs->image = $file;
                 $programs->name = $request->name;
                 $programs->save();
                 return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
@@ -52,7 +99,21 @@ class SubcoursesController extends Controller
     public function update(Request $request, $id)
     {
         $count = Subcourses::find($id);
+        $image = $request->image;
+        createDirecrotory('/all_web_data/images/subcourse/');
+        $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/subcourse/";
+        
+        $base64Image = explode(";base64,", $image);
+        $explodeImage = explode("image/", $base64Image[0]);
+        $imageType = $explodeImage[1];
+        $image_base64 = base64_decode($base64Image[1]);
+
+        $file = $id . '_updated.' . $imageType;
+        $file_dir = $folderPath.$file;
+
+        file_put_contents($file_dir, $image_base64);
         $count->name = $request->name;
+        $count->image = $request->image;
         $count->course_id = $request->course_id;
 
         $update_data = $count->update();
