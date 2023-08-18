@@ -51,7 +51,7 @@ class HandonProjectControllerController extends Controller
             $response[] = $data;
         }
 
-        return response()->json(['status' => 'Success', 'message' => 'Data get successfully','StatusCode'=>'200','data'=>$data]);
+        return response()->json(['data'=>$response, 'status' => 'Success', 'message' => 'Data get successfully','StatusCode'=>'200','data'=>$data]);
     }
 
     public function deleteCategory($id)
