@@ -50,7 +50,7 @@ class HandonProjectControllerController extends Controller
             $data = $item->toArray();
             $response[] = $data;
         }
-
+        return $response;
         return response()->json(['data'=>$response, 'status' => 'Success', 'message' => 'Data get successfully','StatusCode'=>'200','data'=>$data]);
     }
 
