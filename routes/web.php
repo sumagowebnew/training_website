@@ -218,6 +218,12 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_next_cohorts_dates/{id}', 'NextCohortsDatesController@update');
     Route::delete('delete_next_cohorts_dates/{id}', 'NextCohortsDatesController@delete');
 
+    Route::post('add_learner_review', 'LearnerReviewController@add');
+    Route::post('update_learner_review/{id}', 'LearnerReviewController@update');
+    Route::delete('delete_learner_review/{id}', 'LearnerReviewController@delete');
+
+   
+
 });
 
 Route::group([
