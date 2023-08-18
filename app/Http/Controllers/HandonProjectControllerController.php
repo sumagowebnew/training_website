@@ -184,8 +184,7 @@ class HandonProjectControllerController extends Controller
         $response = [];
 
         foreach ($hands_on_pro as $item) {
-            $data = $item->toArray();
-            $response[] = $data;
+            $response[] = $item->toArray();
         }
 
         // return response()->json($hands_on_pro);
