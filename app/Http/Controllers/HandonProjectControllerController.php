@@ -50,8 +50,8 @@ class HandonProjectControllerController extends Controller
             $data = $item->toArray();
             $response[] = $data;
         }
-
-        return response()->json(['status' => 'Success', 'message' => 'Data get successfully','StatusCode'=>'200','data'=>$data]);
+        // return $response;
+        return response()->json(['data'=>$response, 'status' => 'Success', 'message' => 'Data get successfully','StatusCode'=>'200']);
     }
 
     public function deleteCategory($id)
@@ -184,8 +184,7 @@ class HandonProjectControllerController extends Controller
         $response = [];
 
         foreach ($hands_on_pro as $item) {
-            $data = $item->toArray();
-            $response[] = $data;
+            $response[] = $item->toArray();
         }
 
         // return response()->json($hands_on_pro);
