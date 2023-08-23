@@ -14,7 +14,7 @@ class SubcourseDetailsController extends Controller
 {
     public function index(Request $request)
     {
-        $all_data = SubcourseDetails::where('course_id',$request->id)->get();
+        $all_data = SubcourseDetails::where('sub_course_id',$request->id)->get();
         $response = [];
 
         foreach ($all_data as $item) {
@@ -31,7 +31,8 @@ class SubcourseDetailsController extends Controller
             $response[] = $data;
         }
 
-        return response()->json($response);
+        return response()->json(['data' => $response,'status' => 'Success', 'message' => 'Sub Cources get successfully','StatusCode'=>'200']);
+
     }
 
     public function get_subcourse_details_list(Request $request)
@@ -70,6 +71,7 @@ class SubcourseDetailsController extends Controller
             'title'=>'required',
             'description'=>'required',
             'course_id'=>'required',
+            'sub_course_id'=>'required',
             'custome_text'=>'required',
         ]);
         
@@ -96,6 +98,7 @@ class SubcourseDetailsController extends Controller
                 file_put_contents($file_dir, $image_base64);
                 $programs = new SubcourseDetails();
                 $programs->course_id = $request->course_id;
+                $programs->sub_course_id = $request->sub_course_id;
                 $programs->title = $request->title;
                 $programs->description = $request->description;
                 $programs->custome_text = $request->custome_text;
@@ -111,6 +114,7 @@ class SubcourseDetailsController extends Controller
             'title'=>'required',
             'description'=>'required',
             'course_id'=>'required',
+            'sub_course_id'=>'required',
             'custome_text'=>'required',
 
         ]);
@@ -134,6 +138,7 @@ class SubcourseDetailsController extends Controller
         file_put_contents($file_dir, $image_base64);
         $programs = SubcourseDetails::find($id);
         $programs->course_id = $request->course_id;
+        $programs->sub_course_id = $request->sub_course_id;
         $programs->title = $request->title;
         $programs->description = $request->description;
         $programs->custome_text = $request->custome_text;

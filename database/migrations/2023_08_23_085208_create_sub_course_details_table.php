@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('sub_course_details', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('sub_course_id');
             $table->unsignedBigInteger('course_id');
             $table->string('title');
             $table->longText('description');
@@ -23,6 +24,8 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('course_id')
             ->references('id')->on('coursecategory')->onDelete('cascade');
+            $table->foreign('sub_course_id')
+            ->references('id')->on('subcourses')->onDelete('cascade');
         });
     }
 
