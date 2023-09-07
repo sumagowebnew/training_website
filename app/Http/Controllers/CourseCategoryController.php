@@ -17,16 +17,16 @@ class CourseCategoryController extends Controller
         foreach ($all_data as $item) {
             $data = $item->toArray();
 
-            // $logo = $data['image'];
+            $logo = $data['image'];
 
-            // if(isset($data['image'])){
-            //     $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/courseImage/" . $logo;
+            if(isset($data['image'])){
+                $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/courseImage/" . $logo;
 
-            //     $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+                $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
     
-            //     $data['image'] = $base64;
+                $data['image'] = $base64;
     
-            // }
+            }
 
 
             $response[] = $data;
@@ -48,22 +48,22 @@ class CourseCategoryController extends Controller
                         $existingRecord = CourseCategory::orderBy('id','DESC')->first();
                         $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
                 
-                        // $image = $request->image;
-                        // createDirecrotory('/all_web_data/images/courseImage/');
-                        // $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/courseImage/";
+                        $image = $request->image;
+                        createDirecrotory('/all_web_data/images/courseImage/');
+                        $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/courseImage/";
                         
-                        // $base64Image = explode(";base64,", $image);
-                        // $explodeImage = explode("image/", $base64Image[0]);
-                        // $imageType = $explodeImage[1];
-                        // $image_base64 = base64_decode($base64Image[1]);
+                        $base64Image = explode(";base64,", $image);
+                        $explodeImage = explode("image/", $base64Image[0]);
+                        $imageType = $explodeImage[1];
+                        $image_base64 = base64_decode($base64Image[1]);
                 
-                        // $file = $recordId . '.' . $imageType;
-                        // $file_dir = $folderPath.$file;
+                        $file = $recordId . '.' . $imageType;
+                        $file_dir = $folderPath.$file;
                 
-                        // file_put_contents($file_dir, $image_base64);
+                        file_put_contents($file_dir, $image_base64);
                 
                         $programs->name = $request->name;
-                        $programs->image = 'test';
+                        $programs->image = $file;
                         $programs->save();
                         // $insert_data = programs::insert($data);
                         return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
