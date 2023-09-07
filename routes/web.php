@@ -222,6 +222,18 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_learner_review/{id}', 'LearnerReviewController@update');
     Route::delete('delete_learner_review/{id}', 'LearnerReviewController@delete');
 
+    Route::get('get_feecategory', 'FeeCategoryController@index');
+    Route::post('add_feecategory', 'FeeCategoryController@add');
+    Route::post('update_feecategory/{id}', 'FeeCategoryController@update');
+    Route::delete('delete_feecategory/{id}', 'FeeCategoryController@delete');
+
+    Route::get('get_syllabus_pdf', 'SyllabusPdfController@index');
+    Route::post('add_syllabus_pdf', 'SyllabusPdfController@add');
+    Route::post('update_syllabus_pdf/{id}', 'SyllabusPdfController@update');
+    Route::delete('delete_syllabus_pdf/{id}', 'SyllabusPdfController@delete');
+
+
+
    
 
 });

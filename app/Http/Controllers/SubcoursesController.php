@@ -23,6 +23,7 @@ class SubcoursesController extends Controller
               'course_fee_details.sub_course_fee',
               'course_fee_details.sub_course_duration as sub_course_duration'             
           ])->get();
+          
 
           $response = [];
           foreach ($all_data as $item) {
