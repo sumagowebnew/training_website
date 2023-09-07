@@ -58,16 +58,11 @@ class SyllabusPdfController extends Controller
                     $existingRecord = Logo::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
             
-                    $image = $request->image;
+                    $file = $request->file;
                     createDirecrotory('/all_web_data/images/syllabus_files/');
                     $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/syllabus_files/";
-                    
-                    $base64Image = explode(";base64,", $image);
-                    $explodeImage = explode("image/", $base64Image[0]);
-                    $imageType = $explodeImage[1];
-                    $image_base64 = base64_decode($base64Image[1]);
             
-                    $file = $recordId . '.' . $imageType;
+                    $file = $recordId . '.pdf';
                     $file_dir = $folderPath.$file;
             
                     file_put_contents($file_dir, $image_base64);
