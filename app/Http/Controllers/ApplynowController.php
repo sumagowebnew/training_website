@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use  App\Models\ApplyNow;
+use  App\Models\Applynow;
 use Illuminate\Support\Facades\File;
 
 class ApplynowController extends Controller
@@ -12,7 +12,7 @@ class ApplynowController extends Controller
     public function index()
     {
         // Retrieve all applicants from the database
-        $applicants = ApplyNow::all();
+        $applicants = Applynow::all();
     
         // Process the applicants data
         $processedApplicants = [];
@@ -62,7 +62,7 @@ class ApplynowController extends Controller
             return $validator->errors()->all();
 
         }else{
-            $existingRecord = ApplyNow::orderBy('id', 'DESC')->first();
+            $existingRecord = Applynow::orderBy('id', 'DESC')->first();
             $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
 
             // Extract the CV and cover letter files from the base64 encoded data
@@ -103,7 +103,7 @@ class ApplynowController extends Controller
             // Storage::put('uploads/cover_letter_files/' . $coverLetterFileName, $coverLetterFileData);
 
             // Create a new applicant record
-            $applicant = new ApplyNow();
+            $applicant = new Applynow();
             $applicant->name = $request->input('name');
             $applicant->email = $request->input('email');
             $applicant->contact = $request->input('contact');
@@ -120,7 +120,7 @@ class ApplynowController extends Controller
     public function delete($id)
     {
         $all_data=[];
-        $applynow = ApplyNow::find($id);
+        $applynow = Applynow::find($id);
         $destination = 'uploads/cv_files/'.$applynow->cv;
         $cover_letter_files = 'uploads/cover_letter_files/'.$applynow->cover_letter;
            if(File::exists($destination))
@@ -149,7 +149,7 @@ class ApplynowController extends Controller
     private function downloadFile($id, $file)
     {
         // Find the applicant by ID
-        $applicant = ApplyNow::findOrFail($id);
+        $applicant = Applynow::findOrFail($id);
     
         // Retrieve the base64-encoded file
         $fileData = '';
