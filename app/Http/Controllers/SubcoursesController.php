@@ -23,7 +23,7 @@ class SubcoursesController extends Controller
               'subcourses.image as subcourses_image', 
               'subcourses.name as subcourses_name', 
               'course_fee_details.sub_course_duration as sub_course_duration',
-              CourseFeeDetails::raw('MIN(sub_course_fee) as fees')             
+              CourseFeeDetails::raw('MIN(sub_course_fee) as sub_course_fee')             
           ])->get();
           
 
