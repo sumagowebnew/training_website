@@ -16,7 +16,7 @@ class SyllabusPdfController extends Controller
         foreach ($certificate as $item) {
             $data = $item->toArray();
             $logo = $data['file'];
-            $file = str_replace('\\', '/', storage_path()) ."/all_web_data/images/syllabus_pdf/".$data['file'];
+            $file = "https://trainingapi.sumagotest.in/storage/all_web_data/images/syllabus_pdf/".$data['file'];
             $data['file'] = $file;
             $response[] = $data;
         }
