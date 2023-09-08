@@ -227,7 +227,6 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_feecategory/{id}', 'FeeCategoryController@update');
     Route::delete('delete_feecategory/{id}', 'FeeCategoryController@delete');
 
-    Route::get('get_syllabus_pdf/{id}', 'SyllabusPdfController@index');
     Route::post('add_syllabus_pdf', 'SyllabusPdfController@add');
     Route::post('update_syllabus_pdf/{id}', 'SyllabusPdfController@update');
     Route::delete('delete_syllabus_pdf/{id}', 'SyllabusPdfController@delete');
@@ -312,5 +311,7 @@ Route::group([
     Route::get('get_learner_review', 'LearnerReviewController@index');
 
     Route::get('get_next_cohorts_dates', 'NextCohortsDatesController@index');
+    Route::get('get_syllabus_pdf/{id}', 'SyllabusPdfController@index');
+
 });
 
