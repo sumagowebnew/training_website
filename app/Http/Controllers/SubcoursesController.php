@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use  App\Models\Subcourses;
+
+use App\Models\CourseFeeDetails;
 use Validator;
 
 class SubcoursesController extends Controller
@@ -20,9 +22,9 @@ class SubcoursesController extends Controller
               'subcourses.id as subcourses_id', 
               'subcourses.image as subcourses_image', 
               'subcourses.name as subcourses_name', 
-              'course_fee_details.sub_course_fee',
-              'course_fee_details.sub_course_duration as sub_course_duration'             
-          ])->orderBy('course_fee_details.sub_course_fee','ASC')->groupBy('course_fee_details.sub_course_id')->get();
+              'course_fee_details.sub_course_duration as sub_course_duration',
+              CourseFeeDetails::raw('MIN(sub_course_fee) as fees')             
+          ])->get();
           
 
           $response = [];
