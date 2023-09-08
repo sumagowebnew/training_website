@@ -15,35 +15,18 @@ class SyllabusPdfController extends Controller
         $response = [];
         foreach ($certificate as $item) {
             $data = $item->toArray();
-            $logo = $data['image'];
-            $imagePath =str_replace('\\', '/', base_path())."/uploads/certificate/" . $logo;
-            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
-            $data['image'] = $base64;
+            $logo = $data['file'];
+            $file = str_replace('\\', '/', storage_path()) ."/all_web_data/images/syllabus_pdf/".$data['file'];
+            $data['file'] = $file;
             $response[] = $data;
         }
         return response()->json($response);
     }
 
-    public function all_certificate(Request $request)
-    {
-        $certificate = SyllabusPdf::get();
-        $response = [];
-        foreach ($certificate as $item) {
-            $data = $item->toArray();
-            $logo = $data['image'];
-            $imagePath =str_replace('\\', '/', base_path())."/uploads/certificate/" . $logo;
-            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
-            $data['image'] = $base64;
-            $response[] = $data;
-        }
-
-        return response()->json($response);
-    }
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'image'=>'required',
-        
+            'file'=>'required',
             'subcourse_id'=>'required',
             ]);
         
@@ -53,23 +36,30 @@ class SyllabusPdfController extends Controller
         
             }else{
                 try {
-                    $news = new SyllabusPdf();
-                    
-                    $existingRecord = Logo::orderBy('id','DESC')->first();
-                    $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
-            
-                    $file = $request->file;
-                    createDirecrotory('/all_web_data/images/syllabus_files/');
-                    $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/syllabus_files/";
-            
-                    $file = $recordId . '.pdf';
-                    $file_dir = $folderPath.$file;
-            
-                    file_put_contents($file_dir, $image_base64);
-                    $news->file = $request->file;
-                    $news->description = $request->description;
-                    $news->subcourse_id = $request->subcourse_id;
-                    $news->save();
+                    $pdf = new SyllabusPdf();
+                     if(isset($_FILES["file"]["name"]) && !empty($_FILES["file"]["name"]))
+                        {
+                            $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                            $charactersLength = strlen($characters);
+                            $randomString = '';
+                            for ($i = 0; $i < 18; $i++) {
+                                $randomString .= $characters[rand(0, $charactersLength - 1)];
+                            }
+                            createDirecrotory('/all_web_data/images/syllabus_pdf/');
+                            $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/syllabus_pdf/";
+                            $file_name                         = $_FILES["file"]["name"];
+                            $file_tmp                          = $_FILES["file"]["tmp_name"];
+                            $ext                               = pathinfo($file_name,PATHINFO_EXTENSION);
+                            $random_file_name                  = $randomString.'.'.$ext;
+                            $latest_image                      = $folderPath.$random_file_name;
+                            if(move_uploaded_file($file_tmp,$latest_image))
+                            {
+                               $pdf->file      = $random_file_name;
+                            }
+                        }
+                                
+                    $pdf->subcourse_id = $request->subcourse_id;
+                    $pdf->save();
             
                     return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
                 } 
@@ -82,9 +72,7 @@ class SyllabusPdfController extends Controller
     public function Update(Request $request,$id)
     {
         $validator = Validator::make($request->all(), [
-            'image'=>'required',
-            'title'=>'required',
-            'description'=>'required',
+            'file'=>'required',
             'subcourse_id'=>'required',
             ]);
         
@@ -94,28 +82,30 @@ class SyllabusPdfController extends Controller
         
             }else{
                 try {
-                    $news = SyllabusPdf::find($id);
+                    $pdf = SyllabusPdf::find($id);
                     
-                    // Check if there are any existing records
-                    $existingRecord = SyllabusPdf::orderBy('id','DESC')->first();
-                    $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
-                    $title = $request->title;
-                    $img_path = $request->image;
-                    $folderPath = str_replace('\\', '/', base_path()) ."/uploads/certificate/";
-                    $base64Image = explode(";base64,", $img_path);
-                    $explodeImage = explode("image/", $base64Image[0]);
-                    $imageType = $explodeImage[1];
-                    $image_base64 = base64_decode($base64Image[1]);
-            
-                    $file = $recordId . '.' . $imageType;
-                    $file_dir = $folderPath . $file;
-            
-                    file_put_contents($file_dir, $image_base64);
-                    $news->image = $file;
-                    $news->title = $request->title;
-                    $news->description = $request->description;
-                    $news->subcourse_id = $request->subcourse_id;
-                    $news->update();
+                    if(isset($_FILES["file"]["name"]) && !empty($_FILES["file"]["name"]))
+                    {
+                        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                        $charactersLength = strlen($characters);
+                        $randomString = '';
+                        for ($i = 0; $i < 18; $i++) {
+                            $randomString .= $characters[rand(0, $charactersLength - 1)];
+                        }
+                        createDirecrotory('/all_web_data/images/syllabus_pdf/');
+                        $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/syllabus_pdf/";
+                        $file_name                         = $_FILES["file"]["name"];
+                        $file_tmp                          = $_FILES["file"]["tmp_name"];
+                        $ext                               = pathinfo($file_name,PATHINFO_EXTENSION);
+                        $random_file_name                  = $randomString.'.'.$ext;
+                        $latest_image                      = $folderPath.$random_file_name;
+                        if(move_uploaded_file($file_tmp,$latest_image))
+                        {
+                           $pdf->file      = $random_file_name;
+                        }
+                    }
+                    $pdf->subcourse_id = $request->subcourse_id;
+                    $pdf->update();
             
                     return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
                 } 
@@ -127,8 +117,8 @@ class SyllabusPdfController extends Controller
     public function delete($id)
     {
         $all_data=[];
-        $certificate = SyllabusPdf::find($id);
-        $certificate->delete();
+        $syllabus = SyllabusPdf::find($id);
+        $syllabus->delete();
         return response()->json(['status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
         // return response()->json("Contact Enquiry Deleted Successfully!");
     }
