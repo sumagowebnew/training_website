@@ -11,7 +11,7 @@ class SubcoursesController extends Controller
 {
     public function index(Request $request, $id)
     {
-        $all_data = Subcourses::leftJoin('course_fee_details', function($join) {
+        $all_data = Subcourses::Join('course_fee_details', function($join) {
             $join->on('subcourses.id', '=', 'course_fee_details.sub_course_id');
           })
           ->where('subcourses.course_id',$id)
@@ -22,7 +22,7 @@ class SubcoursesController extends Controller
               'subcourses.name as subcourses_name', 
               'course_fee_details.sub_course_fee',
               'course_fee_details.sub_course_duration as sub_course_duration'             
-          ])->get();
+          ])->orderBy('course_fee_details.sub_course_fee','ASC')->groupBy('course_fee_details.sub_course_id')->get();
           
 
           $response = [];
