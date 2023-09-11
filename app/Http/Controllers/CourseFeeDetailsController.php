@@ -115,11 +115,14 @@ class CourseFeeDetailsController extends Controller
           ->leftJoin('coursecategory', function($join) {
             $join->on('course_fee_details.course_id', '=', 'coursecategory.id');
           })
+          ->leftJoin('feecategory', function($join) {
+            $join->on('course_fee_details.pro_max_id', '=', 'feecategory.id');
+          })
           ->select(
             'course_fee_details.id as fee_details_id',
-            'course_fee_details.pro_max_id',
-            'course_fee_details.course_id',
-            'course_fee_details.sub_course_id',
+            'feecategory.title as pro_max_name',
+            'coursecategory.name as course_name',
+            'subcourses.name as sub_course_name',
             'course_fee_details.sub_course_fee',
             'course_fee_details.sub_course_duration',
             'course_fee_details.job_assistance',

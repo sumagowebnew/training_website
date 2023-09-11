@@ -16,7 +16,6 @@ class MentorController extends Controller
 
         foreach ($all_data as $item) {
             $data = $item->toArray();
-
             $logo = $data['image'];
 
             $imagePath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/mentor_images/".$logo;
@@ -38,8 +37,13 @@ class MentorController extends Controller
         $response = [];
 
         foreach ($all_data as $item) {
+            $no = [];
             $data = $item->toArray();
-
+            $course_id = $data['course_id'];
+            // foreach (json_decode($course_id) as $key => $value){ 
+            //     array_push($no,$value);
+            // }
+            $data['course_id'] = json_decode($course_id);
             $logo = $data['image'];
 
             $imagePath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/mentor_images/".$logo;
@@ -89,7 +93,7 @@ class MentorController extends Controller
                         $programs->image = $file;
                         $programs->designation = $request->designation;
                         $programs->company = $request->company;
-                        $programs->course_id = $request->course_id;
+                        $programs->course_id = json_encode($request->course_id);
                         $programs->save();
                         // $insert_data = programs::insert($data);
                         return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);

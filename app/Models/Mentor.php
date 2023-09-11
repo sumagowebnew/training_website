@@ -8,4 +8,7 @@ class Mentor extends Model
 {
     //
     protected $table = 'mentor';
+    protected $casts = [
+        'course_id' => 'array'
+    ];
 }
