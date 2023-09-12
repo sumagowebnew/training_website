@@ -23,6 +23,28 @@ class SyllabusPdfController extends Controller
         return response()->json($response);
     }
 
+
+    public function getAllDataList(Request $request)
+    {
+        $certificate = SyllabusPdf::leftJoin('subcourses', function($join) {
+            $join->on('syllabuspdf.sub_course_id', '=', 'subcourses.id');
+          })
+        //  ->where('syllabuspdf.subcourse_id',$request->id)
+         ->select('syllabuspdf.*',
+         'subcourses.name'
+         )
+         ->get();
+        $response = [];
+        foreach ($certificate as $item) {
+            $data = $item->toArray();
+            $logo = $data['file'];
+            $file = "https://trainingapi.sumagotest.in/storage/all_web_data/images/syllabus_pdf/".$data['file'];
+            $data['file'] = $file;
+            $response[] = $data;
+        }
+        return response()->json($response);
+    }
+
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
