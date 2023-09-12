@@ -312,7 +312,7 @@ Route::group([
 
     Route::get('get_next_cohorts_dates', 'NextCohortsDatesController@index');
     Route::get('get_syllabus_pdf/{id}', 'SyllabusPdfController@index');
-    Route::get('getAllDataList', 'SyllabusPdfController@getAllDataList');
+    Route::post('getAllDataList', 'SyllabusPdfController@getAllDataList');
 
 });
 
