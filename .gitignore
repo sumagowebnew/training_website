@@ -7,3 +7,4 @@ storage
 .phpunit.result.cache
 .htaccess
 uploads
+storage/all_web_data
