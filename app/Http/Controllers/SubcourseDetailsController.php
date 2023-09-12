@@ -47,7 +47,7 @@ class SubcourseDetailsController extends Controller
     public function get_subcourse_details_list(Request $request)
     {
         $all_data = SubcourseDetails::leftJoin('subcourses', function($join) {
-            $join->on('course_fee_details.sub_course_id', '=', 'subcourses.id');
+            $join->on('sub_course_details.sub_course_id', '=', 'subcourses.id');
           })->get();
         $response = [];
 
@@ -91,7 +91,7 @@ class SubcourseDetailsController extends Controller
             'description'=>'required',
             'course_id'=>'required',
             'sub_course_id'=>'required',
-            'custome_text'=>'required',
+            // 'custome_text'=>'required',
         ]);
         
         if($validator->fails())
