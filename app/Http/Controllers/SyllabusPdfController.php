@@ -42,7 +42,8 @@ class SyllabusPdfController extends Controller
             $data['file'] = $file;
             $response[] = $data;
         }
-        return response()->json($response);
+        return response()->json(['data'=>$response, 'status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
+        
     }
 
     public function Add(Request $request)
