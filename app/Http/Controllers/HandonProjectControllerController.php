@@ -142,27 +142,44 @@ class HandonProjectControllerController extends Controller
     public function getCategoryByCouseId(Request $request, $id)
     {
         // Get all data from the database
-        $hands_on_pro = HandsonProjects::join('handson_project_cateories', function($join) {
-            $join->on('handson_projects.handson_category_id', '=', 'handson_project_cateories.id');
-          })
-          ->where('handson_projects.sub_course_id','=',$id)
-          ->select([
-              'handson_projects.id as handson_projects',
-              'handson_projects.title as  projects_title',
-              'handson_project_cateories.id as handson_project_cateories_id',
-              'handson_project_cateories.title as handson_project_cateories_title',
-              'handson_projects.desc',
+        // $hands_on_pro = HandsonProjects::join('handson_project_cateories', function($join) {
+        //     $join->on('handson_projects.handson_category_id', '=', 'handson_project_cateories.id');
+        //   })
+        //   ->where('handson_projects.sub_course_id','=',$id)
+        //   ->select([
+        //       'handson_projects.id as handson_projects',
+        //       'handson_projects.title as  projects_title',
+        //       'handson_project_cateories.id as handson_project_cateories_id',
+        //       'handson_project_cateories.title as handson_project_cateories_title',
+        //       'handson_projects.desc',
              
-          ])->get();
+        //   ])->get();
 
-        $response = [];
+        // $response = [];
 
-        foreach ($hands_on_pro as $item) {
-            $data = $item->toArray();
-            $response[] = $data;
-        }
+        // foreach ($hands_on_pro as $item) {
+        //     $data = $item->toArray();
+        //     $response[] = $data;
+        // }
 
-        return response()->json($hands_on_pro);
+        // return response()->json($hands_on_pro);
+
+
+        // Get all data from the database
+        $hands_on_pro = HandsonProjectCategories::join('handson_projects', function($join) {
+            $join->on('handson_project_cateories.id', '=', 'handson_projects.handson_category_id');
+            })
+            
+            ->where('handson_projects.sub_course_id','=',$id)
+            ->select([
+                'handson_project_cateories.id as handson_project_cateories_id',
+                'handson_project_cateories.title as handson_project_cateories_title',
+                
+            ])
+            ->groupBy('handson_category_id')
+            ->get();
+
+        return response()->json(['data'=>$hands_on_pro, 'status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
     }
 
     public function getHandsonByHandsonId(Request $request, $id)
