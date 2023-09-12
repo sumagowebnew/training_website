@@ -27,7 +27,7 @@ class SyllabusPdfController extends Controller
     public function getAllDataList(Request $request)
     {
         $certificate = SyllabusPdf::leftJoin('subcourses', function($join) {
-            $join->on('syllabuspdf.sub_course_id', '=', 'subcourses.id');
+            $join->on('syllabuspdf.subcourse_id', '=', 'subcourses.id');
           })
         //  ->where('syllabuspdf.subcourse_id',$request->id)
          ->select('syllabuspdf.*',
