@@ -48,7 +48,11 @@ class SubcourseDetailsController extends Controller
     {
         $all_data = SubcourseDetails::leftJoin('subcourses', function($join) {
             $join->on('sub_course_details.sub_course_id', '=', 'subcourses.id');
-          })->get();
+          })
+          ->select("sub_course_details.*",
+          'subcourses.name as subcourses_name'
+          )
+          ->get();
         $response = [];
 
         foreach ($all_data as $item) {
@@ -91,7 +95,7 @@ class SubcourseDetailsController extends Controller
             'description'=>'required',
             'course_id'=>'required',
             'sub_course_id'=>'required',
-            // 'custome_text'=>'required',
+            'custome_text'=>'required',
         ]);
         
         if($validator->fails())
