@@ -46,7 +46,13 @@ class SubcourseDetailsController extends Controller
 
     public function get_subcourse_details_list(Request $request)
     {
-        $all_data = SubcourseDetails::get();
+        $all_data = SubcourseDetails::leftJoin('subcourses', function($join) {
+            $join->on('sub_course_details.sub_course_id', '=', 'subcourses.id');
+          })
+          ->select("sub_course_details.*",
+          'subcourses.name as subcourses_name'
+          )
+          ->get();
         $response = [];
 
         foreach ($all_data as $item) {
@@ -69,11 +75,9 @@ class SubcourseDetailsController extends Controller
             $data['back_image'] = $Newbase64;
             }
             $response[] = $data;
-
-            $response[] = $data;
         }
 
-        return response()->json($response);
+        return response()->json(['data' => $response,'status' => 'Success', 'message' => 'Sub Cources get successfully','StatusCode'=>'200']);
     }
 
     
