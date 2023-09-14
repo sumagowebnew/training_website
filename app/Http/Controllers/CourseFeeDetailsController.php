@@ -11,6 +11,7 @@ class CourseFeeDetailsController extends Controller
 {
     public function add(Request $request)
     {
+        dd($request->all());
         $validator = Validator::make($request->all(), [
             'pro_max_id' => 'required',
             'course_id' => 'required',

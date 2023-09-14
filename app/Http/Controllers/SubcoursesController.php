@@ -16,7 +16,7 @@ class SubcoursesController extends Controller
         $all_data = Subcourses::Join('course_fee_details', function($join) {
             $join->on('subcourses.id', '=', 'course_fee_details.sub_course_id');
           })
-          ->where('subcourses.course_id',$id)
+          ->where('subcourses.course_id',$id)->groupBy('course_fee_details.sub_course_id')
           ->select([
               'subcourses.course_id as course_id', 
               'subcourses.id as subcourses_id', 
@@ -25,15 +25,16 @@ class SubcoursesController extends Controller
               'course_fee_details.sub_course_duration as sub_course_duration',
               CourseFeeDetails::raw('MIN(sub_course_fee) as sub_course_fee')             
           ])->get();
-          
 
           $response = [];
           foreach ($all_data as $item) {
               $data = $item->toArray();
               $logo = $data['subcourses_image'];
+              if(!empty($logo)){
               $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/subcourse/" . $logo;
               $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
               $data['image'] = $base64;
+              }
               $response[] = $data;
           }
         return response()->json(['data'=>$response,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
