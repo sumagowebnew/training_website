@@ -40,11 +40,37 @@ class SubcoursesController extends Controller
           }
         return response()->json(['data'=>$response,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
-    public function all_course(Request $request)
+    // public function all_course(Request $request)
+    // {
+    //     $all_data = Subcourses::leftJoin('course_fee_details', function($join) {
+    //         $join->on('subcourses.id', '=', 'course_fee_details.sub_course_id');
+    //       })
+    //       ->select([
+    //           'subcourses.course_id as course_id', 
+    //           'subcourses.id as subcourses_id', 
+    //           'subcourses.image as subcourses_image', 
+    //           'subcourses.name as subcourses_name', 
+    //           'course_fee_details.sub_course_fee',
+    //           'course_fee_details.sub_course_duration as sub_course_duration'             
+    //       ])->get();
+
+    //       $response = [];
+    //       foreach ($all_data as $item) {
+    //           $data = $item->toArray();
+    //           $logo = $data['subcourses_image'];
+    //           $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/subcourse/" . $logo;
+    //           $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+    //           $data['image'] = $base64;
+    //           $response[] = $data;
+    //       }
+    //     return response()->json(['data'=>$response,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+    // }
+
+      public function all_course(Request $request)
     {
-        $all_data = Subcourses::leftJoin('course_fee_details', function($join) {
+        $all_data = Subcourses::LeftJoin('course_fee_details', function($join) {
             $join->on('subcourses.id', '=', 'course_fee_details.sub_course_id');
-          })
+          })->groupBy('course_fee_details.sub_course_id')
           ->select([
               'subcourses.course_id as course_id', 
               'subcourses.id as subcourses_id', 
