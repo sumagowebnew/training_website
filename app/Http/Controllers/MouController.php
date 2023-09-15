@@ -19,7 +19,8 @@ class MouController extends Controller
 
             $logo = $data['image'];
 
-            $imagePath =str_replace('\\', '/', base_path())."/uploads/mou/" . $logo;
+            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/mou/" . $logo;
+
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
@@ -48,7 +49,8 @@ class MouController extends Controller
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
             
                     $img_path = $request->image;
-                    $folderPath = str_replace('\\', '/', base_path()) ."/uploads/mou/";
+                    createDirecrotory('/all_web_data/images/mou/');
+                    $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/mou/";
                     $base64Image = explode(";base64,", $img_path);
                     $explodeImage = explode("image/", $base64Image[0]);
                     $imageType = $explodeImage[1];

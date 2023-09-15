@@ -20,7 +20,8 @@ class PopularCoursesController extends Controller
 
             $logo = $data['image'];
 
-            $imagePath =str_replace('\\', '/', base_path())."/uploads/popularcourses/" . $logo;
+            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/popularcourses/" . $logo;
+
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
@@ -46,7 +47,8 @@ class PopularCoursesController extends Controller
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
             
                     $img_path = $request->image;
-                    $folderPath = str_replace('\\', '/', base_path()) ."/uploads/popularcourses/";
+                    createDirecrotory('/all_web_data/images/popularcourses/');
+                    $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/popularcourses/";
                     $base64Image = explode(";base64,", $img_path);
                     $explodeImage = explode("image/", $base64Image[0]);
                     $imageType = $explodeImage[1];
@@ -76,7 +78,8 @@ class PopularCoursesController extends Controller
         $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
 
         $img_path = $request->image;
-        $folderPath = str_replace('\\', '/', base_path()) ."/uploads/popularcourses/";
+        $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/popularcourses/";
+
         $base64Image = explode(";base64,", $img_path);
         $explodeImage = explode("image/", $base64Image[0]);
         $imageType = $explodeImage[1];

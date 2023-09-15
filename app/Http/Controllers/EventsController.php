@@ -35,8 +35,8 @@ class EventsController extends Controller
                         $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
                 
                         $img_path = $request->image;
-                        $folderPath = str_replace('\\', '/', base_path()) ."/uploads/events/";
-                        
+                        $folderPath =str_replace('\\', '/', storage_path())."/all_web_data/images/events/";
+
                         $base64Image = explode(";base64,", $img_path);
                         $explodeImage = explode("image/", $base64Image[0]);
                         $imageType = $explodeImage[1];
@@ -75,8 +75,8 @@ class EventsController extends Controller
                 $existingRecord = Events::orderBy('id','DESC')->first();
 
                 $img_path = $request->image;
-                $folderPath = str_replace('\\', '/', base_path()) ."/uploads/events/";
-                
+                $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/events/";
+
                 $base64Image = explode(";base64,", $img_path);
                 $explodeImage = explode("image/", $base64Image[0]);
                 $imageType = $explodeImage[1];

@@ -21,7 +21,8 @@ class PopularCoursesDetailsController extends Controller
 
             $logo = $data['image'];
 
-            $imagePath =str_replace('\\', '/', base_path())."/uploads/popularcoursesdetails/" . $logo;
+            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/popularcoursesdetails/" . $logo;
+
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
@@ -42,8 +43,9 @@ class PopularCoursesDetailsController extends Controller
             $data = $item->toArray();
 
             $logo = $data['image'];
+            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/popularcoursesdetails/" . $logo;
 
-            $imagePath =str_replace('\\', '/', base_path())."/uploads/popularcoursesdetails/" . $logo;
+
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
@@ -75,7 +77,8 @@ class PopularCoursesDetailsController extends Controller
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
             
                     $img_path = $request->image;
-                    $folderPath = str_replace('\\', '/', base_path()) ."/uploads/popularcoursesdetails/";
+                    createDirecrotory('/all_web_data/images/popularcoursesdetails/');
+                    $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/popularcoursesdetails/";
                     $base64Image = explode(";base64,", $img_path);
                     $explodeImage = explode("image/", $base64Image[0]);
                     $imageType = $explodeImage[1];
@@ -107,7 +110,8 @@ class PopularCoursesDetailsController extends Controller
         $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
 
         $img_path = $request->image;
-        $folderPath = str_replace('\\', '/', base_path()) ."/uploads/popularcoursesdetails/";
+        $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/popularcoursesdetails/";
+
         $base64Image = explode(";base64,", $img_path);
         $explodeImage = explode("image/", $base64Image[0]);
         $imageType = $explodeImage[1];

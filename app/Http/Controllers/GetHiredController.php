@@ -20,7 +20,8 @@ class GetHiredController extends Controller
 
             $logo = $data['image'];
 
-            $imagePath =str_replace('\\', '/', base_path())."/uploads/gethired/" . $logo;
+            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/gethired/" . $logo;
+
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
@@ -52,7 +53,8 @@ class GetHiredController extends Controller
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
                     $title = $request->title;
                     $img_path = $request->image;
-                    $folderPath = str_replace('\\', '/', base_path()) ."/uploads/gethired/";
+                    createDirecrotory('/all_web_data/images/gethired/');
+                    $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/gethired/";
                     $base64Image = explode(";base64,", $img_path);
                     $explodeImage = explode("image/", $base64Image[0]);
                     $imageType = $explodeImage[1];
@@ -80,7 +82,8 @@ class GetHiredController extends Controller
         $existingRecord = GetHired::orderBy('id','DESC')->first();
    
         $img_path = $request->image;
-        $folderPath = str_replace('\\', '/', base_path()) ."/uploads/gethired/";
+        $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/gethired/";
+
         $base64Image = explode(";base64,", $img_path);
         $explodeImage = explode("image/", $base64Image[0]);
         $imageType = $explodeImage[1];

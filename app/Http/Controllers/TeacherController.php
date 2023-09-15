@@ -19,7 +19,7 @@ class TeacherController extends Controller
 
             $logo = $data['image'];
 
-            $imagePath =str_replace('\\', '/', base_path())."/uploads/teacher/" . $logo;
+            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/teacher/" . $logo;
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
@@ -50,7 +50,8 @@ class TeacherController extends Controller
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
                     $name = $request->name;
                     $img_path = $request->image;
-                    $folderPath = str_replace('\\', '/', base_path()) ."/uploads/teacher/";
+                    createDirecrotory('/all_web_data/images/teacher/');
+                    $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/teacher/";
                     $base64Image = explode(";base64,", $img_path);
                     $explodeImage = explode("image/", $base64Image[0]);
                     $imageType = $explodeImage[1];
