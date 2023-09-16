@@ -38,8 +38,12 @@ class SyllabusPdfController extends Controller
         foreach ($certificate as $item) {
             $data = $item->toArray();
             $logo = $data['file'];
-            $file = "https://trainingapi.sumagotest.in/storage/all_web_data/images/syllabus_pdf/".$data['file'];
-            $data['file'] = $file;
+            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/syllabus_pdf/" . $logo;
+
+            $base64 = "data:file/pdf;base64," . base64_encode(file_get_contents($imagePath));
+
+            $data['file'] = $base64;
+           
             $response[] = $data;
         }
         return response()->json(['data'=>$response, 'status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
@@ -59,9 +63,9 @@ class SyllabusPdfController extends Controller
         
             }else{
                 try {
-                    $pdf = new SyllabusPdf();
-                     if(isset($_FILES["file"]["name"]) && !empty($_FILES["file"]["name"]))
-                        {
+                    $file = $request->file;
+                    $pdf = new SyllabusPdf();                        
+                          {
                             $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
                             $charactersLength = strlen($characters);
                             $randomString = '';
@@ -70,16 +74,20 @@ class SyllabusPdfController extends Controller
                             }
                             createDirecrotory('/all_web_data/images/syllabus_pdf/');
                             $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/syllabus_pdf/";
-                            $file_name                         = $_FILES["file"]["name"];
-                            $file_tmp                          = $_FILES["file"]["tmp_name"];
-                            $ext                               = pathinfo($file_name,PATHINFO_EXTENSION);
-                            $random_file_name                  = $randomString.'.'.$ext;
-                            $latest_image                      = $folderPath.$random_file_name;
-                            if(move_uploaded_file($file_tmp,$latest_image))
-                            {
-                               $pdf->file      = $random_file_name;
-                            }
-                        }
+
+                                
+                            $base64Image = explode(";base64,", $file);
+                            $explodeImage = explode("file/", $base64Image[0]);
+                            $fileType = $explodeImage[1];
+                            $image_base64 = base64_decode($base64Image[1]);
+                    
+                            $file = $randomString . '.' . $fileType;
+                            $file_dir = $folderPath.$file;
+                    
+                            file_put_contents($file_dir, $image_base64);
+                                $pdf->file      = $file;
+                                }
+                        
                                 
                     $pdf->subcourse_id = $request->subcourse_id;
                     $pdf->save();
@@ -106,10 +114,8 @@ class SyllabusPdfController extends Controller
             }else{
                 try {
                     $pdf = SyllabusPdf::find($id);
-                    
-                    if(isset($_FILES["file"]["name"]) && !empty($_FILES["file"]["name"]))
-                    {
-                        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                    $file = $request->file;
+                    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
                         $charactersLength = strlen($characters);
                         $randomString = '';
                         for ($i = 0; $i < 18; $i++) {
@@ -117,16 +123,28 @@ class SyllabusPdfController extends Controller
                         }
                         createDirecrotory('/all_web_data/images/syllabus_pdf/');
                         $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/syllabus_pdf/";
-                        $file_name                         = $_FILES["file"]["name"];
-                        $file_tmp                          = $_FILES["file"]["tmp_name"];
-                        $ext                               = pathinfo($file_name,PATHINFO_EXTENSION);
-                        $random_file_name                  = $randomString.'.'.$ext;
-                        $latest_image                      = $folderPath.$random_file_name;
-                        if(move_uploaded_file($file_tmp,$latest_image))
-                        {
-                           $pdf->file      = $random_file_name;
-                        }
-                    }
+
+                            
+                        $base64Image = explode(";base64,", $file);
+                        $explodeImage = explode("file/", $base64Image[0]);
+                        $fileType = $explodeImage[1];
+                        $image_base64 = base64_decode($base64Image[1]);
+                
+                        $file = $randomString . '.' . $fileType;
+                        $file_dir = $folderPath.$file;
+                
+                        file_put_contents($file_dir, $image_base64);
+
+
+                        // $file_name                         = $_FILES["file"]["name"];
+                        // $file_tmp                          = $_FILES["file"]["tmp_name"];
+                        // $ext                               = pathinfo($file_name,PATHINFO_EXTENSION);
+                        // $random_file_name                  = $randomString.'.'.$ext;
+                        // $latest_image                      = $folderPath.$random_file_name;
+                        // if(move_uploaded_file($file_tmp,$latest_image))
+                        // {
+                           $pdf->file      = $file;
+                        // }
                     $pdf->subcourse_id = $request->subcourse_id;
                     $pdf->update();
             
