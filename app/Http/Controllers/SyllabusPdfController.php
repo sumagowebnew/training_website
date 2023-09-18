@@ -16,8 +16,12 @@ class SyllabusPdfController extends Controller
         foreach ($certificate as $item) {
             $data = $item->toArray();
             $logo = $data['file'];
-            $file = "https://trainingapi.sumagotest.in/storage/all_web_data/images/syllabus_pdf/".$data['file'];
-            $data['file'] = $file;
+            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/syllabus_pdf/" . $logo;
+
+            $base64 = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
+
+            $data['file'] = $base64;
+           
             $response[] = $data;
         }
         return response()->json($response);
@@ -40,7 +44,7 @@ class SyllabusPdfController extends Controller
             $logo = $data['file'];
             $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/syllabus_pdf/" . $logo;
 
-            $base64 = "data:file/pdf;base64," . base64_encode(file_get_contents($imagePath));
+            $base64 = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
 
             $data['file'] = $base64;
            
