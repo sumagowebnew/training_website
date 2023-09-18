@@ -77,7 +77,7 @@ class SyllabusPdfController extends Controller
 
                                 
                             $base64Image = explode(";base64,", $file);
-                            $explodeImage = explode("file/", $base64Image[0]);
+                            $explodeImage = explode("image/", $base64Image[0]);
                             $fileType = $explodeImage[1];
                             $image_base64 = base64_decode($base64Image[1]);
                     
@@ -126,7 +126,7 @@ class SyllabusPdfController extends Controller
 
                             
                         $base64Image = explode(";base64,", $file);
-                        $explodeImage = explode("file/", $base64Image[0]);
+                        $explodeImage = explode("image/", $base64Image[0]);
                         $fileType = $explodeImage[1];
                         $image_base64 = base64_decode($base64Image[1]);
                 
