@@ -159,7 +159,6 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_subcourse/{id}', 'SubcoursesController@update');
     Route::delete('delete_subcourse/{id}', 'SubcoursesController@delete');
 
-    Route::get('get_subcourse_details_list', 'SubcourseDetailsController@get_subcourse_details_list');
     Route::post('get_subcourse_details_list_by_course_id', 'SubcourseDetailsController@getSubcourseDetailsByCourseId');
     Route::post('add_subcourse_details', 'SubcourseDetailsController@add');
     Route::post('update_subcourse_details/{id}', 'SubcourseDetailsController@update');
@@ -313,6 +312,7 @@ Route::group([
     Route::get('get_next_cohorts_dates', 'NextCohortsDatesController@index');
     Route::get('get_syllabus_pdf/{id}', 'SyllabusPdfController@index');
     Route::post('getAllDataList', 'SyllabusPdfController@getAllDataList');
+    Route::get('get_subcourse_details_list', 'SubcourseDetailsController@get_subcourse_details_list');
 
 });
 
