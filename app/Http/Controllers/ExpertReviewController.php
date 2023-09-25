@@ -55,6 +55,7 @@ class ExpertReviewController extends Controller
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
                     $title = $request->title;
                     $img_path = $request->image;
+                    createDirecrotory('/all_web_data/images/expert_review/');
                     $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/expert_review/";
 
                     $base64Image = explode(";base64,", $img_path);
