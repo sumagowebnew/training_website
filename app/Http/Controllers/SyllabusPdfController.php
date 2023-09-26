@@ -46,7 +46,7 @@ class SyllabusPdfController extends Controller
 
             $base64 = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
 
-            $data['file'] = $base64;
+            // $data['file'] = $base64;
            
             $response[] = $data;
         }
