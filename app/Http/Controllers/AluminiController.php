@@ -14,6 +14,7 @@ class AluminiController extends Controller
     public function getAllAlumini(Request $request)
     {
         $all_data = Alumini::get();
+        // dd($all_data);
 
         $response = [];
 
@@ -35,7 +36,7 @@ class AluminiController extends Controller
         }
 
 
-        return response()->json(['data'=>$response,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+        return response()->json(['data'=>$response,'status' => 'Success', 'message' => 'Fetched Data Successfully','StatusCode'=>'200']);
     }
 
 
