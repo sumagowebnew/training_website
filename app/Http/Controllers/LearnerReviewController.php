@@ -44,6 +44,7 @@ class LearnerReviewController extends Controller
             $contactDetails->title = $request->title;
             $contactDetails->description = $request->description;
             $contactDetails->link = $request->link;
+            $contactDetails->sub_course_id = json_encode($request->sub_course_id);
             $contactDetails->save();
             
          
@@ -71,6 +72,8 @@ class LearnerReviewController extends Controller
             $contact_details->title = $request->title;
             $contact_details->description = $request->description;
             $contact_details->link = $request->link;
+            $contact_details->sub_course_id = json_encode($request->sub_course_id);
+
             $update_data = $contact_details->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
 
@@ -85,6 +88,36 @@ class LearnerReviewController extends Controller
 
         foreach ($award as $item) {
             $data = $item->toArray();
+            $course_id = $data['sub_course_id'];
+            $data['sub_course_id'] = json_decode($course_id);
+
+            $logo = $data['image'];
+
+            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/learnerReview/" . $logo;
+
+            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+
+            $data['image'] = $base64;
+
+            $response[] = $data;
+        }
+
+        return response()->json($response);
+    }
+
+    public function getcoursewiseData(Request $request)
+    {
+        $id = $request->sub_course_id;
+        // Get all data from the database
+        $award = LearnerReview::whereJsonContains('sub_course_id',$id)
+        ->get();
+
+        $response = [];
+
+        foreach ($award as $item) {
+            $data = $item->toArray();
+            $course_id = $data['sub_course_id'];
+            $data['sub_course_id'] = json_decode($course_id);
 
             $logo = $data['image'];
 

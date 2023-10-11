@@ -80,7 +80,7 @@ class HandonProjectControllerController extends Controller
         {
             $contactDetails = new HandsonProjects();
             $contactDetails->handson_category_id = $request->handson_category_id;
-            $contactDetails->sub_course_id = $request->sub_course_id;
+            $contactDetails->sub_course_id = json_encode($request->sub_course_id);
             $contactDetails->title = $request->title;
             $contactDetails->desc = $request->desc;
             $contactDetails->save();
@@ -106,7 +106,7 @@ class HandonProjectControllerController extends Controller
         {
             $contact_details = HandsonProjects::find($id);
             $contact_details->handson_category_id = $request->handson_category_id;
-            $contact_details->sub_course_id = $request->sub_course_id;
+            $contact_details->sub_course_id = json_encode($request->sub_course_id);
             $contact_details->title = $request->title;
             $contact_details->desc = $request->desc;
             $update_data = $contact_details->update();
@@ -133,6 +133,12 @@ class HandonProjectControllerController extends Controller
 
         foreach ($hands_on_pro as $item) {
             $data = $item->toArray();
+            $course_id = $data['sub_course_id'];
+            // foreach (json_decode($course_id) as $key => $value){ 
+            //     array_push($no,$value);
+            // }
+            $data['sub_course_id'] = json_decode($course_id);
+
             $response[] = $data;
         }
 
@@ -170,7 +176,7 @@ class HandonProjectControllerController extends Controller
             $join->on('handson_project_cateories.id', '=', 'handson_projects.handson_category_id');
             })
             
-            ->where('handson_projects.sub_course_id','=',$id)
+            ->whereJsonContains('handson_projects.sub_course_id',$id)
             ->select([
                 'handson_project_cateories.id as handson_project_cateories_id',
                 'handson_project_cateories.title as handson_project_cateories_title',
@@ -188,7 +194,7 @@ class HandonProjectControllerController extends Controller
         $hands_on_pro = HandsonProjects::join('handson_project_cateories', function($join) {
             $join->on('handson_projects.handson_category_id', '=', 'handson_project_cateories.id');
           })
-          ->where('handson_projects.handson_category_id','=',$id)
+          ->whereJsonContains('handson_projects.sub_course_id',$id)
           ->select([
               'handson_projects.id as handson_projects_id',
               'handson_projects.title as  projects_title',

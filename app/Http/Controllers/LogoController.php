@@ -94,6 +94,31 @@ class LogoController extends Controller
         return response()->json($response);
     }
 
+
+    public function getdummy_image()
+    {
+        // Get all data from the database
+        // $award = Logo::get();
+
+        // $response = [];
+
+        // foreach ($award as $item) {
+        //     $data = $item->toArray();
+
+            // $logo = $data['image'];
+
+            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/sumago.png";
+
+            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+
+            $data['dummy_image'] = $base64;
+
+            $response[] = $data;
+        // }
+
+        return response()->json($response);
+    }
+
     public function delete($id)
     {
         $all_data=[];

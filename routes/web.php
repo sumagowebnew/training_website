@@ -242,9 +242,6 @@ Route::group([
 
 ],function ($router) {
 
-
-    
-
     Route::post('login', 'AuthController@login');
     Route::get('get_contact', 'ContactController@index');
     Route::get('get_award', 'AwardController@index');
@@ -279,7 +276,7 @@ Route::group([
     Route::get('get_hired', 'GetHiredController@index');
     Route::get('get_mentor/{id}', 'MentorController@index');
     Route::get('get_all_faq', 'FaqController@all_faq');
-    // Route::get('get_alumini', 'AluminiController@getAllAlumini');
+    Route::get('get_alumini', 'AluminiController@getAllAlumini');
     Route::get('get_alumini/{id}', 'AluminiController@index');
     Route::get('get_mentors', 'MentorController@all_mentors');
     Route::get('get_companyDetails', 'CompanyDetailsController@index');
@@ -313,6 +310,9 @@ Route::group([
     Route::get('get_syllabus_pdf/{id}', 'SyllabusPdfController@index');
     Route::post('getAllDataList', 'SyllabusPdfController@getAllDataList');
     Route::get('get_subcourse_details_list', 'SubcourseDetailsController@get_subcourse_details_list');
+    Route::get('get_alumini_list', 'AluminiController@all_alumini');
+    Route::get('getcoursewiseData', 'LearnerReviewController@getcoursewiseData');
+    Route::get('getdummy_image', 'LogoController@getdummy_image');
 
 });
 
