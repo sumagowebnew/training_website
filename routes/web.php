@@ -209,9 +209,9 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_event_list/{id}', 'EventListController@update');
     Route::delete('delete_event_list/{id}', 'EventListController@delete');
 
-    Route::post('add_event_banner_popup', 'EventBannerPopupController@add');
-    Route::post('update_event_banner_popup/{id}', 'EventBannerPopupController@update');
-    Route::delete('delete_event_banner_popup/{id}', 'EventBannerPopupController@delete');
+    Route::post('add_event_upcoming', 'EventBannerPopupController@add');
+    Route::post('update_event_upcoming/{id}', 'EventBannerPopupController@update');
+    Route::delete('delete_event_upcoming/{id}', 'EventBannerPopupController@delete');
 
     Route::post('add_next_cohorts_dates', 'NextCohortsDatesController@add');
     Route::post('update_next_cohorts_dates/{id}', 'NextCohortsDatesController@update');
@@ -302,7 +302,7 @@ Route::group([
     Route::get('get_handson_category_by_course_id/{id}', 'HandonProjectControllerController@getCategoryByCouseId');
     Route::get('get_handson_project_by_handson_id/{id}', 'HandonProjectControllerController@getHandsonByHandsonId');
     
-    Route::get('get_event_banner_popup', 'EventBannerPopupController@index');
+    Route::get('get_event_upcoming', 'EventBannerPopupController@index');
 
     Route::get('get_learner_review', 'LearnerReviewController@index');
 
