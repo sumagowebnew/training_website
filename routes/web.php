@@ -55,6 +55,11 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('add_topranked', 'ToprankedController@add');
     Route::delete('delete_topranked/{id}', 'ToprankedController@delete');
 
+    Route::get('get_dummydata', 'DummydataController@index');
+    Route::post('update_dummydata/{id}', 'DummydataController@add');
+    Route::post('add_dummydata', 'DummydataController@add');
+    Route::delete('delete_dummydata/{id}', 'DummydataController@delete');
+
     Route::post('add_enquiry', 'EnquiryController@add');
     Route::delete('delete_enquiry/{id}', 'EnquiryController@delete');
 
