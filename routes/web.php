@@ -277,7 +277,7 @@ Route::group([
     Route::get('get_mentor/{id}', 'MentorController@index');
     Route::get('get_all_faq', 'FaqController@all_faq');
     Route::get('get_alumini', 'AluminiController@getAllAlumini');
-    Route::get('get_alumini/{id}', 'AluminiController@index');
+    Route::post('get_alumini_bycourse', 'AluminiController@index');
     Route::get('get_mentors', 'MentorController@all_mentors');
     Route::get('get_companyDetails', 'CompanyDetailsController@index');
     Route::get('get_ourOffice', 'OurOfficeController@index');

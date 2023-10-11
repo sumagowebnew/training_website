@@ -47,9 +47,10 @@ class AluminiController extends Controller
     }
 
 
-    public function index(Request $request, $id)
+    public function index(Request $request)
     {
-        $all_data = Alumini::whereJsonContains('sub_course_id',$id)->get();
+        // dd($request->id);
+        $all_data = Alumini::whereJsonContains('sub_course_id',$request->id)->get();
         $response = [];
 
         foreach ($all_data as $item) {
@@ -70,7 +71,7 @@ class AluminiController extends Controller
             $data['company'] = $item['company'];
             $data['name'] = $item['name'];
             $data['id'] = $item['id'];
-            $course_id = $data['sub_course_id'];
+            $course_id = $item['sub_course_id'];
             // foreach (json_decode($course_id) as $key => $value){ 
             //     array_push($no,$value);
             // }
@@ -82,7 +83,6 @@ class AluminiController extends Controller
 
         return response()->json(['data'=>$response,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);   
     }
-    
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
