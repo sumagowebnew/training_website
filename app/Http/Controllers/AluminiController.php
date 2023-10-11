@@ -49,7 +49,7 @@ class AluminiController extends Controller
 
     public function index(Request $request, $id)
     {
-        $all_data = Alumini::where('sub_course_id',$id)->get();
+        $all_data = Alumini::whereJsonContains('sub_course_id',$id)->get();
         $response = [];
 
         foreach ($all_data as $item) {
