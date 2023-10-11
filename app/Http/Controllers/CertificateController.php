@@ -43,7 +43,7 @@ class CertificateController extends Controller
 
             $logo = $data['image'];
 
-            $imagePath =str_replace('\\', '/', base_path())."/uploads/certificate/" . $logo;
+            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/certificate/" . $logo;
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
