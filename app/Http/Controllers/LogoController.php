@@ -97,15 +97,7 @@ class LogoController extends Controller
 
     public function getdummy_image()
     {
-        // Get all data from the database
-        // $award = Logo::get();
-
-        // $response = [];
-
-        // foreach ($award as $item) {
-        //     $data = $item->toArray();
-
-            // $logo = $data['image'];
+       
 
             $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/sumago.png";
 
