@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class HomeCounter extends Model
 {
     //
-    protected $table = 'home_counter';
+    use SoftDeletes;
+protected $table = 'home_counter';
 }

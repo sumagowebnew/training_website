@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class HandsonProjects extends Model
 {
     //
-    protected $table = 'handson_projects';
+    use SoftDeletes;
+protected $table = 'handson_projects';
 }

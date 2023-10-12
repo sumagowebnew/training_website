@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class GoogleReviews extends Model
 {
     //
-    protected $table = 'google_reviews';
+    use SoftDeletes;
+protected $table = 'google_reviews';
 }

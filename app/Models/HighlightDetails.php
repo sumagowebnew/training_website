@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class HighlightDetails extends Model
 {
     //
-    protected $table = 'highlight_details';
+    use SoftDeletes;
+protected $table = 'highlight_details';
 }

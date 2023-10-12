@@ -3,9 +3,12 @@
 namespace App\Models;
 use HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class SubcourseDetails extends Model
 {
     //
-    protected $table = 'sub_course_details';
+    use SoftDeletes;
+protected $table = 'sub_course_details';
 }

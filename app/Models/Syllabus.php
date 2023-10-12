@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use HasFactory;
 class Syllabus extends Model
 {    
-    protected $table = 'syllabus';
+    use SoftDeletes;
+protected $table = 'syllabus';
 }

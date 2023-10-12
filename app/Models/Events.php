@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use HasFactory;
 class Events extends Model
 {
     //
     
-    protected $table = 'events';
+    use SoftDeletes;
+protected $table = 'events';
 }

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class ExpertReview extends Model
 {
     //
-    protected $table = 'expert_reviews';
+    use SoftDeletes;
+protected $table = 'expert_reviews';
 }
