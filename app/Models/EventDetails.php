@@ -9,7 +9,6 @@ use HasFactory;
 class EventDetails extends Model
 {
     //
-    
-    use SoftDeletes;
+use SoftDeletes;
 protected $table = 'event_details';
 }

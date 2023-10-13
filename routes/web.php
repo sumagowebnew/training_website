@@ -322,7 +322,12 @@ Route::group([
     Route::get('getcoursewiseData', 'LearnerReviewController@getcoursewiseData');
     Route::get('get_dummydata', 'DummydataController@index');
     Route::get('get_topranked', 'ToprankedController@index');
+    Route::get('get_fronteventdetails', 'EventDetailsController@index');
+    Route::get('get_frontevents_bycourse/{id}', 'EventDetailsController@get_events_bycourse');
+    Route::get('get_frontevents_byevent/{id}', 'EventDetailsController@get_events_byevent');
 
+    
+    
 
 });
 

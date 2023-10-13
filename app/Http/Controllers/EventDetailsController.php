@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use  App\Models\EventDetails;
-use  App\Models\EventDetailsImages;
 
 use Validator;
 
@@ -15,49 +14,71 @@ class EventDetailsController extends Controller
     {
         // Get all data from the database
         $eventDetails = EventDetails::get();
-
         $response = [];
-
         foreach ($eventDetails as $item) {
             $data = $item->toArray();
-
             $logo = $data['image'];
-
-            $imagePath =str_replace('\\', '/', base_path())."/uploads/eventDetails/" . $logo;
+            $imagePath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/eventDetails/" .$logo;
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
-
             $data['image'] = $base64;
-
             $response[] = $data;
         }
+        return response()->json($response);
+    }
 
+    public function get_events_bycourse(Request $request,$id)
+    {
+        // Get all data from the database
+        $eventDetails = EventDetails::where('subcourse_id',$id)->get();
+        $response = [];
+        foreach ($eventDetails as $item) {
+            $data = $item->toArray();
+            $logo = $data['image'];
+            $imagePath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/eventDetails/" .$logo;
+
+            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+            $data['image'] = $base64;
+            $response[] = $data;
+        }
+        return response()->json($response);
+    }
+
+    public function get_events_byevent(Request $request,$id)
+    {
+        // Get all data from the database
+        $eventDetails = EventDetails::where('event_id',$id)->get();
+        $response = [];
+        foreach ($eventDetails as $item) {
+            $data = $item->toArray();
+            $logo = $data['image'];
+            $imagePath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/eventDetails/" .$logo;
+
+            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+            $data['image'] = $base64;
+            $response[] = $data;
+        }
         return response()->json($response);
     }
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'program_id'=>'required',
-            'introduction'=>'required',
-            'course_overview'=>'required',
-            'learning_outcome'=>'required',
-            'prerequisite'=>'required',
-            'duration'=>'required',
-            'training_period'=>'required',
-            'batch'=>'required',
-            'project'=>'required',
-            'average_salary'=>'required',
+            'title'=>'required',
+            'description'=>'required',
+            'event_id'=>'required',
+            'subcourse_id'=>'required',
             ]);
         
             if ($validator->fails()) {
                     return $validator->errors()->all();
         
                 }else{
-                    $existingRecord = EventDetails::first();
+                    $existingRecord = EventDetails::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
             
                     $img_path = $request->image;
-                    $folderPath = str_replace('\\', '/', base_path()) ."/uploads/eventDetails/";
+                    createDirecrotory('/all_web_data/images/eventDetails/');
+                    $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/eventDetails/";
                     $base64Image = explode(";base64,", $img_path);
                     $explodeImage = explode("image/", $base64Image[0]);
                     $imageType = $explodeImage[1];
@@ -70,18 +91,11 @@ class EventDetailsController extends Controller
                        
                         $courses = new EventDetails();
                         $courses->image = $file;
-                        $courses->program_id = $request->program_id;
-                        $courses->introduction = $request->introduction;
-                        $courses->course_overview = $request->course_overview;
-                        $courses->learning_outcome = $request->learning_outcome;
-                        $courses->prerequisite = $request->prerequisite;
-                        $courses->duration = $request->duration;
-                        $courses->training_period = $request->training_period;
-                        $courses->batch = $request->batch;
-                        $courses->project = $request->project;
-                        $courses->average_salary = $request->average_salary;
+                        $courses->title = $request->title;
+                        $courses->description = $request->description;
+                        $courses->event_id = $request->event_id;
+                        $courses->subcourse_id = $request->subcourse_id;
                         $courses->save();
-                        // $insert_data = courses::insert($data);
                         return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
                 }
     }
@@ -92,7 +106,7 @@ class EventDetailsController extends Controller
         $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
 
         $img_path = $request->image;
-        $folderPath = str_replace('\\', '/', base_path()) ."/uploads/eventDetails/";
+        $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/eventDetails/";
         $base64Image = explode(";base64,", $img_path);
         $explodeImage = explode("image/", $base64Image[0]);
         $imageType = $explodeImage[1];
@@ -104,17 +118,10 @@ class EventDetailsController extends Controller
         file_put_contents($file_dir, $image_base64);
         $courses = EventDetails::find($id);
         $courses->image = $file;
-        $courses->program_id = $request->program_id;
-        $courses->introduction = $request->introduction;
-        $courses->course_overview = $request->course_overview;
-        $courses->learning_outcome = $request->learning_outcome;
-        $courses->prerequisite = $request->prerequisite;
-        $courses->duration = $request->duration;
-        $courses->training_period = $request->training_period;
-        $courses->batch = $request->batch;
-        $courses->project = $request->project;
-        $courses->average_salary = $request->average_salary;
-
+        $courses->title = $request->title;
+        $courses->description = $request->description;
+        $courses->event_id = $request->event_id;
+        $courses->subcourse_id = $request->subcourse_id;
         $update_data = $courses->update();
         return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
     }
@@ -125,7 +132,6 @@ class EventDetailsController extends Controller
         $courses = EventDetails::find($id);
         $courses->delete();
         return response()->json(['status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
-        // return response()->json("Contact Enquiry Deleted Successfully!");
     }
 
    
