@@ -320,7 +320,7 @@ Route::group([
     Route::get('get_subcourse_details_list', 'SubcourseDetailsController@get_subcourse_details_list');
     Route::get('get_alumini_list', 'AluminiController@all_alumini');
     Route::get('getcoursewiseData', 'LearnerReviewController@getcoursewiseData');
-    Route::get('get_dummydetails', 'DummydataController@index');
+    Route::get('get_dummydata', 'DummydataController@index');
     Route::get('get_topranked', 'ToprankedController@index');
 
 
