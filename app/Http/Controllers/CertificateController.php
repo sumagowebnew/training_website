@@ -11,7 +11,8 @@ class CertificateController extends Controller
 {
     public function index(Request $request)
     {
-        $certificate = Certificate::where('course_id',$request->id)->get();
+        // $certificate = Certificate::where('course_id',$request->id)->get();
+        $certificate = Certificate::get();
 
         $response = [];
 
@@ -60,7 +61,6 @@ class CertificateController extends Controller
             'image'=>'required',
             'title'=>'required',
             'description'=>'required',
-            'course_id'=>'required',
             ]);
         
             if ($validator->fails())
@@ -91,7 +91,7 @@ class CertificateController extends Controller
                     $news->image = $file;
                     $news->title = $request->title;
                     $news->description = $request->description;
-                    $news->course_id = $request->course_id;
+                    $news->course_id = 001;
                     $news->save();
             
                     return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
@@ -108,7 +108,6 @@ class CertificateController extends Controller
             'image'=>'required',
             'title'=>'required',
             'description'=>'required',
-            'course_id'=>'required',
             ]);
         
             if ($validator->fails())
@@ -137,7 +136,7 @@ class CertificateController extends Controller
                     $news->image = $file;
                     $news->title = $request->title;
                     $news->description = $request->description;
-                    $news->course_id = $request->course_id;
+                    $news->course_id = 001;
                     $news->update();
             
                     return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);

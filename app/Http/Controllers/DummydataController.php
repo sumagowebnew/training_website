@@ -16,18 +16,12 @@ class DummydataController extends Controller
     {
         $all_data = Dummydata::get();
         $response = [];
-
         foreach ($all_data as $item) {
             $data = $item->toArray();
-
             $logo = $data['image'];
-
             $imagePath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/dummydata/".$logo;
-
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
-
             $data['image'] = $base64;
-
             $response[] = $data;
         }
 
@@ -48,16 +42,13 @@ class DummydataController extends Controller
                
                 $existingRecord = Dummydata::orderBy('id','DESC')->first();
                 $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
-        
                 $image = $request->image;
                 createDirecrotory('/all_web_data/images/dummydata/');
                 $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/dummydata/";
-                
                 $base64Image = explode(";base64,", $image);
                 $explodeImage = explode("image/", $base64Image[0]);
                 $imageType = $explodeImage[1];
                 $image_base64 = base64_decode($base64Image[1]);
-        
                 $file = $recordId . '.' . $imageType;
                 $file_dir = $folderPath.$file;
         

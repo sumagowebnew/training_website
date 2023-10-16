@@ -54,9 +54,9 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('add_topranked', 'ToprankedController@add');
     Route::delete('delete_topranked/{id}', 'ToprankedController@delete');
 
-    Route::post('update_dummydata/{id}', 'DummydataController@add');
-    Route::post('add_dummydata', 'DummydataController@add');
-    Route::delete('delete_dummydata/{id}', 'DummydataController@delete');
+    Route::post('update_emptygrid/{id}', 'DummydataController@add');
+    Route::post('add_emptygrid', 'DummydataController@add');
+    Route::delete('delete_emptygrid/{id}', 'DummydataController@delete');
 
     Route::post('add_enquiry', 'EnquiryController@add');
     Route::delete('delete_enquiry/{id}', 'EnquiryController@delete');
@@ -320,7 +320,7 @@ Route::group([
     Route::get('get_subcourse_details_list', 'SubcourseDetailsController@get_subcourse_details_list');
     Route::get('get_alumini_list', 'AluminiController@all_alumini');
     Route::get('getcoursewiseData', 'LearnerReviewController@getcoursewiseData');
-    Route::get('get_dummydata', 'DummydataController@index');
+    Route::get('get_emptygrid', 'DummydataController@index');
     Route::get('get_topranked', 'ToprankedController@index');
     Route::get('get_fronteventdetails', 'EventDetailsController@index');
     Route::get('get_frontevents_bycourse/{id}', 'EventDetailsController@get_events_bycourse');
