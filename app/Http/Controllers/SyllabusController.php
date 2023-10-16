@@ -11,12 +11,24 @@ class SyllabusController extends Controller
 {
     public function index(Request $request)
     {
-        $all_data = Syllabus::where('course_id',$request->id)->get()->toArray();
+        // $all_data = Syllabus::where('course_id',$request->id)->get()->toArray();
+        $all_data = Syllabus::Join('module', function($join) {
+            $join->on('syllabus.module_id', '=', 'module.id');
+          })
+         ->select('syllabus.*',
+         'module.title'
+         )->where('course_id',$request->id)->get()->toArray();
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
     public function all_syllabus(Request $request)
     {
-        $all_data = Syllabus::get()->toArray();
+        // $all_data = Syllabus::get()->toArray();
+        $all_data = Syllabus::Join('module', function($join) {
+            $join->on('syllabus.module_id', '=', 'module.id');
+          })
+         ->select('syllabus.*',
+         'module.title'
+         )->where('course_id',$request->id)->get()->toArray();
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
     public function Add(Request $request)
