@@ -28,7 +28,7 @@ class SyllabusController extends Controller
           })
          ->select('syllabus.*',
          'module.title'
-         )->where('course_id',$request->id)->get()->toArray();
+         )->get()->toArray();
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
     public function Add(Request $request)
