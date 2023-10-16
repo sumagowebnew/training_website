@@ -92,7 +92,6 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_popularCoursesDetails/{id}', 'PopularCoursesDetailsController@update');
     Route::delete('delete_popularCoursesDetails/{id}', 'PopularCoursesDetailsController@delete');
 
-    Route::get('get_all_events', 'EventsController@all_events');
     Route::post('add_events', 'EventsController@add');
     Route::post('update_events/{id}', 'EventsController@update');
     Route::delete('delete_events/{id}', 'EventsController@delete');
@@ -325,6 +324,8 @@ Route::group([
     Route::get('get_fronteventdetails', 'EventDetailsController@index');
     Route::get('get_frontevents_bycourse/{id}', 'EventDetailsController@get_events_bycourse');
     Route::get('get_frontevents_byevent/{id}', 'EventDetailsController@get_events_byevent');
+    Route::get('get_all_events', 'EventsController@all_events');
+
 
     
     
