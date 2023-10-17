@@ -48,7 +48,7 @@ class EventDetailsController extends Controller
     {
         // Get all data from the database
         $eventDetails = EventDetails::Join('events', function($join) {
-            $join->on('event_details.event_id', '=', 'event.id');
+            $join->on('event_details.event_id', '=', 'events.id');
           })
          ->select('event_details.*',
          'events.name'
