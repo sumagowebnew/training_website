@@ -47,7 +47,12 @@ class EventDetailsController extends Controller
     public function get_events_byevent(Request $request,$id)
     {
         // Get all data from the database
-        $eventDetails = EventDetails::where('event_id',$id)->get();
+        $eventDetails = EventDetails::Join('events', function($join) {
+            $join->on('event_details.event_id', '=', 'event.id');
+          })
+         ->select('event_details.*',
+         'events.name'
+         )->where('event_id',$id)->get();
         $response = [];
         foreach ($eventDetails as $item) {
             $data = $item->toArray();
