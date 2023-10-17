@@ -28,7 +28,7 @@ class AluminiController extends Controller
             
             $logo = $item['company_logo'];
             $logoPath =str_replace('\\', '/', base_path())."/storage/all_web_data/images/alumini_company_logo/" . $logo;
-            $logobase64 = "data:image/png;logobase64," . base64_encode(file_get_contents($logoPath));
+            $logobase64 = "data:image/png;base64," . base64_encode(file_get_contents($logoPath));
             $data['company_logo'] = $logobase64; 
             $data['designation'] = $item['designation'];
             $data['company'] = $item['company'];
@@ -65,7 +65,7 @@ class AluminiController extends Controller
                   
             $logo = $item['company_logo'];
             $logoPath =str_replace('\\', '/', base_path())."/storage/all_web_data/images/alumini_company_logo/" . $logo;
-            $logobase64 = "data:image/png;logobase64," . base64_encode(file_get_contents($logoPath));
+            $logobase64 = "data:image/png;base64," . base64_encode(file_get_contents($logoPath));
             $data['company_logo'] = $logobase64; 
             $data['designation'] = $item['designation'];
             $data['company'] = $item['company'];
