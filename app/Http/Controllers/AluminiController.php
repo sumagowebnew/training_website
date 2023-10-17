@@ -100,8 +100,16 @@ class AluminiController extends Controller
         
             }else{
                     $alumini = new Alumini();
-                    $existingRecord = Alumini::orderBy('id','DESC')->first();
-                    $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
+                    // $existingRecord = Alumini::orderBy('id','DESC')->first();
+                    // $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
+
+
+                    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                    $charactersLength = strlen($characters);
+                    $randomString = '';
+                    for ($i = 0; $i < 18; $i++) {
+                        $randomString .= $characters[rand(0, $charactersLength - 1)];
+                    }
             
                     $img_path = $request->image;
                     $logo_path = $request->company_logo;
@@ -112,7 +120,7 @@ class AluminiController extends Controller
                     $explodeImage = explode("image/", $base64Image[0]);
                     $imageType = $explodeImage[1];
                     $image_base64 = base64_decode($base64Image[1]);
-                    $file = $recordId . '.' . $imageType;
+                    $file = $randomString . '.' . $imageType;
                     $file_dir = $folderPath.$file;
                     file_put_contents($file_dir, $image_base64);
 
@@ -123,7 +131,7 @@ class AluminiController extends Controller
                     $explodeLogo = explode("image/", $base64Logo[0]);
                     $logoType = $explodeLogo[1];
                     $logo_base64 = base64_decode($base64Logo[1]);
-                    $logofile = $recordId . '_logo.' . $logoType;
+                    $logofile = $randomString . '_logo.' . $logoType;
                     $logofile_dir = $folderPath.$logofile;
                     file_put_contents($logofile_dir, $logo_base64);
 
@@ -157,15 +165,19 @@ class AluminiController extends Controller
         
             }else{
                 $alumini = Alumini::find($id);
-                $existingRecord = Alumini::orderBy('id','DESC')->first();
-
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                $charactersLength = strlen($characters);
+                $randomString = '';
+                for ($i = 0; $i < 18; $i++) {
+                    $randomString .= $characters[rand(0, $charactersLength - 1)];
+                }
                 $img_path = $request->image;
                 $folderPath = str_replace('\\', '/', base_path()) ."/uploads/alumini/";
                 $base64Image = explode(";base64,", $img_path);
                 $explodeImage = explode("image/", $base64Image[0]);
                 $imageType = $explodeImage[1];
                 $image_base64 = base64_decode($base64Image[1]);
-                $file = $id . '.' . $imageType;
+                $file = $randomString . '.' . $imageType;
                 $file_dir = $folderPath.$file;
                 file_put_contents($file_dir, $image_base64);
 
@@ -175,7 +187,7 @@ class AluminiController extends Controller
                 $explodeLogo = explode("image/", $base64Logo[0]);
                 $logoType = $explodeLogo[1];
                 $logo_base64 = base64_decode($base64Logo[1]);
-                $logofile = $id . '_logo.' . $logoType;
+                $logofile = $randomString . '_logo.' . $logoType;
                 $logofile_dir = $folderPath.$logofile;
                 file_put_contents($logofile_dir, $logo_base64);
 
