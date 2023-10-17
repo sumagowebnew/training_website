@@ -52,7 +52,7 @@ class EventDetailsController extends Controller
           })
          ->select('event_details.*',
          'events.name'
-         )->where('event_id',$id)->get();
+         )->where('event_details.event_id',$id)->get();
         $response = [];
         foreach ($eventDetails as $item) {
             $data = $item->toArray();

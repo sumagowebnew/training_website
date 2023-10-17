@@ -45,7 +45,6 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('add_mou', 'MouController@add');
     Route::delete('delete_mou/{id}', 'MouController@delete');
 
-    Route::get('get_all_certificate', 'CertificateController@all_certificate');
     Route::post('update_certificate/{id}', 'CertificateController@add');
     Route::post('add_certificate', 'CertificateController@add');
     Route::delete('delete_certificate/{id}', 'CertificateController@delete');
@@ -325,7 +324,7 @@ Route::group([
     Route::get('get_frontevents_bycourse/{id}', 'EventDetailsController@get_events_bycourse');
     Route::get('get_frontevents_byevent/{id}', 'EventDetailsController@get_events_byevent');
     Route::get('get_all_events', 'EventsController@all_events');
-
+    Route::get('get_all_certificate', 'CertificateController@all_certificate');
 
     
     
