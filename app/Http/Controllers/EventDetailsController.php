@@ -47,11 +47,11 @@ class EventDetailsController extends Controller
     public function get_events_byevent(Request $request,$id)
     {
         // Get all data from the database
-        $eventDetails = EventDetails::Join('events', function($join) {
-            $join->on('event_details.event_id', '=', 'events.id');
+        $eventDetails = EventDetails::Join('event_list', function($join) {
+            $join->on('event_details.event_id', '=', 'event_list.id');
           })
          ->select('event_details.*',
-         'events.name'
+         'event_list.title AS event_name'
          )->where('event_details.event_id',$id)->get();
         $response = [];
         foreach ($eventDetails as $item) {
