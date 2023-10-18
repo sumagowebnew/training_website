@@ -48,6 +48,7 @@ class HandonProjectControllerController extends Controller
 
         foreach ($hands_on_pro as $item) {
             $data = $item->toArray();
+            $data['table_name'] = 'handson_project_cateories';
             $response[] = $data;
         }
         // return $response;

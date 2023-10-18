@@ -50,6 +50,8 @@ class OurProgramCitiesController extends Controller
 
         foreach ($award as $item) {
             $data = $item->toArray();
+            $data['table_name'] = 'our_program_cities';
+            
             $response[] = $data;
         }
 

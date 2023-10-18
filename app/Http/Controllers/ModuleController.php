@@ -11,8 +11,17 @@ class ModuleController extends Controller
 {
     public function index(Request $request)
     {
-        $all_data = Module::get()->toArray();
-        return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+        $all_data = Module::get();
+        $response = [];
+
+        foreach ($all_data as $item) {
+            $data = $item->toArray();
+            $data['table_name'] = 'module';
+            $response[] = $data;
+        }
+
+        
+        return response()->json(['data'=>$response,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
     public function Add(Request $request)
     {

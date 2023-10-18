@@ -74,6 +74,9 @@ class SubcourseDetailsController extends Controller
 
             $data['back_image'] = $Newbase64;
             }
+            $data['table_name'] = 'sub_course_details';
+
+            
             $response[] = $data;
         }
 

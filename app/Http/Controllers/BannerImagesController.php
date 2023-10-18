@@ -56,6 +56,7 @@ public function index()
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
             $data['images'] = $base64;
+            $data['table_name'] = 'banner_images';
 
             $response[] = $data;
         }

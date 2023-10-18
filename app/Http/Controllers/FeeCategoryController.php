@@ -12,6 +12,13 @@ class FeeCategoryController extends Controller
     public function index(Request $request)
     {
         $all_data = FeeCategory::get()->toArray();
+        $response = [];
+        foreach ($all_data as $item) {
+            $data = $item->toArray();
+            $data['table_name'] = 'feecategory';
+            $response[] = $data;
+        }
+            
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
 

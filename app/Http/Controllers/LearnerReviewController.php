@@ -99,6 +99,10 @@ class LearnerReviewController extends Controller
 
             $data['image'] = $base64;
 
+            $data['table_name'] = 'learner_review';
+
+            
+
             $response[] = $data;
         }
 
