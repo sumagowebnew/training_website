@@ -19,7 +19,7 @@ class FeeCategoryController extends Controller
             $response[] = $data;
         }
             
-        return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+        return response()->json(['data'=>$response,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
 
 
