@@ -27,6 +27,7 @@ class EventBannerPopupController extends Controller
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
             $data['image'] = $base64;
+            $data['table_name'] = 'event_banner_popup';
 
             $response[] = $data;
         }

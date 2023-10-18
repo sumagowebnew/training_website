@@ -28,6 +28,8 @@ class ToprankedController extends Controller
 
             $data['image'] = $base64;
 
+            $data['table_name'] = 'topranked';
+
             $response[] = $data;
         }
 

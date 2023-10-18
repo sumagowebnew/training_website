@@ -11,7 +11,15 @@ class EventListController extends Controller
 {
     public function index(Request $request)
     {
-        $all_data = EventList::get()->toArray();
+        $all_data = EventList::get();
+        $response = [];
+
+        foreach ($all_data as $item) {
+            $data = $item->toArray();
+            $data['table_name'] = 'event_list';
+
+            $response[] = $data;
+        }
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
     public function Add(Request $request)

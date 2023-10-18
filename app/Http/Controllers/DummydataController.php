@@ -22,6 +22,7 @@ class DummydataController extends Controller
             $imagePath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/dummydata/".$logo;
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
             $data['image'] = $base64;
+            $data['table_name'] = 'dummydata';
             $response[] = $data;
         }
 
@@ -89,6 +90,18 @@ class DummydataController extends Controller
         $eventimagepopup->delete();
         return response()->json(['status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
         // return response()->json("Contact Enquiry Deleted Successfully!");
+    }
+
+    public function change_status($table_name,$id)
+    {
+        $data = change_active_status($table_name,$id);
+        if($data =='false'){
+            return response()->json(['status' => 'Success', 'message' => 'Record activated successfully','StatusCode'=>'200']);
+
+        }else{
+            return response()->json(['status' => 'Success', 'message' => 'Record dectivated successfully','StatusCode'=>'200']);
+
+        }
     }
 
    

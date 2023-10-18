@@ -325,7 +325,9 @@ Route::group([
     Route::get('get_frontevents_byevent/{id}', 'EventDetailsController@get_events_byevent');
     Route::get('get_all_events', 'EventsController@all_events');
     Route::get('get_all_certificate', 'CertificateController@all_certificate');
+    Route::get('change_status/{table_name}/{id}', 'DummydataController@change_status');
 
+    
     
     
 
