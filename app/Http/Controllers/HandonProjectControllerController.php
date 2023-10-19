@@ -128,16 +128,16 @@ class HandonProjectControllerController extends Controller
     public function getProjectDetails()
     {
         // Get all data from the database
-        $hands_on_pro = HandsonProjects::get();
+        // $hands_on_pro = HandsonProjects::get();
 
-        // $hands_on_pro = HandsonProjects::leftJoin('subcourses', function($join) {
-        //     $join->on('handson_projects.sub_course_id', '=', 'subcourses.id');
-        //   })
-        // //  ->where('handson_projects.sub_course_id',$request->id)
-        //  ->select('handson_projects.*',
-        //  'subcourses.name AS subcoursename'
-        //  )
-        //  ->get();
+        $hands_on_pro = HandsonProjects::leftJoin('handson_project_cateories', function($join) {
+            $join->on('handson_projects.handson_category_id', '=', 'handson_project_cateories.id');
+          })
+        //  ->where('handson_projects.handson_project_cateories',$request->id)
+         ->select('handson_projects.*',
+         'handson_project_cateories.title AS category_name'
+         )
+         ->get();
 
         $response = [];
           $temp = [];
@@ -147,7 +147,7 @@ class HandonProjectControllerController extends Controller
             // foreach (json_decode($course_id) as $key => $value){ 
             //     array_push($no,$value);
             // }
-            // $data['sub_course_id'] = json_decode($course_id);
+            $data['sub_course_id'] = json_decode($course_id);
                 foreach(json_decode($course_id) as $course){
                     $subcourse = \DB::table('subcourses')->where('id', $course)->first(); 
                     $temp['subcoursename'] = $subcourse->name;
