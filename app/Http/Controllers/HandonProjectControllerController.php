@@ -136,12 +136,13 @@ class HandonProjectControllerController extends Controller
         //  ->where('handson_projects.handson_project_cateories',$request->id)
          ->select('handson_projects.*',
          'handson_project_cateories.title AS category_name'
-         )
+         )->groupBy('handson_projects.id')
          ->get();
 
         $response = [];
-          $temp = [];
         foreach ($hands_on_pro as $item) {
+            $temp = [];
+
             $data = $item->toArray();
             $course_id = $data['sub_course_id'];
             // foreach (json_decode($course_id) as $key => $value){ 
@@ -149,11 +150,13 @@ class HandonProjectControllerController extends Controller
             // }
             $data['sub_course_id'] = json_decode($course_id);
                 foreach(json_decode($course_id) as $course){
+                    $arr = [];
                     $subcourse = \DB::table('subcourses')->where('id', $course)->first(); 
-                    $temp['subcoursename'] = $subcourse->name;
-                    $temp['sub_course_id'] = $subcourse->id;
-                    array_push($response,$temp);                
+                    $arr['subcoursename'] = $subcourse->name;
+                    $arr['sub_course_id'] = $subcourse->id;
+                    array_push($temp,$arr);                
                 }
+            $data['subcourse_details'] = $temp;
             $response[] = $data;
         }
 

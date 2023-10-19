@@ -17,10 +17,10 @@ class AluminiController extends Controller
         // dd($all_data);
 
         $response = [];
-        $temp = [];
 
 
         foreach ($all_data as $item) {
+            $temp = [];
 
             $image = $item['image'];
             $imagePath =str_replace('\\', '/', base_path())."/storage/all_web_data/images/alumini/" . $image;
@@ -41,11 +41,13 @@ class AluminiController extends Controller
           
             $data['sub_course_id'] = json_decode($course_id);
             foreach(json_decode($course_id) as $course){
+                $arr = [];
                 $subcourse = \DB::table('subcourses')->where('id', $course)->first(); 
-                $temp['subcoursename'] = $subcourse->name;
-                $temp['sub_course_id'] = $subcourse->id;
-                array_push($response,$temp);                
+                $arr['subcoursename'] = $subcourse->name;
+                $arr['sub_course_id'] = $subcourse->id;
+                array_push($temp,$arr);                
             }
+            $data['subcourse_details'] = $temp;
             $response[] = $data;
         }
 
