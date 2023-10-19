@@ -13,7 +13,12 @@ class EventDetailsController extends Controller
     public function index()
     {
         // Get all data from the database
-        $eventDetails = EventDetails::get();
+        $eventDetails = EventDetails::Join('event_list', function($join) {
+            $join->on('event_details.event_id', '=', 'event_list.id');
+          })
+         ->select('event_details.*',
+         'event_list.title AS event_name'
+         )->get();
         $response = [];
         foreach ($eventDetails as $item) {
             $data = $item->toArray();

@@ -44,8 +44,12 @@ class EventListController extends Controller
                 try {
                     $news = new EventList();
                     
-                    $existingRecord = EventList::orderBy('id','DESC')->first();
-                    $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
+                    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                    $charactersLength = strlen($characters);
+                    $randomString = '';
+                    for ($i = 0; $i < 18; $i++) {
+                        $randomString .= $characters[rand(0, $charactersLength - 1)];
+                    }
             
                     $img_path = $request->image;
                     createDirecrotory('/all_web_data/images/eventlist/');
@@ -57,7 +61,7 @@ class EventListController extends Controller
                     $imageType = $explodeImage[1];
                     $image_base64 = base64_decode($base64Image[1]);
             
-                    $file = $recordId . '.' . $imageType;
+                    $file = $randomString . '.' . $imageType;
                     $file_dir = $folderPath.$file;
             
                     file_put_contents($file_dir, $image_base64);
@@ -76,6 +80,13 @@ class EventListController extends Controller
     {
         $count = EventList::find($id);
          
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < 18; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        
         $img_path = $request->image;
         $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/eventlist/";
         
@@ -85,7 +96,7 @@ class EventListController extends Controller
         $imageType = $explodeImage[1];
         $image_base64 = base64_decode($base64Image[1]);
 
-        $file = $id . '.' . $imageType;
+        $file = $randomString . '.' . $imageType;
         $file_dir = $folderPath.$file;
 
         file_put_contents($file_dir, $image_base64);
