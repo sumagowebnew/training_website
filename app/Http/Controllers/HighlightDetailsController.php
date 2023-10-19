@@ -29,6 +29,17 @@ class HighlightDetailsController extends Controller
     public function all_highlightDetails(Request $request)
     {
         $all_data = HighlightDetails::get()->toArray();
+        $all_data = HighlightDetails::join('subcourses', 'subcourses.id', '=', 'faq.highlight_details')
+        ->get(['highlight_details.*','subcourses.name AS subcoursename']);
+
+        $response = [];
+        foreach ($all_data as $item) {
+            $data = $item->toArray();
+            $data['table_name'] = 'highlight_details';
+            $response[] = $data;
+            
+        }
+
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
     public function Add(Request $request)

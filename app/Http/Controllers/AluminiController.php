@@ -17,6 +17,8 @@ class AluminiController extends Controller
         // dd($all_data);
 
         $response = [];
+        $temp = [];
+
 
         foreach ($all_data as $item) {
 
@@ -36,10 +38,14 @@ class AluminiController extends Controller
             $data['id'] = $item['id'];
             $data['is_active'] = $item['is_active'];
             $course_id = $item['sub_course_id'];
-            // foreach (json_decode($course_id) as $key => $value){ 
-            //     array_push($no,$value);
-            // }
+          
             $data['sub_course_id'] = json_decode($course_id);
+            foreach(json_decode($course_id) as $course){
+                $subcourse = \DB::table('subcourses')->where('id', $course)->first(); 
+                $temp['subcoursename'] = $subcourse->name;
+                $temp['sub_course_id'] = $subcourse->id;
+                array_push($response,$temp);                
+            }
             $response[] = $data;
         }
 

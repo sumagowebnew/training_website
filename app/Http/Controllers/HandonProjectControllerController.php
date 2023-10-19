@@ -152,7 +152,8 @@ class HandonProjectControllerController extends Controller
                     $subcourse = \DB::table('subcourses')->where('id', $course)->first(); 
                     $temp['subcoursename'] = $subcourse->name;
                     $temp['sub_course_id'] = $subcourse->id;
-                    array_push($response,$temp);                }
+                    array_push($response,$temp);                
+                }
             $response[] = $data;
         }
 
