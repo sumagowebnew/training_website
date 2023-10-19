@@ -130,16 +130,29 @@ class HandonProjectControllerController extends Controller
         // Get all data from the database
         $hands_on_pro = HandsonProjects::get();
 
-        $response = [];
+        // $hands_on_pro = HandsonProjects::leftJoin('subcourses', function($join) {
+        //     $join->on('handson_projects.sub_course_id', '=', 'subcourses.id');
+        //   })
+        // //  ->where('handson_projects.sub_course_id',$request->id)
+        //  ->select('handson_projects.*',
+        //  'subcourses.name AS subcoursename'
+        //  )
+        //  ->get();
 
+        $response = [];
+          $temp = [];
         foreach ($hands_on_pro as $item) {
             $data = $item->toArray();
             $course_id = $data['sub_course_id'];
             // foreach (json_decode($course_id) as $key => $value){ 
             //     array_push($no,$value);
             // }
-            $data['sub_course_id'] = json_decode($course_id);
-
+            // $data['sub_course_id'] = json_decode($course_id);
+                foreach(json_decode($course_id) as $course){
+                    $subcourse = \DB::table('subcourses')->where('id', $course)->first(); 
+                    $temp['subcoursename'] = $subcourse->name;
+                    $temp['sub_course_id'] = $subcourse->id;
+                    array_push($response,$temp);                }
             $response[] = $data;
         }
 
