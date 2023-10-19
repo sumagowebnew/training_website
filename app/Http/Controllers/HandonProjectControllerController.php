@@ -163,8 +163,9 @@ class HandonProjectControllerController extends Controller
         return response()->json($response);
     }
 
-    public function getCategoryByCouseId(Request $request, $id)
+    public function getCategoryByCouseId(Request $request)
     {
+        $id = $request->input('id');
         // Get all data from the database
         // $hands_on_pro = HandsonProjects::join('handson_project_cateories', function($join) {
         //     $join->on('handson_projects.handson_category_id', '=', 'handson_project_cateories.id');
