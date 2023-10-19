@@ -29,7 +29,7 @@ class HighlightDetailsController extends Controller
     public function all_highlightDetails(Request $request)
     {
         $all_data = HighlightDetails::get()->toArray();
-        $all_data = HighlightDetails::join('subcourses', 'subcourses.id', '=', 'faq.highlight_details')
+        $all_data = HighlightDetails::join('subcourses', 'subcourses.id', '=', 'highlight_details.course_id')
         ->get(['highlight_details.*','subcourses.name AS subcoursename']);
 
         $response = [];
