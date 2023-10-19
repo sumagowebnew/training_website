@@ -46,13 +46,22 @@ class SubcourseDetailsController extends Controller
 
     public function get_subcourse_details_list(Request $request)
     {
-        $all_data = SubcourseDetails::leftJoin('subcourses', function($join) {
-            $join->on('sub_course_details.sub_course_id', '=', 'subcourses.id');
-          })
+        // $all_data = SubcourseDetails::leftJoin('subcourses', function($join) {
+        //     $join->on('sub_course_details.sub_course_id', '=', 'subcourses.id');
+        //   })
+        //   ->select("sub_course_details.*",
+        //   'subcourses.name as subcourses_name'
+        //   )
+        //   ->get();
+
+          $all_data = SubcourseDetails::leftJoin('subcourses', 'subcourses.id', '=', 'sub_course_details.sub_course_id')
+          ->join('coursecategory', 'coursecategory.id', '=', 'sub_course_details.course_id')
           ->select("sub_course_details.*",
-          'subcourses.name as subcourses_name'
+          'subcourses.name as subcourses_name',
+          'coursecategory.name as courses_name'
           )
           ->get();
+
         $response = [];
 
         foreach ($all_data as $item) {
