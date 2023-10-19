@@ -34,6 +34,7 @@ class AluminiController extends Controller
             $data['company'] = $item['company'];
             $data['name'] = $item['name'];
             $data['id'] = $item['id'];
+            $data['is_active'] = $item['is_active'];
             $course_id = $item['sub_course_id'];
             // foreach (json_decode($course_id) as $key => $value){ 
             //     array_push($no,$value);
