@@ -207,13 +207,13 @@ class HandonProjectControllerController extends Controller
         return response()->json(['data'=>$hands_on_pro, 'status' => 'Success', 'message' => 'Data Fetched Successfully','StatusCode'=>'200']);
     }
 
-    public function getHandsonByHandsonId(Request $request, $id)
+    public function getHandsonByHandsonCategoryId(Request $request, $id)
     {
         // Get all data from the database
         $hands_on_pro = HandsonProjects::join('handson_project_cateories', function($join) {
             $join->on('handson_projects.handson_category_id', '=', 'handson_project_cateories.id');
           })
-          ->whereJsonContains('handson_projects.sub_course_id',$id)
+          ->where('handson_projects.handson_category_id',$id)
           ->select([
               'handson_projects.id as handson_projects_id',
               'handson_projects.title as  projects_title',
