@@ -204,7 +204,7 @@ class HandonProjectControllerController extends Controller
             ->groupBy('handson_category_id')
             ->get();
 
-        return response()->json(['data'=>$hands_on_pro, 'status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
+        return response()->json(['data'=>$hands_on_pro, 'status' => 'Success', 'message' => 'Data Fetched Successfully','StatusCode'=>'200']);
     }
 
     public function getHandsonByHandsonId(Request $request, $id)
