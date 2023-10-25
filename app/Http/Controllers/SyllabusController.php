@@ -12,13 +12,22 @@ class SyllabusController extends Controller
     public function index(Request $request)
     {
         // $all_data = Syllabus::where('course_id',$request->id)->get()->toArray();
-        $all_data = Syllabus::Join('module', function($join) {
-            $join->on('syllabus.module_id', '=', 'module.id');
-            $join->on('syllabus.course_id', '=', 'subcourses.id');
-          })
-         ->select('syllabus.*',
-         'module.title','subcourses.name'
-         )->where('course_id',$request->id)->get()->toArray();
+        // $all_data = Syllabus::Join('module', function($join) {
+        //     $join->on('syllabus.module_id', '=', 'module.id');
+        //     $join->on('syllabus.course_id', '=', 'subcourses.id');
+        //   })
+        //  ->select('syllabus.*',
+        //  'module.title','subcourses.name'
+        //  )->where('course_id',$request->id)->get()->toArray();
+
+         $all_data = Syllabus::leftJoin('subcourses', 'subcourses.id', '=', 'syllabus.course_id')
+         ->join('module', 'module.id', '=', 'syllabus.module_id')
+         ->select("syllabus.*",
+         'subcourses.name as subcourses_name',
+         'module.title as module_name'
+         )
+         ->get()->toArray();
+
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
     public function all_syllabus(Request $request)
