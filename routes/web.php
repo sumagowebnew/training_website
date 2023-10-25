@@ -236,10 +236,43 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update_syllabus_pdf/{id}', 'SyllabusPdfController@update');
     Route::delete('delete_syllabus_pdf/{id}', 'SyllabusPdfController@delete');
 
+    Route::get('get_funatworkcategory', 'FunatworkController@index');
+    Route::post('add_funatworkcategory', 'FunatworkController@add');
+    Route::post('update_funatworkcategory/{id}', 'FunatworkController@update');
+    Route::delete('delete_funatworkcategory/{id}', 'FunatworkController@delete');
+
+    Route::get('get_funatworkdetails', 'FunatworkdetailsController@index');
+    Route::post('add_funatworkdetails', 'FunatworkdetailsController@add');
+    Route::post('update_funatworkdetails/{id}', 'FunatworkdetailsController@update');
+    Route::delete('delete_funatworkdetails/{id}', 'FunatworkdetailsController@delete');
 
 
+    Route::get('get_recognitioncategory', 'RecognitioncategoryController@index');
+    Route::post('add_recognitioncategory', 'RecognitioncategoryController@add');
+    Route::post('update_recognitioncategory/{id}', 'RecognitioncategoryController@update');
+    Route::delete('delete_recognitioncategory/{id}', 'RecognitioncategoryController@delete');
+
+    Route::get('get_recognitiondetails', 'RecognitiondetailsController@index');
+    Route::post('add_recognitiondetails', 'RecognitiondetailsController@add');
+    Route::post('update_recognitiondetails/{id}', 'RecognitiondetailsController@update');
+    Route::delete('delete_recognitiondetails/{id}', 'RecognitiondetailsController@delete');
+
+    
+    Route::get('get_moucategory', 'MoucategoryController@index');
+    Route::post('add_moucategory', 'MoucategoryController@add');
+    Route::post('update_moucategory/{id}', 'MoucategoryController@update');
+    Route::delete('delete_moucategory/{id}', 'MoucategoryController@delete');
+
+    Route::get('get_moudetails', 'MoudetailsController@index');
+    Route::post('add_moudetails', 'MoudetailsController@add');
+    Route::post('update_moudetails/{id}', 'MoudetailsController@update');
+    Route::delete('delete_moudetails/{id}', 'MoudetailsController@delete');
+
+    Route::get('get_newsdetails', 'NewsdetailsController@index');
+    Route::post('add_newsdetails', 'NewsdetailsController@add');
+    Route::post('update_newsdetails/{id}', 'NewsdetailsController@update');
+    Route::delete('delete_newsdetails/{id}', 'NewsdetailsController@delete');
    
-
 });
 
 Route::group([
@@ -326,6 +359,15 @@ Route::group([
     Route::get('get_all_events', 'EventsController@all_events');
     Route::get('get_all_certificate', 'CertificateController@all_certificate');
     Route::get('change_status/{table_name}/{id}', 'DummydataController@change_status');
+
+    Route::get('getfront_funatworkcategory', 'FunatworkController@index');
+    Route::get('getfront_funatworkdetails/{id}', 'FunatworkdetailsController@get_funatworkdetails');
+    Route::get('getfront_recognitioncategory', 'RecognitioncategoryController@index');
+    Route::get('getfront_recognitiondetails/{id}', 'RecognitiondetailsController@get_recognitiondetails');
+    Route::get('getfront_moucategory', 'MoucategoryController@index');
+    Route::get('getfront_moudetails/{id}', 'MoudetailsController@get_moudetails');
+    Route::get('getfront_newsdetails', 'NewsdetailsController@index');
+
 
     
     

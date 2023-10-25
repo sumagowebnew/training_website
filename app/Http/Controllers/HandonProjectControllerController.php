@@ -236,9 +236,4 @@ class HandonProjectControllerController extends Controller
         // return response()->json($hands_on_pro);
         return response()->json(['data'=>$hands_on_pro, 'status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
     }
-
-
-    
-
-
 }
