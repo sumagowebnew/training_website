@@ -14,9 +14,10 @@ class SyllabusController extends Controller
         // $all_data = Syllabus::where('course_id',$request->id)->get()->toArray();
         $all_data = Syllabus::Join('module', function($join) {
             $join->on('syllabus.module_id', '=', 'module.id');
+            $join->on('syllabus.course_id', '=', 'subcourses.id');
           })
          ->select('syllabus.*',
-         'module.title'
+         'module.title','subcourses.name'
          )->where('course_id',$request->id)->get()->toArray();
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
@@ -25,9 +26,10 @@ class SyllabusController extends Controller
         // $all_data = Syllabus::get()->toArray();
         $all_data = Syllabus::Join('module', function($join) {
             $join->on('syllabus.module_id', '=', 'module.id');
+            $join->on('syllabus.course_id', '=', 'subcourses.id');
           })
          ->select('syllabus.*',
-         'module.title'
+         'module.title','subcourses.name'
          )->get()->toArray();
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
