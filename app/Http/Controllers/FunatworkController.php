@@ -14,7 +14,11 @@ class FunatworkController extends Controller
         $all_data = Funatwork::get();
         $response = [];
         foreach ($all_data as $item) {
-            $data = $item->toArray();
+            $data = $item->toArray();    
+            $image = $item['image'];
+            $imagePath =str_replace('\\', '/', base_path())."/storage/all_web_data/images/funatworkcategory/" . $image;
+            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+            $data['image'] = $base64; 
             $data['table_name'] = 'funatworkcategory';
             $response[] = $data;
         }
@@ -37,9 +41,27 @@ class FunatworkController extends Controller
             }else{
                 try {
                     $news = new Funatwork();
-                    
+                    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                    $charactersLength = strlen($characters);
+                    $randomString = '';
+                    for ($i = 0; $i < 18; $i++) {
+                        $randomString .= $characters[rand(0, $charactersLength - 1)];
+                    }
+            
+                    $img_path = $request->image;
+
+                    createDirecrotory('/all_web_data/images/funatworkcategory/');
+                    $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/funatworkcategory/";
+                    $base64Image = explode(";base64,", $img_path);
+                    $explodeImage = explode("image/", $base64Image[0]);
+                    $imageType = $explodeImage[1];
+                    $image_base64 = base64_decode($base64Image[1]);
+                    $file = $randomString . '.' . $imageType;
+                    $file_dir = $folderPath.$file;
+                    file_put_contents($file_dir, $image_base64);
+
+                    $news->image = $file;
                     $news->title = $request->title;
-              
                     $news->save();
             
                     return response()->json(['status' => 'Success', 'message' => 'Added successfully','statusCode'=>'200']);
@@ -52,7 +74,25 @@ class FunatworkController extends Controller
     public function update(Request $request, $id)
     {
         $count = Funatwork::find($id);
-      
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < 18; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        $img_path = $request->image;
+
+        $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/funatworkcategory/";
+        $base64Image = explode(";base64,", $img_path);
+        $explodeImage = explode("image/", $base64Image[0]);
+        $imageType = $explodeImage[1];
+        $image_base64 = base64_decode($base64Image[1]);
+        $file = $randomString . '.' . $imageType;
+        $file_dir = $folderPath.$file;
+        file_put_contents($file_dir, $image_base64);
+
+        $count->image = $file;
         $count->title = $request->title;
 
         $update_data = $count->update();
