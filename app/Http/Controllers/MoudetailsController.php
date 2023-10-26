@@ -12,7 +12,9 @@ class MoudetailsController extends Controller
     public function index(Request $request)
     {
         // $moudetails = Moudetails::where('course_id',$request->id)->get();
-        $moudetails = Moudetails::get();
+        // $moudetails = Moudetails::get();
+        $moudetails = Moudetails::join('moucategory', 'moucategory.id', '=', 'moudetails.moucategoryid')
+        ->get(['moudetails.*', 'moucategory.title AS category_name']);
 
         $response = [];
 
@@ -26,6 +28,7 @@ class MoudetailsController extends Controller
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
             $data['image'] = $base64;
+            $data['table_name'] = 'moudetails';
 
             $response[] = $data;
         }
@@ -35,11 +38,14 @@ class MoudetailsController extends Controller
 
     public function get_moudetails(Request $request,$id)
     {
-        $moudetails = Moudetails::where('moucategoryid',$id)->get();
+        // \DB::enableQueryLog();
 
+        $moudetailshh = Moudetails::join('moucategory', 'moucategory.id', '=', 'moudetails.moucategoryid')
+        ->get(['moudetails.*', 'moucategory.title AS category_name']);
+        // dd(\DB::getQueryLog());
         $response = [];
 
-        foreach ($moudetails as $item) {
+        foreach ($moudetailshh as $item) {
             $data = $item->toArray();
 
             $logo = $data['image'];

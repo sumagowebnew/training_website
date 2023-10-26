@@ -12,8 +12,8 @@ class FunatworkdetailsController extends Controller
     public function index(Request $request)
     {
         // $funatworkdetails = Funatworkdetails::where('course_id',$request->id)->get();
-        $funatworkdetails = Funatworkdetails::get();
-
+        $funatworkdetails = Funatworkdetails::join('funatworkcategory', 'funatworkcategory.id', '=', 'funatworkdetails.funatworkcategoryid')
+        ->get(['funatworkdetails.*', 'funatworkcategory.title AS category_name']);
         $response = [];
 
         foreach ($funatworkdetails as $item) {
@@ -27,6 +27,9 @@ class FunatworkdetailsController extends Controller
 
             $data['image'] = $base64;
 
+
+            $data['table_name'] = 'funatworkdetails';
+
             $response[] = $data;
         }
 
@@ -35,7 +38,9 @@ class FunatworkdetailsController extends Controller
 
     public function get_funatworkdetails(Request $request,$id)
     {
-        $funatworkdetails = Funatworkdetails::where('funatworkcategoryid',$id)->get();
+        // $funatworkdetails = Funatworkdetails::where('funatworkcategoryid',$id)->get();
+        $funatworkdetails = Funatworkdetails::join('funatworkcategory', 'funatworkcategory.id', '=', 'funatworkdetails.funatworkcategoryid')
+        ->where('funatworkdetails.funatworkcategoryid',$id)->get(['funatworkdetails.*', 'funatworkcategory.title AS category_name']);
 
         $response = [];
 
