@@ -12,7 +12,9 @@ class RecognitiondetailsController extends Controller
     public function index(Request $request)
     {
         // $recognitiondetails = Recognitiondetails::where('course_id',$request->id)->get();
-        $recognitiondetails = Recognitiondetails::get();
+        // $recognitiondetails = Recognitiondetails::get();
+        $recognitiondetails = Recognitiondetails::join('recognitioncategory', 'recognitioncategory.id', '=', 'recognitiondetails.recognitioncategoryid')
+        ->get(['recognitiondetails.*', 'recognitioncategory.title AS category_name']);
 
         $response = [];
 
@@ -27,6 +29,9 @@ class RecognitiondetailsController extends Controller
 
             $data['image'] = $base64;
 
+            $data['table_name'] = 'recognitiondetails';
+
+
             $response[] = $data;
         }
 
@@ -35,7 +40,9 @@ class RecognitiondetailsController extends Controller
 
     public function get_recognitiondetails(Request $request,$id)
     {
-        $recognitiondetails = Recognitiondetails::where('recognitioncategoryid',$id)->get();
+        // $recognitiondetails = Recognitiondetails::where('recognitioncategoryid',$id)->get();
+        $recognitiondetails = Recognitiondetails::join('recognitioncategory', 'recognitioncategory.id', '=', 'recognitiondetails.recognitioncategoryid')
+        ->where('recognitiondetails.recognitioncategoryid',$id)->get(['recognitiondetails.*', 'recognitioncategory.title AS category_name']);
 
         $response = [];
 
