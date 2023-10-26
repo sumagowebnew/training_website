@@ -15,6 +15,10 @@ class RecognitioncategoryController extends Controller
         $response = [];
         foreach ($all_data as $item) {
             $data = $item->toArray();
+            $image = $item['image'];
+            $imagePath =str_replace('\\', '/', base_path())."/storage/all_web_data/images/recognisationcategory/" . $image;
+            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+            $data['image'] = $base64; 
             $data['table_name'] = 'recognitioncategory';
             $response[] = $data;
         }
@@ -37,7 +41,26 @@ class RecognitioncategoryController extends Controller
             }else{
                 try {
                     $news = new Recognitioncategory();
-                    
+                    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                    $charactersLength = strlen($characters);
+                    $randomString = '';
+                    for ($i = 0; $i < 18; $i++) {
+                        $randomString .= $characters[rand(0, $charactersLength - 1)];
+                    }
+            
+                    $img_path = $request->image;
+
+                    createDirecrotory('/all_web_data/images/recognisationcategory/');
+                    $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/recognisationcategory/";
+                    $base64Image = explode(";base64,", $img_path);
+                    $explodeImage = explode("image/", $base64Image[0]);
+                    $imageType = $explodeImage[1];
+                    $image_base64 = base64_decode($base64Image[1]);
+                    $file = $randomString . '.' . $imageType;
+                    $file_dir = $folderPath.$file;
+                    file_put_contents($file_dir, $image_base64);
+
+                    $news->image = $file;
                     $news->title = $request->title;
               
                     $news->save();
@@ -52,7 +75,25 @@ class RecognitioncategoryController extends Controller
     public function update(Request $request, $id)
     {
         $count = Recognitioncategory::find($id);
-      
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < 18; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        $img_path = $request->image;
+
+        $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/recognisationcategory/";
+        $base64Image = explode(";base64,", $img_path);
+        $explodeImage = explode("image/", $base64Image[0]);
+        $imageType = $explodeImage[1];
+        $image_base64 = base64_decode($base64Image[1]);
+        $file = $randomString . '.' . $imageType;
+        $file_dir = $folderPath.$file;
+        file_put_contents($file_dir, $image_base64);
+
+        $count->image = $file;
         $count->title = $request->title;
 
         $update_data = $count->update();
