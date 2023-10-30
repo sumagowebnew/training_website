@@ -365,7 +365,7 @@ Route::group([
     Route::get('getfront_recognitioncategory', 'RecognitioncategoryController@index');
     Route::get('getfront_recognitiondetails/{id}', 'RecognitiondetailsController@get_recognitiondetails');
     Route::get('getfront_moucategory', 'MoucategoryController@index');
-    Route::get('getfront_moudetails/{id}', 'MoudetailsController@get_moudetails');
+    Route::get('getfront_moudetails', 'MoudetailsController@get_moudetails');
     Route::get('getfront_newsdetails', 'NewsdetailsController@index');
 
 

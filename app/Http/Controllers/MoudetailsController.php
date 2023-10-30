@@ -36,7 +36,7 @@ class MoudetailsController extends Controller
         return response()->json($response);
     }
 
-    public function get_moudetails(Request $request,$id)
+    public function get_moudetails(Request $request)
     {
         // \DB::enableQueryLog();
 
