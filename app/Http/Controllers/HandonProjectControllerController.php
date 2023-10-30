@@ -151,7 +151,9 @@ class HandonProjectControllerController extends Controller
             $data['sub_course_id'] = json_decode($course_id);
                 foreach(json_decode($course_id) as $course){
                     $subcourse = \DB::table('subcourses')->where('id', $course)->first(); 
-                    array_push($temp,$subcourse->name);                
+                    if($subcourse){
+                    array_push($temp,$subcourse->name);    
+                    }            
                 
                 }
                 $data['subcourse_details'] = $temp;
