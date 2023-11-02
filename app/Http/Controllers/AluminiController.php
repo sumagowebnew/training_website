@@ -178,7 +178,9 @@ class AluminiController extends Controller
                     $randomString .= $characters[rand(0, $charactersLength - 1)];
                 }
                 $img_path = $request->image;
-                $folderPath = str_replace('\\', '/', base_path()) ."/uploads/alumini/";
+                // $folderPath = str_replace('\\', '/', base_path()) ."/uploads/alumini/";
+                $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/alumini/";      
+
                 $base64Image = explode(";base64,", $img_path);
                 $explodeImage = explode("image/", $base64Image[0]);
                 $imageType = $explodeImage[1];
@@ -191,7 +193,7 @@ class AluminiController extends Controller
                 for ($i = 0; $i < 18; $i++) {
                     $randomString .= $characters[rand(0, $charactersLength - 1)];
                 }
-                
+
                 $logo_path = $request->company_logo;
                 $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/alumini_company_logo/";      
                 $base64Logo = explode(";base64,", $logo_path);
