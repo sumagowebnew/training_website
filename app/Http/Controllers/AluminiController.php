@@ -187,6 +187,11 @@ class AluminiController extends Controller
                 $file_dir = $folderPath.$file;
                 file_put_contents($file_dir, $image_base64);
 
+                $randomString = '';
+                for ($i = 0; $i < 18; $i++) {
+                    $randomString .= $characters[rand(0, $charactersLength - 1)];
+                }
+                
                 $logo_path = $request->company_logo;
                 $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/alumini_company_logo/";      
                 $base64Logo = explode(";base64,", $logo_path);
