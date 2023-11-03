@@ -49,7 +49,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('add_certificate', 'CertificateController@add');
     Route::delete('delete_certificate/{id}', 'CertificateController@delete');
 
-    Route::post('update_topranked/{id}', 'ToprankedController@add');
+    Route::post('update_topranked/{id}', 'ToprankedController@update');
     Route::post('add_topranked', 'ToprankedController@add');
     Route::delete('delete_topranked/{id}', 'ToprankedController@delete');
 
