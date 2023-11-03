@@ -53,7 +53,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('add_topranked', 'ToprankedController@add');
     Route::delete('delete_topranked/{id}', 'ToprankedController@delete');
 
-    Route::post('update_emptygrid/{id}', 'DummydataController@add');
+    Route::post('update_emptygrid/{id}', 'DummydataController@update');
     Route::post('add_emptygrid', 'DummydataController@add');
     Route::delete('delete_emptygrid/{id}', 'DummydataController@delete');
 

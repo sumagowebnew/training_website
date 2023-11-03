@@ -11,7 +11,7 @@ class FeeCategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $all_data = FeeCategory::get()->toArray();
+        $all_data = FeeCategory::get();
         $response = [];
         foreach ($all_data as $item) {
             $data = $item->toArray();

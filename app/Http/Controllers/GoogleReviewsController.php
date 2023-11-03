@@ -92,12 +92,11 @@ class GoogleReviewsController extends Controller
             $imageType = $explodeImage[1];
             $image_base64 = base64_decode($base64Image[1]);
     
-            $file = $id . '.' . $imageType;
+            $file = $id.'_updated' . '.' . $imageType;
             $file_dir = $folderPath.$file;
     
             file_put_contents($file_dir, $image_base64);
             $googlereviews->image = $file;
-
             $update_data = $googlereviews->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
     }

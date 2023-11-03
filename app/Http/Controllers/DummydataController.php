@@ -64,7 +64,6 @@ class DummydataController extends Controller
     public function update(Request $request, $id)
     {
         $image = $request->image;
-        createDirecrotory('/all_web_data/images/dummydata/');
         $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/dummydata/";
         
         $base64Image = explode(";base64,", $image);
