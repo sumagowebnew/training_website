@@ -153,24 +153,25 @@ public function index()
 
     public function update(Request $request, $id)
     {
-        $existingRecord = BannerImages::first();
-        $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
-
-        $img_path = $request->images;
-        $folderPath = str_replace('\\', '/', base_path()) ."/all_web_data/images/bannerImages/";
-        $base64Image = explode(";base64,", $img_path);
+        $image = $request->images;
+        createDirecrotory('/all_web_data/images/bannerImages/');
+        $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/bannerImages/";
+        
+        $base64Image = explode(";base64,", $image);
         $explodeImage = explode("image/", $base64Image[0]);
         $imageType = $explodeImage[1];
         $image_base64 = base64_decode($base64Image[1]);
 
-        $file = $recordId . '.' . $imageType;
-        $file_dir = $folderPath . $file;
+        $file = $id . '_updated.' . $imageType;
+        $file_dir = $folderPath.$file;
 
         file_put_contents($file_dir, $image_base64);
-        $courses = BannerImages::find($id);
-        $courses->images = $file;
-      
-        $update_data = $courses->update();
+
+        $image = BannerImages::find($id);
+        $image->images = $file;
+        $image->title = $request->input('title');
+        $image->description = $request->input('description');
+        $image->save();
         return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
     }
 
