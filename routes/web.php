@@ -34,7 +34,10 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::delete('delete_award/{id}', 'AwardController@delete');
 
     Route::post('add_news', 'NewsController@add');
+    Route::post('update_news/{id}', 'NewsController@update');
+
     Route::delete('delete_news/{id}', 'NewsController@delete');
+
 
     Route::post('add_celebration', 'CelebrationController@add');
     Route::delete('delete_celebration/{id}', 'CelebrationController@delete');
@@ -45,7 +48,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('add_mou', 'MouController@add');
     Route::delete('delete_mou/{id}', 'MouController@delete');
 
-    Route::post('update_certificate/{id}', 'CertificateController@add');
+    Route::post('update_certificate/{id}', 'CertificateController@update');
     Route::post('add_certificate', 'CertificateController@add');
     Route::delete('delete_certificate/{id}', 'CertificateController@delete');
 

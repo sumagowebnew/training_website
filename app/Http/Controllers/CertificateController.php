@@ -105,7 +105,7 @@ class CertificateController extends Controller
             }
     }
 
-    public function Update(Request $request,$id)
+    public function update(Request $request,$id)
     {
         $validator = Validator::make($request->all(), [
             'image'=>'required',
@@ -132,7 +132,8 @@ class CertificateController extends Controller
                     $imageType = $explodeImage[1];
                     $image_base64 = base64_decode($base64Image[1]);
             
-                    $file = $recordId . '.' . $imageType;
+                    $file = $id.'_updated' . '.' . $imageType;
+
                     $file_dir = $folderPath . $file;
             
                     file_put_contents($file_dir, $image_base64);

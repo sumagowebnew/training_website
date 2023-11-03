@@ -74,6 +74,38 @@ class NewsController extends Controller
                 }
             }
     }
+    public function update(Request $request,$id)
+    {
+        $validator = Validator::make($request->all(), [
+            'image'=>'required',
+            ]);
+        
+            if ($validator->fails())
+            {
+                    return $validator->errors()->all();
+            }else{
+                try {
+                    $news = News::find($id);
+                    $existingRecord = News::orderBy('id','DESC')->first();
+                    $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
+                    $img_path = $request->image;
+                    $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/company_news/";
+                    $base64Image = explode(";base64,", $img_path);
+                    $explodeImage = explode("image/", $base64Image[0]);
+                    $imageType = $explodeImage[1];
+                    $image_base64 = base64_decode($base64Image[1]);
+                    $file = $id.'_updated' . '.' . $imageType;
+                    $file_dir = $folderPath . $file;
+                    file_put_contents($file_dir, $image_base64);
+                    $news->image = $file;
+                    $news->update();
+                    return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
+                } 
+                catch (Exception $e) {
+                    return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+                }
+            }
+    }
     public function delete($id)
     {
         $all_data=[];
