@@ -110,7 +110,8 @@ class EventBannerPopupController extends Controller
 
         file_put_contents($file_dir, $image_base64);
             $contact_details = EventBannerPopup::find($id);
-           
+            $contact_details->image = $file;
+
             $update_data = $contact_details->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
 
