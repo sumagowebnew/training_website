@@ -162,7 +162,7 @@ public function index()
         $imageType = $explodeImage[1];
         $image_base64 = base64_decode($base64Image[1]);
 
-        $file = $id . '_updated.' . $imageType;
+        $file = $id.'_updated' . '.' . $imageType;
         $file_dir = $folderPath.$file;
 
         file_put_contents($file_dir, $image_base64);
