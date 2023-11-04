@@ -11,18 +11,26 @@ class MentorController extends Controller
 {
     public function index(Request $request)
     {
-        $all_data = Mentor::where('course_id',$request->id)->get();
+        // $all_data = Mentor::where('course_id',$request->id)->get();
+        $all_data = Mentor::leftJoin('subcourses', 'subcourses.id', '=', 'mentor.course_id')
+         ->select("mentor.*",
+         'subcourses.name as subcourse_name',
+         )->where('mentor.course_id',$request->id)
+         ->get();
         $response = [];
 
         foreach ($all_data as $item) {
             $data = $item->toArray();
             $logo = $data['image'];
-
+            if(!empty($logo)){  
             $imagePath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/mentor_images/".$logo;
 
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
 
             $data['image'] = $base64;
+            }else{
+                $data['image'] = '';
+            }
 
             $response[] = $data;
         }
@@ -33,7 +41,11 @@ class MentorController extends Controller
 
     public function all_mentors(Request $request)
     {
-        $all_data = Mentor::get();
+        // $all_data = Mentor::get();
+        $all_data = Mentor::leftJoin('subcourses', 'subcourses.id', '=', 'mentor.course_id')
+         ->select("mentor.*",
+         'subcourses.name as subcourse_name',
+         )->get();
         $response = [];
 
         foreach ($all_data as $item) {
