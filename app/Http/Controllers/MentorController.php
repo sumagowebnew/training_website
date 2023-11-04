@@ -75,7 +75,9 @@ class MentorController extends Controller
             'name'=>'required',
             'designation'=>'required',
             'company'=>'required',
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            // 'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'image'=>'required',
+
             'course_id'=>'required'
 
             ]);
@@ -118,7 +120,8 @@ class MentorController extends Controller
             'name'=>'required',
             'designation'=>'required',
             'company'=>'required',
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            // 'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'image'=>'required',
             'course_id'=>'required'
 
             ]);
