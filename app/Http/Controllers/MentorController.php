@@ -63,7 +63,7 @@ class MentorController extends Controller
             'name'=>'required',
             'designation'=>'required',
             'company'=>'required',
-            'image'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
             'course_id'=>'required'
 
             ]);
@@ -106,7 +106,7 @@ class MentorController extends Controller
             'name'=>'required',
             'designation'=>'required',
             'company'=>'required',
-            'image'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
             'course_id'=>'required'
 
             ]);
@@ -134,7 +134,7 @@ class MentorController extends Controller
                     $count->image = $file;
                     $count->designation = $request->designation;
                     $count->company = $request->company;
-                    $count->course_id = $request->course_id;
+                    $count->course_id = json_encode($request->course_id);
                     $update_data = $count->update();
                     return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
                 }

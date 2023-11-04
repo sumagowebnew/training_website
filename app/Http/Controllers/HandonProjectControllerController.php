@@ -31,11 +31,22 @@ class HandonProjectControllerController extends Controller
 
     public function updateCategory(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'title'=>'required',
+            ]);
+        
+        if ($validator->fails())
+        {
+            return $validator->errors()->all();
+    
+        }else
+        {
         
             $contact_details = HandsonProjectCategories::find($id);
             $contact_details->title = $request->title;
             $update_data = $contact_details->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+        }
 
     }
 

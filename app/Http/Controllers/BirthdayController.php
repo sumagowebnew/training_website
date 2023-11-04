@@ -36,7 +36,7 @@ class BirthdayController extends Controller
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'image'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
             ]);
         
             if ($validator->fails())

@@ -36,7 +36,7 @@ class GetHiredController extends Controller
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'image'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
             'title'=>'required',
             'description'=>'required',
             ]);
@@ -79,6 +79,17 @@ class GetHiredController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'title'=>'required',
+            'description'=>'required',
+            ]);
+        
+            if ($validator->fails())
+            {
+                    return $validator->errors()->all();
+        
+            }else{
         $count = GetHired::find($id);
         $existingRecord = GetHired::orderBy('id','DESC')->first();
    
@@ -100,6 +111,7 @@ class GetHiredController extends Controller
 
         $update_data = $count->update();
         return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+    }
     }
     public function delete($id)
     {

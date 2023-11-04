@@ -36,13 +36,22 @@ class HomeCounterController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'count' => 'required|numeric',
+            'name'=>'required',
+            ]);
         
+        if ($validator->fails()) {
+                return $validator->errors()->all();
+    
+        }else{
             $count = HomeCounter::find($id);
             $count->name = $request->name;
             $count->count = $request->count;
 
             $update_data = $count->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+        }
     }
 
     public function delete($id)

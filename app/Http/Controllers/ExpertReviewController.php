@@ -36,7 +36,7 @@ class ExpertReviewController extends Controller
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'image'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
             'review'=>'required',
             'name'=>'required',
             'company_position'=>'required',
@@ -84,6 +84,19 @@ class ExpertReviewController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'review'=>'required',
+            'name'=>'required',
+            'company_position'=>'required',
+
+            ]);
+        
+            if ($validator->fails())
+            {
+                    return $validator->errors()->all();
+        
+            }else{
         $existingRecord = ExpertReview::first();
         $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
 
@@ -104,6 +117,7 @@ class ExpertReviewController extends Controller
 
         $update_data = $courses->update();
         return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+            }
     }
 
     public function delete($id)

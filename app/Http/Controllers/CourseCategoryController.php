@@ -41,6 +41,7 @@ class CourseCategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048'
             ]);
         
             if ($validator->fails()) {
@@ -75,6 +76,15 @@ class CourseCategoryController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'name'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048'
+            ]);
+        
+        if ($validator->fails())
+        {
+            return $validator->errors()->all();
+        }else{
         $count = CourseCategory::find($id);
         $image = $request->image;
         createDirecrotory('/all_web_data/images/courseImage/');
@@ -95,6 +105,7 @@ class CourseCategoryController extends Controller
 
         $update_data = $count->update();
         return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+            }
     }
 
     public function delete($id)

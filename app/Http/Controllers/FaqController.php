@@ -72,6 +72,17 @@ class FaqController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'course_id'=>'required',
+            'question'=>'required',
+            'answer'=>'required',
+            ]);
+        
+            if ($validator->fails())
+            {
+                    return $validator->errors()->all();
+        
+            }else{
         $count = Faq::find($id);
         $count->question = $request->question;
         $count->answer = $request->answer;
@@ -79,6 +90,7 @@ class FaqController extends Controller
 
         $update_data = $count->update();
         return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+            }
     }
     public function delete($id)
     {

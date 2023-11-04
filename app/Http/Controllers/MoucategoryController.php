@@ -31,6 +31,7 @@ class MoucategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
         
             ]);
         
@@ -67,13 +68,24 @@ class MoucategoryController extends Controller
             
                     return response()->json(['status' => 'Success', 'message' => 'Added successfully','statusCode'=>'200']);
                 } 
-                catch (Exception $e) {
+                catch (Exception $e) { 
                     return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
                 }
             }
     }
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'title'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+        
+            ]);
+        
+            if ($validator->fails())
+            {
+                    return $validator->errors()->all();
+        
+            }else{
         $count = Moucategory::find($id);
         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
         $charactersLength = strlen($characters);
@@ -98,6 +110,7 @@ class MoucategoryController extends Controller
 
         $update_data = $count->update();
         return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+    }
     }
     public function delete($id)
     {

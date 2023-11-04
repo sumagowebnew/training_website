@@ -33,7 +33,7 @@ class DummydataController extends Controller
     {
         $validator = Validator::make($request->all(),
         [
-            'image'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
         ]);
         
         if($validator->fails())
@@ -63,6 +63,15 @@ class DummydataController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(),
+        [
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+        ]);
+        
+        if($validator->fails())
+        {
+                return $validator->errors()->all();
+        }else{
         $image = $request->image;
         $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/dummydata/";
         
@@ -79,6 +88,7 @@ class DummydataController extends Controller
             $contact_details->image = $file;
             $update_data = $contact_details->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+        }
 
     }
  

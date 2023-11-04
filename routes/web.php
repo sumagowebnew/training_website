@@ -328,6 +328,9 @@ Route::group([
     Route::get('get_subcourse/{id}', 'SubcoursesController@index');
     Route::get('get_all_subcourses', 'SubcoursesController@all_course');
     Route::get('get_subcourse_details/{id}', 'SubcourseDetailsController@index');
+    Route::get('get_dashboard_count', 'DashboardController@get_dashboard_count');
+
+    
 
     Route::get('get_module', 'ModuleController@index');
     Route::get('get_highlight', 'HighlightController@index');

@@ -24,11 +24,17 @@ class EventsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'=>'required',
+            'start_time'=>'required',
+            'start_date'=>'required',
+            'duration'=>'required',
+            'registered_people'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'event_id'=>'required',
             ]);
         
-            if ($validator->fails()) {
-                    return $validator->errors()->all();
-        
+            if ($validator->fails())
+            {
+                return $validator->errors()->all();
                 }else{
                         $programs = new Events();
                         $existingRecord = Events::orderBy('id','DESC')->first();
@@ -65,6 +71,12 @@ class EventsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'=>'required',
+            'start_time'=>'required',
+            'start_date'=>'required',
+            'duration'=>'required',
+            'registered_people'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'event_id'=>'required',
             ]);
         
         if ($validator->fails()) {

@@ -66,7 +66,7 @@ class FunatworkdetailsController extends Controller
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'image'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
             'title'=>'required',
             'description'=>'required',
             ]);
@@ -114,7 +114,7 @@ class FunatworkdetailsController extends Controller
     public function Update(Request $request,$id)
     {
         $validator = Validator::make($request->all(), [
-            'image'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
             'title'=>'required',
             'description'=>'required',
             ]);

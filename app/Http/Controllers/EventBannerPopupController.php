@@ -39,7 +39,7 @@ class EventBannerPopupController extends Controller
     {
         $validator = Validator::make($request->all(),
         [
-            'image'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
         ]);
         
         if($validator->fails())
@@ -96,6 +96,15 @@ class EventBannerPopupController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(),
+        [
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+        ]);
+        
+        if($validator->fails())
+        {
+                return $validator->errors()->all();
+        }else{
         $image = $request->image;
         createDirecrotory('/all_web_data/images/eventbannerpopup/');
         $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/eventbannerpopup/";
@@ -114,6 +123,7 @@ class EventBannerPopupController extends Controller
 
             $update_data = $contact_details->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+        }
 
     }
     

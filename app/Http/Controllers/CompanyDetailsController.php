@@ -14,6 +14,7 @@ class CompanyDetailsController extends Controller
             'mobile_no'=>'required',
             'email_id'=>'required',
             'address' => 'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
             ]);
         
         if ($validator->fails())
@@ -50,6 +51,19 @@ class CompanyDetailsController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'mobile_no'=>'required',
+            'email_id'=>'required',
+            'address' => 'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            ]);
+        
+        if ($validator->fails())
+        {
+            return $validator->errors()->all();
+    
+        }else
+        {
         $image = $request->image;
         createDirecrotory('/all_web_data/images/companyDetails/');
         $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/companyDetails/";
@@ -69,6 +83,7 @@ class CompanyDetailsController extends Controller
             $contact_details->address = $request->address;
             $update_data = $contact_details->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+        }
 
     }
 

@@ -53,8 +53,8 @@ class ApplynowController extends Controller
             'contact' => 'required|numeric|digits:10|min:8',
             'email'=>'required|email',
             'technology'=>'required',
-            'cv'=>'required',
-            'cover_letter'=>'required',
+            'cv'=>'required|file|size:2048',
+            'cover_letter'=>'required|file|size:2048',
             'duration'=>'required'
             ]);
 

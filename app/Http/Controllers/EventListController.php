@@ -34,6 +34,7 @@ class EventListController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
         ]);
         
             if ($validator->fails())
@@ -78,6 +79,17 @@ class EventListController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'title'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+        ]);
+        
+            if ($validator->fails())
+            {
+                    return $validator->errors()->all();
+        
+            }else{
+
         $count = EventList::find($id);
          
         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
@@ -105,6 +117,7 @@ class EventListController extends Controller
 
         $update_data = $count->update();
         return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+    }
     }
     public function delete($id)
     {

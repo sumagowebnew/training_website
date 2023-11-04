@@ -38,7 +38,17 @@ class BrochureController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'name'=>'required',
+            'email'=>'required|email',
+            'contact' => 'required|numeric|digits:10',
+            ]);
         
+        if ($validator->fails())
+        {
+                return $validator->errors()->all();
+        }else{
+
             $brochure = Brochure::find($id);
             $brochure->name = $request->name;
             $brochure->email = $request->email;
@@ -46,6 +56,7 @@ class BrochureController extends Controller
 
             $update_data = $brochure->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+        }
     }
     public function delete($id)
     {

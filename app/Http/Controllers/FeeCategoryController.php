@@ -51,12 +51,23 @@ class FeeCategoryController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'title'=>'required',
+        
+            ]);
+        
+            if ($validator->fails())
+            {
+                    return $validator->errors()->all();
+        
+            }else{
         $count = FeeCategory::find($id);
       
         $count->title = $request->title;
 
         $update_data = $count->update();
         return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+            }
     }
     public function delete($id)
     {

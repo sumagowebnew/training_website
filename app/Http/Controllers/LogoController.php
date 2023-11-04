@@ -13,6 +13,7 @@ class LogoController extends Controller
         $validator = Validator::make($request->all(), [
             'title'=>'required',
             'description'=>'required',
+            'image' =>'required|mimes:jpeg,png,jpg|size:2048',
             ]);
         
         if ($validator->fails())
@@ -49,6 +50,18 @@ class LogoController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'title'=>'required',
+            'description'=>'required',
+            'image' =>'required|mimes:jpeg,png,jpg|size:2048',
+            ]);
+        
+        if ($validator->fails())
+        {
+            return $validator->errors()->all();
+    
+        }else
+        {
         $image = $request->image;
         createDirecrotory('/all_web_data/images/logo/');
         $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/logo/";
@@ -67,6 +80,7 @@ class LogoController extends Controller
             $contact_details->description = $request->description;
             $update_data = $contact_details->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+        }
 
     }
 

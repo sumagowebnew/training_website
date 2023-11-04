@@ -89,7 +89,7 @@ public function index()
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'images'=>'required',
+            'images'=>'required|mimes:jpeg,png,jpg|size:2048',
             ]);
         
             if ($validator->fails()) {
@@ -153,6 +153,13 @@ public function index()
 
     public function update(Request $request, $id)
     {
+    $validator = Validator::make($request->all(), [
+        'images'=>'required|mimes:jpeg,png,jpg|size:2048',
+        ]);
+    
+        if ($validator->fails()) {
+        return $validator->errors()->all();
+        }else{
         $image = $request->images;
         createDirecrotory('/all_web_data/images/bannerImages/');
         $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/bannerImages/";
@@ -173,6 +180,7 @@ public function index()
         $image->description = $request->input('description');
         $image->save();
         return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+        }
     }
 
     public function delete($id)

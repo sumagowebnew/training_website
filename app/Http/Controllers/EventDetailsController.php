@@ -86,11 +86,11 @@ class EventDetailsController extends Controller
             'description'=>'required',
             'event_id'=>'required',
             'subcourse_id'=>'required',
+            'image'=> 'required||mimes:jpeg,png,jpg|size:2048',
             ]);
         
             if ($validator->fails()) {
                     return $validator->errors()->all();
-        
                 }else{
                     $existingRecord = EventDetails::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
@@ -121,28 +121,41 @@ class EventDetailsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $existingRecord = EventDetails::first();
-        $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
+        $validator = Validator::make($request->all(), [
+            'title'=>'required',
+            'description'=>'required',
+            'event_id'=>'required',
+            'subcourse_id'=>'required',
+            'image'=> 'required||mimes:jpeg,png,jpg|size:2048',
+            ]);
+        
+            if ($validator->fails())
+            {
+                return $validator->errors()->all();
+            }else{
+                $existingRecord = EventDetails::first();
+                $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
 
-        $img_path = $request->image;
-        $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/eventDetails/";
-        $base64Image = explode(";base64,", $img_path);
-        $explodeImage = explode("image/", $base64Image[0]);
-        $imageType = $explodeImage[1];
-        $image_base64 = base64_decode($base64Image[1]);
+                $img_path = $request->image;
+                $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/eventDetails/";
+                $base64Image = explode(";base64,", $img_path);
+                $explodeImage = explode("image/", $base64Image[0]);
+                $imageType = $explodeImage[1];
+                $image_base64 = base64_decode($base64Image[1]);
 
-        $file = $recordId . '.' . $imageType;
-        $file_dir = $folderPath . $file;
+                $file = $recordId . '.' . $imageType;
+                $file_dir = $folderPath . $file;
 
-        file_put_contents($file_dir, $image_base64);
-        $courses = EventDetails::find($id);
-        $courses->image = $file;
-        $courses->title = $request->title;
-        $courses->description = $request->description;
-        $courses->event_id = $request->event_id;
-        $courses->subcourse_id = $request->subcourse_id;
-        $update_data = $courses->update();
-        return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+                file_put_contents($file_dir, $image_base64);
+                $courses = EventDetails::find($id);
+                $courses->image = $file;
+                $courses->title = $request->title;
+                $courses->description = $request->description;
+                $courses->event_id = $request->event_id;
+                $courses->subcourse_id = $request->subcourse_id;
+                $update_data = $courses->update();
+                return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+            }
     }
 
     public function delete($id)

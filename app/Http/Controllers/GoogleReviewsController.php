@@ -39,7 +39,7 @@ class GoogleReviewsController extends Controller
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'image'=>'required',
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
             ]);
         
             if ($validator->fails())
@@ -81,7 +81,15 @@ class GoogleReviewsController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            ]);
         
+            if ($validator->fails())
+            {
+                    return $validator->errors()->all();
+        
+            }else{
             $googlereviews = GoogleReviews::find($id);
             $img_path = $request->image;
             // $folderPath = str_replace('\\', '/', base_path()) ."/uploads/googlereviews/";
@@ -99,6 +107,7 @@ class GoogleReviewsController extends Controller
             $googlereviews->image = $file;
             $update_data = $googlereviews->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+            }
     }
     public function delete($id)
     {

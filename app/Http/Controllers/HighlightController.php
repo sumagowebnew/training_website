@@ -33,6 +33,7 @@ class HighlightController extends Controller
     {
     $validator = Validator::make($request->all(), [
         'title'=>'required',
+        'icon'=>'required|mimes:jpeg,png,jpg|size:2048',
         
         ]);
 
@@ -69,6 +70,8 @@ class HighlightController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title'=>'required',
+            'icon'=>'required|mimes:jpeg,png,jpg|size:2048',
+
             ]);
     
         if ($validator->fails()) {
