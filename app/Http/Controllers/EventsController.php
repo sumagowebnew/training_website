@@ -28,7 +28,7 @@ class EventsController extends Controller
             'start_date'=>'required',
             'duration'=>'required',
             'registered_people'=>'required',
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'image'=>'required',
             'event_id'=>'required',
             ]);
         
@@ -75,7 +75,7 @@ class EventsController extends Controller
             'start_date'=>'required',
             'duration'=>'required',
             'registered_people'=>'required',
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'image'=>'required',
             'event_id'=>'required',
             ]);
         

@@ -86,7 +86,7 @@ class EventDetailsController extends Controller
             'description'=>'required',
             'event_id'=>'required',
             'subcourse_id'=>'required',
-            'image'=> 'required||mimes:jpeg,png,jpg|size:2048',
+            'image'=> 'required',
             ]);
         
             if ($validator->fails()) {
@@ -126,7 +126,7 @@ class EventDetailsController extends Controller
             'description'=>'required',
             'event_id'=>'required',
             'subcourse_id'=>'required',
-            'image'=> 'required||mimes:jpeg,png,jpg|size:2048',
+            'image'=> 'required',
             ]);
         
             if ($validator->fails())

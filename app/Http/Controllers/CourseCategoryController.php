@@ -41,7 +41,7 @@ class CourseCategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'=>'required',
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048'
+            'image'=>'required'
             ]);
         
             if ($validator->fails()) {
@@ -78,7 +78,7 @@ class CourseCategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'=>'required',
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048'
+            'image'=>'required'
             ]);
         
         if ($validator->fails())

@@ -36,7 +36,7 @@ class GetHiredController extends Controller
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'image'=>'required',
             'title'=>'required',
             'description'=>'required',
             ]);
@@ -80,7 +80,7 @@ class GetHiredController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'image'=>'required',
             'title'=>'required',
             'description'=>'required',
             ]);

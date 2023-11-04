@@ -31,7 +31,7 @@ class FunatworkController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title'=>'required',
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'image'=>'required',
         
             ]);
         
@@ -76,7 +76,7 @@ class FunatworkController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title'=>'required',
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'image'=>'required',
         
             ]);
         

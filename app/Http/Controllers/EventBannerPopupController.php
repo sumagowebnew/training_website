@@ -39,7 +39,7 @@ class EventBannerPopupController extends Controller
     {
         $validator = Validator::make($request->all(),
         [
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'image'=>'required',
         ]);
         
         if($validator->fails())
@@ -98,7 +98,7 @@ class EventBannerPopupController extends Controller
     {
         $validator = Validator::make($request->all(),
         [
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'image'=>'required',
         ]);
         
         if($validator->fails())

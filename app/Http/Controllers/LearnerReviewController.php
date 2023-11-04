@@ -14,7 +14,7 @@ class LearnerReviewController extends Controller
             'title'=>'required',
             'description'=>'required',
             'link' => 'required',
-            'image' =>'required|mimes:jpeg,png,jpg|size:2048'
+            'image' =>'required'
             ]);
         
         if ($validator->fails())
@@ -60,7 +60,7 @@ class LearnerReviewController extends Controller
             'title'=>'required',
             'description'=>'required',
             'link' => 'required',
-            'image' =>'required|mimes:jpeg,png,jpg|size:2048'
+            'image' =>'required'
             ]);
         
         if ($validator->fails())

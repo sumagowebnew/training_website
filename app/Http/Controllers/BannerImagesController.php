@@ -89,7 +89,7 @@ public function index()
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'images'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'images'=>'required',
             ]);
         
             if ($validator->fails()) {
@@ -154,7 +154,7 @@ public function index()
     public function update(Request $request, $id)
     {
     $validator = Validator::make($request->all(), [
-        'images'=>'required|mimes:jpeg,png,jpg|size:2048',
+        'images'=>'required',
         ]);
     
         if ($validator->fails()) {

@@ -13,7 +13,7 @@ class LogoController extends Controller
         $validator = Validator::make($request->all(), [
             'title'=>'required',
             'description'=>'required',
-            'image' =>'required|mimes:jpeg,png,jpg|size:2048',
+            'image' =>'required',
             ]);
         
         if ($validator->fails())
@@ -53,7 +53,7 @@ class LogoController extends Controller
         $validator = Validator::make($request->all(), [
             'title'=>'required',
             'description'=>'required',
-            'image' =>'required|mimes:jpeg,png,jpg|size:2048',
+            'image' =>'required',
             ]);
         
         if ($validator->fails())

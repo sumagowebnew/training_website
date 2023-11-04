@@ -95,7 +95,7 @@ class AluminiController extends Controller
             'name'=>'required',
             'designation'=>'required',
             'company'=>'required',
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'image'=>'required',
             'sub_course_id'=>'required'
 
             ]);
@@ -160,7 +160,7 @@ class AluminiController extends Controller
             'name'=>'required',
             'designation'=>'required',
             'company'=>'required',
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'image'=>'required',
             'sub_course_id'=>'required'
 
             ]);

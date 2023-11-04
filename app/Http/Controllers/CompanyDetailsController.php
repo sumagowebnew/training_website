@@ -14,7 +14,7 @@ class CompanyDetailsController extends Controller
             'mobile_no'=>'required',
             'email_id'=>'required',
             'address' => 'required',
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'image'=>'required',
             ]);
         
         if ($validator->fails())
@@ -55,7 +55,7 @@ class CompanyDetailsController extends Controller
             'mobile_no'=>'required',
             'email_id'=>'required',
             'address' => 'required',
-            'image'=>'required|mimes:jpeg,png,jpg|size:2048',
+            'image'=>'required',
             ]);
         
         if ($validator->fails())
