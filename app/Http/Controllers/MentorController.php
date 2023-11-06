@@ -11,31 +11,23 @@ class MentorController extends Controller
 {
     public function index(Request $request)
     {
-        // $all_data = Mentor::where('course_id',$request->id)->get();
-        $all_data = Mentor::leftJoin('subcourses', 'subcourses.id', '=', 'mentor.course_id')
-         ->select("mentor.*",
-         'subcourses.name as subcourse_name',
-         )->whereJsonContains('mentor.course_id',$request->id)
-         ->get();
+        $all_data = Mentor::whereJsonContains('course_id',$request->id)->get();
         $response = [];
         foreach ($all_data as $item) {
             $temp = [];
-            $data = $item->toArray();
-            $logo = $data['image'];
-            if(!empty($logo)){  
-            $imagePath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/mentor_images/".$logo;
+            $image = $item['image'];
+            if ($image) {   
+            $imagePath =str_replace('\\', '/', base_path())."/storage/all_web_data/images/mentor_images/" . $image;
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
-            $data['image'] = $base64;
+            $data['image'] = $base64; 
             }else{
-                $data['image'] = '';
+                $data['image']='';
             }
-            $course_id=$data['course_id'];
-            // dd($course_id);
-            foreach(json_decode($course_id) as $course){
+            $course_id = $item['course_id'];
+            $data['course_id'] = $course_id;
+            foreach($course_id as $course){
                 $subcourse = \DB::table('subcourses')->where('id', $course)->first(); 
-                if($subcourse){
-                array_push($temp,$subcourse->name);    
-                } 
+                array_push($temp,$subcourse->name);                
             }
             $data['subcourse_details'] = $temp;
             $response[] = $data;
@@ -54,9 +46,8 @@ class MentorController extends Controller
          )->get();
         $response = [];
 
-        foreach ($all_data as $item) {
+        foreach ($all_data as $data) {
             $temp = [];
-            $data = $item->toArray();
             $course_id = $data['course_id'];
             foreach(json_decode($course_id) as $course){
                 $subcourse = \DB::table('subcourses')->where('id', $course)->first(); 
