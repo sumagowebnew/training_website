@@ -14,6 +14,9 @@ class OurOfficeController extends Controller
             'title'=>'required',
             'description'=>'required',
             'link' => 'required',
+            'mobile_no' => 'required',
+            'email' => 'required',
+            'image' => 'required',
             ]);
         
         if ($validator->fails())
@@ -43,6 +46,8 @@ class OurOfficeController extends Controller
             $contactDetails->title = $request->title;
             $contactDetails->description = $request->description;
             $contactDetails->link = $request->link;
+            $contactDetails->mobile_no = $request->mobile_no;
+            $contactDetails->email = $request->email;
             $contactDetails->save();
             return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
         }
@@ -50,6 +55,21 @@ class OurOfficeController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'title'=>'required',
+            'description'=>'required',
+            'link' => 'required',
+            'mobile_no' => 'required',
+            'email' => 'required',
+            'image' => 'required',
+            ]);
+        
+        if ($validator->fails())
+        {
+            return $validator->errors()->all();
+    
+        }else
+        {
         $image = $request->image;
         createDirecrotory('/all_web_data/images/ourOffice/');
         $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/ourOffice/";
@@ -67,8 +87,11 @@ class OurOfficeController extends Controller
             $contact_details->title = $request->title;
             $contact_details->description = $request->description;
             $contact_details->link = $request->link;
+            $contact_details->mobile_no = $request->mobile_no;
+            $contact_details->email = $request->email;
             $update_data = $contact_details->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
+        }
 
     }
 
