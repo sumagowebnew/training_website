@@ -316,7 +316,7 @@ Route::group([
     Route::get('get_googleReview', 'GoogleReviewsController@index');
     Route::get('get_bannerImages', 'BannerImagesController@index');
     Route::get('get_hired', 'GetHiredController@index');
-    Route::get('get_mentor/{id}', 'MentorController@index');
+    Route::post('get_mentor', 'MentorController@index');
     Route::get('get_all_faq', 'FaqController@all_faq');
     Route::get('get_alumini', 'AluminiController@getAllAlumini');
     Route::post('get_alumini_bycourse', 'AluminiController@index');

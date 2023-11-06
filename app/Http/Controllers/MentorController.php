@@ -15,23 +15,29 @@ class MentorController extends Controller
         $all_data = Mentor::leftJoin('subcourses', 'subcourses.id', '=', 'mentor.course_id')
          ->select("mentor.*",
          'subcourses.name as subcourse_name',
-         )->where('mentor.course_id',$request->id)
+         )->whereJsonContains('mentor.course_id',$request->id)
          ->get();
         $response = [];
-
         foreach ($all_data as $item) {
+            $temp = [];
             $data = $item->toArray();
             $logo = $data['image'];
             if(!empty($logo)){  
             $imagePath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/mentor_images/".$logo;
-
             $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
-
             $data['image'] = $base64;
             }else{
                 $data['image'] = '';
             }
-
+            $course_id=$data['course_id'];
+            // dd($course_id);
+            foreach(json_decode($course_id) as $course){
+                $subcourse = \DB::table('subcourses')->where('id', $course)->first(); 
+                if($subcourse){
+                array_push($temp,$subcourse->name);    
+                } 
+            }
+            $data['subcourse_details'] = $temp;
             $response[] = $data;
         }
 
@@ -49,12 +55,16 @@ class MentorController extends Controller
         $response = [];
 
         foreach ($all_data as $item) {
-            $no = [];
+            $temp = [];
             $data = $item->toArray();
             $course_id = $data['course_id'];
-            // foreach (json_decode($course_id) as $key => $value){ 
-            //     array_push($no,$value);
-            // }
+            foreach(json_decode($course_id) as $course){
+                $subcourse = \DB::table('subcourses')->where('id', $course)->first(); 
+                if($subcourse){
+                array_push($temp,$subcourse->name);    
+                } 
+            }
+            $data['subcourse_details'] = $temp;
             $data['course_id'] = json_decode($course_id);
             $logo = $data['image'];
 
