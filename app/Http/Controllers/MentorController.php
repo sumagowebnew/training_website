@@ -150,7 +150,7 @@ class MentorController extends Controller
                     $count->company = $request->company;
                     $count->skills = $request->skills;
                     $count->experience = $request->experience;
-                    $count->course_id = json_encode($request->course_id);
+                    $count->course_id = $request->course_id;
                     $update_data = $count->update();
                     return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
                 }
