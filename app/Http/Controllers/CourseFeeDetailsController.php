@@ -161,7 +161,7 @@ class CourseFeeDetailsController extends Controller
     {
         $hands_on_pro = CourseFeeDetails::leftJoin('subcourses', function($join) {
             $join->on('course_fee_details.sub_course_id', '=', 'subcourses.id');
-          })->where('course_fee_detailssub_course_id','=',$id)
+          })->where('course_fee_details.sub_course_id','=',$id)
           ->select(
             'course_fee_details.*',
             'subcourses.name as sub_course_name',
