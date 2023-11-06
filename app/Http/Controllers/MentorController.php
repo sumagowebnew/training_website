@@ -68,6 +68,8 @@ class MentorController extends Controller
             'name'=>'required',
             'designation'=>'required',
             'company'=>'required',
+            'skills'=>'required',
+            'experience'=>'required',
             // 'image'=>'required',
             'image'=>'required',
 
@@ -100,6 +102,8 @@ class MentorController extends Controller
                         $programs->image = $file;
                         $programs->designation = $request->designation;
                         $programs->company = $request->company;
+                        $programs->skills = $request->skills;
+                        $programs->experience = $request->experience;
                         $programs->course_id = json_encode($request->course_id);
                         $programs->save();
                         // $insert_data = programs::insert($data);
@@ -113,6 +117,8 @@ class MentorController extends Controller
             'name'=>'required',
             'designation'=>'required',
             'company'=>'required',
+            'skills'=>'required',
+            'experience'=>'required',
             // 'image'=>'required',
             'image'=>'required',
             'course_id'=>'required'
@@ -142,6 +148,8 @@ class MentorController extends Controller
                     $count->image = $file;
                     $count->designation = $request->designation;
                     $count->company = $request->company;
+                    $count->skills = $request->skills;
+                    $count->experience = $request->experience;
                     $count->course_id = json_encode($request->course_id);
                     $update_data = $count->update();
                     return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);

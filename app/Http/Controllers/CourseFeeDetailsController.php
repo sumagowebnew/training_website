@@ -159,7 +159,13 @@ class CourseFeeDetailsController extends Controller
 
     public function getByCourseId($id)
     {
-        $hands_on_pro = CourseFeeDetails::where('sub_course_id','=',$id)->get();
+        $hands_on_pro = CourseFeeDetails::leftJoin('subcourses', function($join) {
+            $join->on('course_fee_details.sub_course_id', '=', 'subcourses.id');
+          })->where('course_fee_detailssub_course_id','=',$id)
+          ->select(
+            'course_fee_details.*',
+            'subcourses.name as sub_course_name',
+          )->get();
         return response()->json($hands_on_pro);
     }
 }
