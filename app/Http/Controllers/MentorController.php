@@ -104,7 +104,7 @@ class MentorController extends Controller
                         $programs->company = $request->company;
                         $programs->skills = $request->skills;
                         $programs->experience = $request->experience;
-                        $programs->course_id = json_encode($request->course_id);
+                        $programs->course_id = $request->course_id;
                         $programs->save();
                         // $insert_data = programs::insert($data);
                         return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
