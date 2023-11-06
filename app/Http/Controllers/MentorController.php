@@ -39,35 +39,27 @@ class MentorController extends Controller
 
     public function all_mentors(Request $request)
     {
-        // $all_data = Mentor::get();
-        $all_data = Mentor::leftJoin('subcourses', 'subcourses.id', '=', 'mentor.course_id')
-         ->select("mentor.*",
-         'subcourses.name as subcourse_name',
-         )->get();
+        $all_data = Mentor::get();
         $response = [];
-
-        foreach ($all_data as $data) {
+        foreach ($all_data as $item) {
             $temp = [];
-            $course_id = $data['course_id'];
-            foreach(json_decode($course_id) as $course){
+            $image = $item['image'];
+            if ($image) {   
+            $imagePath =str_replace('\\', '/', base_path())."/storage/all_web_data/images/mentor_images/" . $image;
+            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+            $data['image'] = $base64; 
+            }else{
+                $data['image']='';
+            }
+            $course_id = $item['course_id'];
+            $data['course_id'] = $course_id;
+            foreach($course_id as $course){
                 $subcourse = \DB::table('subcourses')->where('id', $course)->first(); 
-                if($subcourse){
-                array_push($temp,$subcourse->name);    
-                } 
+                array_push($temp,$subcourse->name);                
             }
             $data['subcourse_details'] = $temp;
-            $data['course_id'] = json_decode($course_id);
-            $logo = $data['image'];
-
-            $imagePath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/mentor_images/".$logo;
-
-            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
-
-            $data['image'] = $base64;
-
             $response[] = $data;
         }
-
         return response()->json(['data' => $response,'status' => 'Success', 'message' => 'Mentors get successfully','StatusCode'=>'200']);
     }
     public function Add(Request $request)
