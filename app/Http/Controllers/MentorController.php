@@ -53,11 +53,13 @@ class MentorController extends Controller
             }
             $course_id = $item['course_id'];
             $data['course_id'] = $course_id;
+            if(!empty($course_id)){
             foreach($course_id as $course){
                 $subcourse = \DB::table('subcourses')->where('id', $course)->first(); 
                 array_push($temp,$subcourse->name);                
             }
             $data['subcourse_details'] = $temp;
+            }
             $response[] = $data;
         }
         return response()->json(['data' => $response,'status' => 'Success', 'message' => 'Mentors get successfully','StatusCode'=>'200']);
