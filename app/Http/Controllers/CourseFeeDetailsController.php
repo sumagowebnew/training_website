@@ -161,11 +161,19 @@ class CourseFeeDetailsController extends Controller
     {
         $hands_on_pro = CourseFeeDetails::leftJoin('subcourses', function($join) {
             $join->on('course_fee_details.sub_course_id', '=', 'subcourses.id');
-          })->where('course_fee_details.sub_course_id','=',$id)
+          })
+          ->leftJoin('coursecategory', function($join) {
+            $join->on('course_fee_details.course_id', '=', 'coursecategory.id');
+          })
+          ->leftJoin('feecategory', function($join) {
+            $join->on('course_fee_details.pro_max_id', '=', 'feecategory.id');
+          })
+          ->where('course_fee_details.sub_course_id','=',$id)
           ->select(
             'course_fee_details.*',
             'subcourses.name as sub_course_name',
-          )->get();
+            'feecategory.title as pro_max_name',
+            'coursecategory.name as course_name')->get();
         return response()->json($hands_on_pro);
     }
 }
