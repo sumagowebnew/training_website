@@ -39,7 +39,7 @@ class MentorController extends Controller
 
     public function all_mentors(Request $request)
     {
-        $all_data = Mentor::get()->toArray();
+        $all_data = Mentor::get();
         $response = [];
         foreach ($all_data as $item) {
             $data = $item->toArray();
