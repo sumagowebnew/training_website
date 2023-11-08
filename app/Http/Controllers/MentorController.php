@@ -42,6 +42,7 @@ class MentorController extends Controller
         $all_data = Mentor::get()->toArray();
         $response = [];
         foreach ($all_data as $item) {
+            $data = $item->toArray();
             $temp = [];
             $image = $item['image'];
             if ($image) {   
