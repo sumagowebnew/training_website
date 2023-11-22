@@ -41,13 +41,11 @@ class RecognitiondetailsController extends Controller
     public function get_recognitiondetails(Request $request,$id)
     {
         // $recognitiondetails = Recognitiondetails::where('recognitioncategoryid',$id)->get();
-        // $recognitiondetails = Recognitiondetails::join('recognitioncategory', 'recognitioncategory.id', '=', 'recognitiondetails.recognitioncategoryid')
-        // ->where('recognitiondetails.recognitioncategoryid',$id)->get(['recognitiondetails.*', 'recognitioncategory.title AS category_name']);
+        $recognitiondetails = Recognitiondetails::join('recognitioncategory', 'recognitioncategory.id', '=', 'recognitiondetails.recognitioncategoryid')
+        ->where('recognitiondetails.recognitioncategoryid',$id)->get(['recognitiondetails.*', 'recognitioncategory.title AS category_name']);
 
 
-    $recognitiondetails = Recognitiondetails::join('recognitioncategory', 'recognitioncategory.id', '=', 'recognitiondetails.recognitioncategoryid')
-    ->orderBy('recognitiondetails.id', 'desc') // Order by the id column in descending order
-    ->get(['recognitiondetails.*', 'recognitioncategory.title AS category_name']);
+        
         $response = [];
 
         foreach ($recognitiondetails as $item) {
