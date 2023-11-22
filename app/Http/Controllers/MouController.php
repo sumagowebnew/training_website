@@ -10,7 +10,8 @@ class MouController extends Controller
 {
     public function index(Request $request)
     {
-        $mou = Mou::get();
+        // $mou = Mou::get();
+        $mou = Mou::Mou('id', 'desc')->get();
 
         $response = [];
 
