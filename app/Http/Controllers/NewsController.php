@@ -11,7 +11,8 @@ class NewsController extends Controller
 {
     public function index(Request $request)
     {
-        $news = News::get();
+        // $news = News::get();
+        $news = News::orderBy('id', 'desc')->get();
 
         $response = [];
 
