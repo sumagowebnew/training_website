@@ -42,10 +42,10 @@ class RecognitiondetailsController extends Controller
     {
         // $recognitiondetails = Recognitiondetails::where('recognitioncategoryid',$id)->get();
         $recognitiondetails = Recognitiondetails::join('recognitioncategory', 'recognitioncategory.id', '=', 'recognitiondetails.recognitioncategoryid')
-        ->where('recognitiondetails.recognitioncategoryid',$id)->get(['recognitiondetails.*', 'recognitioncategory.title AS category_name']);
+        ->where('recognitiondetails.recognitioncategoryid',$id)->orderBy('recognitiondetails.id', 'desc')->get(['recognitiondetails.*', 'recognitioncategory.title AS category_name']);
 
 
-        
+     
         $response = [];
 
         foreach ($recognitiondetails as $item) {
