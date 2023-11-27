@@ -54,110 +54,63 @@ class SyllabusPdfController extends Controller
         
     }
 
-    // public function Add(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         // 'file' => 'required|file|mimes:pdf|max:20480|min:1',
-    //         'file' => 'required|string|max:20480|min:1',
-    //         'subcourse_id'=>'required',
-    //         ]);
+    public function Add(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            // 'file' => 'required|file|mimes:pdf|max:20480|min:1',
+            'file' => 'required|string|max:50480|min:1',
+            'subcourse_id'=>'required',
+            ]);
             
         
-    //         if ($validator->fails())
-    //         {
-    //                 return $validator->errors()->all();
+            if ($validator->fails())
+            {
+                    return $validator->errors()->all();
         
-    //         }else{
-    //             try {
-    //                 $file = $request->file;
-    //                 $pdf = new SyllabusPdf();                        
-    //                       {
-    //                         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-    //                         $charactersLength = strlen($characters);
-    //                         $randomString = '';
-    //                         for ($i = 0; $i < 18; $i++) {
-    //                             $randomString .= $characters[rand(0, $charactersLength - 1)];
-    //                         }
-    //                         createDirecrotory('/all_web_data/images/syllabus_pdf/');
-    //                         $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/syllabus_pdf/";
+            }else{
+                try {
+                    $file = $request->file;
+                    $pdf = new SyllabusPdf();                        
+                          {
+                            $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                            $charactersLength = strlen($characters);
+                            $randomString = '';
+                            for ($i = 0; $i < 18; $i++) {
+                                $randomString .= $characters[rand(0, $charactersLength - 1)];
+                            }
+                            createDirecrotory('/all_web_data/images/syllabus_pdf/');
+                            $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/syllabus_pdf/";
 
                                 
-    //                         $base64Image = explode(";base64,", $file);
-    //                         $explodeImage = explode("application/", $base64Image[0]);
-    //                         $fileType = $explodeImage[1];
-    //                         $image_base64 = base64_decode($base64Image[1]);
+                            $base64Image = explode(";base64,", $file);
+                            $explodeImage = explode("application/", $base64Image[0]);
+                            $fileType = $explodeImage[1];
+                            $image_base64 = base64_decode($base64Image[1]);
                     
-    //                         $file = $randomString . '.' . $fileType;
-    //                         $file_dir = $folderPath.$file;
+                            $file = $randomString . '.' . $fileType;
+                            $file_dir = $folderPath.$file;
                     
-    //                         file_put_contents($file_dir, $image_base64);
-    //                             $pdf->file      = $file;
-    //                             }
+                            file_put_contents($file_dir, $image_base64);
+                                $pdf->file      = $file;
+                                }
                         
                                 
-    //                 $pdf->subcourse_id = $request->subcourse_id;
-    //                 $pdf->save();
+                    $pdf->subcourse_id = $request->subcourse_id;
+                    $pdf->save();
             
-    //                 return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
-    //             } 
-    //             catch (Exception $e) {
-    //                 return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
-    //             }
-    //         }
-    // }
-
-    public function add(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'file' => 'required|string|min:1024|max:20480', // Adjusted min value to 1KB
-        'subcourse_id' => 'required',
-    ]);
-
-    if ($validator->fails()) {
-        return response()->json(['status' => 'Error', 'message' => $validator->errors()->first(), 'statusCode' => '400']);
-    } else {
-        try {
-            $file = $request->file;
-            $pdf = new SyllabusPdf();
-
-            // Generate a random string for the filename
-            $randomString = str_random(18);
-
-            // Create directory if not exists
-            $folderPath = storage_path('all_web_data/images/syllabus_pdf/');
-            if (!File::isDirectory($folderPath)) {
-                File::makeDirectory($folderPath, 0755, true, true);
+                    return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
+                } 
+                catch (Exception $e) {
+                    return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+                }
             }
-
-            // Decode base64 image
-            list($type, $file) = explode(';', $file);
-            list(, $file) = explode(',', $file);
-            $image_base64 = base64_decode($file);
-
-            // Determine file type
-            $fileType = explode('/', $type)[1];
-
-            // Create and save the file
-            $filePath = $folderPath . $randomString . '.' . $fileType;
-            file_put_contents($filePath, $image_base64);
-
-            // Save data to the database
-            $pdf->file = $randomString . '.' . $fileType;
-            $pdf->subcourse_id = $request->subcourse_id;
-            $pdf->save();
-
-            return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully', 'statusCode' => '200']);
-        } catch (Exception $e) {
-            return response()->json(['status' => 'Error', 'message' => $e->getMessage(), 'statusCode' => '500']);
-        }
     }
-}
 
     public function Update(Request $request,$id)
     {
         $validator = Validator::make($request->all(), [
             // 'file' => 'required|file|mimes:pdf|max:20480|min:1',
-            'file' => 'required|string|max:20480|min:1',
+            'file' => 'required|string|max:50480|min:1',
             'subcourse_id'=>'required',
             ]);
         
