@@ -58,7 +58,8 @@ class SyllabusPdfController extends Controller
     {
         $validator = Validator::make($request->all(), [
             // 'file' => 'required|file|mimes:pdf|max:20480|min:1',
-            'file' => 'required|string|max:50480|min:1',
+            // 'file' => 'required|string|max:50480|min:1',
+            'file' => 'required|file|mimes:pdf|between:1,51200', 
             'subcourse_id'=>'required',
             ]);
             
