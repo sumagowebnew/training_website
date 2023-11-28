@@ -54,57 +54,97 @@ class SyllabusPdfController extends Controller
         
     }
 
-    public function Add(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            // 'file' => 'required|file|mimes:pdf|max:20480|min:1',
-            'file' => 'required',
-            'subcourse_id'=>'required',
-            ]);
+    // public function Add(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         // 'file' => 'required|file|mimes:pdf|max:20480|min:1',
+    //         'file' => 'required',
+    //         'subcourse_id'=>'required',
+    //         ]);
             
         
-            if ($validator->fails())
-            {
-                    return $validator->errors()->all();
+    //         if ($validator->fails())
+    //         {
+    //                 return $validator->errors()->all();
         
-            }else{
-                try {
-                    $file = $request->file;
-                    $pdf = new SyllabusPdf();                        
-                          {
-                            $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-                            $charactersLength = strlen($characters);
-                            $randomString = '';
-                            for ($i = 0; $i < 18; $i++) {
-                                $randomString .= $characters[rand(0, $charactersLength - 1)];
-                            }
-                            createDirecrotory('/all_web_data/images/syllabus_pdf/');
-                            $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/syllabus_pdf/";
+    //         }else{
+    //             try {
+    //                 $file = $request->file;
+    //                 $pdf = new SyllabusPdf();                        
+    //                       {
+    //                         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    //                         $charactersLength = strlen($characters);
+    //                         $randomString = '';
+    //                         for ($i = 0; $i < 18; $i++) {
+    //                             $randomString .= $characters[rand(0, $charactersLength - 1)];
+    //                         }
+    //                         createDirecrotory('/all_web_data/images/syllabus_pdf/');
+    //                         $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/syllabus_pdf/";
 
                                 
-                            $base64Image = explode(";base64,", $file);
-                            $explodeImage = explode("application/", $base64Image[0]);
-                            $fileType = $explodeImage[1];
-                            $image_base64 = base64_decode($base64Image[1]);
+    //                         $base64Image = explode(";base64,", $file);
+    //                         $explodeImage = explode("application/", $base64Image[0]);
+    //                         $fileType = $explodeImage[1];
+    //                         $image_base64 = base64_decode($base64Image[1]);
                     
-                            $file = $randomString . '.' . $fileType;
-                            $file_dir = $folderPath.$file;
+    //                         $file = $randomString . '.' . $fileType;
+    //                         $file_dir = $folderPath.$file;
                     
-                            file_put_contents($file_dir, $image_base64);
-                                $pdf->file      = $file;
-                                }
+    //                         file_put_contents($file_dir, $image_base64);
+    //                             $pdf->file      = $file;
+    //                             }
                         
                                 
-                    $pdf->subcourse_id = $request->subcourse_id;
-                    $pdf->save();
+    //                 $pdf->subcourse_id = $request->subcourse_id;
+    //                 $pdf->save();
             
-                    return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
-                } 
-                catch (Exception $e) {
-                    return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
-                }
-            }
+    //                 return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
+    //             } 
+    //             catch (Exception $e) {
+    //                 return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+    //             }
+    //         }
+    // }
+
+    public function Add(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'file' => 'required',
+        'subcourse_id' => 'required',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
     }
+
+    try {
+        $file = $request->file;
+        $pdf = new SyllabusPdf();
+
+        // Generate a random string for the filename
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < 18; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        // Define the folder path
+        $folderPath = str_replace('\\', '/', storage_path()) . "/all_web_data/images/syllabus_pdf/";
+
+        // Ensure the directory exists
+        if (!file_exists($folderPath)) {
+            mkdir($folderPath, 0755, true);
+        }
+
+        // Extract file type and handle file upload using Storage
+        $base64Image = explode(";base64,", $file);
+        $explodeImage = explode("application/", $base64Image[0]);
+        $fileType = $explodeImage[1];
+        $image_base64 = base64_decode($base64Image[1]);
+        $file = $randomString . '.' . $fileType;
+        $file_dir = $folderPath . $
+
 
     public function Update(Request $request,$id)
     {
