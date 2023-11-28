@@ -143,7 +143,25 @@ class SyllabusPdfController extends Controller
         $fileType = $explodeImage[1];
         $image_base64 = base64_decode($base64Image[1]);
         $file = $randomString . '.' . $fileType;
-        $file_dir = $folderPath . $
+        $file_dir = $folderPath . $file;
+
+        // Handle file upload using Storage
+        if (Storage::disk('local')->put($file_dir, $image_base64)) {
+            $pdf->file = $file;
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Failed to save the file.']);
+        }
+
+        // Save the rest of the data
+        $pdf->subcourse_id = $request->subcourse_id;
+        $pdf->save();
+
+        return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully', 'statusCode' => '200']);
+    } catch (Exception $e) {
+        \Log::error($e->getMessage());
+        return response()->json(['status' => 'error', 'message' => 'An error occurred. Please check the logs for details.']);
+    }
+}
 
 
     public function Update(Request $request,$id)
