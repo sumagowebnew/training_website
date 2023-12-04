@@ -114,14 +114,39 @@ class NewsLetterController extends Controller
                 }
             }
     }
+    // public function delete($id)
+    // {
+    //     $all_data=[];
+    //     $newsletter = NewsLetter::find($id);
+    //     $newsletter->delete();
+    //     return response()->json(['status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
+    //     // return response()->json("Contact Enquiry Deleted Successfully!");
+    // }
     public function delete($id)
     {
-        $all_data=[];
-        $newsletter = NewsLetter::find($id);
-        $newsletter->delete();
-        return response()->json(['status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
-        // return response()->json("Contact Enquiry Deleted Successfully!");
+        try {
+            $newsletter = NewsLetter::findOrFail($id);
+    
+            // Get the image path from the database record
+            $img_path = $newsletter->image_path;
+    
+            // Delete the database record
+            $newsletter->delete();
+    
+            // Delete the image file
+            $folderPath = str_replace('\\', '/', storage_path()) . "/all_web_data/images/newsletter/";
+            $imagePath = $folderPath . $img_path;
+    
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+    
+            return response()->json(['status' => 'Success', 'message' => 'Deleted successfully', 'StatusCode' => 200]);
+        } catch (\Exception $e) {
+            // You can log the error or handle it in another way
+            return response()->json(['status' => 'Error', 'message' => 'Unable to delete the record', 'StatusCode' => 500]);
+        }
     }
-
+    
    
 }
