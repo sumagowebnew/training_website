@@ -275,6 +275,11 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('add_newsdetails', 'NewsdetailsController@add');
     Route::post('update_newsdetails/{id}', 'NewsdetailsController@update');
     Route::delete('delete_newsdetails/{id}', 'NewsdetailsController@delete');
+
+    Route::get('get_newsletter', 'NewsLetterController@index');
+    Route::post('add_newsletter', 'NewsLetterController@add');
+    Route::post('update_newsletter/{id}', 'NewsLetterController@update');
+    Route::delete('delete_newsletter/{id}', 'NewsLetterController@delete');
    
 });
 
@@ -373,8 +378,7 @@ Route::group([
     Route::get('getfront_moucategory', 'MoucategoryController@index');
     Route::get('getfront_moudetails', 'MoudetailsController@get_moudetails');
     Route::get('getfront_newsdetails', 'NewsdetailsController@index');
-
-
+    Route::get('getfront_newsletter', 'NewsLetterController@index');
     
     
     
