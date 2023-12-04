@@ -33,46 +33,94 @@ class NewsLetterController extends Controller
 
         return response()->json($response);
     }
+    // public function Add(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'image'=>'required',
+    //         ]);
+        
+    //         if ($validator->fails())
+    //         {
+    //                 return $validator->errors()->all();
+        
+    //         }else{
+    //             try {
+    //                 $news = new NewsLetter();
+                    
+    //                 // Check if there are any existing records
+    //                 $existingRecord = NewsLetter::orderBy('id','DESC')->first();
+    //                 $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
+            
+    //                 $img_path = $request->image;
+    //                 createDirecrotory('/all_web_data/images/newsletter/');
+    //                 $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/newsletter/";                    $base64Image = explode(";base64,", $img_path);
+    //                 $explodeImage = explode("image/", $base64Image[0]);
+    //                 $imageType = $explodeImage[1];
+    //                 $image_base64 = base64_decode($base64Image[1]);
+            
+    //                 $file = $recordId . '.' . $imageType;
+    //                 $file_dir = $folderPath . $file;
+            
+    //                 file_put_contents($file_dir, $image_base64);
+    //                 $news->image = $file;
+                    
+    //                 $news->save();
+            
+    //                 return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
+    //             } 
+    //             catch (Exception $e) {
+    //                 return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+    //             }
+    //         }
+    // }
+
+
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'image'=>'required',
-            ]);
-        
-            if ($validator->fails())
-            {
-                    return $validator->errors()->all();
-        
-            }else{
-                try {
-                    $news = new NewsLetter();
-                    
-                    // Check if there are any existing records
-                    $existingRecord = NewsLetter::orderBy('id','DESC')->first();
-                    $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
-            
-                    $img_path = $request->image;
+            // 'file' => 'required|file|mimes:pdf|max:20480|min:1',
+            'image' => 'required',
+            // 'subcourse_id'=>'required',
+        ]);
+    
+        if ($validator->fails()) {
+            return $validator->errors()->all();
+        } else {
+            try {
+                $file = $request->image;
+                $pdf = new NewsLetter();
+                {
+                    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                    $charactersLength = strlen($characters);
+                    $randomString = '';
+                    for ($i = 0; $i < 18; $i++) {
+                        $randomString .= $characters[rand(0, $charactersLength - 1)];
+                    }
                     createDirecrotory('/all_web_data/images/newsletter/');
-                    $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/newsletter/";                    $base64Image = explode(";base64,", $img_path);
-                    $explodeImage = explode("image/", $base64Image[0]);
-                    $imageType = $explodeImage[1];
+                    $folderPath = str_replace('\\', '/', storage_path()) . "/all_web_data/images/syllabus_pdf/";
+    
+                    $base64Image = explode(";base64,", $file);
+                    $explodeImage = explode("application/", $base64Image[0]);
+                    $fileType = $explodeImage[1];
                     $image_base64 = base64_decode($base64Image[1]);
-            
-                    $file = $recordId . '.' . $imageType;
+    
+                    $file = $randomString . '.' . $fileType;
                     $file_dir = $folderPath . $file;
-            
+    
                     file_put_contents($file_dir, $image_base64);
-                    $news->image = $file;
-                    
-                    $news->save();
-            
-                    return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
-                } 
-                catch (Exception $e) {
-                    return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+                    $pdf->file = $file;
                 }
+    
+                // $pdf->subcourse_id = $request->subcourse_id; // Comment or remove this line
+                $pdf->save();
+    
+                return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully', 'statusCode' => '200']);
+            } catch (Exception $e) {
+                return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
             }
+        }
     }
+    
 
     public function Update(Request $request,$id)
     {
