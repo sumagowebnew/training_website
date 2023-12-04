@@ -24,7 +24,7 @@ class NewsLetterController extends Controller
             $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/newsletter/" . $logo;
 
 
-            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+            $base64 = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
 
             $data['image'] = $base64;
 
