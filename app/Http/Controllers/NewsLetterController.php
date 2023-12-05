@@ -37,12 +37,20 @@ class NewsLetterController extends Controller
         $logo = $data['file'];
         $logo1 = $data['image'];
         $imagePath = str_replace('\\', '/', storage_path("all_web_data/images/newsletterpdf/{$logo}"));
-        $imagePath1 = str_replace('\\', '/', storage_path("all_web_data/images/newsletter/{$logo1}"));
+
+        $imagePath1 =str_replace('\\', '/', storage_path())."/all_web_data/images/newsletter/" . $logo1;
+
+       
 
         if (file_exists($imagePath) && file_exists($imagePath1)) {
-            $base64 = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
-            $data['file'] = $base64;
-            $data['image'] = $base64;
+            $base64Pdf = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
+
+            $base64Image = "data:image/png;base64," . base64_encode(file_get_contents($imagePath1));
+
+
+            $data['file'] = $base64Pdf;
+            $data['image'] = $base64Image;
+
             $response[] = $data;
         } else {
             // Handle the case when the file does not exist
