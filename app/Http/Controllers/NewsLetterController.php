@@ -16,7 +16,7 @@ class NewsLetterController extends Controller
         foreach ($certificate as $item) {
             $data = $item->toArray();
             $logo = $data['file'];
-            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/syllabus_pdf/" . $logo;
+            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/newsletterpdf/" . $logo;
 
             $base64 = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
 
@@ -67,7 +67,7 @@ class NewsLetterController extends Controller
                 $randomString .= $characters[rand(0, $charactersLength - 1)];
             }
             createDirecrotory('/all_web_data/images/newsletterpdf/');
-            $folderPath = str_replace('\\', '/', storage_path()) . "/all_web_data/images/syllabus_pdf/";
+            $folderPath = str_replace('\\', '/', storage_path()) . "/all_web_data/images/newsletterpdf/";
 
             $base64Image = explode(";base64,", $file);
             $explodeImage = explode("application/", $base64Image[0]);
