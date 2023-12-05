@@ -47,49 +47,97 @@ class NewsLetterController extends Controller
         
     }
 
-    public function Add(Request $request)
+//     public function Add(Request $request)
+// {
+//     $validator = Validator::make($request->all(), [
+//         'file' => 'required',
+//     ]);
+
+//     if ($validator->fails()) {
+//         return $validator->errors()->all();
+//     } else {
+//         try {
+//             $file = $request->file;
+//             $pdf = new NewsLetter();
+
+//             $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+//             $charactersLength = strlen($characters);
+//             $randomString = '';
+//             for ($i = 0; $i < 18; $i++) {
+//                 $randomString .= $characters[rand(0, $charactersLength - 1)];
+//             }
+//             createDirecrotory('/all_web_data/images/newsletterpdf/');
+//             $folderPath = str_replace('\\', '/', storage_path()) . "/all_web_data/images/newsletterpdf/";
+
+//             $base64Image = explode(";base64,", $file);
+//             $explodeImage = explode("application/", $base64Image[0]);
+//             $fileType = $explodeImage[1];
+//             $image_base64 = base64_decode($base64Image[1]);
+
+//             $file = $randomString . '.' . $fileType;
+//             $file_dir = $folderPath . $file;
+
+//             file_put_contents($file_dir, $image_base64);
+//             $pdf->file = $file;
+
+//             $pdf->save();
+
+//             return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully', 'statusCode' => '200']);
+//         } catch (Exception $e) {
+//             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+//         }
+//     }
+// }
+
+public function Add(Request $request)
 {
-    $validator = Validator::make($request->all(), [
-        'file' => 'required',
-    ]);
+    try {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required',
+            'image' => 'required',
+        ]);
 
-    if ($validator->fails()) {
-        return $validator->errors()->all();
-    } else {
-        try {
-            $file = $request->file;
-            $pdf = new NewsLetter();
-
-            $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-            $charactersLength = strlen($characters);
-            $randomString = '';
-            for ($i = 0; $i < 18; $i++) {
-                $randomString .= $characters[rand(0, $charactersLength - 1)];
-            }
-            createDirecrotory('/all_web_data/images/newsletterpdf/');
-            $folderPath = str_replace('\\', '/', storage_path()) . "/all_web_data/images/newsletterpdf/";
-
-            $base64Image = explode(";base64,", $file);
-            $explodeImage = explode("application/", $base64Image[0]);
-            $fileType = $explodeImage[1];
-            $image_base64 = base64_decode($base64Image[1]);
-
-            $file = $randomString . '.' . $fileType;
-            $file_dir = $folderPath . $file;
-
-            file_put_contents($file_dir, $image_base64);
-            $pdf->file = $file;
-
-            $pdf->save();
-
-            return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully', 'statusCode' => '200']);
-        } catch (Exception $e) {
-            return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
         }
+
+        // Handle PDF file upload
+        $pdfFile = $request->file('file');
+        $pdfFileName = $this->generateRandomFileName('pdf') . '.' . $pdfFile->getClientOriginalExtension();
+        $pdfPath = '/all_web_data/images/newsletterpdf/';
+        $pdfFile->move(storage_path($pdfPath), $pdfFileName);
+
+        $pdf = new NewsLetter();
+        $pdf->file = $pdfFileName;
+        $pdf->save();
+
+        // Handle image file upload
+        $imageFile = $request->file('image');
+        $imageFileName = $this->generateRandomFileName('image') . '.' . $imageFile->getClientOriginalExtension();
+        $imagePath = '/all_web_data/images/newsdetails/';
+        $imageFile->move(storage_path($imagePath), $imageFileName);
+
+        $news = new News(); // Assuming News is your model
+        $news->image = $imageFileName;
+        $news->save();
+
+        return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully', 'statusCode' => '200']);
+    } catch (Exception $e) {
+        return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
     }
 }
 
-
+// Function to generate a random file name
+private function generateRandomFileName($prefix)
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    $charactersLength = strlen($characters);
+    $randomString = $prefix.'_';
+    for ($i = 0; $i < 18; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
 
 
     public function Update(Request $request,$id)
