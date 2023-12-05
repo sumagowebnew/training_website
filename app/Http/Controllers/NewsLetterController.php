@@ -89,7 +89,7 @@ class NewsLetterController extends Controller
 //     }
 // }
 
-public function Add(Request $request)
+public function add(Request $request)
 {
     try {
         $validator = Validator::make($request->all(), [
@@ -98,47 +98,68 @@ public function Add(Request $request)
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
+            return response()->json(['status' => 'Error', 'message' => $validator->errors()->all()], 400);
         }
 
-        // Handle PDF file upload
-        $pdfFile = $request->file('file');
-        $pdfFileName = $this->generateRandomFileName('pdf') . '.' . $pdfFile->getClientOriginalExtension();
-        $pdfPath = '/all_web_data/images/newsletterpdf/';
-        $pdfFile->move(storage_path($pdfPath), $pdfFileName);
+        $file = $request->file;
+        $news = new NewsLetter();
 
-        $pdf = new NewsLetter();
-        $pdf->file = $pdfFileName;
-        $pdf->save();
+        // Image handling
+        $existingRecord = NewsLetter::orderBy('id', 'DESC')->first();
+        $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
 
-        // Handle image file upload
-        $imageFile = $request->file('image');
-        $imageFileName = $this->generateRandomFileName('image') . '.' . $imageFile->getClientOriginalExtension();
-        $imagePath = '/all_web_data/images/newsdetails/';
-        $imageFile->move(storage_path($imagePath), $imageFileName);
+        $img_path = $request->image;
+        $folderPathImage = str_replace('\\', '/', storage_path()) . "/all_web_data/images/newsletter/";
+        $base64Image = explode(";base64,", $img_path);
 
-        $news = new News(); // Assuming News is your model
-        $news->image = $imageFileName;
+        if (count($base64Image) < 2) {
+            throw new \Exception('Invalid image format');
+        }
+
+        $explodeImage = explode("image/", $base64Image[0]);
+        $imageType = $explodeImage[1];
+        $image_base64 = base64_decode($base64Image[1]);
+
+        $file = $recordId . '.' . $imageType;
+        $file_dir = $folderPathImage . $file;
+
+        file_put_contents($file_dir, $image_base64);
+        $news->image = $file;
+
+        // PDF handling
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+
+        for ($i = 0; $i < 18; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        createDirecrotory('/all_web_data/images/newsletterpdf/');
+        $folderPathPdf = str_replace('\\', '/', storage_path()) ."/all_web_data/images/newsletterpdf/";
+
+        $base64File = explode(";base64,", $request->file);
+
+        if (count($base64File) < 2) {
+            throw new \Exception('Invalid file format');
+        }
+
+        $explodeFile = explode("application/", $base64File[0]);
+        $fileType = $explodeFile[1];
+        $file_base64 = base64_decode($base64File[1]);
+
+        $file = $randomString . '.' . $fileType;
+        $file_dir = $folderPathPdf . $file;
+
+        file_put_contents($file_dir, $file_base64);
+        $news->file = $file;
+
         $news->save();
 
-        return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully', 'statusCode' => '200']);
-    } catch (Exception $e) {
-        return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        return response()->json(['status' => 'Success', 'message' => 'Uploaded successfully', 'statusCode' => 200]);
+    } catch (\Exception $e) {
+        return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
     }
 }
-
-// Function to generate a random file name
-private function generateRandomFileName($prefix)
-{
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-    $charactersLength = strlen($characters);
-    $randomString = $prefix.'_';
-    for ($i = 0; $i < 18; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-}
-
 
     public function Update(Request $request,$id)
     {
