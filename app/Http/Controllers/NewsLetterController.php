@@ -55,7 +55,7 @@ class NewsLetterController extends Controller
 
 
 
-public function getAllDataList(Request $request)
+  public function getAllDataList(Request $request)
 {
     $certificates = NewsLetter::get();
     $response = [];
@@ -65,23 +65,16 @@ public function getAllDataList(Request $request)
         $logo = $data['file'];
         $logo1 = $data['image'];
         $imagePath = str_replace('\\', '/', storage_path("all_web_data/images/newsletterpdf/{$logo}"));
-        $imagePath1 = str_replace('\\', '/', storage_path("all_web_data/images/newsletter/{$logo1}"));
+
+        $imagePath1 =str_replace('\\', '/', storage_path())."/all_web_data/images/newsletter/" . $logo1;
+
+       
 
         if (file_exists($imagePath) && file_exists($imagePath1)) {
             $base64Pdf = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
-            
-            // Determine the image type based on file extension
-            $imageExtension = pathinfo($imagePath1, PATHINFO_EXTENSION);
-            $imageMimeType = "image/jpeg"; // Default to JPEG
 
-            // Adjust MIME type based on extension
-            if ($imageExtension === 'png') {
-                $imageMimeType = "image/png";
-            } elseif ($imageExtension === 'jpg') {
-                $imageMimeType = "image/jpeg";
-            }
+            $base64Image = "data:image/png;base64," . base64_encode(file_get_contents($imagePath1));
 
-            $base64Image = "data:{$imageMimeType};base64," . base64_encode(file_get_contents($imagePath1));
 
             $data['file'] = $base64Pdf;
             $data['image'] = $base64Image;
