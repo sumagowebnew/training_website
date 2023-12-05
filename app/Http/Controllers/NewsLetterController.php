@@ -57,19 +57,27 @@ class NewsLetterController extends Controller
 
     public function getAllDataList(Request $request)
     {
-        $certificate = NewsLetter::get();
+        $certificates = NewsLetter::get();
         $response = [];
-        foreach ($certificate as $item) {
-            $data = $item->toArray();
+    
+        foreach ($certificates as $certificate) {
+            $data = $certificate->toArray();
             $logo = $data['file'];
-            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/newsletterpdf/" . $logo;
-
-            $base64 = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
-
-            // $data['file'] = $base64;
-           
-            $response[] = $data;
+            $logo1 = $data['image'];
+            $imagePath = str_replace('\\', '/', storage_path("all_web_data/images/newsletterpdf/{$logo}"));
+            $imagePath1 = str_replace('\\', '/', storage_path("all_web_data/images/newsletter/{$logo1}"));
+    
+            if (file_exists($imagePath) && file_exists($imagePath1)) {
+                $base64 = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
+                $data['file'] = $base64;
+                $data['image'] = $base64;
+                $response[] = $data;
+            } else {
+                // Handle the case when the file does not exist
+                // You may want to log an error or take appropriate action
+            }
         }
+    
         return response()->json(['data'=>$response, 'status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
         
     }
