@@ -28,34 +28,31 @@ class NewsLetterController extends Controller
     // }
 
     public function index(Request $request)
-    {
-        $certificates = NewsLetter::get();
-        $response = [];
-    
-        foreach ($certificates as $certificate) {
-            $data = $certificate->toArray();
-            $logo = $data['file'];
-            $logo1 = $data['image'];
-            $imagePath = str_replace('\\', '/', storage_path("all_web_data/images/newsletterpdf/{$logo}"));
-            $imagePath1 = str_replace('\\', '/', storage_path("all_web_data/images/newsletter/{$logo1}"));
-    
-            if (file_exists($imagePath) && file_exists($imagePath1)) {
-                $base64Pdf = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
-                $base64Image = "data:image/jpeg;base64," . base64_encode(file_get_contents($imagePath1));
-    
-                $data['file'] = $base64Pdf;
-                $data['image'] = $base64Image;
-    
-                $response[] = $data;
-            } else {
-                // Handle the case when the file does not exist
-                // You may want to log an error or take appropriate action
-            }
+{
+    $certificates = NewsLetter::get();
+    $response = [];
+
+    foreach ($certificates as $certificate) {
+        $data = $certificate->toArray();
+        $logo = $data['file'];
+        $logo1 = $data['image'];
+        $imagePath = str_replace('\\', '/', storage_path("all_web_data/images/newsletterpdf/{$logo}"));
+        $imagePath1 = str_replace('\\', '/', storage_path("all_web_data/images/newsletter/{$logo1}"));
+
+        if (file_exists($imagePath) && file_exists($imagePath1)) {
+            $base64 = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
+            $data['file'] = $base64;
+            $data['image'] = $base64;
+            $response[] = $data;
+        } else {
+            // Handle the case when the file does not exist
+            // You may want to log an error or take appropriate action
         }
-    
-        return response()->json(['data'=>$response, 'status' => 'Success', 'message' => 'Uploaded successfully','statusCode'=>'200']);
     }
-    
+
+    return response()->json($response);
+}
+
 
 
 public function getAllDataList(Request $request)
@@ -72,7 +69,19 @@ public function getAllDataList(Request $request)
 
         if (file_exists($imagePath) && file_exists($imagePath1)) {
             $base64Pdf = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
-            $base64Image = "data:image/jpeg;base64," . base64_encode(file_get_contents($imagePath1));
+            
+            // Determine the image type based on file extension
+            $imageExtension = pathinfo($imagePath1, PATHINFO_EXTENSION);
+            $imageMimeType = "image/jpeg"; // Default to JPEG
+
+            // Adjust MIME type based on extension
+            if ($imageExtension === 'png') {
+                $imageMimeType = "image/png";
+            } elseif ($imageExtension === 'jpg') {
+                $imageMimeType = "image/jpeg";
+            }
+
+            $base64Image = "data:{$imageMimeType};base64," . base64_encode(file_get_contents($imagePath1));
 
             $data['file'] = $base64Pdf;
             $data['image'] = $base64Image;
