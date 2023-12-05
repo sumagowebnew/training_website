@@ -11,7 +11,7 @@ class NewsLetterController extends Controller
 {
     public function index(Request $request)
     {
-        $certificate = Newsdetails::get();
+        $certificate = NewsLetter::get();
         $response = [];
         foreach ($certificate as $item) {
             $data = $item->toArray();
@@ -30,7 +30,7 @@ class NewsLetterController extends Controller
 
     public function getAllDataList(Request $request)
     {
-        $certificate = Newsdetails::get();
+        $certificate = NewsLetter::get();
         $response = [];
         foreach ($certificate as $item) {
             $data = $item->toArray();
