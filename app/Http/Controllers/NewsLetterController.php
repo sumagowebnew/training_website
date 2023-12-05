@@ -17,8 +17,8 @@ class NewsLetterController extends Controller
             $data = $item->toArray();
             $logo = $data['file'];
             $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/newsletterpdf/" . $logo;
-
-            $base64 = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
+            $imagePath1 =str_replace('\\', '/', storage_path())."/all_web_data/images/newsletter/" . $logo;
+            $base64 = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath, $imagePath1));
 
             $data['file'] = $base64;
            
