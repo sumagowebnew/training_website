@@ -22,6 +22,7 @@ class CounsellingController extends Controller
         'course' => 'required',
         'duration' => 'required',
         'interest' => 'required',
+        'location' => 'required',
         
         ]);
 
@@ -36,6 +37,7 @@ class CounsellingController extends Controller
         $Enquiries->course = $request->course;
         $Enquiries->duration = $request->duration;
         $Enquiries->interest = $request->interest;
+        $Enquiries->location = $request->location;
         $Enquiries->save();
         // $insert_data = ContactEnquiries::insert($data);
         return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
@@ -51,6 +53,7 @@ class CounsellingController extends Controller
             'course' => 'required',
             'duration' => 'required',
             'interest' => 'required',
+            'location' => 'required',
             
             ]);
     
@@ -65,6 +68,7 @@ class CounsellingController extends Controller
             $consult->course = $request->course;
             $consult->duration = $request->duration;
             $consult->interest = $request->interest;
+            $consult->location = $request->location;
 
             $update_data = $consult->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);

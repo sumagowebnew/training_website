@@ -20,6 +20,7 @@ class BrochureController extends Controller
             'name'=>'required',
             'email'=>'required|email',
             'contact' => 'required|numeric|digits:10',
+            'location' => 'required',
             ]);
         
             if ($validator->fails()) {
@@ -30,6 +31,7 @@ class BrochureController extends Controller
                         $brochure->name = $request->name;
                         $brochure->email = $request->email;
                         $brochure->contact = $request->contact;
+                        $brochure->location = $request->location;
                         $brochure->save();
                         // $insert_data = ContactEnquiries::insert($data);
                         return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
@@ -42,6 +44,7 @@ class BrochureController extends Controller
             'name'=>'required',
             'email'=>'required|email',
             'contact' => 'required|numeric|digits:10',
+            'location' => 'required',
             ]);
         
         if ($validator->fails())
@@ -53,6 +56,7 @@ class BrochureController extends Controller
             $brochure->name = $request->name;
             $brochure->email = $request->email;
             $brochure->contact = $request->contact;
+            $brochure->location = $request->location;
 
             $update_data = $brochure->update();
             return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
