@@ -10,29 +10,56 @@ use Validator;
 
 class NewsdetailsController extends Controller
 {
+    // public function index(Request $request)
+    // {
+    //     $newsdetails = Newsdetails::get();
+
+    //     $response = [];
+
+    //     foreach ($newsdetails as $item) {
+    //         $data = $item->toArray();
+
+    //         $logo = $data['image'];
+
+    //         $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/newsdetails/" . $logo;
+    //         $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+
+    //         $data['image'] = $base64;
+
+    //         $response[] = $data;
+    //     }
+
+    //     return response()->json($response);
+    // }
     public function index(Request $request)
-    {
-        $newsdetails = Newsdetails::get();
+{
+    $certificates = NewsLetter::get();
+    $response = [];
+    $fileViewPath = env('FILE_VIEW');
+    foreach ($certificates as $certificate) {
+        $data = $certificate->toArray();
+        $logo = $data['file'];
+        $logo1 = $data['image'];
+        
+              // $imagePath = str_replace('\\', '/', storage_path("all_web_data/images/newsletterpdf/{$logo}"));
+               $imagePath = str_replace('\\', '/', $fileViewPath."/all_web_data/images/newsletterpdf/" . $logo);
+               $imagePath1 =str_replace('\\', '/', storage_path())."/all_web_data/images/newsletter/" . $logo1;
 
-        $response = [];
-
-        foreach ($newsdetails as $item) {
-            $data = $item->toArray();
-
-            $logo = $data['image'];
-
-            $imagePath =str_replace('\\', '/', storage_path())."/all_web_data/images/newsdetails/" . $logo;
-
-
-            $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
-
-            $data['image'] = $base64;
+        if (file_exists($imagePath1)) {
+            // $base64Pdf = "data:application/pdf;base64," . base64_encode(file_get_contents($imagePath));
+            $base64Image = "data:image/png;base64," . base64_encode(file_get_contents($imagePath1));
+            $data['file'] = $imagePath;
+            $data['image'] = $base64Image;
 
             $response[] = $data;
+        } else {
+            // Handle the case when the file does not exist
+            // You may want to log an error or take appropriate action
         }
-
-        return response()->json($response);
     }
+
+    return response()->json($response);
+}
     public function Add(Request $request)
     {
         $validator = Validator::make($request->all(), [

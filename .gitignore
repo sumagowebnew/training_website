@@ -3,7 +3,7 @@
 Homestead.json
 Homestead.yaml
 storage
-.env
+# .env
 .phpunit.result.cache
 .htaccess
 uploads
