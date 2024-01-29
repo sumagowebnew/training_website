@@ -29,7 +29,7 @@ class NewsLetterController extends Controller
 
     public function index(Request $request)
     {
-        $certificates = NewsLetter::get();
+        $certificates = NewsLetter::orderBy('created_at', 'desc')->get();
         $response = [];
         $fileViewPath = env('FILE_VIEW');
         foreach ($certificates as $certificate) {
