@@ -220,8 +220,8 @@ public function add(Request $request){
 
 public function update(Request $request, $id){
     $validator = Validator::make($request->all(), [
-        // 'file'=>'required', // Uncomment this line if you want to validate the file field
-        'image'=>'required',
+        // 'file'=>'required',
+        // 'image'=>'required',
         'newsletter_month' => 'required',
         'newsletter_year' => 'required',
     ]);
