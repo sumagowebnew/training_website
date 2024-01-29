@@ -145,6 +145,8 @@ public function add(Request $request)
         $validator = Validator::make($request->all(), [
             'file' => 'required',
             'image' => 'required',
+            'newsletter_month' => 'required',
+            'newsletter_year' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -152,7 +154,12 @@ public function add(Request $request)
         }
 
         $file = $request->file;
+        $newsletter_month = $request->newsletter_month;
+        $newsletter_year = $request->newsletter_year;
+
         $news = new NewsLetter();
+        $news->newsletter_month = $newsletter_month; 
+        $news->newsletter_year = $newsletter_year; 
 
         // Image handling
         $existingRecord = NewsLetter::orderBy('id', 'DESC')->first();

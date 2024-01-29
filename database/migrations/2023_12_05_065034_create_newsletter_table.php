@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('newsletter', function (Blueprint $table) {
             $table->id();
+            $table->string('file')->default('null');
+            $table->string('image')->default('null');
             $table->timestamps();
         });
     }
