@@ -34,7 +34,7 @@ class CounsellingController extends Controller
 
     }else{
         $Enquiries = new Counselling();
-        $Enquiries->fullName = $request->fullName;
+        $Enquiries->fullname = $request->fullname;
         $Enquiries->email = $request->email;
         $Enquiries->contact = $request->contact;
         $Enquiries->course = $request->course;
@@ -66,7 +66,7 @@ class CounsellingController extends Controller
 
     }else{
         $addBootcampData = new Bootcamp();
-        $addBootcampData->fullName = $request->fullname;
+        $addBootcampData->fullName = $request->fullName;
         $addBootcampData->email = $request->email;
         $addBootcampData->contact = $request->contact;
         $addBootcampData->whatsapp = $request->whatsapp;
