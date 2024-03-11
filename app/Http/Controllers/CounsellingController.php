@@ -58,6 +58,7 @@ class CounsellingController extends Controller
         'whatsapp' => 'required',
         'college' => 'required',
         'department' => 'required',
+        'city' => 'required',
         'comment' => 'required',
         ]);
 
@@ -72,6 +73,7 @@ class CounsellingController extends Controller
         $addBootcampData->whatsapp = $request->whatsapp;
         $addBootcampData->college = $request->college;
         $addBootcampData->department = $request->department;
+        $addBootcampData->city = $request->city;
         $addBootcampData->comment = $request->comment;
         $addBootcampData->save();
         // $insert_data = ContactEnquiries::insert($data);
