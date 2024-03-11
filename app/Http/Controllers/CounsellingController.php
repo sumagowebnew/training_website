@@ -44,6 +44,39 @@ class CounsellingController extends Controller
     }
     }
 
+
+
+    public function AddBootcampData(Request $request)
+    {
+    $validator = Validator::make($request->all(), [
+        'fullName' =>'required',
+        'email' =>'required',
+        'contact' =>'required|numeric|digits:10',
+        'whatsapp' => 'required',
+        'college' => 'required',
+        'department' => 'required',
+        'comment' => 'required',
+        ]);
+
+    if ($validator->fails()) {
+        return $validator->errors()->all();
+
+    }else{
+        $addBootcampData = new Bootcamp();
+        $addBootcampData->fullName = $request->fullname;
+        $addBootcampData->email = $request->email;
+        $addBootcampData->contact = $request->contact;
+        $addBootcampData->whatsapp = $request->whatsapp;
+        $addBootcampData->college = $request->college;
+        $addBootcampData->department = $request->department;
+        $addBootcampData->comment = $request->comment;
+        $addBootcampData->save();
+        // $insert_data = ContactEnquiries::insert($data);
+        return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
+    }
+    }
+
+
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
