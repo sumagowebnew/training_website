@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use  App\Models\Counselling;
+use  App\Models\ {
+    Counselling,
+    Bootcamp
+};
 use Validator;
 class CounsellingController extends Controller
 {
