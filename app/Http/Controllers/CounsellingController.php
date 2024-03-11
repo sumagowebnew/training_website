@@ -34,7 +34,7 @@ class CounsellingController extends Controller
 
     }else{
         $Enquiries = new Counselling();
-        $Enquiries->fullname = $request->fullname;
+        $Enquiries->fullName = $request->fullName;
         $Enquiries->email = $request->email;
         $Enquiries->contact = $request->contact;
         $Enquiries->course = $request->course;
