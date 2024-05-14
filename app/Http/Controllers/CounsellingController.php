@@ -54,12 +54,12 @@ class CounsellingController extends Controller
     $validator = Validator::make($request->all(), [
         'fullName' =>'required',
         'email' =>'required',
-        'contact' =>'required|numeric|digits:10',
-        'whatsapp' => 'required',
+        'contact' =>'required|numeric|digits:10|unique:bootcamps',
+        'whatsapp' => 'required|numeric|digits:10|unique:bootcamps',
         'college' => 'required',
         'department' => 'required',
         'city' => 'required',
-        'comment' => 'required',
+        // 'comment' => 'required',
         ]);
 
     if ($validator->fails()) {
@@ -74,7 +74,7 @@ class CounsellingController extends Controller
         $addBootcampData->college = $request->college;
         $addBootcampData->department = $request->department;
         $addBootcampData->city = $request->city;
-        $addBootcampData->comment = $request->comment;
+        $addBootcampData->comment = 'no';// $request->comment;
         $addBootcampData->save();
         // $insert_data = ContactEnquiries::insert($data);
         return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
