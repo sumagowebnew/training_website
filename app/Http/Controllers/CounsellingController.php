@@ -54,8 +54,8 @@ class CounsellingController extends Controller
     $validator = Validator::make($request->all(), [
         'fullName' =>'required',
         'email' =>'required',
-        'contact' =>'required|numeric|digits:10|unique:bootcamps',
-        'whatsapp' => 'required|numeric|digits:10|unique:bootcamps',
+        'contact' =>'required|numeric|digits:10|unique:bootcamp',
+        'whatsapp' => 'required|numeric|digits:10|unique:bootcamp',
         'college' => 'required',
         'department' => 'required',
         'city' => 'required',
