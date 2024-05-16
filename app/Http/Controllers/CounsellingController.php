@@ -65,7 +65,9 @@ class CounsellingController extends Controller
         ]);
 
     if ($validator->fails()) {
-        return $validator->errors()->all();
+        // return $validator->errors()->all();
+        return response()->json(['status' => 'Success', 'message' => $validator->errors()->all(),'StatusCode'=>'400']);
+
 
     }else{
         $addBootcampData = new Bootcamp();
