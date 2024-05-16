@@ -60,6 +60,7 @@ class CounsellingController extends Controller
         'department' => 'required',
         'city' => 'required',
         // 'comment' => 'required',
+        'refrence_from' => 'required',
         ]);
 
     if ($validator->fails()) {
@@ -75,6 +76,7 @@ class CounsellingController extends Controller
         $addBootcampData->department = $request->department;
         $addBootcampData->city = $request->city;
         $addBootcampData->comment = 'no';// $request->comment;
+        $addBootcampData->refrence_from = $request->refrence_from;
         $addBootcampData->save();
         // $insert_data = ContactEnquiries::insert($data);
         return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
