@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use  App\Models\ {
     Counselling,
-    Bootcamp
+    Bootcamp,
+    BootcampApplyNow
 };
 use Validator;
 class CounsellingController extends Controller
@@ -43,7 +44,7 @@ class CounsellingController extends Controller
         $Enquiries->location = $request->location;
         $Enquiries->save();
         // $insert_data = ContactEnquiries::insert($data);
-        return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
+        return response()->json(['status' => 'Success', 'message' => 'Information submitted successfully','StatusCode'=>'200']);
     }
     }
 
@@ -83,7 +84,45 @@ class CounsellingController extends Controller
         $addBootcampData->education = $request->education;
         $addBootcampData->save();
         // $insert_data = ContactEnquiries::insert($data);
-        return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
+        return response()->json(['status' => 'Success', 'message' => 'Information submitted successfully','StatusCode'=>'200']);
+    }
+    }
+
+    public function AddBootcampApplyNow(Request $request)
+    {
+    $validator = Validator::make($request->all(), [
+        'fullName' =>'required',
+        'email' =>'required',
+        'contact' =>'required|numeric|digits:10|unique:bootcamp',
+        'whatsapp' => 'required|numeric|digits:10|unique:bootcamp',
+        'college' => 'required',
+        'department' => 'required',
+        'city' => 'required',
+        // 'comment' => 'required',
+        'refrence_from' => 'required',
+        'education' => 'required',
+        ]);
+
+    if ($validator->fails()) {
+        // return $validator->errors()->all();
+        return response()->json(['status' => 'Success', 'message' => $validator->errors()->all(),'StatusCode'=>'400']);
+
+
+    }else{
+        $addBootcampData = new BootcampApplyNow();
+        $addBootcampData->fullName = $request->fullName;
+        $addBootcampData->email = $request->email;
+        $addBootcampData->contact = $request->contact;
+        $addBootcampData->whatsapp = $request->whatsapp;
+        $addBootcampData->college = $request->college;
+        $addBootcampData->department = $request->department;
+        $addBootcampData->city = $request->city;
+        $addBootcampData->comment = 'no';// $request->comment;
+        $addBootcampData->refrence_from = $request->refrence_from;
+        $addBootcampData->education = $request->education;
+        $addBootcampData->save();
+        // $insert_data = ContactEnquiries::insert($data);
+        return response()->json(['status' => 'Success', 'message' => 'Information submitted successfully','StatusCode'=>'200']);
     }
     }
 

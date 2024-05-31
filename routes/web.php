@@ -317,6 +317,7 @@ Route::group([
     Route::get('view_eventDetails/{id}', 'EventDetailsController@view');
     Route::post('add_counselling', 'CounsellingController@add');
     Route::post('add_boot_camp_data', 'CounsellingController@AddBootcampData');
+    Route::post('add_boot_camp_applynow', 'CounsellingController@AddBootcampApplyNow');
     Route::post('add_brochuer', 'BrochureController@add');
 
     Route::get('get_googleReview', 'GoogleReviewsController@index');
