@@ -19,6 +19,7 @@ class SubcoursesController extends Controller
           })
           ->where('subcourses.course_id',$id)->groupBy('course_fee_details.sub_course_id')
           ->select([
+              'subcourses.url', 
               'subcourses.course_id as course_id', 
               'subcourses.id as subcourses_id', 
               'subcourses.image as subcourses_image', 
