@@ -309,6 +309,11 @@ Route::group([
     Route::get('get_events/{id}', 'EventsController@index');
     Route::post('add_applyNow', 'ApplynowController@add');
     Route::post('add_contact', 'ContactController@add');
+
+
+    Route::post('add_career', 'CareerController@add');
+    Route::post('add_itsap', 'ITSapController@AddITSapData');
+    
    
     Route::get('view_popularCourseDetails/{id}', 'PopularCoursesDetailsController@view');
     Route::get('view_programdetails/{id}', 'ProgramDetailsController@view');
