@@ -280,6 +280,15 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('add_newsletter', 'NewsLetterController@add');
     Route::post('update_newsletter/{id}', 'NewsLetterController@update');
     Route::delete('delete_newsletter/{id}', 'NewsLetterController@delete');
+
+    Route::post('/intern-joining/add', 'StudentInfoController@add');
+    Route::get('/get-intern-joining', 'StudentInfoController@index');
+    // $router->post('/portfolio/update/{id}', 'PortfolioController@update');
+    Route::delete('intern-joining/delete/{id}', 'StudentInfoController@destroy');
+
+    Route::post('/intern-completion/add', 'StudentInternshipCompletionController@add');
+    Route::get('/get-perticular-intern/{id}', 'StudentInternshipCompletionController@getPerticular');
+    Route::get('/get-intern-completion-details', 'StudentInternshipCompletionController@index');
    
 });
 
