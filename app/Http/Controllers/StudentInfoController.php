@@ -7,7 +7,8 @@ use App\Models\
 StudentInfo,
 StudentEdducationDetails,
 StudentParentDetails,
-StudentInternshipDetails
+StudentInternshipDetails,
+StudentInternshipCompletionDetails
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -331,6 +332,12 @@ class StudentInfoController extends Controller
                 $is_deleted = $studet_internship_data->is_deleted == 1 ? 0 : 1;
                 $studet_internship_data->is_deleted = $is_deleted;
                 $studet_internship_data->save();
+
+                $studet_completion_data = StudentInternshipCompletionDetails::where('stude_id', $id)
+                            ->first();
+                $is_deleted = $studet_completion_data->is_deleted == 1 ? 0 : 1;
+                $studet_completion_data->is_deleted = $is_deleted;
+                $studet_completion_data->save();
 
                 return response()->json([
                     'status' => 'success',
