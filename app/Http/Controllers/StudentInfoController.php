@@ -332,7 +332,12 @@ class StudentInfoController extends Controller
                 $studet_internship_data->is_deleted = $is_deleted;
                 $studet_internship_data->save();
 
-        return $this->responseApi($all_data,'Portfolio Deleted Successfully!','success',200);
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Portfolio Deleted Successfully!',
+                    'data' => $all_data,
+                ], 200);
+        
 
             }
             // else[
@@ -343,6 +348,10 @@ class StudentInfoController extends Controller
         // $portfolio->delete();
         // return response()->json("Deleted Successfully!");
         // return $this->responseApi($all_data,'Portfolio Deleted Successfully!','success',200);
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Student details not found.',
+        ], 404);
 
     }
 
