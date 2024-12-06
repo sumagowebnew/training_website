@@ -29,12 +29,12 @@ class StudentInfoController extends Controller
                             ->select('fname','mname','fathername','lname','parmanenat_address','current_address','contact_details','email','dob',
             'whatsappno', 'age', 'blood', 'aadhar','linkdin','facebook','youtube','anyother_add','school_name',
             'tenth_per','twelve_diploma_per','graduation_details', 'graduation_per', 'post_graduation_details','post_graduation_per',
-            'anyother_cirt','selected_branches','other_branch','father_name','father_occupation','father_contact_details','father_aadhar_no',
-            'mother_name','mother_occupation','mother_contact_details','mother_aadhar_no','married_status','husband_name',
-            'husband_contact_details','husband_aadhar_no','husband_guardian_details','guardian_name','guardian_occupation',
-            'guardian_contact_details','guardian_aadhar_no','technology_name','duration','selected_modules','intern_experience',
-            'experience','characteristics_describe','applicant_name','place','reference_name','contact_number','button_applicant_name',
-            'button_place')
+            'anyother_cirt','selected_branches','other_branch','father_name','fatherOccupation','father_contactdetails','father_aadharno',
+            'mother_pareantgauaradiandetails','mother_name','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
+            'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
+            'technology_name','duration','selectedModules','intern_experience',
+            'experience','characteristics_describe','applicant_name','place','reference_name','contact_number','buttom_applicant_name',
+            'buttom_place')
             ->get();
 
         // $response = [];
@@ -106,27 +106,27 @@ class StudentInfoController extends Controller
         
             // StudentParentDetails fields
             'father_name' => 'required|string|max:255',
-            'father_occupation' => 'nullable|string|max:255',
-            'father_contact_details' => 'required|string|max:15',
-            'father_aadhar_no' => 'required|string|max:12|min:12',
+            'fatherOccupation' => 'nullable|string|max:255',
+            'father_contactdetails' => 'required|string|max:15',
+            'father_aadharno' => 'required|string|max:12|min:12',
+            'mother_pareantgauaradiandetails' => 'nullable|string|max:255',
             'mother_name' => 'nullable|string|max:255',
-            'mother_occupation' => 'nullable|string|max:255',
-            'mother_contact_details' => 'nullable|string|max:15',
-            'mother_aadhar_no' => 'nullable|string|max:12|min:12',
-            'married_status' => 'required',
-            'husband_name' => 'nullable|required_if:married_status,Yes|string|max:255',
-            'husband_contact_details' => 'nullable|required_if:married_status,Yes|string|max:15',
-            'husband_aadhar_no' => 'nullable|required_if:married_status,Yes|string|max:12|min:12',
-            'husband_occupation' => 'nullable|required_if:married_status,Yes|string|max:255',
+            'mother_contactdetails' => 'nullable|string|max:15',
+            'mother_aadharno' => 'nullable|string|max:12|min:12',
+            'marriedStatus' => 'required',
+            'husband_name' => 'nullable|required_if:marriedStatus,Yes|string|max:255',
+            'Husband_contactdetails' => 'nullable|required_if:marriedStatus,Yes|string|max:15',
+            'Husband_aadharno' => 'nullable|required_if:marriedStatus,Yes|string|max:12|min:12',
+            'HusbandOccupation' => 'nullable|required_if:marriedStatus,Yes|string|max:255',
             'guardian_name' => 'nullable|string|max:255',
-            'guardian_occupation' => 'nullable|string|max:255',
-            'guardian_contact_details' => 'nullable|string|max:15',
-            'guardian_aadhar_no' => 'nullable|string|max:12|min:12',
+            'Guardian_aadharno' => 'nullable|string|max:12|min:12',
+            'Guardian_contactdetails' => 'nullable|string|max:15',
+            'GuardianOccupation' => 'nullable|string|max:255',
         
             // StudentInternshipDetails fields
             'technology_name' => 'required|string|max:255',
             'duration' => 'nullable|string|max:50',
-            'selected_modules' => 'required',
+            'selectedModules' => 'required',
             'intern_experience' => 'nullable|string|max:1000',
             'experience' => 'nullable|string|max:1000',
             'characteristics_describe' => 'nullable|string|max:1000',
@@ -134,8 +134,8 @@ class StudentInfoController extends Controller
             'place' => 'nullable|string|max:255',
             'reference_name' => 'nullable|string|max:255',
             'contact_number' => 'nullable|string|max:15',
-            'button_applicant_name' => 'nullable|string|max:255',
-            'button_place' => 'nullable|string|max:255',
+            'buttom_applicant_name' => 'nullable|string|max:255',
+            'buttom_place' => 'nullable|string|max:255',
         ]);
         
         // if ($validator->fails()) {
@@ -206,29 +206,29 @@ class StudentInfoController extends Controller
                         $studentPerentsDetails = new StudentParentDetails();
                         $studentPerentsDetails->stude_id = $recordId;
                         $studentPerentsDetails->father_name = $request->father_name;
-                        $studentPerentsDetails->father_occupation = $request->father_occupation;
-                        $studentPerentsDetails->father_contact_details = $request->father_contact_details;
-                        $studentPerentsDetails->father_aadhar_no = $request->father_aadhar_no;
+                        $studentPerentsDetails->fatherOccupation = $request->fatherOccupation;
+                        $studentPerentsDetails->father_contactdetails = $request->father_contactdetails;
+                        $studentPerentsDetails->father_aadharno = $request->father_aadharno;
+                        $studentPerentsDetails->mother_pareantgauaradiandetails = $request->mother_pareantgauaradiandetails;
                         $studentPerentsDetails->mother_name = $request->mother_name;
-                        $studentPerentsDetails->mother_occupation = $request->mother_occupation;
-                        $studentPerentsDetails->mother_contact_details = $request->mother_contact_details;
-                        $studentPerentsDetails->mother_aadhar_no = $request->mother_aadhar_no;
-                        $studentPerentsDetails->married_status = $request->married_status;
+                        $studentPerentsDetails->mother_contactdetails = $request->mother_contactdetails;
+                        $studentPerentsDetails->mother_aadharno = $request->mother_aadharno;
+                        $studentPerentsDetails->marriedStatus = $request->marriedStatus;
                         $studentPerentsDetails->husband_name = $request->husband_name;
-                        $studentPerentsDetails->husband_contact_details = $request->husband_contact_details;
-                        $studentPerentsDetails->husband_aadhar_no = $request->husband_aadhar_no;
-                        $studentPerentsDetails->husband_occupation = $request->husband_occupation;
+                        $studentPerentsDetails->Husband_contactdetails = $request->Husband_contactdetails;
+                        $studentPerentsDetails->Husband_aadharno = $request->Husband_aadharno;
+                        $studentPerentsDetails->HusbandOccupation = $request->HusbandOccupation;
                         $studentPerentsDetails->guardian_name = $request->guardian_name;
-                        $studentPerentsDetails->guardian_occupation = $request->guardian_occupation;
-                        $studentPerentsDetails->guardian_contact_details = $request->guardian_contact_details;
-                        $studentPerentsDetails->guardian_aadhar_no = $request->guardian_aadhar_no;
+                        $studentPerentsDetails->Guardian_aadharno = $request->Guardian_aadharno;
+                        $studentPerentsDetails->GuardianOccupation = $request->GuardianOccupation;
+                        $studentPerentsDetails->Guardian_contactdetails = $request->Guardian_contactdetails;
                         $studentPerentsDetails->save();
 
                         $studentPerentsDetails = new StudentInternshipDetails();
                         $studentPerentsDetails->stude_id = $recordId;
                         $studentPerentsDetails->technology_name = $request->technology_name;
                         $studentPerentsDetails->duration = $request->duration;
-                        $studentPerentsDetails->selected_modules = $request->selected_modules;
+                        $studentPerentsDetails->selectedModules = $request->selectedModules;
                         $studentPerentsDetails->intern_experience = $request->intern_experience;
                         $studentPerentsDetails->experience = $request->experience;
                         $studentPerentsDetails->characteristics_describe = $request->characteristics_describe;
@@ -236,8 +236,8 @@ class StudentInfoController extends Controller
                         $studentPerentsDetails->place = $request->place;
                         $studentPerentsDetails->reference_name = $request->reference_name;
                         $studentPerentsDetails->contact_number = $request->contact_number;
-                        $studentPerentsDetails->button_applicant_name = $request->button_applicant_name;
-                        $studentPerentsDetails->button_place = $request->button_place;
+                        $studentPerentsDetails->buttom_applicant_name = $request->buttom_applicant_name;
+                        $studentPerentsDetails->buttom_place = $request->buttom_place;
                         $studentPerentsDetails->save();
 
 
