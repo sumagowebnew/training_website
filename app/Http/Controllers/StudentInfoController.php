@@ -30,7 +30,7 @@ class StudentInfoController extends Controller
             'whatsappno', 'age', 'blood', 'aadhar','linkdin','facebook','youtube','anyother_add','school_name',
             'tenth_per','twelve_diploma_per','graduation_details', 'graduation_per', 'post_graduation_details','post_graduation_per',
             'anyother_cirt','selected_branches','other_branch','father_name','fatherOccupation','father_contactdetails','father_aadharno',
-            'mother_pareantgauaradiandetails','mother_name','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
+            'mother_pareantgauaradiandetails','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
             'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
             'technology_name','duration','selectedModules','intern_experience',
             'experience','characteristics_describe','applicant_name','place','reference_name','contact_number','buttom_applicant_name',
@@ -86,7 +86,7 @@ class StudentInfoController extends Controller
             'whatsappno' => 'nullable|string|max:15',
             'age' => 'required|integer|min:1',
             'blood' => 'nullable|string|max:10',
-            'aadhar' => 'required|string|max:12|min:12', // Assuming a 12-digit Aadhaar number
+            'aadhar' => 'required|string|max:12|min:12',
             'linkdin' => 'nullable|url',
             'facebook' => 'nullable|url',
             'youtube' => 'nullable|url',
@@ -110,7 +110,7 @@ class StudentInfoController extends Controller
             'father_contactdetails' => 'required|string|max:15',
             'father_aadharno' => 'required|string|max:12|min:12',
             'mother_pareantgauaradiandetails' => 'nullable|string|max:255',
-            'mother_name' => 'nullable|string|max:255',
+            'motherOccupation' => 'nullable|string|max:255',
             'mother_contactdetails' => 'nullable|string|max:15',
             'mother_aadharno' => 'nullable|string|max:12|min:12',
             'marriedStatus' => 'required',
@@ -136,6 +136,26 @@ class StudentInfoController extends Controller
             'contact_number' => 'nullable|string|max:15',
             'buttom_applicant_name' => 'nullable|string|max:255',
             'buttom_place' => 'nullable|string|max:255',
+        ], [
+            // Custom validation messages
+            'fname.required' => 'First Name is required.',
+            'fathername.required' => 'Father Name is required.',
+            'lname.required' => 'Last Name is required.',
+            'parmanenat_address.required' => 'Permanent Address is required.',
+            'contact_details.required' => 'Contact Details are required.',
+            'email.required' => 'Email address is required.',
+            'dob.required' => 'Date of Birth is required.',
+            'aadhar.required' => 'Aadhar Number is required.',
+            'school_name.required' => 'School Name is required.',
+            'tenth_per.required' => '10th Percentage is required.',
+            'selected_branches.required' => 'Selected Branches are required.',
+            'father_name.required' => 'Father Name is required.',
+            'father_contactdetails.required' => 'Father Contact Details are required.',
+            'father_aadharno.required' => 'Father Aadhar Number is required.',
+            'marriedStatus.required' => 'Married Status is required.',
+            'technology_name.required' => 'Technology Name is required.',
+            'selectedModules.required' => 'Selected Modules are required.',
+            'applicant_name.required' => 'Applicant Name is required.',
         ]);
         
         // if ($validator->fails()) {
@@ -209,8 +229,8 @@ class StudentInfoController extends Controller
                         $studentPerentsDetails->fatherOccupation = $request->fatherOccupation;
                         $studentPerentsDetails->father_contactdetails = $request->father_contactdetails;
                         $studentPerentsDetails->father_aadharno = $request->father_aadharno;
-                        $studentPerentsDetails->mother_pareantgauaradiandetails = $request->mother_pareantgauaradiandetails;
                         $studentPerentsDetails->mother_name = $request->mother_name;
+                        $studentPerentsDetails->motherOccupation = $request->motherOccupation;
                         $studentPerentsDetails->mother_contactdetails = $request->mother_contactdetails;
                         $studentPerentsDetails->mother_aadharno = $request->mother_aadharno;
                         $studentPerentsDetails->marriedStatus = $request->marriedStatus;
