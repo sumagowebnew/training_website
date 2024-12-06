@@ -139,23 +139,194 @@ class StudentInfoController extends Controller
         ], [
             // Custom validation messages
             'fname.required' => 'First Name is required.',
+            'fname.string' => 'First Name must be a string.',
+            'fname.max' => 'First Name should not exceed 255 characters.',
+            
+            'mname.string' => 'Middle Name must be a string.',
+            'mname.max' => 'Middle Name should not exceed 255 characters.',
+            
             'fathername.required' => 'Father Name is required.',
+            'fathername.string' => 'Father Name must be a string.',
+            'fathername.max' => 'Father Name should not exceed 255 characters.',
+            
             'lname.required' => 'Last Name is required.',
+            'lname.string' => 'Last Name must be a string.',
+            'lname.max' => 'Last Name should not exceed 255 characters.',
+            
             'parmanenat_address.required' => 'Permanent Address is required.',
+            'parmanenat_address.string' => 'Permanent Address must be a string.',
+            'parmanenat_address.max' => 'Permanent Address should not exceed 500 characters.',
+            
+            'current_address.string' => 'Current Address must be a string.',
+            'current_address.max' => 'Current Address should not exceed 500 characters.',
+            
             'contact_details.required' => 'Contact Details are required.',
-            'email.required' => 'Email address is required.',
+            'contact_details.string' => 'Contact Details must be a string.',
+            'contact_details.max' => 'Contact Details should not exceed 15 characters.',
+            
+            'email.required' => 'Email is required.',
+            'email.email' => 'Email must be a valid email address.',
+            'email.max' => 'Email should not exceed 255 characters.',
+            
             'dob.required' => 'Date of Birth is required.',
+            'dob.date' => 'Date of Birth must be a valid date.',
+            
+            'whatsappno.string' => 'WhatsApp Number must be a string.',
+            'whatsappno.max' => 'WhatsApp Number should not exceed 15 characters.',
+            
+            'age.required' => 'Age is required.',
+            'age.integer' => 'Age must be an integer.',
+            'age.min' => 'Age must be at least 1.',
+            
+            'blood.string' => 'Blood Group must be a string.',
+            'blood.max' => 'Blood Group should not exceed 10 characters.',
+            
             'aadhar.required' => 'Aadhar Number is required.',
+            'aadhar.string' => 'Aadhar Number must be a string.',
+            'aadhar.max' => 'Aadhar Number should not exceed 12 characters.',
+            'aadhar.min' => 'Aadhar Number should be exactly 12 characters.',
+            
+            'linkdin.url' => 'LinkedIn URL must be a valid URL.',
+            
+            'facebook.url' => 'Facebook URL must be a valid URL.',
+            
+            'youtube.url' => 'YouTube URL must be a valid URL.',
+            
+            'anyother_add.string' => 'Other Address must be a string.',
+            'anyother_add.max' => 'Other Address should not exceed 500 characters.',
+
             'school_name.required' => 'School Name is required.',
+            'school_name.string' => 'School Name must be a string.',
+            'school_name.max' => 'School Name should not exceed 255 characters.',
+            
             'tenth_per.required' => '10th Percentage is required.',
+            'tenth_per.numeric' => '10th Percentage must be a number.',
+            'tenth_per.min' => '10th Percentage must be at least 0.',
+            'tenth_per.max' => '10th Percentage must not exceed 100.',
+            
+            'twelve_diploma_per.numeric' => '12th/Diploma Percentage must be a number.',
+            'twelve_diploma_per.min' => '12th/Diploma Percentage must be at least 0.',
+            'twelve_diploma_per.max' => '12th/Diploma Percentage must not exceed 100.',
+            
+            'graduation_details.string' => 'Graduation Details must be a string.',
+            'graduation_details.max' => 'Graduation Details should not exceed 255 characters.',
+            
+            'graduation_per.numeric' => 'Graduation Percentage must be a number.',
+            'graduation_per.min' => 'Graduation Percentage must be at least 0.',
+            'graduation_per.max' => 'Graduation Percentage must not exceed 100.',
+            
+            'post_graduation_details.string' => 'Post Graduation Details must be a string.',
+            'post_graduation_details.max' => 'Post Graduation Details should not exceed 255 characters.',
+            
+            'post_graduation_per.numeric' => 'Post Graduation Percentage must be a number.',
+            'post_graduation_per.min' => 'Post Graduation Percentage must be at least 0.',
+            'post_graduation_per.max' => 'Post Graduation Percentage must not exceed 100.',
+            
+            'anyother_cirt.string' => 'Other Certification Details must be a string.',
+            'anyother_cirt.max' => 'Other Certification Details should not exceed 255 characters.',
+            
             'selected_branches.required' => 'Selected Branches are required.',
+            
+            'other_branch.string' => 'Other Branch must be a string.',
+            'other_branch.max' => 'Other Branch should not exceed 255 characters.',
+
             'father_name.required' => 'Father Name is required.',
+            'father_name.string' => 'Father Name must be a string.',
+            'father_name.max' => 'Father Name should not exceed 255 characters.',
+            
+            'fatherOccupation.string' => 'Father Occupation must be a string.',
+            'fatherOccupation.max' => 'Father Occupation should not exceed 255 characters.',
+            
             'father_contactdetails.required' => 'Father Contact Details are required.',
-            'father_aadharno.required' => 'Father Aadhar Number is required.',
-            'marriedStatus.required' => 'Married Status is required.',
+            'father_contactdetails.string' => 'Father Contact Details must be a string.',
+            'father_contactdetails.max' => 'Father Contact Details should not exceed 15 characters.',
+            
+            'father_aadharno.required' => 'Father Aadhaar Number is required.',
+            'father_aadharno.string' => 'Father Aadhaar Number must be a string.',
+            'father_aadharno.max' => 'Father Aadhaar Number should not exceed 12 characters.',
+            'father_aadharno.min' => 'Father Aadhaar Number must be exactly 12 characters.',
+            
+            'mother_pareantgauaradiandetails.string' => 'Mother Parent Guardian Details must be a string.',
+            'mother_pareantgauaradiandetails.max' => 'Mother Parent Guardian Details should not exceed 255 characters.',
+            
+            'motherOccupation.string' => 'Mother Occupation must be a string.',
+            'motherOccupation.max' => 'Mother Occupation should not exceed 255 characters.',
+            
+            'mother_contactdetails.string' => 'Mother Contact Details must be a string.',
+            'mother_contactdetails.max' => 'Mother Contact Details should not exceed 15 characters.',
+            
+            'mother_aadharno.string' => 'Mother Aadhaar Number must be a string.',
+            'mother_aadharno.max' => 'Mother Aadhaar Number should not exceed 12 characters.',
+            'mother_aadharno.min' => 'Mother Aadhaar Number must be exactly 12 characters.',
+            
+            'marriedStatus.required' => 'Marital Status is required.',
+            
+            'husband_name.required_if' => 'Husband Name is required when marital status is Yes.',
+            'husband_name.string' => 'Husband Name must be a string.',
+            'husband_name.max' => 'Husband Name should not exceed 255 characters.',
+            
+            'Husband_contactdetails.required_if' => 'Husband Contact Details are required when marital status is Yes.',
+            'Husband_contactdetails.string' => 'Husband Contact Details must be a string.',
+            'Husband_contactdetails.max' => 'Husband Contact Details should not exceed 15 characters.',
+            
+            'Husband_aadharno.required_if' => 'Husband Aadhaar Number is required when marital status is Yes.',
+            'Husband_aadharno.string' => 'Husband Aadhaar Number must be a string.',
+            'Husband_aadharno.max' => 'Husband Aadhaar Number should not exceed 12 characters.',
+            'Husband_aadharno.min' => 'Husband Aadhaar Number must be exactly 12 characters.',
+            
+            'HusbandOccupation.required_if' => 'Husband Occupation is required when marital status is Yes.',
+            'HusbandOccupation.string' => 'Husband Occupation must be a string.',
+            'HusbandOccupation.max' => 'Husband Occupation should not exceed 255 characters.',
+            
+            'guardian_name.string' => 'Guardian Name must be a string.',
+            'guardian_name.max' => 'Guardian Name should not exceed 255 characters.',
+            
+            'Guardian_aadharno.string' => 'Guardian Aadhaar Number must be a string.',
+            'Guardian_aadharno.max' => 'Guardian Aadhaar Number should not exceed 12 characters.',
+            'Guardian_aadharno.min' => 'Guardian Aadhaar Number must be exactly 12 characters.',
+            
+            'Guardian_contactdetails.string' => 'Guardian Contact Details must be a string.',
+            'Guardian_contactdetails.max' => 'Guardian Contact Details should not exceed 15 characters.',
+            
+            'GuardianOccupation.string' => 'Guardian Occupation must be a string.',
+            'GuardianOccupation.max' => 'Guardian Occupation should not exceed 255 characters.',
+
             'technology_name.required' => 'Technology Name is required.',
+            'technology_name.string' => 'Technology Name must be a string.',
+            'technology_name.max' => 'Technology Name should not exceed 255 characters.',
+            
+            'duration.string' => 'Duration must be a string.',
+            'duration.max' => 'Duration should not exceed 50 characters.',
+            
             'selectedModules.required' => 'Selected Modules are required.',
+            
+            'intern_experience.string' => 'Internship Experience must be a string.',
+            'intern_experience.max' => 'Internship Experience should not exceed 1000 characters.',
+            
+            'experience.string' => 'Experience must be a string.',
+            'experience.max' => 'Experience should not exceed 1000 characters.',
+            
+            'characteristics_describe.string' => 'Characteristics Description must be a string.',
+            'characteristics_describe.max' => 'Characteristics Description should not exceed 1000 characters.',
+            
             'applicant_name.required' => 'Applicant Name is required.',
+            'applicant_name.string' => 'Applicant Name must be a string.',
+            'applicant_name.max' => 'Applicant Name should not exceed 255 characters.',
+            
+            'place.string' => 'Place must be a string.',
+            'place.max' => 'Place should not exceed 255 characters.',
+            
+            'reference_name.string' => 'Reference Name must be a string.',
+            'reference_name.max' => 'Reference Name should not exceed 255 characters.',
+            
+            'contact_number.string' => 'Contact Number must be a string.',
+            'contact_number.max' => 'Contact Number should not exceed 15 characters.',
+            
+            'buttom_applicant_name.string' => 'Bottom Applicant Name must be a string.',
+            'buttom_applicant_name.max' => 'Bottom Applicant Name should not exceed 255 characters.',
+            
+            'buttom_place.string' => 'Bottom Place must be a string.',
+            'buttom_place.max' => 'Bottom Place should not exceed 255 characters.',
         ]);
         
         // if ($validator->fails()) {
