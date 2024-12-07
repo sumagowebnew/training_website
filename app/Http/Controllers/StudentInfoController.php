@@ -405,10 +405,10 @@ class StudentInfoController extends Controller
                         $studentPerentsDetails->mother_contactdetails = $request->mother_contactdetails;
                         $studentPerentsDetails->mother_aadharno = $request->mother_aadharno;
                         $studentPerentsDetails->marriedStatus = $request->marriedStatus;
-                        $studentPerentsDetails->husband_name = $request->husband_name;
-                        $studentPerentsDetails->Husband_contactdetails = $request->Husband_contactdetails;
-                        $studentPerentsDetails->Husband_aadharno = $request->Husband_aadharno;
-                        $studentPerentsDetails->HusbandOccupation = $request->HusbandOccupation;
+                        $studentPerentsDetails->husband_name =  $request->husbandDetails['name'];
+                        $studentPerentsDetails->Husband_contactdetails = $request->husbandDetails['contact'];
+                        $studentPerentsDetails->Husband_aadharno = $request->husbandDetails['aadhar'];
+                        $studentPerentsDetails->HusbandOccupation = $request->husbandDetails['occupation'];
                         $studentPerentsDetails->guardian_name = $request->guardian_name;
                         $studentPerentsDetails->Guardian_aadharno = $request->Guardian_aadharno;
                         $studentPerentsDetails->GuardianOccupation = $request->GuardianOccupation;
