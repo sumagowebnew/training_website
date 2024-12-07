@@ -30,7 +30,7 @@ class StudentInfoController extends Controller
             'whatsappno', 'age', 'blood', 'aadhar','linkdin','facebook','youtube','anyother_add','school_name',
             'tenth_per','twelve_diploma_per','graduation_details', 'graduation_per', 'post_graduation_details','post_graduation_per',
             'anyother_cirt','selected_branches','other_branch','father_name','fatherOccupation','father_contactdetails','father_aadharno',
-            'mother_pareantgauaradiandetails','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
+            'mother_name','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
             'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
             'technology_name','duration','selectedModules','intern_experience',
             'experience','characteristics_describe','applicant_name','place','reference_name','contact_number','buttom_applicant_name',
@@ -109,7 +109,7 @@ class StudentInfoController extends Controller
             'fatherOccupation' => 'nullable|string|max:255',
             'father_contactdetails' => 'required|string|max:15',
             'father_aadharno' => 'required|string|max:12|min:12',
-            'mother_pareantgauaradiandetails' => 'nullable|string|max:255',
+            'mother_name' => 'nullable|string|max:255',
             'motherOccupation' => 'nullable|string|max:255',
             'mother_contactdetails' => 'nullable|string|max:15',
             'mother_aadharno' => 'nullable|string|max:12|min:12',
@@ -248,8 +248,8 @@ class StudentInfoController extends Controller
             'father_aadharno.max' => 'Father Aadhaar Number should not exceed 12 characters.',
             'father_aadharno.min' => 'Father Aadhaar Number must be exactly 12 characters.',
             
-            'mother_pareantgauaradiandetails.string' => 'Mother Parent Guardian Details must be a string.',
-            'mother_pareantgauaradiandetails.max' => 'Mother Parent Guardian Details should not exceed 255 characters.',
+            'mother_name.string' => 'Mother Parent Guardian Details must be a string.',
+            'mother_name.max' => 'Mother Parent Guardian Details should not exceed 255 characters.',
             
             'motherOccupation.string' => 'Mother Occupation must be a string.',
             'motherOccupation.max' => 'Mother Occupation should not exceed 255 characters.',
