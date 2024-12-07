@@ -84,7 +84,7 @@ class StudentInfoController extends Controller
             'email' => 'required|email|max:255',
             'dob' => 'required|date',
             'whatsappno' => 'nullable|string|max:15',
-            'age' => 'required|integer|min:1',
+            'age' => 'required',
             'blood' => 'nullable|string|max:10',
             'aadhar' => 'required|string|max:12|min:12',
             'linkdin' => 'nullable|url',
@@ -179,8 +179,6 @@ class StudentInfoController extends Controller
             'whatsappno.max' => 'WhatsApp Number should not exceed 15 characters.',
             
             'age.required' => 'Age is required.',
-            'age.integer' => 'Age must be an integer.',
-            'age.min' => 'Age must be at least 1.',
             
             'blood.string' => 'Blood Group must be a string.',
             'blood.max' => 'Blood Group should not exceed 10 characters.',
@@ -451,8 +449,6 @@ class StudentInfoController extends Controller
                         $studentPerentsDetails->buttom_applicant_name = $request->buttom_applicant_name;
                         $studentPerentsDetails->buttom_place = $request->buttom_place;
                         $studentPerentsDetails->save();
-
-
 
                         //return response()->json($client_logo);
                         return response()->json(['status' => 'Success', 'message' => 'Portfolio added successfully','Statuscode'=>'200']);
