@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Validator;
 class StudentInfoController extends Controller
 {
@@ -550,7 +551,7 @@ class StudentInfoController extends Controller
                 $studet_completion_data->is_deleted = $is_deleted;
                 $studet_completion_data->save();
                 Log::info($studet_data);
-                
+
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Portfolio Deleted Successfully!',
