@@ -24,17 +24,9 @@ class StudentInternshipCompletionController extends Controller
 
         $student_info = StudentInternshipCompletionDetails::leftJoin('student_info', 'student_interns_completion_details.stude_id', '=', 'student_info.id')
                             ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
-                            ->leftJoin('student_parents_details', 'student_info.id', '=', 'student_parents_details.stude_id')
-                            ->leftJoin('student_education_details', 'student_info.id', '=', 'student_education_details.stude_id')
                             ->select('student_info.id','student_info.fname','student_info.mname','student_info.fathername','student_info.lname','student_info.email','student_internship_details.technology_name','date_of_joining',
                             'current_working','selected_mode','project_title','describe_project','placed','employer_name','designation_in_current_company','package_in_lpa','task_links_1','task_links_2','task_links_3','task_links_4','task_links_5',
-                            'project_github','final_year_project_link','name_contact_of_first_candidate','name_contact_of_second_candidate','name_contact_of_third_candidate','name_contact_of_fourth_candidate','name_contact_of_fifth_candidate','blog_on_your_selected_technology',
-                            'father_name','fatherOccupation','father_contactdetails','father_aadharno',
-                            'mother_name','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
-                            'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
-                            'technology_name','duration','selectedModules','intern_experience',
-                            'experience','characteristics_describe','applicant_name','place','reference_name','contact_number','buttom_applicant_name',
-                            'buttom_place')
+                            'project_github','final_year_project_link','name_contact_of_first_candidate','name_contact_of_second_candidate','name_contact_of_third_candidate','name_contact_of_fourth_candidate','name_contact_of_fifth_candidate','blog_on_your_selected_technology')
                             ->get();
 
         // $response = [];
@@ -66,19 +58,19 @@ class StudentInternshipCompletionController extends Controller
     {
 
         $student_info = StudentInfo::leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
-                            ->leftJoin('student_parents_details', 'student_info.id', '=', 'student_parents_details.stude_id')
-                            ->leftJoin('student_education_details', 'student_info.id', '=', 'student_education_details.stude_id')
-                            ->where('student_info.id',$id)
-                            ->select('fname','mname','fathername','lname','parmanenat_address','current_address','contact_details','email','dob',
-                            'whatsappno', 'age', 'blood', 'aadhar','linkdin','facebook','youtube','anyother_add','school_name',
-                            'tenth_per','twelve_diploma_per','graduation_details', 'graduation_per', 'post_graduation_details','post_graduation_per',
-                            'anyother_cirt','selected_branches','other_branch','father_name','fatherOccupation','father_contactdetails','father_aadharno',
-                            'mother_name','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
-                            'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
-                            'technology_name','duration','selectedModules','intern_experience',
-                            'experience','characteristics_describe','applicant_name','place','reference_name','contact_number','buttom_applicant_name',
-                            'buttom_place')
-                            ->get();
+        ->leftJoin('student_parents_details', 'student_info.id', '=', 'student_parents_details.stude_id')
+        ->leftJoin('student_education_details', 'student_info.id', '=', 'student_education_details.stude_id')
+        ->where('student_info.id',$id)
+        ->select('fname','mname','fathername','lname','parmanenat_address','current_address','contact_details','email','dob',
+        'whatsappno', 'age', 'blood', 'aadhar','linkdin','facebook','youtube','anyother_add','school_name',
+        'tenth_per','twelve_diploma_per','graduation_details', 'graduation_per', 'post_graduation_details','post_graduation_per',
+        'anyother_cirt','selected_branches','other_branch','father_name','fatherOccupation','father_contactdetails','father_aadharno',
+        'mother_name','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
+        'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
+        'technology_name','duration','selectedModules','intern_experience',
+        'experience','characteristics_describe','applicant_name','place','reference_name','contact_number','buttom_applicant_name',
+        'buttom_place')
+        ->get();
 
 
         return response()->json($student_info);
