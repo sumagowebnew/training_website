@@ -545,12 +545,12 @@ class StudentInfoController extends Controller
                 $studet_internship_data->save();
                 Log::info($studet_data);
 
-                $studet_completion_data = StudentInternshipCompletionDetails::where('stude_id', $id)
-                            ->first();
-                $is_deleted = $studet_completion_data->is_deleted == 1 ? 0 : 1;
-                $studet_completion_data->is_deleted = $is_deleted;
-                $studet_completion_data->save();
-                Log::info($studet_data);
+                // $studet_completion_data = StudentInternshipCompletionDetails::where('stude_id', $id)
+                //             ->first();
+                // $is_deleted = $studet_completion_data->is_deleted == 1 ? 0 : 1;
+                // $studet_completion_data->is_deleted = $is_deleted;
+                // $studet_completion_data->save();
+                // Log::info($studet_data);
 
                 return response()->json([
                     'status' => 'success',
