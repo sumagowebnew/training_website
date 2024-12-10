@@ -522,12 +522,14 @@ class StudentInfoController extends Controller
                 $is_deleted = $studet_data->is_deleted == 1 ? 0 : 1;
                 $studet_data->is_deleted = $is_deleted;
                 $studet_data->save();
-dd($studet_data);
+                Log::info($studet_data);    
+
                 $studet_education_data = StudentEdducationDetails::where('stude_id', $id)
                             ->first();
                 $is_deleted = $studet_education_data->is_deleted == 1 ? 0 : 1;
                 $studet_education_data->is_deleted = $is_deleted;
                 $studet_education_data->save();
+                Log::info($studet_data);
 
                 $studet_parent_data = StudentParentDetails::where('stude_id', $id)
                             ->first();
@@ -540,13 +542,15 @@ dd($studet_data);
                 $is_deleted = $studet_internship_data->is_deleted == 1 ? 0 : 1;
                 $studet_internship_data->is_deleted = $is_deleted;
                 $studet_internship_data->save();
+                Log::info($studet_data);
 
                 $studet_completion_data = StudentInternshipCompletionDetails::where('stude_id', $id)
                             ->first();
                 $is_deleted = $studet_completion_data->is_deleted == 1 ? 0 : 1;
                 $studet_completion_data->is_deleted = $is_deleted;
                 $studet_completion_data->save();
-
+                Log::info($studet_data);
+                
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Portfolio Deleted Successfully!',
