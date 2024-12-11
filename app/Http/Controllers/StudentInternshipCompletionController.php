@@ -115,6 +115,73 @@ class StudentInternshipCompletionController extends Controller
             'blog_on_your_selected_technology' => 'required|string|max:1000',
             // 'created_at' => 'nullable|date',
             // 'updated_at' => 'nullable|date',
+        ], [
+            'name.required' => 'The name field is required.',
+    'name.string' => 'The name must be a valid string.',
+    'name.max' => 'The name may not be greater than 255 characters.',
+
+    'technology.required' => 'The technology field is required.',
+    'technology.string' => 'The technology must be a valid string.',
+    'technology.max' => 'The technology may not be greater than 255 characters.',
+
+    'email.required' => 'The email field is required.',
+    'email.email' => 'The email must be a valid email address.',
+    'email.max' => 'The email may not be greater than 255 characters.',
+
+    'date_of_joining.required' => 'The date of joining field is required.',
+    'date_of_joining.date' => 'The date of joining must be a valid date.',
+
+    'current_working.required' => 'The current working field is required.',
+    'current_working.string' => 'The current working must be a valid string.',
+    'current_working.max' => 'The current working may not be greater than 255 characters.',
+
+    'selected_mode.required' => 'The selected mode field is required.',
+    'selected_mode.string' => 'The selected mode must be a valid string.',
+    'selected_mode.max' => 'The selected mode may not be greater than 50 characters.',
+
+    'project_title.required' => 'The project title field is required.',
+    'project_title.string' => 'The project title must be a valid string.',
+    'project_title.max' => 'The project title may not be greater than 255 characters.',
+
+    'describe_project.required' => 'The describe project field is required.',
+    'describe_project.string' => 'The describe project must be a valid string.',
+    'describe_project.max' => 'The describe project may not be greater than 1000 characters.',
+
+    'placed.required' => 'The placed field is required.',
+    'placed.string' => 'The placed field must be a valid string.',
+    'placed.max' => 'The placed field may not be greater than 255 characters.',
+
+    'employer_name.required_if' => 'The employer name is required if placed is Yes.',
+    'employer_name.string' => 'The employer name must be a valid string.',
+    'employer_name.max' => 'The employer name may not be greater than 255 characters.',
+
+    'designation_in_current_company.required_if' => 'The designation in current company is required if placed is Yes.',
+    'designation_in_current_company.string' => 'The designation must be a valid string.',
+    'designation_in_current_company.max' => 'The designation may not be greater than 255 characters.',
+
+    'package_in_lpa.required_if' => 'The package in LPA is required if placed is Yes.',
+    'package_in_lpa.numeric' => 'The package in LPA must be a valid number.',
+    'package_in_lpa.min' => 'The package in LPA must be at least 0.',
+
+    'task_links_1.required' => 'The task link 1 field is required.',
+    'task_links_1.string' => 'The task link 1 must be a valid string.',
+    'task_links_1.max' => 'The task link 1 may not be greater than 1000 characters.',
+
+    // Repeat similar messages for `task_links_2`, `task_links_3`, `task_links_4`, and `task_links_5`.
+
+    'project_github.required' => 'The project GitHub field is required.',
+    'project_github.url' => 'The project GitHub must be a valid URL.',
+    'project_github.max' => 'The project GitHub may not be greater than 255 characters.',
+
+    'final_year_project_link.required' => 'The final year project link field is required.',
+    'final_year_project_link.url' => 'The final year project link must be a valid URL.',
+    'final_year_project_link.max' => 'The final year project link may not be greater than 255 characters.',
+
+    // Repeat similar messages for candidate names and contacts.
+
+    'blog_on_your_selected_technology.required' => 'The blog on your selected technology field is required.',
+    'blog_on_your_selected_technology.string' => 'The blog must be a valid string.',
+    'blog_on_your_selected_technology.max' => 'The blog may not be greater than 1000 characters.',
         ]);
         
         // if ($validator->fails()) {
