@@ -310,7 +310,7 @@ class StudentInternshipCompletionController extends Controller
                         $studentDetail->google_review_img = $ImageName;
                         $studentDetail->resume_pdf = $PDFName;
                         $studentDetail->feedback_video = $VideoName;
-
+                        $studentDetail->save();
                         //return response()->json($client_logo);
                         return response()->json(['status' => 'Success', 'message' => 'Internship Completoin Details Added Successfully','Statuscode'=>'200']);
 
@@ -375,32 +375,14 @@ class StudentInternshipCompletionController extends Controller
         $all_data=[];
         // $portfolio = Portfolio::find($id);
 
-        $studet_data = StudentInfo::find($id);
-            if ($studet_data) {
+        $student_data = StudentInternshipCompletionDetails::find($id);
+            if ($student_data) {
                 // Delete the images from the storage folder
 
                 // Delete the record from the database
-                $is_deleted = $studet_data->is_deleted == 1 ? 0 : 1;
-                $studet_data->is_deleted = $is_deleted;
-                $studet_data->save();
-
-                $studet_education_data = StudentEdducationDetails::where('stude_id', $id)
-                            ->first();
-                $is_deleted = $studet_education_data->is_deleted == 1 ? 0 : 1;
-                $studet_education_data->is_deleted = $is_deleted;
-                $studet_education_data->save();
-
-                $studet_parent_data = StudentParentDetails::where('stude_id', $id)
-                            ->first();
-                $is_deleted = $studet_parent_data->is_deleted == 1 ? 0 : 1;
-                $studet_parent_data->is_deleted = $is_deleted;
-                $studet_parent_data->save();
-
-                $studet_internship_data = StudentInternshipDetails::where('stude_id', $id)
-                            ->first();
-                $is_deleted = $studet_internship_data->is_deleted == 1 ? 0 : 1;
-                $studet_internship_data->is_deleted = $is_deleted;
-                $studet_internship_data->save();
+                $is_deleted = $student_data->is_deleted == 1 ? 0 : 1;
+                $student_data->is_deleted = $is_deleted;
+                $student_data->save();
 
         return $this->responseApi($all_data,'Portfolio Deleted Successfully!','success',200);
 
