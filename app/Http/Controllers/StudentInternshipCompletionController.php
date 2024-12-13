@@ -128,11 +128,11 @@ class StudentInternshipCompletionController extends Controller
             'employer_name' => 'required|required_if:placed,Yes|string|max:255',
             'designation_in_current_company' => 'required|required_if:placed,Yes|string|max:255',
             'package_in_lpa' => 'required|required_if:placed,Yes|numeric|min:0',
-            'task_links_1' => 'required|string|max:1000',
-            'task_links_2' => 'required|string|max:1000',
-            'task_links_3' => 'required|string|max:1000',
-            'task_links_4' => 'required|string|max:1000',
-            'task_links_5' => 'required|string|max:1000',
+            'task_links_1' => 'required|max:1000',
+            'task_links_2' => 'required|max:1000',
+            'task_links_3' => 'required|max:1000',
+            'task_links_4' => 'required|max:1000',
+            'task_links_5' => 'required|max:1000',
             'project_github' => 'required|url|max:255',
             'final_year_project_link' => 'required|url|max:255',
             'name_contact_of_first_candidate' => 'required|string|max:255',
@@ -192,8 +192,19 @@ class StudentInternshipCompletionController extends Controller
     'package_in_lpa.min' => 'The package in LPA must be at least 0.',
 
     'task_links_1.required' => 'The task link 1 field is required.',
-    'task_links_1.string' => 'The task link 1 must be a valid string.',
     'task_links_1.max' => 'The task link 1 may not be greater than 1000 characters.',
+
+    'task_links_2.required' => 'The task link 2 field is required.',
+    'task_links_2.max' => 'The task link 2 may not be greater than 1000 characters.',
+
+    'task_links_3.required' => 'The task link 3 field is required.',
+    'task_links_3.max' => 'The task link 3 may not be greater than 1000 characters.',
+
+    'task_links_4.required' => 'The task link 4 field is required.',
+    'task_links_4.max' => 'The task link 4 may not be greater than 1000 characters.',
+
+    'task_links_5.required' => 'The task link 5 field is required.',
+    'task_links_5.max' => 'The task link 5 may not be greater than 1000 characters.',
 
     // Repeat similar messages for `task_links_2`, `task_links_3`, `task_links_4`, and `task_links_5`.
 
