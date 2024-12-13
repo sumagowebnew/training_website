@@ -554,7 +554,7 @@ class StudentInfoController extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Portfolio Deleted Successfully!',
+                    'message' => 'Intern Data Deleted Successfully!',
                     'data' => $all_data,
                 ], 200);
         
@@ -570,7 +570,7 @@ class StudentInfoController extends Controller
         // return $this->responseApi($all_data,'Portfolio Deleted Successfully!','success',200);
         return response()->json([
             'status' => 'error',
-            'message' => 'Student details not found.',
+            'message' => 'Intern details not found.',
         ], 404);
 
     }

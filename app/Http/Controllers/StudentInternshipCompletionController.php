@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Validator;
 class StudentInternshipCompletionController extends Controller
 {
@@ -384,17 +385,18 @@ class StudentInternshipCompletionController extends Controller
                 $student_data->is_deleted = $is_deleted;
                 $student_data->save();
 
-        return $this->responseApi($all_data,'Portfolio Deleted Successfully!','success',200);
+        // return $this->responseApi($all_data,'Portfolio Deleted Successfully!','success',200);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Intern Data Deleted Successfully!',
+            'data' => $all_data,
+        ], 200);
 
             }
-            // else[
-            //     return response()->json(['status' => 'error', 'message' => 'Intern Details not added', 'error' => $e->getMessage()],500);
-
-            // ]    
-        
-        // $portfolio->delete();
-        // return response()->json("Deleted Successfully!");
-        // return $this->responseApi($all_data,'Portfolio Deleted Successfully!','success',200);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Intern details not found.',
+            ], 404);
 
     }
 
