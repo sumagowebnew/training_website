@@ -34,7 +34,7 @@ class StudentInfoController extends Controller
             'mother_name','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
             'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
             'technology_name','duration','selectedModules','intern_experience',
-            'experience','characteristics_describe','applicant_name','place','reference_name','contact_number','buttom_applicant_name',
+            'experience','characteristics_describe','applicant_name','place','refrance','reference_name','contact_number','buttom_applicant_name',
             'buttom_place')
             ->get();
 
@@ -137,6 +137,7 @@ class StudentInfoController extends Controller
             'characteristics_describe' => 'nullable|string|max:1000',
             'applicant_name' => 'required|string|max:255',
             'place' => 'nullable|string|max:255',
+            'refrance' => 'required',
             'reference_name' => 'nullable|string|max:255',
             'contact_number' => 'nullable|string|max:15',
             'buttom_applicant_name' => 'nullable|string|max:255',
@@ -335,6 +336,8 @@ class StudentInfoController extends Controller
             
             'place.string' => 'Place must be a string.',
             'place.max' => 'Place should not exceed 255 characters.',
+
+            'refrance.required' => 'Refrence is required.',
             
             'reference_name.string' => 'Reference Name must be a string.',
             'reference_name.max' => 'Reference Name should not exceed 255 characters.',
@@ -445,6 +448,7 @@ class StudentInfoController extends Controller
                         $studentPerentsDetails->characteristics_describe = $request->characteristics_describe;
                         $studentPerentsDetails->applicant_name = $request->applicant_name;
                         $studentPerentsDetails->place = $request->place;
+                        $studentPerentsDetails->refrance = $request->refrance;
                         $studentPerentsDetails->reference_name = $request->reference_name;
                         $studentPerentsDetails->contact_number = $request->contact_number;
                         $studentPerentsDetails->buttom_applicant_name = $request->buttom_applicant_name;

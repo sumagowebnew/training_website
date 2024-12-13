@@ -27,7 +27,8 @@ class StudentInternshipCompletionController extends Controller
                             ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
                             ->select('student_interns_completion_details.id','student_info.fname','student_info.mname','student_info.fathername','student_info.lname','student_info.email','student_internship_details.technology_name','date_of_joining',
                             'current_working','selected_mode','project_title','describe_project','placed','employer_name','designation_in_current_company','package_in_lpa','task_links_1','task_links_2','task_links_3','task_links_4','task_links_5',
-                            'project_github','final_year_project_link','name_contact_of_first_candidate','name_contact_of_second_candidate','name_contact_of_third_candidate','name_contact_of_fourth_candidate','name_contact_of_fifth_candidate','blog_on_your_selected_technology')
+                            'project_github','final_year_project_link','name_contact_of_first_candidate','name_contact_of_second_candidate','name_contact_of_third_candidate','name_contact_of_fourth_candidate','name_contact_of_fifth_candidate',
+                            'blog_on_your_selected_technology','review_image','resume_pdf','feedback_video')
                             ->get();
 
         // $response = [];
@@ -69,7 +70,7 @@ class StudentInternshipCompletionController extends Controller
         'mother_name','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
         'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
         'technology_name','duration','selectedModules','intern_experience',
-        'experience','characteristics_describe','applicant_name','place','reference_name','contact_number','buttom_applicant_name',
+        'experience','characteristics_describe','applicant_name','place','refrance','reference_name','contact_number','buttom_applicant_name',
         'buttom_place')
         ->get();
 
@@ -98,7 +99,7 @@ class StudentInternshipCompletionController extends Controller
         // 'mother_name','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
         // 'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
         // 'technology_name','duration','selectedModules','intern_experience',
-        // 'experience','characteristics_describe','applicant_name','place','reference_name','contact_number','buttom_applicant_name',
+        // 'experience','characteristics_describe','applicant_name','place','refrance','reference_name','contact_number','buttom_applicant_name',
         // 'buttom_place')
         // ->get();
 
