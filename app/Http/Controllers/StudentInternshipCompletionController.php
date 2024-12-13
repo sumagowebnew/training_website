@@ -24,7 +24,7 @@ class StudentInternshipCompletionController extends Controller
 
         $student_info = StudentInternshipCompletionDetails::leftJoin('student_info', 'student_interns_completion_details.stude_id', '=', 'student_info.id')
                             ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
-                            ->select('student_info.id','student_info.fname','student_info.mname','student_info.fathername','student_info.lname','student_info.email','student_internship_details.technology_name','date_of_joining',
+                            ->select('student_interns_completion_details.id','student_info.fname','student_info.mname','student_info.fathername','student_info.lname','student_info.email','student_internship_details.technology_name','date_of_joining',
                             'current_working','selected_mode','project_title','describe_project','placed','employer_name','designation_in_current_company','package_in_lpa','task_links_1','task_links_2','task_links_3','task_links_4','task_links_5',
                             'project_github','final_year_project_link','name_contact_of_first_candidate','name_contact_of_second_candidate','name_contact_of_third_candidate','name_contact_of_fourth_candidate','name_contact_of_fifth_candidate','blog_on_your_selected_technology')
                             ->get();
@@ -141,6 +141,11 @@ class StudentInternshipCompletionController extends Controller
             'name_contact_of_fourth_candidate' => 'required|string|max:255',
             'name_contact_of_fifth_candidate' => 'required|string|max:255',
             'blog_on_your_selected_technology' => 'required|string|max:1000',
+
+            'review_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Image must be one of the specified formats and max size 2MB
+            'resume_pdf' => 'required|mimes:pdf|max:5120', // PDF must be a PDF format and max size 5MB
+            'feedback_video' => 'required|mimes:mp4,avi,mov,wmv|max:10240', // Video formats and max size 10MB
+            
             // 'created_at' => 'nullable|date',
             // 'updated_at' => 'nullable|date',
         ], [
@@ -221,6 +226,17 @@ class StudentInternshipCompletionController extends Controller
     'blog_on_your_selected_technology.required' => 'The blog on your selected technology field is required.',
     'blog_on_your_selected_technology.string' => 'The blog must be a valid string.',
     'blog_on_your_selected_technology.max' => 'The blog may not be greater than 1000 characters.',
+
+    'review_image.required' => 'The review image is required.',
+    'review_image.image' => 'The review image must be a valid image file.',
+    'review_image.mimes' => 'The review image must be in jpeg, png, jpg, or gif format.',
+    'review_image.max' => 'The review image size must not exceed 2MB.',
+    'resume_pdf.required' => 'The resume PDF is required.',
+    'resume_pdf.mimes' => 'The resume must be a valid PDF file.',
+    'resume_pdf.max' => 'The resume PDF size must not exceed 5MB.',
+    'feedback_video.required' => 'The feedback video is required.',
+    'feedback_video.mimes' => 'The feedback video must be in mp4, avi, mov, or wmv format.',
+    'feedback_video.max' => 'The feedback video size must not exceed 10MB.',
         ]);
         
         // if ($validator->fails()) {
@@ -236,6 +252,10 @@ class StudentInternshipCompletionController extends Controller
             {
                 
                     try{
+
+                        
+
+
                         $studentDetail = new StudentInternshipCompletionDetails();
 
                         $studentDetail->name = $request->name;
@@ -270,8 +290,26 @@ class StudentInternshipCompletionController extends Controller
                         $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
 
                         $studentDetail->save();
+                        $last_insert_id = $studentDetail->id;
 
+                        $ImageName = $last_insert_id .'_' . rand(100000, 999999) . 'google_review.' . $request->review_image->extension();
+                        $path = Config::get('documentPath.INTERN_GOOGLE_REVIEW_ADD');
+                        $ImageName = $ImageName;
+                        uploadImage($request, 'review_image', $path, $ImageName);
 
+                        $PDFName = $last_insert_id .'_' . rand(100000, 999999) . 'resume_pdf.' . $request->resume_pdf->extension();
+                        $path = Config::get('documentPath.INTERN_RESUME_PDF_ADD');
+                        $PDFName = $PDFName;
+                        uploadImage($request, 'resume_pdf', $path, $PDFName);
+
+                        $VideoName = $last_insert_id .'_' . rand(100000, 999999) . 'feedback_video.' . $request->feedback_video->extension();
+                        $path = Config::get('documentPath.INTERN_FEEDBACK_VIDEO_ADD');
+                        $VideoName = $VideoName;
+                        uploadImage($request, 'feedback_video', $path, $VideoName);
+
+                        $studentDetail->google_review_img = $ImageName;
+                        $studentDetail->resume_pdf = $PDFName;
+                        $studentDetail->feedback_video = $VideoName;
 
                         //return response()->json($client_logo);
                         return response()->json(['status' => 'Success', 'message' => 'Internship Completoin Details Added Successfully','Statuscode'=>'200']);
