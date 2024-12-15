@@ -113,7 +113,71 @@ class StudentInternshipCompletionController extends Controller
         $all_data = Count::get()->toArray();
         return $this->responseApi($all_data,'All data get','success',200);
     }
+ // The saveBase64File function should be here inside the controller
+ public function saveBase64File($base64File, $directory, $prefix, $type) {
+    // Validate base64 format
+    if (strpos($base64File, ';base64,') === false) {
+        return null; // Invalid base64 format
+    }
 
+    // Extract file content from base64 string
+    $base64Data = explode(";base64,", $base64File);
+    if (count($base64Data) != 2) {
+        return null; // Invalid base64 structure
+    }
+
+    // Decode the file content
+    $fileContent = base64_decode($base64Data[1]);
+    if (!$fileContent) {
+        return null; // Failed to decode base64
+    }
+
+    // Generate random filename
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < 18; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+
+    // Determine file extension based on the file type
+    $fileName = $prefix . '_' . $randomString;
+
+    switch ($type) {
+        case 'image':
+            // Handling image files
+            $imageInfo = explode("image/", $base64Data[0]);
+            $fileType = isset($imageInfo[1]) ? $imageInfo[1] : 'png'; // Default to png if type is missing
+            $fileName .= '.' . $fileType;
+            break;
+        case 'pdf':
+            // Handling PDF files
+            $fileName .= '.pdf';
+            break;
+        case 'video':
+            // Handling video files
+            $fileName .= '.mp4'; // Default video format
+            break;
+        default:
+            return null; // Invalid file type
+    }
+
+    // Set the folder path for storage
+    $folderPath = str_replace('\\', '/', storage_path($directory));
+    if (!file_exists($folderPath)) {
+        mkdir($folderPath, 0777, true); // Create directory if it doesn't exist
+    }
+
+    // Define the full file path
+    $filePath = $folderPath . '/' . $fileName;
+
+    // Write the content to the file
+    if (file_put_contents($filePath, $fileContent)) {
+        return $fileName; // Return the filename of the saved file
+    }
+
+    return null; // Failure to write the file
+}
 
     public function add(Request $request)
     {
