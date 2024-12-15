@@ -19,44 +19,124 @@ use Illuminate\Support\Facades\Log;
 use Validator;
 class StudentInternshipCompletionController extends Controller
 {
+    // public function index()
+    // {
+    //     // Get all data from the database
+    //     // $portfolio = Portfolio::get();
+
+    //     $student_info = StudentInternshipCompletionDetails::leftJoin('student_info', 'student_interns_completion_details.stude_id', '=', 'student_info.id')
+    //                         ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
+    //                         ->select('student_interns_completion_details.id','student_info.fname','student_info.mname','student_info.fathername','student_info.lname','student_info.email','student_internship_details.technology_name','date_of_joining',
+    //                         'current_working','selected_mode','project_title','describe_project','placed','employer_name','designation_in_current_company','package_in_lpa','task_links_1','task_links_2','task_links_3','task_links_4','task_links_5',
+    //                         'project_github','final_year_project_link','name_contact_of_first_candidate','name_contact_of_second_candidate','name_contact_of_third_candidate','name_contact_of_fourth_candidate','name_contact_of_fifth_candidate',
+    //                         'blog_on_your_selected_technology','review_image','resume_pdf','feedback_video')
+    //                         ->get();
+
+    //     // $response = [];
+
+    //     // foreach ($portfolio as $item) {
+    //     //     $data = $item->toArray();
+          
+    //     //     $logo = $data['image'];
+
+    //     //     $imagePath = "uploads/portfolio/" . $logo;
+
+    //     //     $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+
+    //     //     $data['image'] = $base64;
+    //     //     // $data['title']= $data['title'];
+    //     //     // $data['description']=$data['description'];
+    //     //     // $data['website_link']=$data['website_link'];
+    //     //     // $data['website_status']=$data['website_status'];
+    //     //     // $data['created_at']=$data['created_at'];
+    //     //     // $data['updated_at']=$data['updated_at'];
+          
+    //     //     $response[] = $data;
+    //     // }
+
+    //     return response()->json($student_info);
+    // }
     public function index()
     {
-        // Get all data from the database
-        // $portfolio = Portfolio::get();
-
         $student_info = StudentInternshipCompletionDetails::leftJoin('student_info', 'student_interns_completion_details.stude_id', '=', 'student_info.id')
-                            ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
-                            ->select('student_interns_completion_details.id','student_info.fname','student_info.mname','student_info.fathername','student_info.lname','student_info.email','student_internship_details.technology_name','date_of_joining',
-                            'current_working','selected_mode','project_title','describe_project','placed','employer_name','designation_in_current_company','package_in_lpa','task_links_1','task_links_2','task_links_3','task_links_4','task_links_5',
-                            'project_github','final_year_project_link','name_contact_of_first_candidate','name_contact_of_second_candidate','name_contact_of_third_candidate','name_contact_of_fourth_candidate','name_contact_of_fifth_candidate',
-                            'blog_on_your_selected_technology','review_image','resume_pdf','feedback_video')
-                            ->get();
-
-        // $response = [];
-
-        // foreach ($portfolio as $item) {
-        //     $data = $item->toArray();
-          
-        //     $logo = $data['image'];
-
-        //     $imagePath = "uploads/portfolio/" . $logo;
-
-        //     $base64 = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
-
-        //     $data['image'] = $base64;
-        //     // $data['title']= $data['title'];
-        //     // $data['description']=$data['description'];
-        //     // $data['website_link']=$data['website_link'];
-        //     // $data['website_status']=$data['website_status'];
-        //     // $data['created_at']=$data['created_at'];
-        //     // $data['updated_at']=$data['updated_at'];
-          
-        //     $response[] = $data;
-        // }
-
-        return response()->json($student_info);
+            ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
+            ->select(
+                'student_interns_completion_details.id', 
+                'student_info.fname', 
+                'student_info.mname', 
+                'student_info.fathername', 
+                'student_info.lname', 
+                'student_info.email', 
+                'student_internship_details.technology_name', 
+                'date_of_joining', 
+                'current_working', 
+                'selected_mode', 
+                'project_title', 
+                'describe_project', 
+                'placed', 
+                'employer_name', 
+                'designation_in_current_company', 
+                'package_in_lpa', 
+                'task_links_1', 
+                'task_links_2', 
+                'task_links_3', 
+                'task_links_4', 
+                'task_links_5', 
+                'project_github', 
+                'final_year_project_link', 
+                'name_contact_of_first_candidate', 
+                'name_contact_of_second_candidate', 
+                'name_contact_of_third_candidate', 
+                'name_contact_of_fourth_candidate', 
+                'name_contact_of_fifth_candidate', 
+                'blog_on_your_selected_technology', 
+                'review_image', 
+                'resume_pdf', 
+                'feedback_video'
+            )
+            ->get();
+    
+        $response = [];
+    
+        foreach ($student_info as $item) {
+            $data = $item->toArray();
+    
+            // Process `review_image` as base64
+            if (!empty($data['review_image'])) {
+                $imagePath = public_path("uploads/review_images/" . $data['review_image']);
+                if (file_exists($imagePath)) {
+                    $data['review_image'] = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+                } else {
+                    $data['review_image'] = null;
+                }
+            }
+    
+            // Process `resume_pdf` as base64
+            if (!empty($data['resume_pdf'])) {
+                $pdfPath = public_path("uploads/resumes/" . $data['resume_pdf']);
+                if (file_exists($pdfPath)) {
+                    $data['resume_pdf'] = "data:application/pdf;base64," . base64_encode(file_get_contents($pdfPath));
+                } else {
+                    $data['resume_pdf'] = null;
+                }
+            }
+    
+            // Process `feedback_video` as base64
+            if (!empty($data['feedback_video'])) {
+                $videoPath = public_path("uploads/videos/" . $data['feedback_video']);
+                if (file_exists($videoPath)) {
+                    $data['feedback_video'] = "data:video/mp4;base64," . base64_encode(file_get_contents($videoPath));
+                } else {
+                    $data['feedback_video'] = null;
+                }
+            }
+    
+            $response[] = $data;
+        }
+    
+        return response()->json($response);
     }
-
+    
     public function getPerticular($id)
     {
 
