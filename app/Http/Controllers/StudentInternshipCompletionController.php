@@ -289,114 +289,80 @@ class StudentInternshipCompletionController extends Controller
                             $studentDetail->save();
                             $last_insert_id = $studentDetail->id;
                         
-                            // Helper function to handle base64 file upload
-                            function saveBase64File($base64File, $directory, $prefix) {
-                                $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-                                $charactersLength = strlen($characters);
-                                $randomString = '';
-                                for ($i = 0; $i < 18; $i++) {
-                                    $randomString .= $characters[rand(0, $charactersLength - 1)];
-                                }
-                        
-                                $folderPath = str_replace('\\', '/', storage_path($directory));
-                                if (!file_exists($folderPath)) {
-                                    mkdir($folderPath, 0777, true);
-                                }
-                        
-                                $base64Image = explode(";base64,", $base64File);
-                                $imageInfo = explode("image/", $base64Image[0]);
-                                $fileType = $imageInfo[1];
-                                $fileContent = base64_decode($base64Image[1]);
-                        
-                                $fileName = $prefix . '_' . $randomString . '.' . $fileType;
-                                $filePath = $folderPath . '/' . $fileName;
-                        
-                                file_put_contents($filePath, $fileContent);
-                        
-                                return $fileName;
-                            }
-                        
-                            // Save Google review image
-                            if ($request->review_image) {
-                                $ImageName = saveBase64File($request->review_image, '/all_web_data/images/google_review', $last_insert_id);
-                                $studentDetail->google_review_img = $ImageName;
-                            }
-                        
-                            // Save Resume PDF
-                            if ($request->resume_pdf) {
-                                $PDFName = saveBase64File($request->resume_pdf, '/all_web_data/pdf/resume', $last_insert_id);
-                                $studentDetail->resume_pdf = $PDFName;
-                            }
-                        
-                            // Save Feedback Video
-                            if ($request->feedback_video) {
-                                $VideoName = saveBase64File($request->feedback_video, '/all_web_data/videos/feedback', $last_insert_id);
-                                $studentDetail->feedback_video = $VideoName;
-                            }
-                        
-                            $studentDetail->save();
+                            // Modify this function to check for base64 errors and handle them gracefully
+            function saveBase64File($base64File, $directory, $prefix) {
+                if (strpos($base64File, ';base64,') === false) {
+                    return null; // Return null if base64 format is invalid
+                }
+
+                // Extract file content from base64 string
+                $base64Image = explode(";base64,", $base64File);
+                if (count($base64Image) != 2) {
+                    return null; // Invalid base64 structure
+                }
+
+                $imageInfo = explode("image/", $base64Image[0]);
+                if (count($imageInfo) != 2) {
+                    return null; // Invalid image info
+                }
+
+                $fileType = $imageInfo[1];  // Extract file type
+                $fileContent = base64_decode($base64Image[1]);
+                
+                // Validate the decoded content
+                if (!$fileContent) {
+                    return null; // Failed to decode base64
+                }
+
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                $charactersLength = strlen($characters);
+                $randomString = '';
+                for ($i = 0; $i < 18; $i++) {
+                    $randomString .= $characters[rand(0, $charactersLength - 1)];
+                }
+
+                $folderPath = str_replace('\\', '/', storage_path($directory));
+                if (!file_exists($folderPath)) {
+                    mkdir($folderPath, 0777, true);
+                }
+
+                $fileName = $prefix . '_' . $randomString . '.' . $fileType;
+                $filePath = $folderPath . '/' . $fileName;
+
+                file_put_contents($filePath, $fileContent);
+                return $fileName; // Return the generated filename
+            }
+
+            // Handle the review image (base64)
+            if ($request->review_image) {
+                $ImageName = saveBase64File($request->review_image, '/all_web_data/images/google_review', $last_insert_id);
+                if ($ImageName) {
+                    $studentDetail->google_review_img = $ImageName;
+                }
+            }
+
+            // Handle the resume PDF (base64)
+            if ($request->resume_pdf) {
+                $PDFName = saveBase64File($request->resume_pdf, '/all_web_data/pdf/resume', $last_insert_id);
+                if ($PDFName) {
+                    $studentDetail->resume_pdf = $PDFName;
+                }
+            }
+
+            // Handle the feedback video (base64)
+            if ($request->feedback_video) {
+                $VideoName = saveBase64File($request->feedback_video, '/all_web_data/videos/feedback', $last_insert_id);
+                if ($VideoName) {
+                    $studentDetail->feedback_video = $VideoName;
+                }
+            }
+
+            // Save the updated student details
+            $studentDetail->save();
                         
                             return response()->json(['status' => 'Success', 'message' => 'Internship Completion Details Added Successfully', 'Statuscode' => '200']);
 
-                        // $studentDetail = new StudentInternshipCompletionDetails();
-
-                        // $studentDetail->name = $request->name;
-                        // $studentDetail->stude_id = $request->stude_id;
-                        // $studentDetail->technology = $request->technology;
-                        // $studentDetail->email = $request->email;
-                        // $studentDetail->date_of_joining = $request->date_of_joining;
-                        // $studentDetail->current_working = $request->current_working;
-                        // $studentDetail->selected_mode = $request->selected_mode;
-                        // $studentDetail->project_title = $request->project_title;
-                        // $studentDetail->describe_project = $request->describe_project;
-                        // $studentDetail->placed = $request->placed;
-                        // $studentDetail->employer_name = $request->employer_name;
-                        // $studentDetail->designation_in_current_company = $request->designation_in_current_company;
-                        // $studentDetail->package_in_lpa = $request->package_in_lpa;
-                        // $studentDetail->task_links_1 = $request->task_links_1;
-                        // $studentDetail->task_links_2 = $request->task_links_2;
-                        // $studentDetail->task_links_3 = $request->task_links_3;
-                        // $studentDetail->task_links_4 = $request->task_links_4;
-                        // $studentDetail->task_links_5 = $request->task_links_5;
-                        // $studentDetail->project_github = $request->project_github;
-                        // $studentDetail->final_year_project_link = $request->final_year_project_link;
-                        // $studentDetail->name_contact_of_first_candidate = $request->name_contact_of_first_candidate;
-                        // $studentDetail->name_contact_of_second_candidate = $request->name_contact_of_second_candidate;
-                        // $studentDetail->name_contact_of_third_candidate = $request->name_contact_of_third_candidate;
-                        // $studentDetail->name_contact_of_fourth_candidate = $request->name_contact_of_fourth_candidate;
-                        // $studentDetail->name_contact_of_fifth_candidate = $request->name_contact_of_fifth_candidate;
-                        // $studentDetail->blog_on_your_selected_technology = $request->blog_on_your_selected_technology;
-
-                        // // Generate an ID for the new record if necessary
-                        // $existingRecord = StudentInternshipCompletionDetails::orderBy('id', 'DESC')->first();
-                        // $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
-
-                        // $studentDetail->save();
-                        // $last_insert_id = $studentDetail->id;
-
-                        // $ImageName = $last_insert_id .'_' . rand(100000, 999999) . 'google_review.' . $request->review_image->extension();
-                        // $path = Config::get('documentPath.INTERN_GOOGLE_REVIEW_ADD');
-                        // $ImageName = $ImageName;
-                        // uploadImage($request, 'review_image', $path, $ImageName);
-
-                        // $PDFName = $last_insert_id .'_' . rand(100000, 999999) . 'resume_pdf.' . $request->resume_pdf->extension();
-                        // $path = Config::get('documentPath.INTERN_RESUME_PDF_ADD');
-                        // $PDFName = $PDFName;
-                        // uploadImage($request, 'resume_pdf', $path, $PDFName);
-
-                        // $VideoName = $last_insert_id .'_' . rand(100000, 999999) . 'feedback_video.' . $request->feedback_video->extension();
-                        // $path = Config::get('documentPath.INTERN_FEEDBACK_VIDEO_ADD');
-                        // $VideoName = $VideoName;
-                        // uploadImage($request, 'feedback_video', $path, $VideoName);
-
-                        // $studentDetail->google_review_img = $ImageName;
-                        // $studentDetail->resume_pdf = $PDFName;
-                        // $studentDetail->feedback_video = $VideoName;
-                        // $studentDetail->save();
-                        // //return response()->json($client_logo);
-                        // return response()->json(['status' => 'Success', 'message' => 'Internship Completoin Details Added Successfully','Statuscode'=>'200']);
-
-                        
+                      
                     }
 
                     catch (exception $e) {
