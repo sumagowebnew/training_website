@@ -90,7 +90,7 @@ class StudentInternshipCompletionController extends Controller
                 'name_contact_of_fourth_candidate', 
                 'name_contact_of_fifth_candidate', 
                 'blog_on_your_selected_technology', 
-                'review_image', 
+                'google_review_img', 
                 'resume_pdf', 
                 'feedback_video'
             )
@@ -102,12 +102,12 @@ class StudentInternshipCompletionController extends Controller
             $data = $item->toArray();
     
             // Process `review_image` as base64
-            if (!empty($data['review_image'])) {
-                $imagePath = public_path("uploads/review_images/" . $data['review_image']);
+            if (!empty($data['google_review_img'])) {
+                $imagePath = public_path("uploads/review_images/" . $data['google_review_img']);
                 if (file_exists($imagePath)) {
-                    $data['review_image'] = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
+                    $data['google_review_img'] = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
                 } else {
-                    $data['review_image'] = null;
+                    $data['google_review_img'] = null;
                 }
             }
     
