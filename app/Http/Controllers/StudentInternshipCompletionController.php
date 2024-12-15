@@ -61,37 +61,37 @@ class StudentInternshipCompletionController extends Controller
         $student_info = StudentInternshipCompletionDetails::leftJoin('student_info', 'student_interns_completion_details.stude_id', '=', 'student_info.id')
             ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
             ->select(
-                'student_interns_completion_details.id', 
-                'student_info.fname', 
-                'student_info.mname', 
-                'student_info.fathername', 
-                'student_info.lname', 
-                'student_info.email', 
-                'student_internship_details.technology_name', 
-                'date_of_joining', 
-                'current_working', 
-                'selected_mode', 
-                'project_title', 
-                'describe_project', 
-                'placed', 
-                'employer_name', 
-                'designation_in_current_company', 
-                'package_in_lpa', 
-                'task_links_1', 
-                'task_links_2', 
-                'task_links_3', 
-                'task_links_4', 
-                'task_links_5', 
-                'project_github', 
-                'final_year_project_link', 
-                'name_contact_of_first_candidate', 
-                'name_contact_of_second_candidate', 
-                'name_contact_of_third_candidate', 
-                'name_contact_of_fourth_candidate', 
-                'name_contact_of_fifth_candidate', 
-                'blog_on_your_selected_technology', 
-                'google_review_img', 
-                'resume_pdf', 
+                'student_interns_completion_details.id',
+                'student_info.fname',
+                'student_info.mname',
+                'student_info.fathername',
+                'student_info.lname',
+                'student_info.email',
+                'student_internship_details.technology_name',
+                'date_of_joining',
+                'current_working',
+                'selected_mode',
+                'project_title',
+                'describe_project',
+                'placed',
+                'employer_name',
+                'designation_in_current_company',
+                'package_in_lpa',
+                'task_links_1',
+                'task_links_2',
+                'task_links_3',
+                'task_links_4',
+                'task_links_5',
+                'project_github',
+                'final_year_project_link',
+                'name_contact_of_first_candidate',
+                'name_contact_of_second_candidate',
+                'name_contact_of_third_candidate',
+                'name_contact_of_fourth_candidate',
+                'name_contact_of_fifth_candidate',
+                'blog_on_your_selected_technology',
+                'google_review_img',
+                'resume_pdf',
                 'feedback_video'
             )
             ->get();
@@ -101,40 +101,29 @@ class StudentInternshipCompletionController extends Controller
         foreach ($student_info as $item) {
             $data = $item->toArray();
     
-            // Process `review_image` as base64
-            if (!empty($data['google_review_img'])) {
-                $imagePath = public_path("uploads/review_images/" . $data['google_review_img']);
-                if (file_exists($imagePath)) {
-                    $data['google_review_img'] = "data:image/png;base64," . base64_encode(file_get_contents($imagePath));
-                } else {
-                    $data['google_review_img'] = null;
-                }
-            }
+            // Construct file paths using storage_path
+            $googleReviewImagePath = storage_path("app/all_web_data/images/review_images/" . $data['google_review_img']);
+            $resumePath = storage_path("app/all_web_data/documents/resumes/" . $data['resume_pdf']);
+            $videoPath = storage_path("app/all_web_data/videos/" . $data['feedback_video']);
     
-            // Process `resume_pdf` as base64
-            if (!empty($data['resume_pdf'])) {
-                $pdfPath = public_path("uploads/resumes/" . $data['resume_pdf']);
-                if (file_exists($pdfPath)) {
-                    $data['resume_pdf'] = "data:application/pdf;base64," . base64_encode(file_get_contents($pdfPath));
-                } else {
-                    $data['resume_pdf'] = null;
-                }
-            }
-    
-            // Process `feedback_video` as base64
-            if (!empty($data['feedback_video'])) {
-                $videoPath = public_path("uploads/videos/" . $data['feedback_video']);
-                if (file_exists($videoPath)) {
-                    $data['feedback_video'] = "data:video/mp4;base64," . base64_encode(file_get_contents($videoPath));
-                } else {
-                    $data['feedback_video'] = null;
-                }
-            }
+            // Process each file
+            $data['google_review_img'] = $this->encodeBase64($googleReviewImagePath);
+            $data['resume_pdf'] = $this->encodeBase64($resumePath);
+            $data['feedback_video'] = $this->encodeBase64($videoPath);
     
             $response[] = $data;
         }
     
         return response()->json($response);
+    }
+    
+    private function encodeBase64($filePath)
+    {
+        if (file_exists($filePath)) {
+            $mimeType = mime_content_type($filePath);
+            return "data:$mimeType;base64," . base64_encode(file_get_contents($filePath));
+        }
+        return null;
     }
     
     public function getPerticular($id)
