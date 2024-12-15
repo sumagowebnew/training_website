@@ -113,8 +113,9 @@ class StudentInternshipCompletionController extends Controller
         $all_data = Count::get()->toArray();
         return $this->responseApi($all_data,'All data get','success',200);
     }
- // The saveBase64File function should be here inside the controller
- public function saveBase64File($base64File, $directory, $prefix, $type) {
+// Method to handle saving base64 files (Image, Video, PDF)
+public function saveBase64File($base64File, $directory, $prefix, $type)
+{
     // Validate base64 format
     if (strpos($base64File, ';base64,') === false) {
         return null; // Invalid base64 format
@@ -132,7 +133,7 @@ class StudentInternshipCompletionController extends Controller
         return null; // Failed to decode base64
     }
 
-    // Generate random filename
+    // Generate a random filename for the file
     $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
     $charactersLength = strlen($characters);
     $randomString = '';
@@ -140,9 +141,8 @@ class StudentInternshipCompletionController extends Controller
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
 
-    // Determine file extension based on the file type
+    // Determine file extension based on file type
     $fileName = $prefix . '_' . $randomString;
-
     switch ($type) {
         case 'image':
             // Handling image files
@@ -178,6 +178,7 @@ class StudentInternshipCompletionController extends Controller
 
     return null; // Failure to write the file
 }
+
 
     public function add(Request $request)
     {
@@ -352,33 +353,32 @@ class StudentInternshipCompletionController extends Controller
                         
                             $studentDetail->save();
                             $last_insert_id = $studentDetail->id;
-                        
-                         // Handle the review image (base64)
-    if ($request->review_image) {
-        $ImageName = saveBase64File($request->review_image, '/all_web_data/images/google_review', $last_insert_id, 'image');
-        if ($ImageName) {
-            $studentDetail->google_review_img = $ImageName;
-        }
-    }
+                       // Handle the review image (base64)
+                if ($request->review_image) {
+                    $ImageName = $this->saveBase64File($request->review_image, '/all_web_data/images/google_review', $last_insert_id, 'image');
+                    if ($ImageName) {
+                        $studentDetail->google_review_img = $ImageName;
+                    }
+                }
 
-    // Handle the resume PDF (base64)
-    if ($request->resume_pdf) {
-        $PDFName = saveBase64File($request->resume_pdf, '/all_web_data/pdf/resume', $last_insert_id, 'pdf');
-        if ($PDFName) {
-            $studentDetail->resume_pdf = $PDFName;
-        }
-    }
+                // Handle the resume PDF (base64)
+                if ($request->resume_pdf) {
+                    $PDFName = $this->saveBase64File($request->resume_pdf, '/all_web_data/pdf/resume', $last_insert_id, 'pdf');
+                    if ($PDFName) {
+                        $studentDetail->resume_pdf = $PDFName;
+                    }
+                }
 
-    // Handle the feedback video (base64)
-    if ($request->feedback_video) {
-        $VideoName = saveBase64File($request->feedback_video, '/all_web_data/videos/feedback', $last_insert_id, 'video');
-        if ($VideoName) {
-            $studentDetail->feedback_video = $VideoName;
-        }
-    }
+                // Handle the feedback video (base64)
+                if ($request->feedback_video) {
+                    $VideoName = $this->saveBase64File($request->feedback_video, '/all_web_data/videos/feedback', $last_insert_id, 'video');
+                    if ($VideoName) {
+                        $studentDetail->feedback_video = $VideoName;
+                    }
+                }
 
-    // Save the updated student details with the uploaded files
-    $studentDetail->save();
+                // Save the updated student details with the uploaded files
+                $studentDetail->save();
                         
                             return response()->json(['status' => 'Success', 'message' => 'Internship Completion Details Added Successfully', 'Statuscode' => '200']);
 
