@@ -256,7 +256,6 @@ class StudentInternshipCompletionController extends Controller
                 
                     try{
 
-                        try {
                             $studentDetail = new StudentInternshipCompletionDetails();
                         
                             // Assigning request data to model
@@ -338,12 +337,6 @@ class StudentInternshipCompletionController extends Controller
                             $studentDetail->save();
                         
                             return response()->json(['status' => 'Success', 'message' => 'Internship Completion Details Added Successfully', 'Statuscode' => '200']);
-                        
-                        } catch (\Exception $e) {
-                            return response()->json(['status' => 'Error', 'message' => $e->getMessage(), 'Statuscode' => '500']);
-                        }
-                        
-
 
                         // $studentDetail = new StudentInternshipCompletionDetails();
 
@@ -412,53 +405,6 @@ class StudentInternshipCompletionController extends Controller
             }
     }    
 
-    function saveBase64File($base64File, $directory, $prefix) {
-        // Validate base64 string
-        if (empty($base64File) || !preg_match('/^data:image\/[a-zA-Z]+;base64,/', $base64File)) {
-            throw new \Exception('Invalid base64 file format.');
-        }
-    
-        // Remove the prefix part of the base64 string
-        $base64File = str_replace('data:image/', '', $base64File);
-        $base64File = str_replace(';base64,', '', $base64File);
-    
-        // Decode the base64 string
-        $fileContent = base64_decode($base64File);
-    
-        // Ensure the file content was decoded properly
-        if ($fileContent === false) {
-            throw new \Exception('Failed to decode the base64 string.');
-        }
-    
-        // Create a random string for the filename
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < 18; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-    
-        // Prepare the directory
-        $folderPath = str_replace('\\', '/', storage_path($directory));
-        if (!file_exists($folderPath)) {
-            mkdir($folderPath, 0777, true);
-        }
-    
-        // Determine file extension
-        $fileType = 'png';  // default type
-        if (preg_match('/^image\/([a-zA-Z]+)$/', $base64File, $matches)) {
-            $fileType = $matches[1];
-        }
-    
-        // Create a file name
-        $fileName = $prefix . '_' . $randomString . '.' . $fileType;
-        $filePath = $folderPath . '/' . $fileName;
-    
-        // Save the file
-        file_put_contents($filePath, $fileContent);
-    
-        return $fileName;
-    }
     
     public function update(Request $request, $id)
     {
