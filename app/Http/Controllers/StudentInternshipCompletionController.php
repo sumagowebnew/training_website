@@ -570,34 +570,65 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             }
     }
 
+    // public function destroy($id)
+    // {
+    //     $all_data=[];
+    //     // $portfolio = Portfolio::find($id);
+
+    //     $student_data = StudentInternshipCompletionDetails::find($id);
+    //     $data = StudentInternshipDetails::where('is_deleted', 0)->get();
+
+    //         if ($student_data) {
+    //             // Delete the images from the storage folder
+
+    //             // Delete the record from the database
+    //             $is_deleted = $student_data->is_deleted == 1 ? 0 : 1;
+    //             $student_data->is_deleted = $is_deleted;
+    //             $student_data->save();
+
+    //     // return $this->responseApi($all_data,'Portfolio Deleted Successfully!','success',200);
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'message' => 'Intern Data Deleted Successfully!',
+    //         'data' => $all_data,
+    //     ], 200);
+
+    //         }
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => 'Intern details not found.',
+    //         ], 404);
+
+    // }
     public function destroy($id)
     {
-        $all_data=[];
-        // $portfolio = Portfolio::find($id);
-
+        // Find the record by ID
         $student_data = StudentInternshipCompletionDetails::find($id);
-            if ($student_data) {
-                // Delete the images from the storage folder
-
-                // Delete the record from the database
-                $is_deleted = $student_data->is_deleted == 1 ? 0 : 1;
-                $student_data->is_deleted = $is_deleted;
-                $student_data->save();
-
-        // return $this->responseApi($all_data,'Portfolio Deleted Successfully!','success',200);
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Intern Data Deleted Successfully!',
-            'data' => $all_data,
-        ], 200);
-
-            }
+    
+        if ($student_data) {
+            // Toggle the `is_deleted` status (soft delete)
+            $student_data->is_deleted = $student_data->is_deleted == 1 ? 0 : 1;
+            $student_data->save();
+    
+            // Fetch updated data (records with `is_deleted = 0`)
+            $data = StudentInternshipCompletionDetails::where('is_deleted', 0)->get();
+    
+            // Return response with success message and updated data
             return response()->json([
-                'status' => 'error',
-                'message' => 'Intern details not found.',
-            ], 404);
-
+                'status' => 'success',
+                'message' => $student_data->is_deleted == 1
+                    ? 'Intern Data Deleted Successfully!'
+                    : 'Intern Data Restored Successfully!',
+                'data' => $data,
+            ], 200);
+        }
+    
+        // Return error response if the record is not found
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Intern details not found.',
+        ], 404);
     }
-
+    
     
 }
