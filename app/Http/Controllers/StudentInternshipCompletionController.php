@@ -148,35 +148,97 @@ class StudentInternshipCompletionController extends Controller
         return response()->json($student_info);
     }
 
+    // public function getPerticularCompletion($id)
+    // {
+    //     $student_info = StudentInternshipCompletionDetails::where('student_interns_completion_details.id',$id)
+    //     ->where('is_deleted','0')  
+    //     ->select('id','name','technology','email','date_of_joining','current_working','selected_mode','project_title','describe_project',
+    //     'placed','employer_name', 'designation_in_current_company', 'package_in_lpa', 'task_links_1','task_links_2',
+    //     'task_links_3','task_links_4','task_links_5','project_github','final_year_project_link','name_contact_of_first_candidate',
+    //     'name_contact_of_second_candidate', 'name_contact_of_third_candidate', 'name_contact_of_fourth_candidate','name_contact_of_fifth_candidate',
+    //     'blog_on_your_selected_technology','is_active')
+    //     ->get();
+
+    //     // $student_info = StudentInternshipCompletionDetails::leftJoin('student_info', 'student_interns_completion_details.stude_id', '=', 'student_info.id')
+    //     // leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
+    //     // ->where('student_info.id',$id)  
+    //     // ->select('student_info.id','fname','mname','fathername','lname','parmanenat_address','current_address','contact_details','email','dob',
+    //     // 'whatsappno', 'age', 'blood', 'aadhar','linkdin','facebook','youtube','anyother_add','school_name',
+    //     // 'tenth_per','twelve_diploma_per','graduation_details', 'graduation_per', 'post_graduation_details','post_graduation_per',
+    //     // 'anyother_cirt','selected_branches','other_branch','father_name','fatherOccupation','father_contactdetails','father_aadharno',
+    //     // 'mother_name','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
+    //     // 'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
+    //     // 'technology_name','duration','selectedModules','intern_experience',
+    //     // 'experience','characteristics_describe','applicant_name','place','refrance','reference_name','contact_number','buttom_applicant_name',
+    //     // 'buttom_place')
+    //     // ->get();
+
+
+    //     return response()->json($student_info);
+    // }
     public function getPerticularCompletion($id)
     {
-        $student_info = StudentInternshipCompletionDetails::where('student_interns_completion_details.id',$id)
-        ->where('is_deleted','0')  
-        ->select('id','name','technology','email','date_of_joining','current_working','selected_mode','project_title','describe_project',
-        'placed','employer_name', 'designation_in_current_company', 'package_in_lpa', 'task_links_1','task_links_2',
-        'task_links_3','task_links_4','task_links_5','project_github','final_year_project_link','name_contact_of_first_candidate',
-        'name_contact_of_second_candidate', 'name_contact_of_third_candidate', 'name_contact_of_fourth_candidate','name_contact_of_fifth_candidate',
-        'blog_on_your_selected_technology','is_active')
-        ->get();
-
-        // $student_info = StudentInternshipCompletionDetails::leftJoin('student_info', 'student_interns_completion_details.stude_id', '=', 'student_info.id')
-        // leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
-        // ->where('student_info.id',$id)  
-        // ->select('student_info.id','fname','mname','fathername','lname','parmanenat_address','current_address','contact_details','email','dob',
-        // 'whatsappno', 'age', 'blood', 'aadhar','linkdin','facebook','youtube','anyother_add','school_name',
-        // 'tenth_per','twelve_diploma_per','graduation_details', 'graduation_per', 'post_graduation_details','post_graduation_per',
-        // 'anyother_cirt','selected_branches','other_branch','father_name','fatherOccupation','father_contactdetails','father_aadharno',
-        // 'mother_name','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
-        // 'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
-        // 'technology_name','duration','selectedModules','intern_experience',
-        // 'experience','characteristics_describe','applicant_name','place','refrance','reference_name','contact_number','buttom_applicant_name',
-        // 'buttom_place')
-        // ->get();
-
-
-        return response()->json($student_info);
+        // Join necessary tables and select the required columns
+        $student_info = StudentInternshipCompletionDetails::leftJoin('student_info', 'student_interns_completion_details.stude_id', '=', 'student_info.id')
+            ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
+            ->where('student_interns_completion_details.id', $id)
+            ->where('student_interns_completion_details.is_deleted', '0')
+            ->select(
+                'student_interns_completion_details.id',
+                'student_info.fname',
+                'student_info.mname',
+                'student_info.fathername',
+                'student_info.lname',
+                'student_info.email',
+                'student_internship_details.technology_name',
+                'date_of_joining',
+                'current_working',
+                'selected_mode',
+                'project_title',
+                'describe_project',
+                'placed',
+                'employer_name',
+                'designation_in_current_company',
+                'package_in_lpa',
+                'task_links_1',
+                'task_links_2',
+                'task_links_3',
+                'task_links_4',
+                'task_links_5',
+                'project_github',
+                'final_year_project_link',
+                'name_contact_of_first_candidate',
+                'name_contact_of_second_candidate',
+                'name_contact_of_third_candidate',
+                'name_contact_of_fourth_candidate',
+                'name_contact_of_fifth_candidate',
+                'blog_on_your_selected_technology',
+                'google_review_img',
+                'resume_pdf',
+                'feedback_video'
+            )
+            ->first();  // We use `first()` here since we're fetching a specific student's record by ID
+    
+        if (!$student_info) {
+            return response()->json(['message' => 'Student not found'], 404);
+        }
+    
+        // Convert the retrieved data into an array
+        $data = $student_info->toArray();
+    
+        // Construct file paths using storage_path
+        $googleReviewImagePath = storage_path("app/all_web_data/images/review_images/" . $data['google_review_img']);
+        $resumePath = storage_path("app/all_web_data/documents/resumes/" . $data['resume_pdf']);
+        $videoPath = storage_path("app/all_web_data/videos/" . $data['feedback_video']);
+    
+        // Check if the files exist and encode them to Base64
+        $data['google_review_img'] = file_exists($googleReviewImagePath) ? $this->encodeBase64($googleReviewImagePath) : null;
+        $data['resume_pdf'] = file_exists($resumePath) ? $this->encodeBase64($resumePath) : null;
+        $data['feedback_video'] = file_exists($videoPath) ? $this->encodeBase64($videoPath) : null;
+    
+        return response()->json($data);
     }
-
+    
     public function getAllRecord(Request $request)
     {
         $all_data = Count::get()->toArray();
