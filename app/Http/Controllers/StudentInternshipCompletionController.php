@@ -139,7 +139,7 @@ class StudentInternshipCompletionController extends Controller
         'anyother_cirt','selected_branches','other_branch','father_name','fatherOccupation','father_contactdetails','father_aadharno',
         'mother_name','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
         'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
-        'technology_name','duration','selectedModules','intern_experience',
+        'technology_name','duration','selectedModules','intern_experience','refrance',
         'experience','characteristics_describe','applicant_name','place','refrance','reference_name','contact_number','buttom_applicant_name',
         'buttom_place')
         ->get();
