@@ -231,13 +231,25 @@ class StudentInternshipCompletionController extends Controller
         $resumePath = storage_path("app/all_web_data/pdf/resume/" . $data['resume_pdf']);
         $videoPath = storage_path("app/all_web_data/videos/feedback/" . $data['feedback_video']);
     
+        // Debugging: Check file existence
+        if (!file_exists($googleReviewImagePath)) {
+            return response()->json(['error' => 'Google review image file does not exist at ' . $googleReviewImagePath], 404);
+        }
+        if (!file_exists($resumePath)) {
+            return response()->json(['error' => 'Resume file does not exist at ' . $resumePath], 404);
+        }
+        if (!file_exists($videoPath)) {
+            return response()->json(['error' => 'Video file does not exist at ' . $videoPath], 404);
+        }
+    
         // Check if the files exist and encode them to Base64
-        $data['google_review_img'] = file_exists($googleReviewImagePath) ? $this->encodeBase64($googleReviewImagePath) : null;
-        $data['resume_pdf'] = file_exists($resumePath) ? $this->encodeBase64($resumePath) : null;
-        $data['feedback_video'] = file_exists($videoPath) ? $this->encodeBase64($videoPath) : null;
+        $data['google_review_img'] = $this->encodeBase64($googleReviewImagePath);
+        $data['resume_pdf'] = $this->encodeBase64($resumePath);
+        $data['feedback_video'] = $this->encodeBase64($videoPath);
     
         return response()->json($data);
     }
+    
     
     public function getAllRecord(Request $request)
     {
