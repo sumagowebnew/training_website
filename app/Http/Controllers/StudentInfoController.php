@@ -448,7 +448,8 @@ class StudentInfoController extends Controller
                         $studentPerentsDetails->characteristics_describe = $request->characteristics_describe;
                         $studentPerentsDetails->applicant_name = $request->applicant_name;
                         $studentPerentsDetails->place = $request->place;
-                        $studentPerentsDetails->refrance = $request->refrance;
+                        // $studentPerentsDetails->refrance = $request->refrance;
+                        $studentPerentsDetails->refrance = implode(',', $request->refrance);
                         $studentPerentsDetails->reference_name = $request->reference_name;
                         $studentPerentsDetails->contact_number = $request->contact_number;
                         $studentPerentsDetails->buttom_applicant_name = $request->buttom_applicant_name;
