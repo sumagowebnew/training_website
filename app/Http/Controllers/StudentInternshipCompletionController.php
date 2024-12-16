@@ -177,69 +177,149 @@ class StudentInternshipCompletionController extends Controller
 
     //     return response()->json($student_info);
     // }
+    // public function getPerticularCompletion($id)
+    // {
+    //     // Join necessary tables and select the required columns
+    //     $student_info = StudentInternshipCompletionDetails::leftJoin('student_info', 'student_interns_completion_details.stude_id', '=', 'student_info.id')
+    //         ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
+    //         ->where('student_interns_completion_details.id', $id)
+    //         ->where('student_interns_completion_details.is_deleted', '0')
+    //         ->select(
+    //             'student_interns_completion_details.id',
+    //             'student_info.fname',
+    //             'student_info.mname',
+    //             'student_info.fathername',
+    //             'student_info.lname',
+    //             'student_info.email',
+    //             'student_internship_details.technology_name',
+    //             'date_of_joining',
+    //             'current_working',
+    //             'selected_mode',
+    //             'project_title',
+    //             'describe_project',
+    //             'placed',
+    //             'employer_name',
+    //             'designation_in_current_company',
+    //             'package_in_lpa',
+    //             'task_links_1',
+    //             'task_links_2',
+    //             'task_links_3',
+    //             'task_links_4',
+    //             'task_links_5',
+    //             'project_github',
+    //             'final_year_project_link',
+    //             'name_contact_of_first_candidate',
+    //             'name_contact_of_second_candidate',
+    //             'name_contact_of_third_candidate',
+    //             'name_contact_of_fourth_candidate',
+    //             'name_contact_of_fifth_candidate',
+    //             'blog_on_your_selected_technology',
+    //             'google_review_img',
+    //             'resume_pdf',
+    //             'feedback_video'
+    //         )
+    //         ->first();  // We use `first()` here since we're fetching a specific student's record by ID
+    
+    //     if (!$student_info) {
+    //         return response()->json(['message' => 'Student not found'], 404);
+    //     }
+    
+    //     // Convert the retrieved data into an array
+    //     $data = $student_info->toArray();
+    
+    //     // Construct file paths using storage_path
+    //     $googleReviewImagePath = storage_path("app/all_web_data/images/review_images/" . $data['google_review_img']);
+    //     $resumePath = storage_path("app/all_web_data/pdf/resume/" . $data['resume_pdf']);
+    //     $videoPath = storage_path("app/all_web_data/videos/feedback/" . $data['feedback_video']);
+    
+    //     // Check if the files exist and encode them to Base64
+    //     $data['google_review_img'] = file_exists($googleReviewImagePath) ? $this->encodeBase64($googleReviewImagePath) : null;
+    //     $data['resume_pdf'] = file_exists($resumePath) ? $this->encodeBase64($resumePath) : null;
+    //     $data['feedback_video'] = file_exists($videoPath) ? $this->encodeBase64($videoPath) : null;
+    
+    //     return response()->json($data);
+    // }
     public function getPerticularCompletion($id)
-    {
-        // Join necessary tables and select the required columns
-        $student_info = StudentInternshipCompletionDetails::leftJoin('student_info', 'student_interns_completion_details.stude_id', '=', 'student_info.id')
-            ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
-            ->where('student_interns_completion_details.id', $id)
-            ->where('student_interns_completion_details.is_deleted', '0')
-            ->select(
-                'student_interns_completion_details.id',
-                'student_info.fname',
-                'student_info.mname',
-                'student_info.fathername',
-                'student_info.lname',
-                'student_info.email',
-                'student_internship_details.technology_name',
-                'date_of_joining',
-                'current_working',
-                'selected_mode',
-                'project_title',
-                'describe_project',
-                'placed',
-                'employer_name',
-                'designation_in_current_company',
-                'package_in_lpa',
-                'task_links_1',
-                'task_links_2',
-                'task_links_3',
-                'task_links_4',
-                'task_links_5',
-                'project_github',
-                'final_year_project_link',
-                'name_contact_of_first_candidate',
-                'name_contact_of_second_candidate',
-                'name_contact_of_third_candidate',
-                'name_contact_of_fourth_candidate',
-                'name_contact_of_fifth_candidate',
-                'blog_on_your_selected_technology',
-                'google_review_img',
-                'resume_pdf',
-                'feedback_video'
-            )
-            ->first();  // We use `first()` here since we're fetching a specific student's record by ID
-    
-        if (!$student_info) {
-            return response()->json(['message' => 'Student not found'], 404);
-        }
-    
-        // Convert the retrieved data into an array
-        $data = $student_info->toArray();
-    
-        // Construct file paths using storage_path
-        $googleReviewImagePath = storage_path("app/all_web_data/images/review_images/" . $data['google_review_img']);
-        $resumePath = storage_path("app/all_web_data/pdf/resume/" . $data['resume_pdf']);
-        $videoPath = storage_path("app/all_web_data/videos/feedback/" . $data['feedback_video']);
-    
-        // Check if the files exist and encode them to Base64
-        $data['google_review_img'] = file_exists($googleReviewImagePath) ? $this->encodeBase64($googleReviewImagePath) : null;
-        $data['resume_pdf'] = file_exists($resumePath) ? $this->encodeBase64($resumePath) : null;
-        $data['feedback_video'] = file_exists($videoPath) ? $this->encodeBase64($videoPath) : null;
-    
-        return response()->json($data);
+{
+    // Join necessary tables and select the required columns
+    $student_info = StudentInternshipCompletionDetails::leftJoin('student_info', 'student_interns_completion_details.stude_id', '=', 'student_info.id')
+        ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
+        ->where('student_interns_completion_details.id', $id)
+        ->where('student_interns_completion_details.is_deleted', '0')
+        ->select(
+            'student_interns_completion_details.id',
+            'student_info.fname',
+            'student_info.mname',
+            'student_info.fathername',
+            'student_info.lname',
+            'student_info.email',
+            'student_internship_details.technology_name',
+            'date_of_joining',
+            'current_working',
+            'selected_mode',
+            'project_title',
+            'describe_project',
+            'placed',
+            'employer_name',
+            'designation_in_current_company',
+            'package_in_lpa',
+            'task_links_1',
+            'task_links_2',
+            'task_links_3',
+            'task_links_4',
+            'task_links_5',
+            'project_github',
+            'final_year_project_link',
+            'name_contact_of_first_candidate',
+            'name_contact_of_second_candidate',
+            'name_contact_of_third_candidate',
+            'name_contact_of_fourth_candidate',
+            'name_contact_of_fifth_candidate',
+            'blog_on_your_selected_technology',
+            'google_review_img',
+            'resume_pdf',
+            'feedback_video'
+        )
+        ->first();
+
+    // Check if record exists
+    if (!$student_info) {
+        return response()->json(['message' => 'Student not found'], 404);
     }
-    
+
+    // Convert to array
+    $data = $student_info->toArray();
+
+    // File paths
+    $googleReviewImagePath = str_replace('\\', '/', storage_path()) . "/all_web_data/images/review_images/" . $data['google_review_img'];
+    $resumePath = str_replace('\\', '/', storage_path()) . "/all_web_data/pdf/resume/" . $data['resume_pdf'];
+    $videoPath = str_replace('\\', '/', storage_path()) . "/all_web_data/videos/feedback/" . $data['feedback_video'];
+
+    // Encode files as Base64 with appropriate headers
+    $data['google_review_img'] = $this->fileToBase64WithPrefix($googleReviewImagePath, 'image/jpeg'); // Adjust mime type if needed
+    $data['resume_pdf'] = $this->fileToBase64WithPrefix($resumePath, 'application/pdf');
+    $data['feedback_video'] = $this->fileToBase64WithPrefix($videoPath, 'video/mp4'); // Adjust mime type if video type differs
+
+    $data['table_name'] = 'student_interns_completion_details';
+
+    return response()->json($data);
+}
+
+/**
+ * Convert file to Base64 with prefix if it exists.
+ *
+ * @param string $filePath
+ * @param string $mimeType
+ * @return string|null
+ */
+private function fileToBase64WithPrefix($filePath, $mimeType)
+{
+    if (file_exists($filePath)) {
+        return "data:{$mimeType};base64," . base64_encode(file_get_contents($filePath));
+    }
+    return null;
+}
+
     public function getAllRecord(Request $request)
     {
         $all_data = Count::get()->toArray();
