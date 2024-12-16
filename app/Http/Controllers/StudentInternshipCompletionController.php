@@ -291,7 +291,7 @@ class StudentInternshipCompletionController extends Controller
     $data = $student_info->toArray();
 
     // File paths
-    $googleReviewImagePath = str_replace('\\', '/', storage_path()) . "/all_web_data/images/review_images/" . $data['google_review_img'];
+    $googleReviewImagePath = str_replace('\\', '/', storage_path()) . "/all_web_data/images/google_review/" . $data['google_review_img'];
     $resumePath = str_replace('\\', '/', storage_path()) . "/all_web_data/pdf/resume/" . $data['resume_pdf'];
     $videoPath = str_replace('\\', '/', storage_path()) . "/all_web_data/videos/feedback/" . $data['feedback_video'];
 
