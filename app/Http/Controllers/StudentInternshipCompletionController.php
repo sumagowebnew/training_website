@@ -243,7 +243,7 @@ class StudentInternshipCompletionController extends Controller
         }
     
         // Check if the files exist and encode them to Base64
-        $data['google_review_img'] = $this->encodeBase64($googleReviewImagePath);
+        // $data['google_review_img'] = $this->encodeBase64($googleReviewImagePath);
         $data['resume_pdf'] = $this->encodeBase64($resumePath);
         $data['feedback_video'] = $this->encodeBase64($videoPath);
     
