@@ -228,8 +228,8 @@ class StudentInternshipCompletionController extends Controller
     
         // Construct file paths using storage_path
         $googleReviewImagePath = storage_path("app/all_web_data/images/review_images/" . $data['google_review_img']);
-        $resumePath = storage_path("app/all_web_data/documents/resumes/" . $data['resume_pdf']);
-        $videoPath = storage_path("app/all_web_data/videos/" . $data['feedback_video']);
+        $resumePath = storage_path("app/all_web_data/pdf/resume/" . $data['resume_pdf']);
+        $videoPath = storage_path("app/all_web_data/videos/feedback/" . $data['feedback_video']);
     
         // Check if the files exist and encode them to Base64
         $data['google_review_img'] = file_exists($googleReviewImagePath) ? $this->encodeBase64($googleReviewImagePath) : null;
