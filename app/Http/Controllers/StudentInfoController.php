@@ -88,10 +88,10 @@ class StudentInfoController extends Controller
             'age' => 'required',
             'blood' => 'nullable|string|max:10',
             'aadhar' => 'required|string|max:12|min:12',
-            'linkdin' => 'nullable|url',
-            'facebook' => 'nullable|url',
-            'youtube' => 'nullable|url',
-            'anyother_add' => 'nullable|string|max:500',
+            // 'linkdin' => 'nullable|url',
+            // 'facebook' => 'nullable|url',
+            // 'youtube' => 'nullable|url',
+            // 'anyother_add' => 'nullable|string|max:500',
         
             // StudentEducationDetails fields
             'school_name' => 'required|string|max:255',
@@ -190,14 +190,14 @@ class StudentInfoController extends Controller
             'aadhar.max' => 'Aadhar Number should not exceed 12 characters.',
             'aadhar.min' => 'Aadhar Number should be exactly 12 characters.',
             
-            'linkdin.url' => 'LinkedIn URL must be a valid URL.',
+            // 'linkdin.url' => 'LinkedIn URL must be a valid URL.',
             
-            'facebook.url' => 'Facebook URL must be a valid URL.',
+            // 'facebook.url' => 'Facebook URL must be a valid URL.',
             
-            'youtube.url' => 'YouTube URL must be a valid URL.',
+            // 'youtube.url' => 'YouTube URL must be a valid URL.',
             
-            'anyother_add.string' => 'Other Address must be a string.',
-            'anyother_add.max' => 'Other Address should not exceed 500 characters.',
+            // 'anyother_add.string' => 'Other Address must be a string.',
+            // 'anyother_add.max' => 'Other Address should not exceed 500 characters.',
 
             'school_name.required' => 'School Name is required.',
             'school_name.string' => 'School Name must be a string.',
