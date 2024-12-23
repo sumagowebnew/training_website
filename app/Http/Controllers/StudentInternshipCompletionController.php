@@ -141,7 +141,8 @@ class StudentInternshipCompletionController extends Controller
         'mother_name','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
         'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
         'technology_name','duration','selectedModules','intern_experience','refrance',
-        'experience','characteristics_describe','applicant_name','place','refrance','reference_name','contact_number','buttom_applicant_name',
+        'experience','characteristics_describe','applicant_name','place','refrance_social_media','refrance_friend',
+            'refrance_family','refrance_relatives','refrance_other','reference_name','reference_name1','contact_number','buttom_applicant_name',
         'buttom_place')
         ->get();
 
@@ -480,7 +481,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             'placed' => 'required|string|max:255',
             'employer_name' => 'required|required_if:placed,Yes|string|max:255',
             'designation_in_current_company' => 'required|required_if:placed,Yes|string|max:255',
-            'package_in_lpa' => 'required|required_if:placed,Yes|numeric|min:0',
+            'package_in_lpa' => 'required|required_if:placed,Yes',
             'task_links_1' => 'required|max:1000',
             'task_links_2' => 'required|max:1000',
             'task_links_3' => 'required|max:1000',
@@ -546,8 +547,6 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
     'designation_in_current_company.max' => 'The designation may not be greater than 255 characters.',
 
     'package_in_lpa.required_if' => 'The package in LPA is required if placed is Yes.',
-    'package_in_lpa.numeric' => 'The package in LPA must be a valid number.',
-    'package_in_lpa.min' => 'The package in LPA must be at least 0.',
 
     'task_links_1.required' => 'The task link 1 field is required.',
     'task_links_1.max' => 'The task link 1 may not be greater than 1000 characters.',

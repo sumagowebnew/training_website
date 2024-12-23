@@ -34,7 +34,9 @@ class StudentInfoController extends Controller
             'mother_name','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
             'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
             'technology_name','duration','selectedModules','intern_experience',
-            'experience','characteristics_describe','applicant_name','place','refrance','reference_name','contact_number','buttom_applicant_name',
+            'experience','characteristics_describe','applicant_name','place','refrance_social_media','refrance_friend',
+            'refrance_family','refrance_relatives','refrance_other',
+            'reference_name','reference_name1','contact_number','contact_number1','buttom_applicant_name',
             'buttom_place')
             ->get();
 
@@ -109,7 +111,7 @@ class StudentInfoController extends Controller
             'father_name' => 'required|string|max:255',
             'fatherOccupation' => 'nullable|string|max:255',
             'father_contactdetails' => 'required|string|max:15',
-            'father_aadharno' => 'required|string|max:12|min:12',
+            'father_aadharno' => 'nullable|string|max:12|min:12',
             'mother_name' => 'nullable|string|max:255',
             'motherOccupation' => 'nullable|string|max:255',
             'mother_contactdetails' => 'nullable|string|max:15',
@@ -139,7 +141,9 @@ class StudentInfoController extends Controller
             'place' => 'nullable|string|max:255',
             // 'refrance' => 'required',
             'reference_name' => 'nullable|string|max:255',
+            'reference_name1' => 'nullable|string|max:255',
             'contact_number' => 'nullable|string|max:15',
+            'contact_number1' => 'nullable|string|max:15',
             'buttom_applicant_name' => 'nullable|string|max:255',
             'buttom_place' => 'nullable|string|max:255',
         ], [
@@ -245,7 +249,6 @@ class StudentInfoController extends Controller
             'father_contactdetails.string' => 'Father Contact Details must be a string.',
             'father_contactdetails.max' => 'Father Contact Details should not exceed 15 characters.',
             
-            'father_aadharno.required' => 'Father Aadhaar Number is required.',
             'father_aadharno.string' => 'Father Aadhaar Number must be a string.',
             'father_aadharno.max' => 'Father Aadhaar Number should not exceed 12 characters.',
             'father_aadharno.min' => 'Father Aadhaar Number must be exactly 12 characters.',
@@ -341,9 +344,15 @@ class StudentInfoController extends Controller
             
             'reference_name.string' => 'Reference Name must be a string.',
             'reference_name.max' => 'Reference Name should not exceed 255 characters.',
+
+            'reference_name1.string' => 'Reference Name must be a string.',
+            'reference_name1.max' => 'Reference Name should not exceed 255 characters.',
             
             'contact_number.string' => 'Contact Number must be a string.',
             'contact_number.max' => 'Contact Number should not exceed 15 characters.',
+
+            'contact_number1.string' => 'Contact Number must be a string.',
+            'contact_number1.max' => 'Contact Number should not exceed 15 characters.',
             
             'buttom_applicant_name.string' => 'Bottom Applicant Name must be a string.',
             'buttom_applicant_name.max' => 'Bottom Applicant Name should not exceed 255 characters.',
@@ -449,9 +458,18 @@ class StudentInfoController extends Controller
                         $studentPerentsDetails->applicant_name = $request->applicant_name;
                         $studentPerentsDetails->place = $request->place;
                         // $studentPerentsDetails->refrance = $request->refrance;
-                        $studentPerentsDetails->refrance = implode(',', $request->refrance);
+                        // $studentPerentsDetails->refrance = implode(',', $request->refrance);
+                        
+                        $studentPerentsDetails->refrance_social_media = $request->refrance_social_media;
+                        $studentPerentsDetails->refrance_friend = $request->refrance_friend;
+                        $studentPerentsDetails->refrance_family = $request->refrance_family;
+                        $studentPerentsDetails->refrance_relatives = $request->refrance_relatives;
+                        $studentPerentsDetails->refrance_other = $request->refrance_other;
+
                         $studentPerentsDetails->reference_name = $request->reference_name;
+                        $studentPerentsDetails->reference_name1 = $request->reference_name1;
                         $studentPerentsDetails->contact_number = $request->contact_number;
+                        $studentPerentsDetails->contact_number1 = $request->contact_number1;
                         $studentPerentsDetails->buttom_applicant_name = $request->buttom_applicant_name;
                         $studentPerentsDetails->buttom_place = $request->buttom_place;
                         $studentPerentsDetails->save();
