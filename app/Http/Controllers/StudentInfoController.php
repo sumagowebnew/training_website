@@ -27,7 +27,7 @@ class StudentInfoController extends Controller
                             ->leftJoin('student_education_details', 'student_info.id', '=', 'student_education_details.stude_id')
                             ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
                             ->where('student_info.is_deleted','0')
-                            ->select('student_info.id','fname','mname','fathername','lname','parmanenat_address','current_address','contact_details','email','dob',
+                            ->select('student_info.id','fname','mname','fathername','lname','gender','training_mode','parmanenat_address','current_address','contact_details','email','dob',
             'whatsappno', 'age', 'blood', 'aadhar','linkdin','facebook','youtube','anyother_add','school_name',
             'tenth_per','twelve_diploma_per','graduation_details', 'graduation_per', 'post_graduation_details','post_graduation_per',
             'anyother_cirt','selected_branches','other_branch','father_name','fatherOccupation','father_contactdetails','father_aadharno',
@@ -81,6 +81,8 @@ class StudentInfoController extends Controller
             'mname' => 'nullable|string|max:255',
             'fathername' => 'required|string|max:255',
             'lname' => 'required|string|max:255',
+            'gender' => 'required',
+            'training_mode' => 'required',
             'parmanenat_address' => 'required|string|max:500',
             'current_address' => 'nullable|string|max:500',
             'contact_details' => 'required|string|max:15',
@@ -162,6 +164,10 @@ class StudentInfoController extends Controller
             'lname.required' => 'Last Name is required.',
             'lname.string' => 'Last Name must be a string.',
             'lname.max' => 'Last Name should not exceed 255 characters.',
+
+            'gender.required' => 'Gender is required.',
+            'training_mode.required' => 'Training Mode is required.',
+
             
             'parmanenat_address.required' => 'Permanent Address is required.',
             'parmanenat_address.string' => 'Permanent Address must be a string.',
@@ -379,6 +385,8 @@ class StudentInfoController extends Controller
                         $studentInfo->mname = $request->mname;
                         $studentInfo->fathername = $request->fathername;
                         $studentInfo->lname = $request->lname;
+                        $studentInfo->gender = $request->gender;
+                        $studentInfo->training_mode = $request->training_mode;
                         $studentInfo->parmanenat_address = $request->parmanenat_address;
                         $studentInfo->current_address = $request->current_address;
                         $studentInfo->contact_details = $request->contact_details;

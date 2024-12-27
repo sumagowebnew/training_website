@@ -67,6 +67,8 @@ class StudentInternshipCompletionController extends Controller
                 'student_info.mname',
                 'student_info.fathername',
                 'student_info.lname',
+                'student_info.gender',
+                'student_info.training_mode',
                 'student_info.email',
                 'student_internship_details.technology_name',
                 'date_of_joining',
@@ -134,7 +136,7 @@ class StudentInternshipCompletionController extends Controller
         ->leftJoin('student_parents_details', 'student_info.id', '=', 'student_parents_details.stude_id')
         ->leftJoin('student_education_details', 'student_info.id', '=', 'student_education_details.stude_id')
         ->where('student_info.id',$id)
-        ->select('student_info.id','fname','mname','fathername','lname','parmanenat_address','current_address','contact_details','email','dob',
+        ->select('student_info.id','fname','mname','fathername','lname','gender','training_mode','parmanenat_address','current_address','contact_details','email','dob',
         'whatsappno', 'age', 'blood', 'aadhar','linkdin','facebook','youtube','anyother_add','school_name',
         'tenth_per','twelve_diploma_per','graduation_details', 'graduation_per', 'post_graduation_details','post_graduation_per',
         'anyother_cirt','selected_branches','other_branch','father_name','fatherOccupation','father_contactdetails','father_aadharno',
@@ -318,6 +320,8 @@ public function getPerticularCompletion($id)
             'student_info.mname',
             'student_info.fathername',
             'student_info.lname',
+            'student_info.gender',
+            'student_info.training_mode',
             'student_info.email',
             'student_internship_details.technology_name',
             'date_of_joining',
