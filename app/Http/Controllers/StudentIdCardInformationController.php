@@ -28,19 +28,18 @@ class StudentIdCardInformationController extends Controller
             ->where('student_id_card_info.is_deleted', 0)
             ->select(
                 'student_id_card_info.id',
-                'student_id_card_info.id',
                 'student_info.fname',
                 'student_info.mname',
                 'student_info.fathername',
                 'student_info.lname',
                 'student_internship_details.technology_name',
                 'date_of_joining',
-                'student_info.contact_details',
-                'student_info.shirt_size',
-                'student_info.is_active',
-                'student_info.is_deleted',
-                'student_info.created_at',
-                'student_info.updated_at',
+                'student_id_card_info.contact_details',
+                'student_id_card_info.shirt_size',
+                'student_id_card_info.is_active',
+                'student_id_card_info.is_deleted',
+                'student_id_card_info.created_at',
+                'student_id_card_info.updated_at',
             )
             ->get();
     
