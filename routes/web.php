@@ -292,6 +292,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::get('/get-intern-completion-details', 'StudentInternshipCompletionController@index');
     Route::delete('intern-completion/delete/{id}', 'StudentInternshipCompletionController@destroy');
 
+    Route::get('/get-intern-id-card-details', 'StudentIdCardInformationController@index');
     Route::post('/intern-id-card/add', 'StudentIdCardInformationController@add');
    
 });

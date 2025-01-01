@@ -23,44 +23,24 @@ class StudentIdCardInformationController extends Controller
   
     public function index()
     {
-        $student_info = StudentInternshipCompletionDetails::leftJoin('student_info', 'student_interns_completion_details.stude_id', '=', 'student_info.id')
+        $student_info = StudentIdCardInfo::leftJoin('student_info', 'student_id_card_info.stude_id', '=', 'student_info.id')
             ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
-            ->where('student_interns_completion_details.is_deleted', 0)
+            ->where('student_id_card_info.is_deleted', 0)
             ->select(
-                'student_interns_completion_details.id',
+                'student_id_card_info.id',
+                'student_id_card_info.id',
                 'student_info.fname',
                 'student_info.mname',
                 'student_info.fathername',
                 'student_info.lname',
-                'student_info.gender',
-                'student_info.training_mode',
-                'student_info.email',
                 'student_internship_details.technology_name',
                 'date_of_joining',
-                'current_working',
-                'selected_mode',
-                'project_title',
-                'describe_project',
-                'placed',
-                'employer_name',
-                'designation_in_current_company',
-                'package_in_lpa',
-                'task_links_1',
-                'task_links_2',
-                'task_links_3',
-                'task_links_4',
-                'task_links_5',
-                'project_github',
-                'final_year_project_link',
-                'name_contact_of_first_candidate',
-                'name_contact_of_second_candidate',
-                'name_contact_of_third_candidate',
-                'name_contact_of_fourth_candidate',
-                'name_contact_of_fifth_candidate',
-                'blog_on_your_selected_technology',
-                'google_review_img',
-                'resume_pdf',
-                'feedback_video'
+                'student_info.contact_details',
+                'student_info.shirt_size',
+                'student_info.is_active',
+                'student_info.is_deleted',
+                'student_info.created_at',
+                'student_info.updated_at',
             )
             ->get();
     
@@ -146,11 +126,11 @@ class StudentIdCardInformationController extends Controller
                             $last_insert_id = $studentIdCardDetails->id;
                        // Handle the review image (base64)
  
-                            return response()->json(['status' => 'Success', 'message' => 'Internship Completion Details Added Successfully', 'Statuscode' => '200']); 
+                            return response()->json(['status' => 'Success', 'message' => 'Intern ID Card Details Added Successfully', 'Statuscode' => '200']); 
                     }
 
                     catch (exception $e) {
-                        return response()->json(['status' => 'error', 'message' => 'Intern Details not added', 'error' => $e->getMessage()],500);
+                        return response()->json(['status' => 'error', 'message' => 'Intern ID Card Details not added', 'error' => $e->getMessage()],500);
                     }
             }
     }    
