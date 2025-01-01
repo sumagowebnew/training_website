@@ -45,23 +45,23 @@ class StudentIdCardInformationController extends Controller
     
         $response = [];
     
-        foreach ($student_info as $item) {
-            $data = $item->toArray();
+        // foreach ($student_info as $item) {
+        //     $data = $item->toArray();
     
-            // Construct file paths using storage_path
-            $googleReviewImagePath = storage_path("app/all_web_data/images/review_images/" . $data['google_review_img']);
-            $resumePath = storage_path("app/all_web_data/documents/resumes/" . $data['resume_pdf']);
-            $videoPath = storage_path("app/all_web_data/videos/" . $data['feedback_video']);
+        //     // Construct file paths using storage_path
+        //     $googleReviewImagePath = storage_path("app/all_web_data/images/review_images/" . $data['google_review_img']);
+        //     $resumePath = storage_path("app/all_web_data/documents/resumes/" . $data['resume_pdf']);
+        //     $videoPath = storage_path("app/all_web_data/videos/" . $data['feedback_video']);
     
-            // Process each file
-            $data['google_review_img'] = $this->encodeBase64($googleReviewImagePath);
-            $data['resume_pdf'] = $this->encodeBase64($resumePath);
-            $data['feedback_video'] = $this->encodeBase64($videoPath);
+        //     // Process each file
+        //     $data['google_review_img'] = $this->encodeBase64($googleReviewImagePath);
+        //     $data['resume_pdf'] = $this->encodeBase64($resumePath);
+        //     $data['feedback_video'] = $this->encodeBase64($videoPath);
     
-            $response[] = $data;
-        }
+        //     $response[] = $data;
+        // }
     
-        return response()->json($response);
+        return response()->json($student_info);
     }
     
 
