@@ -348,7 +348,8 @@ public function getPerticularCompletion($id)
             'blog_on_your_selected_technology',
             'google_review_img',
             'resume_pdf',
-            'feedback_video'
+            'feedback_video',
+            'blood'
         )
         ->first();
 
