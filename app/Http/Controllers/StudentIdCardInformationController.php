@@ -243,8 +243,8 @@ class StudentIdCardInformationController extends Controller
         $all_data=[];
         // $portfolio = Portfolio::find($id);
 
-        $student_data = StudentInternshipCompletionDetails::find($id);
-        $data = StudentInternshipDetails::where('is_deleted', 0)->get();
+        $student_data = StudentIdCardInfo::find($id);
+        // $data = StudentInternshipDetails::where('is_deleted', 0)->get();
 
             if ($student_data) {
                 // Delete the images from the storage folder
@@ -257,14 +257,14 @@ class StudentIdCardInformationController extends Controller
         // return $this->responseApi($all_data,'Portfolio Deleted Successfully!','success',200);
         return response()->json([
             'status' => 'success',
-            'message' => 'Intern Data Deleted Successfully!',
+            'message' => 'Intern ID Card Data Deleted Successfully!',
             'data' => $all_data,
         ], 200);
 
             }
             return response()->json([
                 'status' => 'error',
-                'message' => 'Intern details not found.',
+                'message' => 'Intern ID Card details not found.',
             ], 404);
 
     }
