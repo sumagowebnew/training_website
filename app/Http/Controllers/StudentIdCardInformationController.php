@@ -134,6 +134,62 @@ class StudentIdCardInformationController extends Controller
             }
     }    
 
+
+        public function getPerticularIdCardInfo($id)
+    {
+         
+        $student_info = StudentIdCardInfo::leftJoin('student_info', 'student_id_card_info.stude_id', '=', 'student_info.id')
+            ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
+            ->where('student_id_card_info.id', $id)
+            ->where('student_id_card_info.is_deleted', 0)
+            ->select(
+                'student_id_card_info.id',
+                'student_info.fname',
+                'student_info.mname',
+                'student_info.fathername',
+                'student_info.lname',
+                'student_internship_details.technology_name',
+                'date_of_joining',
+                'student_id_card_info.contact_details',
+                'student_id_card_info.shirt_size',
+                'student_id_card_info.is_active',
+                'student_id_card_info.is_deleted',
+                'student_id_card_info.created_at',
+                'student_id_card_info.updated_at',
+            )
+            ->first();
+
+        // Check if record exists
+        if (!$student_info) {
+            return response()->json(['message' => 'Student not found'], 404);
+        }
+
+        // Convert to array
+        $data = $student_info->toArray();
+
+        // File paths
+        $googleReviewImagePath = storage_path("all_web_data/images/google_review/") . $data['google_review_img'];
+        $resumePath = storage_path("all_web_data/pdf/resume/") . $data['resume_pdf'];
+        $videoPath = storage_path("all_web_data/videos/feedback/") . $data['feedback_video'];
+
+        // Encode files as Base64 with appropriate headers only if files exist
+        $data['google_review_img'] = (isset($data['google_review_img']) && is_file($googleReviewImagePath))
+            ? $this->fileToBase64WithPrefix($googleReviewImagePath, 'image/jpeg')
+            : null;
+
+        $data['resume_pdf'] = (isset($data['resume_pdf']) && is_file($resumePath))
+            ? $this->fileToBase64WithPrefix($resumePath, 'application/pdf')
+            : null;
+
+        $data['feedback_video'] = (isset($data['feedback_video']) && is_file($videoPath))
+            ? $this->fileToBase64WithPrefix($videoPath, 'video/mp4')
+            : null;
+
+        $data['table_name'] = 'student_interns_completion_details';
+
+        return response()->json($data);
+    }
+
     
     public function update(Request $request, $id)
     {

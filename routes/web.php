@@ -294,6 +294,8 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
 
     Route::get('/get-intern-id-card-details', 'StudentIdCardInformationController@index');
     Route::post('/intern-id-card/add', 'StudentIdCardInformationController@add');
+    Route::get('/get-perticular-id-card-info/{id}', 'StudentIdCardInformationController@getPerticular');
+
    
 });
 
