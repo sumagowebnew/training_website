@@ -165,29 +165,8 @@ class StudentIdCardInformationController extends Controller
         }
 
         // Convert to array
-        $data = $student_info->toArray();
 
-        // File paths
-        $googleReviewImagePath = storage_path("all_web_data/images/google_review/") . $data['google_review_img'];
-        $resumePath = storage_path("all_web_data/pdf/resume/") . $data['resume_pdf'];
-        $videoPath = storage_path("all_web_data/videos/feedback/") . $data['feedback_video'];
-
-        // Encode files as Base64 with appropriate headers only if files exist
-        $data['google_review_img'] = (isset($data['google_review_img']) && is_file($googleReviewImagePath))
-            ? $this->fileToBase64WithPrefix($googleReviewImagePath, 'image/jpeg')
-            : null;
-
-        $data['resume_pdf'] = (isset($data['resume_pdf']) && is_file($resumePath))
-            ? $this->fileToBase64WithPrefix($resumePath, 'application/pdf')
-            : null;
-
-        $data['feedback_video'] = (isset($data['feedback_video']) && is_file($videoPath))
-            ? $this->fileToBase64WithPrefix($videoPath, 'video/mp4')
-            : null;
-
-        $data['table_name'] = 'student_interns_completion_details';
-
-        return response()->json($data);
+        return response()->json($student_info);
     }
 
     
