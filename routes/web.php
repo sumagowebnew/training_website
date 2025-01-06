@@ -283,7 +283,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
 
     Route::post('/intern-joining/add', 'StudentInfoController@add');
     Route::get('/get-intern-joining', 'StudentInfoController@index');
-    // $router->post('/portfolio/update/{id}', 'PortfolioController@update');
+    $router->post('/update-intern-joining/update/{id}', 'StudentInfoController@update');
     Route::delete('intern-joining/delete/{id}', 'StudentInfoController@destroy');
 
     Route::post('/intern-completion/add', 'StudentInternshipCompletionController@add');
