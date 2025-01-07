@@ -707,7 +707,6 @@ class StudentInfoController extends Controller
             }else
             {
                         $studentInfo = StudentInfo::find($id);
-                        dd($studentInfo);
                         $studentInfo->fname = $request->fname;
                         $studentInfo->mname = $request->mname;
                         $studentInfo->fathername = $request->fathername;
@@ -734,8 +733,11 @@ class StudentInfoController extends Controller
                         // $studentInfo->save();
                         $update_data = $studentInfo->update();
 
-                        $studentEducationDetails = StudentEdducationDetails::find($id);
-                        $studentEducationDetails->stude_id = $recordId;
+                        
+                        $studentEducationDetails = StudentEdducationDetails::where('stude_id', $id)->first();
+                        if ($studentEducationDetails) {
+                        // $studentEducationDetails = StudentEdducationDetails::find($id);
+                        // $studentEducationDetails->stude_id = $recordId;
                         $studentEducationDetails->school_name = $request->school_name;
                         $studentEducationDetails->tenth_per = $request->tenth_per;
                         $studentEducationDetails->twelve_diploma_per = $request->twelve_diploma_per;
@@ -747,10 +749,13 @@ class StudentInfoController extends Controller
                         $studentEducationDetails->selected_branches = $request->selected_branches;
                         $studentEducationDetails->other_branch = $request->other_branch;
                         $update_data = $studentEducationDetails->update();
+                        }
 
+                        $studentPerentsDetails = StudentParentDetails::where('stude_id', $id)->first();
+                        if ($studentPerentsDetails) {
                         // $studentPerentsDetails = new StudentParentDetails();
-                        $studentPerentsDetails = StudentParentDetails::find($id);
-                        $studentPerentsDetails->stude_id = $recordId;
+                        // $studentPerentsDetails = StudentParentDetails::find($id);
+                        // $studentPerentsDetails->stude_id = $recordId;
                         $studentPerentsDetails->father_name = $request->father_name;
                         $studentPerentsDetails->fatherOccupation = $request->fatherOccupation;
                         $studentPerentsDetails->father_contactdetails = $request->father_contactdetails;
@@ -770,11 +775,13 @@ class StudentInfoController extends Controller
                         $studentPerentsDetails->Guardian_contactdetails = $request->Guardian_contactdetails;
                         // $studentPerentsDetails->save();
                         $update_data = $studentPerentsDetails->update();
+                        }
 
-
+                        $studentPerentsDetails = StudentInternshipDetails::where('stude_id', $id)->first();
+                        if ($studentPerentsDetails) {
                         // $studentPerentsDetails = new StudentInternshipDetails();
-                        $studentPerentsDetails = StudentInternshipDetails::find($id);
-                        $studentPerentsDetails->stude_id = $recordId;
+                        // $studentPerentsDetails = StudentInternshipDetails::find($id);
+                        $studentPerentsDetails->stude_id = $id;
                         $studentPerentsDetails->technology_name = $request->technology_name;
                         $studentPerentsDetails->duration = $request->duration;
                         $studentPerentsDetails->selectedModules = $request->selectedModules;
@@ -800,7 +807,7 @@ class StudentInfoController extends Controller
                         $studentPerentsDetails->buttom_place = $request->buttom_place;
                         // $studentPerentsDetails->save();
                         $update_data = $studentPerentsDetails->update();
-                
+                        }
                 return $this->responseApi($update_data,'Data Updated','success',200);
             }
     }
