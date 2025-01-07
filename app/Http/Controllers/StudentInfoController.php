@@ -443,6 +443,7 @@ class StudentInfoController extends Controller
 
     public function update(Request $request, $id)
     {
+        dd($id);
         $validator = Validator::make($request->all(), [
             // StudentInfo fields
             'fname' => 'required|string|max:255',
@@ -707,6 +708,7 @@ class StudentInfoController extends Controller
             }else
             {
                         $studentInfo = StudentInfo::find($id);
+                        dd($studentInfo);
                         $studentInfo->fname = $request->fname;
                         $studentInfo->mname = $request->mname;
                         $studentInfo->fathername = $request->fathername;
@@ -730,6 +732,7 @@ class StudentInfoController extends Controller
                         $existingRecord = StudentInfo::orderBy('id','DESC')->first();
                         $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
 
+                        
                         // $studentInfo->save();
                         $update_data = $studentInfo->update();
 
@@ -808,7 +811,13 @@ class StudentInfoController extends Controller
                         // $studentPerentsDetails->save();
                         $update_data = $studentPerentsDetails->update();
                         }
-                return $this->responseApi($update_data,'Data Updated','success',200);
+                        
+                        return response()->json([
+                            'status' => 'success',
+                            'message' => 'Intern Data Updated Successfully!',
+                            'data' => $update_data,
+                        ], 200);
+                // return $this->responseApi($update_data,'Data Updated','success',200);
             }
     }
 
