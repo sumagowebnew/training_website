@@ -290,6 +290,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::get('/get-perticular-intern/{id}', 'StudentInternshipCompletionController@getPerticular');
     Route::get('/get-perticular-completion-intern/{id}', 'StudentInternshipCompletionController@getPerticularCompletion');
     Route::get('/get-intern-completion-details', 'StudentInternshipCompletionController@index');
+    $router->post('/update-intern-completion-details/update/{id}', 'StudentInternshipCompletionController@update');
     Route::delete('intern-completion/delete/{id}', 'StudentInternshipCompletionController@destroy');
 
     Route::get('/get-intern-id-card-details', 'StudentIdCardInformationController@index');
