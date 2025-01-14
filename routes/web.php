@@ -299,6 +299,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::delete('intern-id-card-info/delete/{id}', 'StudentIdCardInformationController@destroy');
 
     Route::post('/intern-joining-personal-info/add', 'StudentInfoPersonalController@add');
+    Route::get('/get-intern-personal-info', 'StudentInfoPersonalController@index');
 
 
    
