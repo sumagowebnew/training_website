@@ -300,6 +300,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
 
     Route::post('/intern-joining-personal-info/add', 'StudentInfoPersonalController@add');
     Route::get('/get-intern-personal-info', 'StudentInfoPersonalController@index');
+    Route::get('/get-perticular-intern-personal-info/{id}', 'StudentInfoPersonalController@getPerticularPersonalInfo');
 
 
    

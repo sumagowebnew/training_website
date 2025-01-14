@@ -175,6 +175,18 @@ class StudentInfoPersonalController extends Controller
             }
     }    
 
+    public function getPerticularPersonalInfo($id)
+    {
+
+        $student_info = StudentPersonalInfo::where('student_personal_info.id',$id)
+        ->select('student_personal_info.id','fname','mname','fathername','lname','gender','parmanenat_address','current_address','contact_details','email','dob',
+        'whatsappno', 'age', 'blood', 'aadhar')
+        ->get();
+
+
+        return response()->json($student_info);
+    }
+
     public function update(Request $request, $id)
     {
         // dd($id);
