@@ -138,7 +138,7 @@ class StudentInternshipCompletionController extends Controller
         ->leftJoin('student_parents_details', 'student_info.id', '=', 'student_parents_details.stude_id')
         ->leftJoin('student_education_details', 'student_info.id', '=', 'student_education_details.stude_id')
         ->where('student_info.stude_id',$id)
-        ->select('student_info.id','student_personal_info.personal_id','student_personal_info.fname','student_personal_info.mname','student_personal_info.fathername',
+        ->select('student_info.id','student_personal_info.id as personal_id','student_personal_info.fname','student_personal_info.mname','student_personal_info.fathername',
                 'student_personal_info.lname','student_personal_info.gender','training_mode','student_personal_info.parmanenat_address','student_personal_info.current_address','student_personal_info.contact_details',
                 'student_personal_info.email','student_personal_info.dob','student_personal_info.whatsappno', 'student_personal_info.age', 'student_personal_info.blood',
                     'student_personal_info.aadhar','linkdin','facebook','youtube','anyother_add','school_name',
