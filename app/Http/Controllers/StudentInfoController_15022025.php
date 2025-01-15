@@ -342,7 +342,6 @@ class StudentInfoController extends Controller
                 
                     try{
                         $studentInfo = new StudentInfo();
-                        $studentInfo->stude_id = $request->stude_id;
                         $studentInfo->fname = $request->fname;
                         $studentInfo->mname = $request->mname;
                         $studentInfo->fathername = $request->fathername;
