@@ -71,7 +71,7 @@ class StudentInternshipCompletionController extends Controller
                 'student_personal_info.fathername',
                 'student_personal_info.lname',
                 'student_personal_info.gender',
-                'training_mode',
+                'student_info.training_mode',
                 'student_personal_info.email',
                 'student_internship_details.technology_name',
                 'date_of_joining',
