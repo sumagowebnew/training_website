@@ -572,15 +572,21 @@ class StudentInfoPersonalController extends Controller
         $all_data=[];
         // $portfolio = Portfolio::find($id);
 
-        $studet_data = StudentInfo::find($id);
-            if ($studet_data) {
+        $studet_personal_data = StudentPersonalInfo::find($id);
+            if ($studet_personal_data) {
                 // Delete the images from the storage folder
 
                 // Delete the record from the database
+                $is_deleted = $studet_personal_data->is_deleted == 1 ? 0 : 1;
+                $studet_personal_data->is_deleted = $is_deleted;
+                $studet_personal_data->save();
+                // Log::info($studet_data);    
+
+                $studet_data = StudentInfo::where('stude_id', $id)
+                            ->first();
                 $is_deleted = $studet_data->is_deleted == 1 ? 0 : 1;
                 $studet_data->is_deleted = $is_deleted;
                 $studet_data->save();
-                // Log::info($studet_data);    
 
                 $studet_education_data = StudentEdducationDetails::where('stude_id', $id)
                             ->first();

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Config;
 use App\Models\
 {
 StudentInfo,
+StudentPersonalInfo,
 StudentEdducationDetails,
 StudentParentDetails,
 StudentInternshipDetails,
@@ -132,12 +133,15 @@ class StudentInternshipCompletionController extends Controller
     public function getPerticular($id)
     {
 
-        $student_info = StudentInfo::leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
+        $student_info = StudentInfo::leftJoin('student_personal_info', 'student_info.stude_id', '=', 'student_personal_info.id')
+        ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
         ->leftJoin('student_parents_details', 'student_info.id', '=', 'student_parents_details.stude_id')
         ->leftJoin('student_education_details', 'student_info.id', '=', 'student_education_details.stude_id')
-        ->where('student_info.id',$id)
-        ->select('student_info.id','fname','mname','fathername','lname','gender','training_mode','parmanenat_address','current_address','contact_details','email','dob',
-        'whatsappno', 'age', 'blood', 'aadhar','linkdin','facebook','youtube','anyother_add','school_name',
+        ->where('student_info.stude_id',$id)
+        ->select('student_info.id','student_personal_info.personal_id','student_personal_info.fname','student_personal_info.mname','student_personal_info.fathername',
+                'student_personal_info.lname','student_personal_info.gender','training_mode','student_personal_info.parmanenat_address','student_personal_info.current_address','student_personal_info.contact_details',
+                'student_personal_info.email','student_personal_info.dob','student_personal_info.whatsappno', 'student_personal_info.age', 'student_personal_info.blood',
+                    'student_personal_info.aadhar','linkdin','facebook','youtube','anyother_add','school_name',
         'tenth_per','twelve_diploma_per','graduation_details', 'graduation_per', 'post_graduation_details','post_graduation_per',
         'anyother_cirt','selected_branches','other_branch','father_name','fatherOccupation','father_contactdetails','father_aadharno',
         'mother_name','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
