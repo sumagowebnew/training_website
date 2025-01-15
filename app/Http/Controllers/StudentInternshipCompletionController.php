@@ -323,13 +323,13 @@ public function getPerticularCompletion($id)
         ->where('student_interns_completion_details.is_deleted', '0')
         ->select(
             'student_interns_completion_details.id',
-            'student_info.fname',
-            'student_info.mname',
-            'student_info.fathername',
-            'student_info.lname',
-            'student_info.gender',
+            'student_personal_info.fname',
+            'student_personal_info.mname',
+            'student_personal_info.fathername',
+            'student_personal_info.lname',
+            'student_personal_info.gender',
             'student_info.training_mode',
-            'student_info.email',
+            'student_personal_info.email',
             'student_internship_details.technology_name',
             'date_of_joining',
             'current_working',
@@ -356,7 +356,7 @@ public function getPerticularCompletion($id)
             'google_review_img',
             'resume_pdf',
             'feedback_video',
-            'blood'
+            'student_personal_info.blood'
         )
         ->first();
 
