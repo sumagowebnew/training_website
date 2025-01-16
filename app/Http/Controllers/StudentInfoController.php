@@ -95,7 +95,7 @@ class StudentInfoController extends Controller
             'whatsappno' => 'nullable|string|max:15',
             'age' => 'required',
             'blood' => 'nullable|string|max:10',
-            'aadhar' => 'required|string|max:12|min:12',
+            'aadhar' => 'required|max:12|min:12',
         
             // StudentEducationDetails fields
             'school_name' => 'required|string|max:255',
@@ -192,7 +192,7 @@ class StudentInfoController extends Controller
             'blood.max' => 'Blood Group should not exceed 10 characters.',
             
             'aadhar.required' => 'Aadhar Number is required.',
-            'aadhar.string' => 'Aadhar Number must be a string.',
+            // 'aadhar.string' => 'Aadhar Number must be a string.',
             'aadhar.max' => 'Aadhar Number should not exceed 12 characters.',
             'aadhar.min' => 'Aadhar Number should be exactly 12 characters.',
 
