@@ -280,11 +280,6 @@ class StudentInfoPersonalController extends Controller
                         $studentInfo->age = $request->age;
                         $studentInfo->blood = $request->blood;
                         $studentInfo->aadhar = $request->aadhar;
-                        $studentInfo->linkdin = $request->linkdin;
-                        $studentInfo->facebook = $request->facebook;
-                        $studentInfo->youtube = $request->youtube;
-                        $studentInfo->anyother_add = $request->anyother_add;
-
                         $existingRecord = StudentInfo::orderBy('id','DESC')->first();
                         $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
 
