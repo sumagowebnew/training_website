@@ -323,6 +323,7 @@ public function getPerticularCompletion($id)
         ->where('student_interns_completion_details.is_deleted', '0')
         ->select(
             'student_interns_completion_details.id',
+            'student_personal_info.id as personal_id',
             'student_personal_info.fname',
             'student_personal_info.mname',
             'student_personal_info.fathername',
