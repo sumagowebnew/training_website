@@ -291,7 +291,7 @@ class StudentInfoPersonalController extends Controller
                         
                         // $studentInfo->save();
                         $update_data = $studentInfo->update();
-                        }
+
                         
                         return response()->json([
                             'status' => 'success',
