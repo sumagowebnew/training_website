@@ -420,11 +420,18 @@ class StudentInfoController extends Controller
                         // $studentPerentsDetails->refrance = $request->refrance;
                         // $studentPerentsDetails->refrance = implode(',', $request->refrance);
                         
-                        $studentPerentsDetails->refrance_social_media = $request->refrance_social_media;
-                        $studentPerentsDetails->refrance_friend = $request->refrance_friend;
-                        $studentPerentsDetails->refrance_family = $request->refrance_family;
-                        $studentPerentsDetails->refrance_relatives = $request->refrance_relatives;
-                        $studentPerentsDetails->refrance_other = $request->refrance_other;
+                        // $studentPerentsDetails->refrance_social_media = $request->refrance_social_media;
+                        // $studentPerentsDetails->refrance_friend = $request->refrance_friend;
+                        // $studentPerentsDetails->refrance_family = $request->refrance_family;
+                        // $studentPerentsDetails->refrance_relatives = $request->refrance_relatives;
+                        // $studentPerentsDetails->refrance_other = $request->refrance_other;
+
+                        // Only store data for selected checkboxes
+                        $studentPerentsDetails->refrance_social_media = $request->has('refrance_social_media') ? $request->refrance_social_media : null;
+                        $studentPerentsDetails->refrance_friend = $request->has('refrance_friend') ? $request->refrance_friend : null;
+                        $studentPerentsDetails->refrance_family = $request->has('refrance_family') ? $request->refrance_family : null;
+                        $studentPerentsDetails->refrance_relatives = $request->has('refrance_relatives') ? $request->refrance_relatives : null;
+                        $studentPerentsDetails->refrance_other = $request->has('refrance_other') ? $request->refrance_other : null;
 
                         $studentPerentsDetails->reference_name = $request->reference_name;
                         $studentPerentsDetails->reference_name1 = $request->reference_name1;
