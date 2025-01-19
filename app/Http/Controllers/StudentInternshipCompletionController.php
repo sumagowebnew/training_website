@@ -159,6 +159,8 @@ class StudentInternshipCompletionController extends Controller
         return response()->json($student_info);
     }
 
+    
+
     // public function getPerticularCompletion($id)
     // {
     //     $student_info = StudentInternshipCompletionDetails::where('student_interns_completion_details.id',$id)

@@ -339,11 +339,12 @@ class StudentInfoController extends Controller
         
             if ($validator->fails())
             {
+                dd($validator);
                 return $validator->errors()->all();
         
             }else
             {
-                
+                dd($_REQUEST);
                     try{
                         $studentInfo = new StudentInfo();
                         $studentInfo->stude_id = $request->stude_id;
@@ -896,6 +897,33 @@ class StudentInfoController extends Controller
             'message' => 'Intern details not found.',
         ], 404);
 
+    }
+
+    public function getPerticularByStudId($id)
+    {
+
+        $student_info = StudentInfo::leftJoin('student_personal_info', 'student_info.stude_id', '=', 'student_personal_info.id')
+        ->leftJoin('student_internship_details', 'student_personal_info.id', '=', 'student_internship_details.stude_id')
+        ->leftJoin('student_parents_details', 'student_personal_info.id', '=', 'student_parents_details.stude_id')
+        ->leftJoin('student_education_details', 'student_personal_info.id', '=', 'student_education_details.stude_id')
+        ->where('student_info.stude_id',$id)
+        ->select('student_info.id','student_personal_info.id as personal_id','student_personal_info.fname','student_personal_info.mname','student_personal_info.fathername',
+                'student_personal_info.lname','student_personal_info.gender','training_mode','student_personal_info.parmanenat_address','student_personal_info.current_address','student_personal_info.contact_details',
+                'student_personal_info.email','student_personal_info.dob','student_personal_info.whatsappno', 'student_personal_info.age', 'student_personal_info.blood',
+                    'student_personal_info.aadhar','linkdin','facebook','youtube','anyother_add','school_name',
+        'tenth_per','twelve_diploma_per','graduation_details', 'graduation_per', 'post_graduation_details','post_graduation_per',
+        'anyother_cirt','selected_branches','other_branch','father_name','fatherOccupation','father_contactdetails','father_aadharno',
+        'mother_name','motherOccupation','mother_contactdetails','mother_aadharno','marriedStatus','husband_name','HusbandOccupation',
+        'Husband_contactdetails','Husband_aadharno','guardian_name','GuardianOccupation','Guardian_aadharno','Guardian_contactdetails',
+        'technology_name','duration','selectedModules','intern_experience',
+        'experience','characteristics_describe','applicant_name','place','refrance_social_media','refrance_friend',
+            'refrance_family','refrance_relatives','refrance_other','reference_name','reference_name1','contact_number','contact_number1','buttom_applicant_name',
+        'buttom_place')
+        ->groupBy('student_personal_info.id')
+        ->get();
+
+
+        return response()->json($student_info);
     }
 
     

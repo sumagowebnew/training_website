@@ -288,6 +288,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
 
     Route::post('/intern-completion/add', 'StudentInternshipCompletionController@add');
     Route::get('/get-perticular-intern/{id}', 'StudentInternshipCompletionController@getPerticular');
+    Route::get('/get-perticular-intern-by-studId/{id}', 'StudentInfoController@getPerticularByStudId');
     Route::get('/get-perticular-completion-intern/{id}', 'StudentInternshipCompletionController@getPerticularCompletion');
     Route::get('/get-intern-completion-details', 'StudentInternshipCompletionController@index');
     $router->post('/update-intern-completion-details/update/{id}', 'StudentInternshipCompletionController@update');
