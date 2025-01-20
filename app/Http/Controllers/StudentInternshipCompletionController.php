@@ -585,8 +585,8 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             'task_links_3' => 'required|max:1000',
             'task_links_4' => 'required|max:1000',
             'task_links_5' => 'required|max:1000',
-            'project_github' => 'required|url|max:255',
-            'final_year_project_link' => 'required|url|max:255',
+            'project_github' => 'required|max:255',
+            'final_year_project_link' => 'required|max:255',
             'name_contact_of_first_candidate' => 'required|string|max:255',
             'name_contact_of_second_candidate' => 'required|string|max:255',
             'name_contact_of_third_candidate' => 'required|string|max:255',
@@ -664,11 +664,9 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             // Repeat similar messages for `task_links_2`, `task_links_3`, `task_links_4`, and `task_links_5`.
 
             'project_github.required' => 'The project GitHub field is required.',
-            'project_github.url' => 'The project GitHub must be a valid URL.',
             'project_github.max' => 'The project GitHub may not be greater than 255 characters.',
 
             'final_year_project_link.required' => 'The final year project link field is required.',
-            'final_year_project_link.url' => 'The final year project link must be a valid URL.',
             'final_year_project_link.max' => 'The final year project link may not be greater than 255 characters.',
 
             // Repeat similar messages for candidate names and contacts.
@@ -795,8 +793,8 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             'task_links_3' => 'required|max:1000',
             'task_links_4' => 'required|max:1000',
             'task_links_5' => 'required|max:1000',
-            'project_github' => 'required|url|max:255',
-            'final_year_project_link' => 'required|url|max:255',
+            'project_github' => 'required|max:255',
+            'final_year_project_link' => 'required|max:255',
             'name_contact_of_first_candidate' => 'required|string|max:255',
             'name_contact_of_second_candidate' => 'required|string|max:255',
             'name_contact_of_third_candidate' => 'required|string|max:255',
@@ -867,11 +865,9 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             // Repeat similar messages for `task_links_2`, `task_links_3`, `task_links_4`, and `task_links_5`.
 
             'project_github.required' => 'The project GitHub field is required.',
-            'project_github.url' => 'The project GitHub must be a valid URL.',
             'project_github.max' => 'The project GitHub may not be greater than 255 characters.',
 
             'final_year_project_link.required' => 'The final year project link field is required.',
-            'final_year_project_link.url' => 'The final year project link must be a valid URL.',
             'final_year_project_link.max' => 'The final year project link may not be greater than 255 characters.',
 
             // Repeat similar messages for candidate names and contacts.
