@@ -100,6 +100,7 @@ class StudentInternshipCompletionController extends Controller
                 'resume_pdf',
                 'feedback_video'
             )
+            ->groupBy('student_personal_info.id')
             ->get();
     
         $response = [];
