@@ -25,9 +25,9 @@ class StudentInfoController extends Controller
         // $portfolio = Portfolio::get();
 
         $student_info = StudentInfo::leftJoin('student_personal_info', 'student_info.stude_id', '=', 'student_personal_info.id')
-                            ->leftJoin('student_parents_details', 'student_personal_info.id', '=', 'student_parents_details.stude_id')
-                            ->leftJoin('student_education_details', 'student_personal_info.id', '=', 'student_education_details.stude_id')
-                            ->leftJoin('student_internship_details', 'student_personal_info.id', '=', 'student_internship_details.stude_id')
+                            ->leftJoin('student_parents_details', 'student_info.id', '=', 'student_parents_details.stude_id')
+                            ->leftJoin('student_education_details', 'student_info.id', '=', 'student_education_details.stude_id')
+                            ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
                             ->where('student_info.is_deleted','0')
                             ->select('student_info.id','student_personal_info.id as personal_id','student_personal_info.fname','student_personal_info.mname','student_personal_info.fathername',
                             'student_personal_info.lname','student_personal_info.gender','training_mode','student_personal_info.parmanenat_address','student_personal_info.current_address','student_personal_info.contact_details',
@@ -344,7 +344,7 @@ class StudentInfoController extends Controller
         
             }else
             {
-                dd($_REQUEST);
+                // dd($_REQUEST);
                     try{
                         $studentInfo = new StudentInfo();
                         $studentInfo->stude_id = $request->stude_id;
@@ -374,7 +374,7 @@ class StudentInfoController extends Controller
                         $studentInfo->save();
 
                         $studentEducationDetails = new StudentEdducationDetails();
-                        $studentEducationDetails->stude_id = $request->stude_id;
+                        $studentEducationDetails->stude_id = $recordId;
                         $studentEducationDetails->school_name = $request->school_name;
                         $studentEducationDetails->tenth_per = $request->tenth_per;
                         $studentEducationDetails->twelve_diploma_per = $request->twelve_diploma_per;
@@ -388,7 +388,7 @@ class StudentInfoController extends Controller
                         $studentEducationDetails->save();
 
                         $studentPerentsDetails = new StudentParentDetails();
-                        $studentPerentsDetails->stude_id = $request->stude_id;
+                        $studentPerentsDetails->stude_id = $recordId;
                         $studentPerentsDetails->father_name = $request->father_name;
                         $studentPerentsDetails->fatherOccupation = $request->fatherOccupation;
                         $studentPerentsDetails->father_contactdetails = $request->father_contactdetails;
@@ -409,7 +409,7 @@ class StudentInfoController extends Controller
                         $studentPerentsDetails->save();
 
                         $studentPerentsDetails = new StudentInternshipDetails();
-                        $studentPerentsDetails->stude_id = $request->stude_id;
+                        $studentPerentsDetails->stude_id = $recordId;
                         $studentPerentsDetails->technology_name = $request->technology_name;
                         $studentPerentsDetails->duration = $request->duration;
                         $studentPerentsDetails->selectedModules = $request->selectedModules;
@@ -750,7 +750,7 @@ class StudentInfoController extends Controller
                         $update_data = $studentInfo->update();
 
                         
-                        $studentEducationDetails = StudentEdducationDetails::where('stude_id', $id)->first();
+                        $studentEducationDetails = StudentEdducationDetails::where('stude_id', $recordId)->first();
                         if ($studentEducationDetails) {
                         // $studentEducationDetails = StudentEdducationDetails::find($id);
                         // $studentEducationDetails->stude_id = $recordId;
@@ -767,7 +767,7 @@ class StudentInfoController extends Controller
                         $update_data = $studentEducationDetails->update();
                         }
 
-                        $studentPerentsDetails = StudentParentDetails::where('stude_id', $id)->first();
+                        $studentPerentsDetails = StudentParentDetails::where('stude_id', $recordId)->first();
                         if ($studentPerentsDetails) {
                         // $studentPerentsDetails = new StudentParentDetails();
                         // $studentPerentsDetails = StudentParentDetails::find($id);
@@ -793,7 +793,7 @@ class StudentInfoController extends Controller
                         $update_data = $studentPerentsDetails->update();
                         }
 
-                        $studentPerentsDetails = StudentInternshipDetails::where('stude_id', $id)->first();
+                        $studentPerentsDetails = StudentInternshipDetails::where('stude_id', $recordId)->first();
                         if ($studentPerentsDetails) {
                         // $studentPerentsDetails = new StudentInternshipDetails();
                         // $studentPerentsDetails = StudentInternshipDetails::find($id);
