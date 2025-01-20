@@ -305,8 +305,6 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::get('/get-perticular-intern-personal-info/{id}', 'StudentInfoPersonalController@getPerticularPersonalInfo');
     Route::delete('intern-personal-info/delete/{id}', 'StudentInfoPersonalController@destroy');
     $router->post('/update-intern-personal-info/update/{id}', 'StudentInfoPersonalController@update');
-
-    
 });
 
 Route::group([
