@@ -306,7 +306,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::delete('intern-personal-info/delete/{id}', 'StudentInfoPersonalController@destroy');
     $router->post('/update-intern-personal-info/update/{id}', 'StudentInfoPersonalController@update');
 
-    Route::post('add_boot_camp_data', 'ImplantTrainingController@AddImplantTrainingData');
+    
 });
 
 Route::group([
@@ -350,6 +350,10 @@ Route::group([
     Route::post('add_boot_camp_data', 'CounsellingController@AddBootcampData');
     Route::post('add_boot_camp_applynow', 'CounsellingController@AddBootcampApplyNow');
     Route::post('add_brochuer', 'BrochureController@add');
+    Route::post('add_implant_training_data', 'ImplantTrainingController@AddImplantTrainingData');
+
+
+
 
     Route::get('get_googleReview', 'GoogleReviewsController@index');
     Route::get('get_bannerImages', 'BannerImagesController@index');

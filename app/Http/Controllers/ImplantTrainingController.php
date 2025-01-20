@@ -15,7 +15,7 @@ class ImplantTrainingController extends Controller
 {
     public function index(Request $request)
     {
-        $all_data = Counselling::get()->toArray();
+        $all_data = ImplantTrainingNew::get()->toArray();
         return response()->json(['data'=>$all_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
     }
     
@@ -35,7 +35,7 @@ class ImplantTrainingController extends Controller
 
 
     }else{
-        $addBootcampData = new Bootcamp();
+        $addBootcampData = new ImplantTrainingNew();
         $addBootcampData->fullName = $request->fullName;
         $addBootcampData->email = $request->email;
         $addBootcampData->MobNo = $request->MobNo;
@@ -53,7 +53,7 @@ class ImplantTrainingController extends Controller
     public function delete($id)
     {
         $all_data=[];
-        $enquiries = Counselling::find($id);
+        $enquiries = ImplantTrainingNew::find($id);
         $enquiries->delete();
         return response()->json(['status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
         // return response()->json("Contact Enquiry Deleted Successfully!");
