@@ -23,8 +23,8 @@ class ImplantTrainingController extends Controller
     {
     $validator = Validator::make($request->all(), [
         'fullName' =>'required',
-        'email' =>'required',
-        'MobNo' =>'required|numeric|digits:10',
+        'email' =>'required|email',
+        'MobNo' =>'required|numeric|digits:10|unique:implant_training_new',
         'technology' => 'required',
         'branch' => 'required',
         ]);
