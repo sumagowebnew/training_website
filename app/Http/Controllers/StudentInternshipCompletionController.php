@@ -594,9 +594,13 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             'name_contact_of_fifth_candidate' => 'required|string|max:255',
             'blog_on_your_selected_technology' => 'required|string|max:1000',
 
-            'review_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Image must be one of the specified formats and max size 2MB
-            'resume_pdf' => 'required|mimes:pdf|max:5120', // PDF must be a PDF format and max size 5MB
-            'feedback_video' => 'required|mimes:mp4,avi,mov,wmv|max:10240', // Video formats and max size 10MB
+            // 'review_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Image must be one of the specified formats and max size 2MB
+            // 'resume_pdf' => 'required|mimes:pdf|max:5120', // PDF must be a PDF format and max size 5MB
+            // 'feedback_video' => 'required|mimes:mp4,avi,mov,wmv|max:10240', // Video formats and max size 10MB
+
+            'review_image' => 'required', // Image must be one of the specified formats and max size 2MB
+            'resume_pdf' => 'required', // PDF must be a PDF format and max size 5MB
+            'feedback_video' => 'required', // Video formats and max size 10MB
             
             // 'created_at' => 'nullable|date',
             // 'updated_at' => 'nullable|date',
@@ -676,15 +680,15 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             'blog_on_your_selected_technology.max' => 'The blog may not be greater than 1000 characters.',
 
             'review_image.required' => 'The review image is required.',
-            'review_image.image' => 'The review image must be a valid image file.',
-            'review_image.mimes' => 'The review image must be in jpeg, png, jpg, or gif format.',
-            'review_image.max' => 'The review image size must not exceed 2MB.',
+            // 'review_image.image' => 'The review image must be a valid image file.',
+            // 'review_image.mimes' => 'The review image must be in jpeg, png, jpg, or gif format.',
+            // 'review_image.max' => 'The review image size must not exceed 2MB.',
             'resume_pdf.required' => 'The resume PDF is required.',
-            'resume_pdf.mimes' => 'The resume must be a valid PDF file.',
-            'resume_pdf.max' => 'The resume PDF size must not exceed 5MB.',
+            // 'resume_pdf.mimes' => 'The resume must be a valid PDF file.',
+            // 'resume_pdf.max' => 'The resume PDF size must not exceed 5MB.',
             'feedback_video.required' => 'The feedback video is required.',
-            'feedback_video.mimes' => 'The feedback video must be in mp4, avi, mov, or wmv format.',
-            'feedback_video.max' => 'The feedback video size must not exceed 10MB.',
+            // 'feedback_video.mimes' => 'The feedback video must be in mp4, avi, mov, or wmv format.',
+            // 'feedback_video.max' => 'The feedback video size must not exceed 10MB.',
         ]);
         
         // if ($validator->fails()) {
