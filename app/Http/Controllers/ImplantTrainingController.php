@@ -21,20 +21,20 @@ class ImplantTrainingController extends Controller
     
     public function AddImplantTrainingData(Request $request)
     {
-    $validator = Validator::make($request->all(), [
-        'fullName' =>'required',
-        'email' =>'required|email',
-        'MobNo' =>'required|numeric|digits:10|unique:implant_training_new',
-        'technology' => 'required',
-        'branch' => 'required',
-        ]);
+    // $validator = Validator::make($request->all(), [
+    //     'fullName' =>'required',
+    //     'email' =>'required|email',
+    //     'MobNo' =>'required|numeric|digits:10|unique:implant_training_new',
+    //     'technology' => 'required',
+    //     'branch' => 'required',
+    //     ]);
 
-    if ($validator->fails()) {
-        // return $validator->errors()->all();
-        return response()->json(['status' => 'Success', 'message' => $validator->errors()->all(),'StatusCode'=>'400']);
+    // if ($validator->fails()) {
+    //     // return $validator->errors()->all();
+    //     return response()->json(['status' => 'Success', 'message' => $validator->errors()->all(),'StatusCode'=>'400']);
 
 
-    }else{
+    // }else{
         $addBootcampData = new ImplantTrainingNew();
         $addBootcampData->fullName = $request->fullName;
         $addBootcampData->email = $request->email;
@@ -44,7 +44,7 @@ class ImplantTrainingController extends Controller
         $addBootcampData->save();
         // $insert_data = ContactEnquiries::insert($data);
         return response()->json(['status' => 'Success', 'message' => 'Information submitted successfully','StatusCode'=>'200']);
-    }
+    // }
     }
 
     public function delete($id)
