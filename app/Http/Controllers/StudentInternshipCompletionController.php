@@ -739,7 +739,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
                         $studentDetail->google_review_img = $ImageName;
                     }
                 }
-
+                dd($request->resume_pdf);
                 // Handle the resume PDF (base64)
                 if ($request->resume_pdf) {
                     $PDFName = $this->saveBase64File($request->resume_pdf, '/all_web_data/pdf/resume', $last_insert_id, 'pdf');
