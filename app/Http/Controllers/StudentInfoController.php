@@ -743,7 +743,7 @@ class StudentInfoController extends Controller
                         $studentInfo->anyother_add = $request->anyother_add;
 
                         $existingRecord = StudentInfo::orderBy('id','DESC')->first();
-                        $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
+                        $recordId = $existingRecord->id;
 
                         
                         // $studentInfo->save();
