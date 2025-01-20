@@ -306,8 +306,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::delete('intern-personal-info/delete/{id}', 'StudentInfoPersonalController@destroy');
     $router->post('/update-intern-personal-info/update/{id}', 'StudentInfoPersonalController@update');
 
-
-   
+    Route::post('add_boot_camp_data', 'ImplantTrainingController@AddImplantTrainingData');
 });
 
 Route::group([
