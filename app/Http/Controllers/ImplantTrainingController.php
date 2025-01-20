@@ -24,7 +24,7 @@ class ImplantTrainingController extends Controller
     $validator = Validator::make($request->all(), [
         'fullName' =>'required',
         'email' =>'required',
-        'MobNo' =>'required|numeric|digits:10|unique:bootcamp',
+        'MobNo' =>'required|numeric|digits:10',
         'technology' => 'required',
         'branch' => 'required',
         ]);
@@ -46,9 +46,6 @@ class ImplantTrainingController extends Controller
         return response()->json(['status' => 'Success', 'message' => 'Information submitted successfully','StatusCode'=>'200']);
     }
     }
-
-
-    
 
     public function delete($id)
     {
