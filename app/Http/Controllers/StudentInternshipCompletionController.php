@@ -585,8 +585,8 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             'task_links_3' => 'required|max:1000',
             'task_links_4' => 'required|max:1000',
             'task_links_5' => 'required|max:1000',
-            'project_github' => 'required|max:255',
-            'final_year_project_link' => 'required|max:255',
+            'project_github' => 'required|url|max:255',
+            'final_year_project_link' => 'required|url|max:255',
             'name_contact_of_first_candidate' => 'required|string|max:255',
             'name_contact_of_second_candidate' => 'required|string|max:255',
             'name_contact_of_third_candidate' => 'required|string|max:255',
@@ -594,9 +594,9 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             'name_contact_of_fifth_candidate' => 'required|string|max:255',
             'blog_on_your_selected_technology' => 'required|string|max:1000',
 
-            'review_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Image must be one of the specified formats and max size 2MB
-            'resume_pdf' => 'required|mimes:pdf|max:5120', // PDF must be a PDF format and max size 5MB
-            'feedback_video' => 'required|mimes:mp4,avi,mov,wmv|max:10240', // Video formats and max size 10MB
+            // 'review_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Image must be one of the specified formats and max size 2MB
+            // 'resume_pdf' => 'required|mimes:pdf|max:5120', // PDF must be a PDF format and max size 5MB
+            // 'feedback_video' => 'required|mimes:mp4,avi,mov,wmv|max:10240', // Video formats and max size 10MB
             
             // 'created_at' => 'nullable|date',
             // 'updated_at' => 'nullable|date',
@@ -677,16 +677,16 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             'blog_on_your_selected_technology.string' => 'The blog must be a valid string.',
             'blog_on_your_selected_technology.max' => 'The blog may not be greater than 1000 characters.',
 
-            'review_image.required' => 'The review image is required.',
-            'review_image.image' => 'The review image must be a valid image file.',
-            'review_image.mimes' => 'The review image must be in jpeg, png, jpg, or gif format.',
-            'review_image.max' => 'The review image size must not exceed 2MB.',
-            'resume_pdf.required' => 'The resume PDF is required.',
-            'resume_pdf.mimes' => 'The resume must be a valid PDF file.',
-            'resume_pdf.max' => 'The resume PDF size must not exceed 5MB.',
-            'feedback_video.required' => 'The feedback video is required.',
-            'feedback_video.mimes' => 'The feedback video must be in mp4, avi, mov, or wmv format.',
-            'feedback_video.max' => 'The feedback video size must not exceed 10MB.',
+            // 'review_image.required' => 'The review image is required.',
+            // 'review_image.image' => 'The review image must be a valid image file.',
+            // 'review_image.mimes' => 'The review image must be in jpeg, png, jpg, or gif format.',
+            // 'review_image.max' => 'The review image size must not exceed 2MB.',
+            // 'resume_pdf.required' => 'The resume PDF is required.',
+            // 'resume_pdf.mimes' => 'The resume must be a valid PDF file.',
+            // 'resume_pdf.max' => 'The resume PDF size must not exceed 5MB.',
+            // 'feedback_video.required' => 'The feedback video is required.',
+            // 'feedback_video.mimes' => 'The feedback video must be in mp4, avi, mov, or wmv format.',
+            // 'feedback_video.max' => 'The feedback video size must not exceed 10MB.',
         ]);
         
         // if ($validator->fails()) {
@@ -761,15 +761,9 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
 
                 // Save the updated student details with the uploaded files
                 $studentDetail->save();
-                if ($studentDetail->save()) {
+                        
                             return response()->json(['status' => 'Success', 'message' => 'Internship Completion Details Added Successfully', 'Statuscode' => '200']);
-                        } else {
-                            return response()->json([
-                                'status' => 'Error',
-                                'message' => 'Failed to save Internship Completion Details',
-                                'Statuscode' => 500
-                            ]);
-                        }
+
                       
                     }
 
