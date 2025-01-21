@@ -20,37 +20,39 @@ class ImplantTrainingController extends Controller
     }
     
     public function AddImplantTrainingData(Request $request)
-    {
+{
     $validator = Validator::make($request->all(), [
-        'fullName' =>'required|string',
-        'email' =>'required|email|unique:implant_training_new',
-        'MobNo' =>'required|numeric|digits:10|unique:implant_training_new',
+        'fullName' => 'required|string',
+        'email' => 'required|email|unique:implant_training_new',
+        'MobNo' => 'required|numeric|digits:10|unique:implant_training_new',
         'technology' => 'required',
         'branch' => 'required',
-        ], [
-            'fullName.required' => 'The full name field is required.',
-            'fullName.string' => 'The full name must be a valid string.',
-            
-            'email.required' => 'The email field is required.',
-            'email.email' => 'Please provide a valid email address.',
-            'email.unique' => 'The email address is already in use.',
-            
-            'MobNo.required' => 'The mobile number field is required.',
-            'MobNo.numeric' => 'The mobile number must contain only numbers.',
-            'MobNo.digits' => 'The mobile number must be exactly 10 digits.',
-            'MobNo.unique' => 'The mobile number is already in use.',
-            
-            'technology.required' => 'The technology field is required.',
-            
-            'branch.required' => 'The branch field is required.',
-        ]);
+    ], [
+        'fullName.required' => 'The full name field is required.',
+        'fullName.string' => 'The full name must be a valid string.',
+
+        'email.required' => 'The email field is required.',
+        'email.email' => 'Please provide a valid email address.',
+        'email.unique' => 'The email address is already in use.',
+
+        'MobNo.required' => 'The mobile number field is required.',
+        'MobNo.numeric' => 'The mobile number must contain only numbers.',
+        'MobNo.digits' => 'The mobile number must be exactly 10 digits.',
+        'MobNo.unique' => 'The mobile number is already in use.',
+
+        'technology.required' => 'The technology field is required.',
+
+        'branch.required' => 'The branch field is required.',
+    ]);
 
     if ($validator->fails()) {
-        return $validator->errors()->all();
-        // return response()->json(['status' => 'Success', 'message' => $validator->errors()->all(),'StatusCode'=>'400']);
-
-
-    }else{
+        // Return a 400 status code with validation errors
+        return response()->json([
+            'status' => 'Error',
+            'message' => $validator->errors()->all(),
+            'StatusCode' => '400'
+        ], 400);
+    } else {
         $addBootcampData = new ImplantTrainingNew();
         $addBootcampData->fullName = $request->fullName;
         $addBootcampData->email = $request->email;
@@ -58,10 +60,16 @@ class ImplantTrainingController extends Controller
         $addBootcampData->technology = $request->technology;
         $addBootcampData->branch = $request->branch;
         $addBootcampData->save();
-        // $insert_data = ContactEnquiries::insert($data);
-        return response()->json(['status' => 'Success', 'message' => 'Information submitted successfully','StatusCode'=>'200']);
+
+        // Return a 200 status code with success message
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Information submitted successfully',
+            'StatusCode' => '200'
+        ], 200);
     }
-    }
+}
+
 
     public function delete($id)
     {
