@@ -205,7 +205,7 @@ class StudentInfoPersonalController extends Controller
             'whatsappno' => 'nullable|max:15',
             'age' => 'required',
             'blood' => 'nullable|string|max:10',
-            'aadhar' => 'required|string|max:12|min:12'
+            'aadhar' => 'required|max:12|min:12'
         ], [
             // Custom validation messages
             'fname.required' => 'First Name is required.',
@@ -252,7 +252,6 @@ class StudentInfoPersonalController extends Controller
             'blood.max' => 'Blood Group should not exceed 10 characters.',
             
             'aadhar.required' => 'Aadhar Number is required.',
-            'aadhar.string' => 'Aadhar Number must be a string.',
             'aadhar.max' => 'Aadhar Number should not exceed 12 characters.',
             'aadhar.min' => 'Aadhar Number should be exactly 12 characters.'
         ]);
