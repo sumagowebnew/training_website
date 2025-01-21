@@ -202,7 +202,7 @@ class StudentInfoPersonalController extends Controller
             'contact_details' => 'required|string|max:15',
             'email' => 'required|email|max:255',
             'dob' => 'required|date',
-            'whatsappno' => 'nullable|string|max:15',
+            'whatsappno' => 'nullable|max:15',
             'age' => 'required',
             'blood' => 'nullable|string|max:10',
             'aadhar' => 'required|string|max:12|min:12'
@@ -243,7 +243,7 @@ class StudentInfoPersonalController extends Controller
             'dob.required' => 'Date of Birth is required.',
             'dob.date' => 'Date of Birth must be a valid date.',
             
-            'whatsappno.string' => 'WhatsApp Number must be a string.',
+            // 'whatsappno.string' => 'WhatsApp Number must be a string.',
             'whatsappno.max' => 'WhatsApp Number should not exceed 15 characters.',
             
             'age.required' => 'Age is required.',

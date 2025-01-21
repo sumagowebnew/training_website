@@ -739,11 +739,13 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
                         $studentDetail->google_review_img = $ImageName;
                     }
                 }
-                dd($request->resume_pdf);
+                // dd($request->resume_pdf);
+
+                
                 // Handle the resume PDF (base64)
                 if ($request->resume_pdf) {
                     $PDFName = $this->saveBase64File($request->resume_pdf, '/all_web_data/pdf/resume', $last_insert_id, 'pdf');
-                    dd($PDFName);
+                    // dd($PDFName);
                     if ($PDFName) {
                         $studentDetail->resume_pdf = $PDFName;
                     }
@@ -758,10 +760,13 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
                 }
 
                 // Save the updated student details with the uploaded files
-                $studentDetail->save();
-                        
+                // $studentDetail->save();
+                // if($studentDetail->save()){        
                             return response()->json(['status' => 'Success', 'message' => 'Internship Completion Details Added Successfully', 'Statuscode' => '200']);
-
+                // }else{
+                //     return response()->json(['status' => 'error', 'message' => 'Intern Details not added', 'error' => $e->getMessage()],500);
+                    
+                // }
                       
                     }
 
