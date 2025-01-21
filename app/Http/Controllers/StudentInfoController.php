@@ -41,7 +41,7 @@ class StudentInfoController extends Controller
             'experience','characteristics_describe','applicant_name','place','refrance_social_media','refrance_friend',
             'refrance_family','refrance_relatives','refrance_other',
             'reference_name','reference_name1','contact_number','contact_number1','buttom_applicant_name',
-            'buttom_place')
+            'buttom_place','scoperefer')
             ->get();
 
         // $response = [];
@@ -144,6 +144,7 @@ class StudentInfoController extends Controller
             'contact_number1' => 'nullable|string|max:15',
             'buttom_applicant_name' => 'nullable|string|max:255',
             'buttom_place' => 'nullable|string|max:255',
+            'scoperefer' => 'required',
         ], [
             // Custom validation messages
             'fname.required' => 'First Name is required.',
@@ -335,6 +336,8 @@ class StudentInfoController extends Controller
             
             'buttom_place.string' => 'Bottom Place must be a string.',
             'buttom_place.max' => 'Bottom Place should not exceed 255 characters.',
+
+            'scoperefer.required' => 'Scope Refer is required.',
         ]);
         
             if ($validator->fails())
@@ -440,6 +443,7 @@ class StudentInfoController extends Controller
                         $studentPerentsDetails->contact_number1 = $request->contact_number1;
                         $studentPerentsDetails->buttom_applicant_name = $request->buttom_applicant_name;
                         $studentPerentsDetails->buttom_place = $request->buttom_place;
+                        $studentPerentsDetails->scoperefer = $request->scoperefer;
                         $studentPerentsDetails->save();
 
                         //return response()->json($client_logo);
@@ -522,6 +526,8 @@ class StudentInfoController extends Controller
             'contact_number1' => 'nullable|string|max:15',
             'buttom_applicant_name' => 'nullable|string|max:255',
             'buttom_place' => 'nullable|string|max:255',
+
+            'scoperefer' => 'required',
         ], [
             // Custom validation messages
             'fname.required' => 'First Name is required.',
@@ -712,6 +718,8 @@ class StudentInfoController extends Controller
             
             'buttom_place.string' => 'Bottom Place must be a string.',
             'buttom_place.max' => 'Bottom Place should not exceed 255 characters.',
+
+            'scoperefer.required' => 'Scope Reference is required.',
         ]);
         
             if ($validator->fails())
@@ -821,6 +829,8 @@ class StudentInfoController extends Controller
                         $studentPerentsDetails->contact_number1 = $request->contact_number1;
                         $studentPerentsDetails->buttom_applicant_name = $request->buttom_applicant_name;
                         $studentPerentsDetails->buttom_place = $request->buttom_place;
+                        $studentPerentsDetails->scoperefer = $request->scoperefer;
+                        
                         // $studentPerentsDetails->save();
                         $update_data = $studentPerentsDetails->update();
                         }
@@ -918,7 +928,7 @@ class StudentInfoController extends Controller
         'technology_name','duration','selectedModules','intern_experience',
         'experience','characteristics_describe','applicant_name','place','refrance_social_media','refrance_friend',
             'refrance_family','refrance_relatives','refrance_other','reference_name','reference_name1','contact_number','contact_number1','buttom_applicant_name',
-        'buttom_place')
+        'buttom_place','scoperefer')
         ->groupBy('student_personal_info.id')
         ->get();
 
