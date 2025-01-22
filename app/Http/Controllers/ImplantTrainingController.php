@@ -76,7 +76,7 @@ public function AddImplantTrainingData(Request $request)
     $validator = Validator::make($request->all(), [
         'stud_name' => 'required|string',
         'email' => 'required|email|unique:implant_training_new',
-        'contact,' => 'required|numeric|digits:10|unique:implant_training_new',
+        'contact' => 'required|numeric|digits:10|unique:implant_training_new',
         // 'stud_name' => 'required|string',
         // 'contact' => 'required|numeric|digits:10',
         'wapp_no' => 'nullable|numeric|digits:10',
