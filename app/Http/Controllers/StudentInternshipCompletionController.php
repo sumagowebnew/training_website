@@ -762,12 +762,12 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
 
                 // Save the updated student details with the uploaded files
                 // $studentDetail->save();
-                // if($studentDetail->save()){        
+                if($studentDetail->save()){        
                             return response()->json(['status' => 'Success', 'message' => 'Internship Completion Details Added Successfully', 'Statuscode' => '200']);
-                // }else{
-                //     return response()->json(['status' => 'error', 'message' => 'Intern Details not added', 'error' => $e->getMessage()],500);
+                }else{
+                    return response()->json(['status' => 'error', 'message' => 'Intern Details not added', 'error' => $e->getMessage()],500);
                     
-                // }
+                }
                       
                 
                     }
