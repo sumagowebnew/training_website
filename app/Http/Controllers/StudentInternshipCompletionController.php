@@ -735,6 +735,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
                        // Handle the review image (base64)
                 if ($request->review_image) {
                     $ImageName = $this->saveBase64File($request->review_image, '/all_web_data/images/google_review', $last_insert_id, 'image');
+                    dd($ImageName);
                     if ($ImageName) {
                         $studentDetail->google_review_img = $ImageName;
                     }
