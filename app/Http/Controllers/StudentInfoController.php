@@ -728,6 +728,7 @@ class StudentInfoController extends Controller
         
             }else
             {
+                dd($request);
                         $studentInfo = StudentInfo::find($id);
                         // dd($studentInfo);
                         $studentInfo->fname = $request->fname;
