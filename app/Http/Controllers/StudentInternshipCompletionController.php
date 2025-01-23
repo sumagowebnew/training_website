@@ -746,7 +746,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
                 // Handle the resume PDF (base64)
                 if ($request->resume_pdf) {
                     $PDFName = $this->saveBase64File($request->resume_pdf, '/all_web_data/pdf/resume', $last_insert_id, 'pdf');
-                    dd($PDFName);
+                    // dd($PDFName);
                     if ($PDFName) {
                         $studentDetail->resume_pdf = $PDFName;
                     }
@@ -769,6 +769,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
                     
                 // }
                       
+                
                     }
 
                     catch (exception $e) {
