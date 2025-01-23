@@ -735,7 +735,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
                        // Handle the review image (base64)
                 if ($request->review_image) {
                     $ImageName = $this->saveBase64File($request->review_image, '/all_web_data/images/google_review', $last_insert_id, 'image');
-                    dd($ImageName);
+                    // dd($ImageName);
                     if ($ImageName) {
                         $studentDetail->google_review_img = $ImageName;
                     }
@@ -746,7 +746,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
                 // Handle the resume PDF (base64)
                 if ($request->resume_pdf) {
                     $PDFName = $this->saveBase64File($request->resume_pdf, '/all_web_data/pdf/resume', $last_insert_id, 'pdf');
-                    // dd($PDFName);
+                    dd($PDFName);
                     if ($PDFName) {
                         $studentDetail->resume_pdf = $PDFName;
                     }
