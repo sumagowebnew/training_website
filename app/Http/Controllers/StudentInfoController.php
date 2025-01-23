@@ -461,6 +461,7 @@ class StudentInfoController extends Controller
     public function update(Request $request, $id)
     {
         // dd($id);
+        dd($request);
         $validator = Validator::make($request->all(), [
             // StudentInfo fields
             'fname' => 'required|string|max:255',
@@ -728,7 +729,7 @@ class StudentInfoController extends Controller
         
             }else
             {
-                dd($request);
+                
                         $studentInfo = StudentInfo::find($id);
                         // dd($studentInfo);
                         $studentInfo->fname = $request->fname;
