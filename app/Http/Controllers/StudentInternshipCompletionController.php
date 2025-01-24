@@ -403,7 +403,7 @@ public function getPerticularCompletionByStudId($id)
     $student_info = StudentInternshipCompletionDetails::leftJoin('student_personal_info', 'student_interns_completion_details.stude_id', '=', 'student_personal_info.id')
         ->leftJoin('student_info', 'student_interns_completion_details.stude_id', '=', 'student_info.stude_id')
         ->leftJoin('student_internship_details', 'student_personal_info.id', '=', 'student_internship_details.stude_id')
-        ->where('student_interns_completion_details.id', $id)
+        ->where('student_interns_completion_details.stude_id', $id)
         ->where('student_interns_completion_details.is_deleted', '0')
         ->select(
             'student_interns_completion_details.id',
@@ -596,10 +596,9 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
 
             'review_image' => 'required', // Image must be one of the specified formats and max size 2MB
             'resume_pdf' => 'required', // PDF must be a PDF format and max size 5MB
-            // 'feedback_video' => 'required|mimes:mp4,avi,mov,wmv|max:10240', // Video formats and max size 10MB
+            'feedback_video' => 'required|max:10240', // Video formats and max size 10MB
             
-            // 'created_at' => 'nullable|date',
-            // 'updated_at' => 'nullable|date',
+            
         ], [
             'name.required' => 'The name field is required.',
             'name.string' => 'The name must be a valid string.',
@@ -681,9 +680,9 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             'resume_pdf.required' => 'The resume PDF is required.',
             // 'resume_pdf.mimes' => 'The resume must be a valid PDF file.',
             // 'resume_pdf.max' => 'The resume PDF size must not exceed 5MB.',
-            // 'feedback_video.required' => 'The feedback video is required.',
+            'feedback_video.required' => 'The feedback video is required.',
             // 'feedback_video.mimes' => 'The feedback video must be in mp4, avi, mov, or wmv format.',
-            // 'feedback_video.max' => 'The feedback video size must not exceed 10MB.',
+            'feedback_video.max' => 'The feedback video size must not exceed 10MB.',
         ]);
         
         // if ($validator->fails()) {
@@ -808,6 +807,10 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             'name_contact_of_fourth_candidate' => 'required|string|max:255',
             'name_contact_of_fifth_candidate' => 'required|string|max:255',
             'blog_on_your_selected_technology' => 'required|string|max:1000',
+
+            'review_image' => 'required', // Image must be one of the specified formats and max size 2MB
+            'resume_pdf' => 'required', // PDF must be a PDF format and max size 5MB
+            'feedback_video' => 'required|mimes:mp4,avi,mov,wmv|max:10240', // Video formats and max size 10MB
         ], [
             'name.required' => 'The name field is required.',
             'name.string' => 'The name must be a valid string.',
@@ -882,6 +885,13 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             'blog_on_your_selected_technology.required' => 'The blog on your selected technology field is required.',
             'blog_on_your_selected_technology.string' => 'The blog must be a valid string.',
             'blog_on_your_selected_technology.max' => 'The blog may not be greater than 1000 characters.',
+
+            'review_image.required' => 'The review image is required.',
+
+            'resume_pdf.required' => 'The resume PDF is required.',
+
+            'feedback_video.required' => 'The feedback video is required.',
+            'feedback_video.max' => 'The feedback video size must not exceed 10MB.'
         ]);
         
             if ($validator->fails())
@@ -922,6 +932,49 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
 
                 // $update_data = $portfolio_data->studentDetail();
                 $update_data = $studentDetail->update();
+
+                 // Handle the review image (base64)
+                    if ($request->review_image) {
+                        // Delete the old image if it exists
+                        if ($studentDetail->google_review_img && file_exists(public_path('/all_web_data/images/google_review/' . $studentDetail->google_review_img))) {
+                            unlink(public_path('/all_web_data/images/google_review/' . $studentDetail->google_review_img));
+                        }
+
+                        // Save the new image
+                        $ImageName = $this->saveBase64File($request->review_image, '/all_web_data/images/google_review', $studentDetail->id, 'image');
+                        if ($ImageName) {
+                            $studentDetail->google_review_img = $ImageName;
+                        }
+                    }
+
+                    // Handle the resume PDF (base64)
+                    if ($request->resume_pdf) {
+                        // Delete the old PDF if it exists
+                        if ($studentDetail->resume_pdf && file_exists(public_path('/all_web_data/pdf/resume/' . $studentDetail->resume_pdf))) {
+                            unlink(public_path('/all_web_data/pdf/resume/' . $studentDetail->resume_pdf));
+                        }
+
+                        // Save the new PDF
+                        $PDFName = $this->saveBase64File($request->resume_pdf, '/all_web_data/pdf/resume', $studentDetail->id, 'pdf');
+                        if ($PDFName) {
+                            $studentDetail->resume_pdf = $PDFName;
+                        }
+                    }
+
+                    // Handle the feedback video (base64)
+                    if ($request->feedback_video) {
+                        // Delete the old video if it exists
+                        if ($studentDetail->feedback_video && file_exists(public_path('/all_web_data/videos/feedback/' . $studentDetail->feedback_video))) {
+                            unlink(public_path('/all_web_data/videos/feedback/' . $studentDetail->feedback_video));
+                        }
+
+                        // Save the new video
+                        $VideoName = $this->saveBase64File($request->feedback_video, '/all_web_data/videos/feedback', $studentDetail->id, 'video');
+                        if ($VideoName) {
+                            $studentDetail->feedback_video = $VideoName;
+                        }
+                    }
+
 
                 return response()->json([
                     'status' => 'success',
