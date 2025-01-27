@@ -596,7 +596,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
 
             'review_image' => 'required', // Image must be one of the specified formats and max size 2MB
             'resume_pdf' => 'required', // PDF must be a PDF format and max size 5MB
-            'feedback_video' => 'required|max:10240', // Video formats and max size 10MB
+            'feedback_video' => 'required', // Video formats and max size 10MB
             
             
         ], [
@@ -682,7 +682,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             // 'resume_pdf.max' => 'The resume PDF size must not exceed 5MB.',
             'feedback_video.required' => 'The feedback video is required.',
             // 'feedback_video.mimes' => 'The feedback video must be in mp4, avi, mov, or wmv format.',
-            'feedback_video.max' => 'The feedback video size must not exceed 10MB.',
+            // 'feedback_video.max' => 'The feedback video size must not exceed 10MB.',
         ]);
         
         // if ($validator->fails()) {
