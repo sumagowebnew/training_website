@@ -782,8 +782,8 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
     {
         $validator = Validator::make($request->all(), [
             // StudentInfo fields
-            'name' => 'required|string|max:255',
-            'technology' => 'required|string|max:255',
+            // 'name' => 'required|string|max:255',
+            // 'technology' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'date_of_joining' => 'required|date',
             'current_working' => 'required|string|max:255',
@@ -810,15 +810,15 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
 
             'review_image' => 'required', // Image must be one of the specified formats and max size 2MB
             'resume_pdf' => 'required', // PDF must be a PDF format and max size 5MB
-            'feedback_video' => 'required|mimes:mp4,avi,mov,wmv|max:10240', // Video formats and max size 10MB
+            'feedback_video' => 'required', // Video formats and max size 10MB
         ], [
-            'name.required' => 'The name field is required.',
-            'name.string' => 'The name must be a valid string.',
-            'name.max' => 'The name may not be greater than 255 characters.',
+            // 'name.required' => 'The name field is required.',
+            // 'name.string' => 'The name must be a valid string.',
+            // 'name.max' => 'The name may not be greater than 255 characters.',
 
-            'technology.required' => 'The technology field is required.',
-            'technology.string' => 'The technology must be a valid string.',
-            'technology.max' => 'The technology may not be greater than 255 characters.',
+            // 'technology.required' => 'The technology field is required.',
+            // 'technology.string' => 'The technology must be a valid string.',
+            // 'technology.max' => 'The technology may not be greater than 255 characters.',
 
             'email.required' => 'The email field is required.',
             'email.email' => 'The email must be a valid email address.',
@@ -891,7 +891,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             'resume_pdf.required' => 'The resume PDF is required.',
 
             'feedback_video.required' => 'The feedback video is required.',
-            'feedback_video.max' => 'The feedback video size must not exceed 10MB.'
+            // 'feedback_video.max' => 'The feedback video size must not exceed 10MB.'
         ]);
         
             if ($validator->fails())
