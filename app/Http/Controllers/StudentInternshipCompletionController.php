@@ -936,7 +936,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
                  // Handle the review image (base64)
                     if ($request->review_image) {
                         // Delete the old image if it exists
-                        if ($studentDetail->google_review_img && file_exists(public_path('/all_web_data/images/google_review/' . $studentDetail->google_review_img))) {
+                        if ($studentDetail->google_review_img && file_exists(base_path('public/all_web_data/images/google_review/' . $studentDetail->google_review_img))) {
                             unlink(public_path('/all_web_data/images/google_review/' . $studentDetail->google_review_img));
                         }
 
@@ -950,7 +950,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
                     // Handle the resume PDF (base64)
                     if ($request->resume_pdf) {
                         // Delete the old PDF if it exists
-                        if ($studentDetail->resume_pdf && file_exists(public_path('/all_web_data/pdf/resume/' . $studentDetail->resume_pdf))) {
+                        if ($studentDetail->resume_pdf && file_exists(base_path('public/all_web_data/pdf/resume/' . $studentDetail->resume_pdf))) {
                             unlink(public_path('/all_web_data/pdf/resume/' . $studentDetail->resume_pdf));
                         }
 
@@ -964,7 +964,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
                     // Handle the feedback video (base64)
                     if ($request->feedback_video) {
                         // Delete the old video if it exists
-                        if ($studentDetail->feedback_video && file_exists(public_path('/all_web_data/videos/feedback/' . $studentDetail->feedback_video))) {
+                        if ($studentDetail->feedback_video && file_exists(base_path('public/all_web_data/videos/feedback/' . $studentDetail->feedback_video))) {
                             unlink(public_path('/all_web_data/videos/feedback/' . $studentDetail->feedback_video));
                         }
 
