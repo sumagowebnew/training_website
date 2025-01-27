@@ -780,7 +780,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
     
     public function update(Request $request, $id)
     {
-        dd($_REQUEST);
+        // dd($_REQUEST);
         $validator = Validator::make($request->all(), [
             // StudentInfo fields
             // 'name' => 'required|string|max:255',
