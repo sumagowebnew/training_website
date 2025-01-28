@@ -69,46 +69,46 @@ class StudentIdCardInformationController extends Controller
 
     public function add(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            // StudentInfo fields
-            'name' => 'required|string|max:255',
-            'technology' => 'required|string|max:255',
-            'date_of_joining' => 'required|date',
-            'contact_details' => 'required|string|max:15',
-            'blood_group' => 'nullable|string|max:10',
-            'shirt_size' => 'required',
+    //     $validator = Validator::make($request->all(), [
+    //         // StudentInfo fields
+    //         'name' => 'required|string|max:255',
+    //         'technology' => 'required|string|max:255',
+    //         'date_of_joining' => 'required|date',
+    //         'contact_details' => 'required|string|max:15',
+    //         'blood_group' => 'nullable|string|max:10',
+    //         'shirt_size' => 'required',
 
            
-        ], [
-            'name.required' => 'The name field is required.',
-            'name.string' => 'The name must be a valid string.',
-            'name.max' => 'The name may not be greater than 255 characters.',
+    //     ], [
+    //         'name.required' => 'The name field is required.',
+    //         'name.string' => 'The name must be a valid string.',
+    //         'name.max' => 'The name may not be greater than 255 characters.',
 
-    'technology.required' => 'The technology field is required.',
-    'technology.string' => 'The technology must be a valid string.',
-    'technology.max' => 'The technology may not be greater than 255 characters.',
+    // 'technology.required' => 'The technology field is required.',
+    // 'technology.string' => 'The technology must be a valid string.',
+    // 'technology.max' => 'The technology may not be greater than 255 characters.',
 
    
 
-    'date_of_joining.required' => 'The date of joining field is required.',
-    'date_of_joining.date' => 'The date of joining must be a valid date.',
+    // 'date_of_joining.required' => 'The date of joining field is required.',
+    // 'date_of_joining.date' => 'The date of joining must be a valid date.',
 
-    'contact_details.required' => 'Contact Details are required.',
-    'contact_details.string' => 'Contact Details must be a string.',
-    'contact_details.max' => 'Contact Details should not exceed 15 characters.',
+    // 'contact_details.required' => 'Contact Details are required.',
+    // 'contact_details.string' => 'Contact Details must be a string.',
+    // 'contact_details.max' => 'Contact Details should not exceed 15 characters.',
 
-    'blood_group.string' => 'Blood Group must be a string.',
-    'blood_group.max' => 'Blood Group should not exceed 10 characters.',
+    // 'blood_group.string' => 'Blood Group must be a string.',
+    // 'blood_group.max' => 'Blood Group should not exceed 10 characters.',
 
-    'shirt_size.required' => 'Shirt Size is required.',
-        ]);
+    // 'shirt_size.required' => 'Shirt Size is required.',
+    //     ]);
   
-            if ($validator->fails())
-            {
-                return $validator->errors()->all();
+    //         if ($validator->fails())
+    //         {
+    //             return $validator->errors()->all();
         
-            }else
-            {
+    //         }else
+    //         {
                 
                     try{
                             $studentIdCardDetails = new StudentIdCardInfo();
@@ -131,7 +131,7 @@ class StudentIdCardInformationController extends Controller
                     catch (exception $e) {
                         return response()->json(['status' => 'error', 'message' => 'Intern ID Card Details not added', 'error' => $e->getMessage()],500);
                     }
-            }
+            // }
     }    
 
 
