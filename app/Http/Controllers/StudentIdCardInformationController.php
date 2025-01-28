@@ -88,9 +88,7 @@ class StudentIdCardInformationController extends Controller
     'technology.string' => 'The technology must be a valid string.',
     'technology.max' => 'The technology may not be greater than 255 characters.',
 
-    'email.required' => 'The email field is required.',
-    'email.email' => 'The email must be a valid email address.',
-    'email.max' => 'The email may not be greater than 255 characters.',
+   
 
     'date_of_joining.required' => 'The date of joining field is required.',
     'date_of_joining.date' => 'The date of joining must be a valid date.',
