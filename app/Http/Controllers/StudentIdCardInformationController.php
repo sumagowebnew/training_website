@@ -71,9 +71,30 @@ class StudentIdCardInformationController extends Controller
     {
         $validator = Validator::make($request->all(), [
     //         // StudentInfo fields
+            'name' => 'required|string|max:255',
+            'technology' => 'required',
+            'date_of_joining' => 'required',
+            'contact_details' => 'required',
+            'blood_group' => 'nullable',
             'shirt_size' => 'required',
+
+           
         ], [
-            'shirt_size.required' => 'Shirt Size is required.',
+            'name.required' => 'The name field is required.',
+            'name.string' => 'The name must be a valid string.',
+            'name.max' => 'The name may not be greater than 255 characters.',
+
+    'technology.required' => 'The technology field is required.',
+
+   
+
+    'date_of_joining.required' => 'The date of joining field is required.',
+
+    'contact_details.required' => 'Contact Details are required.',
+
+    'blood_group.string' => 'Blood Group must be a string.',
+
+    'shirt_size.required' => 'Shirt Size is required.',
         ]);
   
             if ($validator->fails())
@@ -185,9 +206,28 @@ class StudentIdCardInformationController extends Controller
     {
         // dd($_REQUEST);
         $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'technology' => 'required',
+            'date_of_joining' => 'required',
+            'contact_details' => 'required',
+            'blood_group' => 'nullable',
             'shirt_size' => 'required',
         ], [
-           'shirt_size.required' => 'Shirt Size is required.',
+           'name.required' => 'The name field is required.',
+            'name.string' => 'The name must be a valid string.',
+            'name.max' => 'The name may not be greater than 255 characters.',
+
+            'technology.required' => 'The technology field is required.',
+
+        
+
+            'date_of_joining.required' => 'The date of joining field is required.',
+
+            'contact_details.required' => 'Contact Details are required.',
+
+            'blood_group.string' => 'Blood Group must be a string.',
+
+            'shirt_size.required' => 'Shirt Size is required.',
         ]);
         
             if ($validator->fails())
@@ -199,7 +239,14 @@ class StudentIdCardInformationController extends Controller
                 $studentDetail = StudentIdCardInfo::find($id);
                         
                 // Assigning request data to model
+                $studentDetail->name = $request->name;
+                $studentDetail->stude_id = $request->stude_id;
+                $studentDetail->technology = $request->technology;
+                $studentDetail->date_of_joining = $request->date_of_joining;
+                $studentDetail->contact_details = $request->contact_details;
+                $studentDetail->blood_group = $request->blood_group;
                 $studentDetail->shirt_size = $request->shirt_size;
+                // $studentDetail->shirt_size = $request->shirt_size;
                 $update_data = $studentDetail->update();
 
                 return response()->json([
@@ -216,7 +263,6 @@ class StudentIdCardInformationController extends Controller
         // $portfolio = Portfolio::find($id);
 
         $student_data = StudentIdCardInfo::find($id);
-        // $data = StudentInternshipDetails::where('is_deleted', 0)->get();
 
             if ($student_data) {
                 // Delete the images from the storage folder
