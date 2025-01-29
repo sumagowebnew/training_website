@@ -149,6 +149,7 @@ class StudentIdCardInformationController extends Controller
             'spi1.mname',
             'spi1.fathername',
             'spi1.lname',
+            'spi1.blood',
             'student_internship_details.technology_name',
             'student_id_card_info.date_of_joining',
             'student_id_card_info.contact_details',
