@@ -976,7 +976,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
                             $studentDetail->feedback_video = $VideoName;
                         }
                     }
-
+                    $update_data = $studentDetail->update();
 
                 return response()->json([
                     'status' => 'success',
