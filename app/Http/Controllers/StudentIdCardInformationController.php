@@ -201,12 +201,7 @@ class StudentIdCardInformationController extends Controller
                 $studentDetail = StudentIdCardInfo::find($id);
                         
                 // Assigning request data to model
-                $studentDetail->name = $request->name;
-                $studentDetail->stude_id = $request->stude_id;
-                $studentDetail->technology = $request->technology;
-                $studentDetail->date_of_joining = $request->date_of_joining;
-                $studentDetail->contact_details = $request->contact_details;
-                $studentDetail->blood_group = $request->blood_group;
+                // $studentDetail->stude_id = $request->stude_id;
                 $studentDetail->shirt_size = $request->shirt_size;
                 // $studentDetail->shirt_size = $request->shirt_size;
                 $update_data = $studentDetail->update();
