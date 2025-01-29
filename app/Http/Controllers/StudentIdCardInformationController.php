@@ -140,7 +140,7 @@ class StudentIdCardInformationController extends Controller
 
          
         $student_info = StudentIdCardInfo::leftJoin('student_personal_info', 'student_id_card_info.stude_id', '=', 'student_personal_info.id')
-            ->leftJoin('student_personal_info', 'student_info.stude_id', '=', 'student_personal_info.id')
+            ->leftJoin('student_personal_info', 'student_personal_info.id', '=', 'student_info.stude_id')
             ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
             ->where('student_id_card_info.id', $id)
             ->where('student_id_card_info.is_deleted', 0)
