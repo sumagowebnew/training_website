@@ -172,37 +172,35 @@ class StudentIdCardInformationController extends Controller
 
     public function getPerticularIdCardInfoByStudId($id)
     {
-
-         
-        $student_info = StudentIdCardInfo::leftJoin('student_personal_info', 'student_id_card_info.stude_id', '=', 'student_personal_info.id')
-            ->leftJoin('student_personal_info', 'student_info.stude_id', '=', 'student_personal_info.id')
-            ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
+        $student_info = StudentIdCardInfo::leftJoin('student_personal_info as spi1', 'student_id_card_info.stude_id', '=', 'spi1.id')
+            ->leftJoin('student_info', 'student_id_card_info.stude_id', '=', 'student_info.stude_id') // Join student_info
+            // ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id') // Join student_internship_details with student_info
+            ->leftJoin('student_internship_details', 'spi1.id', '=', 'student_internship_details.stude_id')
             ->where('student_id_card_info.stude_id', $id)
             ->where('student_id_card_info.is_deleted', 0)
             ->select(
                 'student_id_card_info.id',
-                'student_personal_info.fname',
-                'student_personal_info.mname',
-                'student_personal_info.fathername',
-                'student_personal_info.lname',
+                'spi1.fname',
+                'spi1.mname',
+                'spi1.fathername',
+                'spi1.lname',
+                'spi1.blood',
                 'student_internship_details.technology_name',
-                'date_of_joining',
+                'student_id_card_info.date_of_joining',
                 'student_id_card_info.contact_details',
                 'student_id_card_info.shirt_size',
                 'student_id_card_info.is_active',
                 'student_id_card_info.is_deleted',
                 'student_id_card_info.created_at',
-                'student_id_card_info.updated_at',
+                'student_id_card_info.updated_at'
             )
             ->first();
-
+    
         // Check if record exists
         if (!$student_info) {
             return response()->json(['message' => 'Student not found'], 404);
         }
-
-        // Convert to array
-
+    
         return response()->json($student_info);
     }
 
