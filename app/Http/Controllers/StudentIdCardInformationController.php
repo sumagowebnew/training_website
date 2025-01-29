@@ -71,30 +71,11 @@ class StudentIdCardInformationController extends Controller
     {
         $validator = Validator::make($request->all(), [
     //         // StudentInfo fields
-            'name' => 'required|string|max:255',
-            'technology' => 'required',
-            'date_of_joining' => 'required',
-            'contact_details' => 'required',
-            'blood_group' => 'nullable',
             'shirt_size' => 'required',
 
            
         ], [
-            'name.required' => 'The name field is required.',
-            'name.string' => 'The name must be a valid string.',
-            'name.max' => 'The name may not be greater than 255 characters.',
-
-    'technology.required' => 'The technology field is required.',
-
-   
-
-    'date_of_joining.required' => 'The date of joining field is required.',
-
-    'contact_details.required' => 'Contact Details are required.',
-
-    'blood_group.string' => 'Blood Group must be a string.',
-
-    'shirt_size.required' => 'Shirt Size is required.',
+            'shirt_size.required' => 'Shirt Size is required.',
         ]);
   
             if ($validator->fails())
@@ -206,27 +187,8 @@ class StudentIdCardInformationController extends Controller
     {
         // dd($_REQUEST);
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'technology' => 'required',
-            'date_of_joining' => 'required',
-            'contact_details' => 'required',
-            'blood_group' => 'nullable',
             'shirt_size' => 'required',
         ], [
-           'name.required' => 'The name field is required.',
-            'name.string' => 'The name must be a valid string.',
-            'name.max' => 'The name may not be greater than 255 characters.',
-
-            'technology.required' => 'The technology field is required.',
-
-        
-
-            'date_of_joining.required' => 'The date of joining field is required.',
-
-            'contact_details.required' => 'Contact Details are required.',
-
-            'blood_group.string' => 'Blood Group must be a string.',
-
             'shirt_size.required' => 'Shirt Size is required.',
         ]);
         
