@@ -69,46 +69,19 @@ class StudentIdCardInformationController extends Controller
 
     public function add(Request $request)
     {
-    //     $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
     //         // StudentInfo fields
-    //         'name' => 'required|string|max:255',
-    //         'technology' => 'required|string|max:255',
-    //         'date_of_joining' => 'required|date',
-    //         'contact_details' => 'required|string|max:15',
-    //         'blood_group' => 'nullable|string|max:10',
-    //         'shirt_size' => 'required',
-
-           
-    //     ], [
-    //         'name.required' => 'The name field is required.',
-    //         'name.string' => 'The name must be a valid string.',
-    //         'name.max' => 'The name may not be greater than 255 characters.',
-
-    // 'technology.required' => 'The technology field is required.',
-    // 'technology.string' => 'The technology must be a valid string.',
-    // 'technology.max' => 'The technology may not be greater than 255 characters.',
-
-   
-
-    // 'date_of_joining.required' => 'The date of joining field is required.',
-    // 'date_of_joining.date' => 'The date of joining must be a valid date.',
-
-    // 'contact_details.required' => 'Contact Details are required.',
-    // 'contact_details.string' => 'Contact Details must be a string.',
-    // 'contact_details.max' => 'Contact Details should not exceed 15 characters.',
-
-    // 'blood_group.string' => 'Blood Group must be a string.',
-    // 'blood_group.max' => 'Blood Group should not exceed 10 characters.',
-
-    // 'shirt_size.required' => 'Shirt Size is required.',
-    //     ]);
+            'shirt_size' => 'required',
+        ], [
+            'shirt_size.required' => 'Shirt Size is required.',
+        ]);
   
-    //         if ($validator->fails())
-    //         {
-    //             return $validator->errors()->all();
+            if ($validator->fails())
+            {
+                return $validator->errors()->all();
         
-    //         }else
-    //         {
+            }else
+            {
                 
                     try{
                             $studentIdCardDetails = new StudentIdCardInfo();
@@ -131,7 +104,7 @@ class StudentIdCardInformationController extends Controller
                     catch (exception $e) {
                         return response()->json(['status' => 'error', 'message' => 'Intern ID Card Details not added', 'error' => $e->getMessage()],500);
                     }
-            // }
+            }
     }    
 
 
@@ -174,7 +147,7 @@ class StudentIdCardInformationController extends Controller
     {
 
 
-        
+
         $student_info = StudentIdCardInfo::leftJoin('student_personal_info as spi1', 'student_id_card_info.stude_id', '=', 'spi1.id')
             ->leftJoin('student_info', 'student_id_card_info.stude_id', '=', 'student_info.stude_id') // Join student_info
             // ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id') // Join student_internship_details with student_info
@@ -210,12 +183,12 @@ class StudentIdCardInformationController extends Controller
     
     public function update(Request $request, $id)
     {
+        // dd($_REQUEST);
         $validator = Validator::make($request->all(), [
-            'title'=>'required',
-            'description' => 'required',
-            'image_file'=>'required',
-            'website_link'=>'required',
-            ]);
+            'shirt_size' => 'required',
+        ], [
+           'shirt_size.required' => 'Shirt Size is required.',
+        ]);
         
             if ($validator->fails())
             {
@@ -223,35 +196,17 @@ class StudentIdCardInformationController extends Controller
         
             }else
             {
-                $portfolio_data = Portfolio::find($id);
-                $portfolio_data->title = $request->title;
-                $portfolio_data->description = $request->description;
-                $portfolio_data->website_link = $request->website_link;
-                
-                $img_path = $request->image_file;
-
-                        $folderPath = "uploads/portfolio/";
+                $studentDetail = StudentIdCardInfo::find($id);
                         
-                        $base64Image = explode(";base64,", $img_path);
-                        //dd($base64Image);
-                        $explodeImage = explode("image/", $base64Image[0]);
-                        //dd($explodeImage);
-                        $imageType = $explodeImage[1];
+                // Assigning request data to model
+                $studentDetail->shirt_size = $request->shirt_size;
+                $update_data = $studentDetail->update();
 
-                        //dd($imageType);
-                        $image_base64 = base64_decode($base64Image[1]);
-                        //dd($image_base64);
-                        $posts = Portfolio::get();
-                        $file = $id .'_updated.'. $imageType;
-                        // $file = uniqid() .'.'. $imageType;
-                        $file_dir = $folderPath . $file;
-                        
-                        file_put_contents($file_dir, $image_base64);
-                        $portfolio_data->image = $file;
-
-                $update_data = $portfolio_data->update();
-
-                return $this->responseApi($update_data,'Data Updated','success',200);
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Intern Completion Data Updated Successfully!',
+                    'data' => $update_data,
+                ], 200);
             }
     }
 

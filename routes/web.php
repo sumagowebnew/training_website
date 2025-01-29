@@ -299,6 +299,7 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('/intern-id-card/add', 'StudentIdCardInformationController@add');
     Route::get('/get-perticular-id-card-info/{id}', 'StudentIdCardInformationController@getPerticularIdCardInfo');
     Route::get('/get-perticular-id-card-info-studId/{id}', 'StudentIdCardInformationController@getPerticularIdCardInfoByStudId');
+    $router->post('/update-intern-id-card-info/update/{id}', 'StudentIdCardInformationController@update');
     Route::delete('intern-id-card-info/delete/{id}', 'StudentIdCardInformationController@destroy');
 
     Route::post('/intern-joining-personal-info/add', 'StudentInfoPersonalController@add');
