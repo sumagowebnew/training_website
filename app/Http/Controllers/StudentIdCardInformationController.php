@@ -140,7 +140,7 @@ class StudentIdCardInformationController extends Controller
     $student_info = StudentIdCardInfo::leftJoin('student_personal_info as spi1', 'student_id_card_info.stude_id', '=', 'spi1.id')
         ->leftJoin('student_info', 'student_id_card_info.stude_id', '=', 'student_info.stude_id') // Join student_info
         // ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id') // Join student_internship_details with student_info
-        ->leftJoin('student_internship_details', 'student_personal_info.id', '=', 'student_internship_details.stude_id')
+        ->leftJoin('student_internship_details', 'spi1.id', '=', 'student_internship_details.stude_id')
         ->where('student_id_card_info.id', $id)
         ->where('student_id_card_info.is_deleted', 0)
         ->select(
