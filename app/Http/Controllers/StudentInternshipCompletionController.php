@@ -415,6 +415,7 @@ public function getPerticularCompletionByStudId($id)
             'student_personal_info.gender',
             'student_info.training_mode',
             'student_personal_info.email',
+            'student_personal_info.contact_details',
             'student_internship_details.technology_name',
             'date_of_joining',
             'current_working',
