@@ -172,6 +172,9 @@ class StudentIdCardInformationController extends Controller
 
     public function getPerticularIdCardInfoByStudId($id)
     {
+
+
+        
         $student_info = StudentIdCardInfo::leftJoin('student_personal_info as spi1', 'student_id_card_info.stude_id', '=', 'spi1.id')
             ->leftJoin('student_info', 'student_id_card_info.stude_id', '=', 'student_info.stude_id') // Join student_info
             // ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id') // Join student_internship_details with student_info
