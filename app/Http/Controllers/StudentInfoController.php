@@ -41,7 +41,7 @@ class StudentInfoController extends Controller
             'experience','characteristics_describe','applicant_name','place','refrance_social_media','refrance_friend',
             'refrance_family','refrance_relatives','refrance_other',
             'reference_name','reference_name1','contact_number','contact_number1','buttom_applicant_name',
-            'buttom_place','scoperefer')
+            'buttom_place','scoperefer','student_info.date_of_joining')
             ->get();
 
         // $response = [];
@@ -370,6 +370,7 @@ class StudentInfoController extends Controller
                         $studentInfo->facebook = $request->facebook;
                         $studentInfo->youtube = $request->youtube;
                         $studentInfo->anyother_add = $request->anyother_add;
+                        $studentInfo->date_of_joining = $request->date_of_joining;
 
                         $existingRecord = StudentInfo::orderBy('id','DESC')->first();
                         $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
@@ -749,7 +750,8 @@ class StudentInfoController extends Controller
                         $studentInfo->facebook = $request->facebook;
                         $studentInfo->youtube = $request->youtube;
                         $studentInfo->anyother_add = $request->anyother_add;
-
+                        $studentInfo->date_of_joining = $request->date_of_joining;
+                        
                         $existingRecord = StudentInfo::orderBy('id','DESC')->first();
                         $recordId = $existingRecord->id;
 
@@ -928,7 +930,7 @@ class StudentInfoController extends Controller
         'technology_name','duration','selectedModules','intern_experience',
         'experience','characteristics_describe','applicant_name','place','refrance_social_media','refrance_friend',
             'refrance_family','refrance_relatives','refrance_other','reference_name','reference_name1','contact_number','contact_number1','buttom_applicant_name',
-        'buttom_place','scoperefer')
+        'buttom_place','scoperefer','student_info.date_of_joining')
         ->groupBy('student_personal_info.id')
         ->get();
 
