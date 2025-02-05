@@ -162,6 +162,14 @@ public function AddImplantTrainingData(Request $request)
     }
 }
 
+public function getImplantTrainingData()
+    {
+        $ImplantTrainingData = ImplantTrainingNew::select('*')
+            ->get();
+
+        return response()->json($ImplantTrainingData);
+    }
+
 
 // public function AddImplantTrainingData(Request $request)
 // {

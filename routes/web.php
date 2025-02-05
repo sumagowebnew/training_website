@@ -307,6 +307,11 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::get('/get-perticular-intern-personal-info/{id}', 'StudentInfoPersonalController@getPerticularPersonalInfo');
     Route::delete('intern-personal-info/delete/{id}', 'StudentInfoPersonalController@destroy');
     $router->post('/update-intern-personal-info/update/{id}', 'StudentInfoPersonalController@update');
+
+    Route::get('get_enquiry_form_data', 'ImplantTrainingController@getPopupEnquiryFormData');
+    Route::get('get_implant_training_data', 'ImplantTrainingController@getImplantTrainingData');
+
+
 });
 
 Route::group([
@@ -351,9 +356,9 @@ Route::group([
     Route::post('add_boot_camp_applynow', 'CounsellingController@AddBootcampApplyNow');
     Route::post('add_brochuer', 'BrochureController@add');
     Route::post('popup_enquiry_form', 'ImplantTrainingController@AddPopupEnquiryFormData');
-    Route::get('get_enquiry_form_data', 'ImplantTrainingController@getPopupEnquiryFormData');
 
     Route::post('add_implant_training_data', 'ImplantTrainingController@AddImplantTrainingData');
+
 
 
 
