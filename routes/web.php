@@ -351,7 +351,9 @@ Route::group([
     Route::post('add_boot_camp_applynow', 'CounsellingController@AddBootcampApplyNow');
     Route::post('add_brochuer', 'BrochureController@add');
     Route::post('popup_enquiry_form', 'ImplantTrainingController@AddPopupEnquiryFormData');
-    Route::post('add_implant_training_data', 'ImplantTrainingController@AddImplantTrainingData');
+    Route::post('get_enquiry_form_data', 'ImplantTrainingController@getPopupEnquiryFormData');
+
+    Route::get('add_implant_training_data', 'ImplantTrainingController@AddImplantTrainingData');
 
 
 

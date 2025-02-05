@@ -71,6 +71,14 @@ class ImplantTrainingController extends Controller
     }
 }
 
+public function getPopupEnquiryFormData()
+    {
+        $student_info = PopupEnquiryForm::select('*')
+            ->get();
+
+        return response()->json($student_info);
+    }
+
 public function AddImplantTrainingData(Request $request)
 {
     $validator = Validator::make($request->all(), [
