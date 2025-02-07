@@ -61,7 +61,7 @@ class StudentInternshipCompletionController extends Controller
     {
         $student_info = StudentInternshipCompletionDetails::leftJoin('student_personal_info', 'student_interns_completion_details.stude_id', '=', 'student_personal_info.id')
             ->leftJoin('student_info', 'student_interns_completion_details.stude_id', '=', 'student_info.stude_id')
-            ->leftJoin('student_internship_details', 'student_personal_info.id', '=', 'student_internship_details.stude_id')
+            ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
             ->where('student_interns_completion_details.is_deleted', 0)
             ->select(
                 'student_interns_completion_details.id',
