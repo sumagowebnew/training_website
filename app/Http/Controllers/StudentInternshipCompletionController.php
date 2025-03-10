@@ -810,7 +810,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             'name_contact_of_fifth_candidate' => 'required|string|max:255',
             'blog_on_your_selected_technology' => 'required|string|max:1000',
 
-            'review_image' => 'required', // Image must be one of the specified formats and max size 2MB
+            // 'review_image' => 'required', // Image must be one of the specified formats and max size 2MB
             'resume_pdf' => 'required', // PDF must be a PDF format and max size 5MB
             'feedback_video' => 'required', // Video formats and max size 10MB
         ], [
@@ -888,7 +888,7 @@ public function saveBase64File($base64File, $directory, $prefix, $type)
             'blog_on_your_selected_technology.string' => 'The blog must be a valid string.',
             'blog_on_your_selected_technology.max' => 'The blog may not be greater than 1000 characters.',
 
-            'review_image.required' => 'The review image is required.',
+            // 'review_image.required' => 'The review image is required.',
 
             'resume_pdf.required' => 'The resume PDF is required.',
 
