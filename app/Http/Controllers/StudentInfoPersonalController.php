@@ -301,48 +301,59 @@ class StudentInfoPersonalController extends Controller
         $all_data=[];
         // $portfolio = Portfolio::find($id);
 
-        $studet_personal_data = StudentPersonalInfo::find($id);
-            if ($studet_personal_data) {
+        $student_personal_data = StudentPersonalInfo::find($id);
+            if ($student_personal_data) {
                 // Delete the images from the storage folder
 
                 // Delete the record from the database
-                $is_deleted = $studet_personal_data->is_deleted == 1 ? 0 : 1;
-                $studet_personal_data->is_deleted = $is_deleted;
-                $studet_personal_data->save();
-                // Log::info($studet_data);    
+                $is_deleted = $student_personal_data->is_deleted == 1 ? 0 : 1;
+                $student_personal_data->is_deleted = $is_deleted;
+                $student_personal_data->save();
+                // Log::info($student_data);    
 
-                $studet_data = StudentInfo::where('stude_id', $id)
+                $student_data = StudentInfo::where('stude_id', $id)
                             ->first();
-                $is_deleted = $studet_data->is_deleted == 1 ? 0 : 1;
-                $studet_data->is_deleted = $is_deleted;
-                $studet_data->save();
+                if ($student_data) {            
+                    $is_deleted = $student_data->is_deleted == 1 ? 0 : 1;
+                    $student_data->is_deleted = $is_deleted;
+                    $student_data->save();
+                }
 
                 $studet_education_data = StudentEdducationDetails::where('stude_id', $id)
                             ->first();
-                $is_deleted = $studet_education_data->is_deleted == 1 ? 0 : 1;
-                $studet_education_data->is_deleted = $is_deleted;
-                $studet_education_data->save();
-                // Log::info($studet_data);
+                if ($studet_education_data) { 
+                    $is_deleted = $studet_education_data->is_deleted == 1 ? 0 : 1;
+                    $studet_education_data->is_deleted = $is_deleted;
+                    $studet_education_data->save();
+                    // Log::info($student_data);
+                }    
 
                 $studet_parent_data = StudentParentDetails::where('stude_id', $id)
                             ->first();
-                $is_deleted = $studet_parent_data->is_deleted == 1 ? 0 : 1;
-                $studet_parent_data->is_deleted = $is_deleted;
-                $studet_parent_data->save();
+                if ($studet_parent_data) {             
+                    $is_deleted = $studet_parent_data->is_deleted == 1 ? 0 : 1;
+                    $studet_parent_data->is_deleted = $is_deleted;
+                    $studet_parent_data->save();
+                }
+
 
                 $studet_internship_data = StudentInternshipDetails::where('stude_id', $id)
                             ->first();
-                $is_deleted = $studet_internship_data->is_deleted == 1 ? 0 : 1;
-                $studet_internship_data->is_deleted = $is_deleted;
-                $studet_internship_data->save();
-                // Log::info($studet_data);
+                if ($studet_internship_data) {             
+                    $is_deleted = $studet_internship_data->is_deleted == 1 ? 0 : 1;
+                    $studet_internship_data->is_deleted = $is_deleted;
+                    $studet_internship_data->save();
+                    // Log::info($student_data);
+                }
 
                 $studet_completion_data = StudentInternshipCompletionDetails::where('stude_id', $id)
                             ->first();
-                $is_deleted = $studet_completion_data->is_deleted == 1 ? 0 : 1;
-                $studet_completion_data->is_deleted = $is_deleted;
-                $studet_completion_data->save();
-                // Log::info($studet_data);
+                if ($studet_completion_data) { 
+                    $is_deleted = $studet_completion_data->is_deleted == 1 ? 0 : 1;
+                    $studet_completion_data->is_deleted = $is_deleted;
+                    $studet_completion_data->save();
+                    // Log::info($student_data);
+                }
 
                 return response()->json([
                     'status' => 'success',
