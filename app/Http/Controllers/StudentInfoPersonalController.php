@@ -180,11 +180,12 @@ class StudentInfoPersonalController extends Controller
 
         $student_info = StudentPersonalInfo::where('student_personal_info.id',$id)
         ->leftJoin('student_info', 'student_personal_info.id', '=', 'student_info.stude_id')
+        ->leftJoin('student_internship_details', 'student_info.id', '=', 'student_internship_details.stude_id')
         ->select('student_personal_info.id','student_info.stude_id','student_personal_info.fname','student_personal_info.mname','student_personal_info.fathername',
         'student_personal_info.lname','student_personal_info.gender','student_personal_info.parmanenat_address','student_personal_info.current_address',
         'student_personal_info.contact_details','student_personal_info.email','student_personal_info.dob',
         'student_personal_info.whatsappno', 'student_personal_info.age', 'student_personal_info.blood', 'student_personal_info.aadhar',
-        'student_info.date_of_joining')
+        'student_info.date_of_joining','student_internship_details.technology_name')
         ->get();
 
 
