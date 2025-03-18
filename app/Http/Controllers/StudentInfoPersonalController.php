@@ -179,8 +179,9 @@ class StudentInfoPersonalController extends Controller
     {
 
         $student_info = StudentPersonalInfo::where('student_personal_info.id',$id)
+        ->leftJoin('student_info', 'student_personal_info.stude_id', '=', 'student_info.id')
         ->select('student_personal_info.id','fname','mname','fathername','lname','gender','parmanenat_address','current_address','contact_details','email','dob',
-        'whatsappno', 'age', 'blood', 'aadhar')
+        'whatsappno', 'age', 'blood', 'aadhar','date_of_joining')
         ->get();
 
 
