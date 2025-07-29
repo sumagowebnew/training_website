@@ -22,9 +22,19 @@ class TraningCertificateController extends Controller
 
     public function getCertificateValidOrNot(Request $request)
     { 
-        try {
-            $certficate_data = TraningCertificate::where('certificate_no',$request->get('certificate_no'))->first();
-            return response()->json(['data'=>$certficate_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+          try {
+            $validator = Validator::make($request->all(), [
+                'certificate_no'=>'required',
+            ]);
+            
+            if ($validator->fails())
+            {
+                    return $validator->errors()->all();
+        
+            }else{
+                $certficate_data = TraningCertificate::where('certificate_no',$request->certificate_no)->first();
+                return response()->json(['data'=>$certficate_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+            }
         } catch (Exception $e) {
             info ($e->getMessage());
         }
@@ -82,8 +92,19 @@ class TraningCertificateController extends Controller
     public function getCertificateDetails(Request $request)
     { 
         try {
+            $validator = Validator::make($request->all(), [
+                'id'=>'required',
+            ]);
+            
+            if ($validator->fails())
+            {
+                    return $validator->errors()->all();
+        
+            }else{
+
              $certificate = TraningCertificate::where('id',$request->get('id') )->first();
             return response()->json(['data'=>$certificate,'status' => 'Success', 'message' => 'Certifcate Data Fetched Successfully','StatusCode'=>'200']);
+            }
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }
