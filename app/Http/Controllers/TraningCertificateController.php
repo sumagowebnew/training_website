@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use  App\Models\TraningCertificate;
 use Validator;
-use DB;
+
 
 class TraningCertificateController extends Controller
 {
@@ -34,11 +34,7 @@ class TraningCertificateController extends Controller
                     return $validator->errors()->all();
         
             }else{
-                // \DB::enableQueryLog(); // Enable query log
-
                 $certficate_data = TraningCertificate::where('certificate_no','=',$request->certificate_no)->get();
-                // return \DB::getQueryLog(); // Show results of log
-
                 return response()->json(['data'=>$certficate_data,'status' => 'Success', 'message' => 'Fetched Cert All Data Successfully','StatusCode'=>'200']);
             }
         } catch (Exception $e) {
@@ -83,7 +79,7 @@ class TraningCertificateController extends Controller
                     $new_certificate->batch_no = $request->get('batch_no');
                     $new_certificate->training_mode = $request->get('training_mode');
                     $new_certificate->training_location = $request->get('training_location');
-                    $new_certificate->certificate_no = now('Asia/Kolkata')->format('dmYHis');
+                    $new_certificate->certificate_no = date("dmYHis");
                     
                     $new_certificate->save();
             
