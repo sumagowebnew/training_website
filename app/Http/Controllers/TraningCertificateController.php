@@ -65,8 +65,9 @@ class TraningCertificateController extends Controller
                     return $validator->errors()->all();
         
             }else{
-                    $new_certificate = new TraningCertificate();
+                    date_default_timezone_set('Asia/Kolkata');
 
+                    $new_certificate = new TraningCertificate();
                     $new_certificate->timestamp = date("d/m/Y h:i:sa");
                     $new_certificate->email_address = $request->get('email_address');
                     $new_certificate->first_name = $request->get('first_name');
