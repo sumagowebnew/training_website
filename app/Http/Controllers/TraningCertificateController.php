@@ -149,7 +149,7 @@ class TraningCertificateController extends Controller
                 $update_certificate->batch_no = $request->get('batch_no');
                 $update_certificate->training_mode = $request->get('training_mode');
                 $update_certificate->training_location = $request->get('training_location');
-                $update_certificate->save();
+                $update_certificate->update();
 
                 return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
 
