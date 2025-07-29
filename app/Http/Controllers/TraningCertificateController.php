@@ -34,7 +34,7 @@ class TraningCertificateController extends Controller
         
             }else{
                 $certficate_data = TraningCertificate::where('certificate_no',$request->certificate_no)->first();
-                return response()->json(['data'=>$certficate_data,'status' => 'Success', 'message' => 'Fetched All Data Successfully','StatusCode'=>'200']);
+                return response()->json(['data'=>$certficate_data,'status' => 'Success', 'message' => 'Fetched Cert All Data Successfully','StatusCode'=>'200']);
             }
         } catch (Exception $e) {
             info ($e->getMessage());
