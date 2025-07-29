@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Models;
+use HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+
+class TraningCertificate extends Model
+{
+    use SoftDeletes;
+    protected $table = 'traning_certificate';
+}
+
+  // certificate_no
+  // fname,
+  // mname,
+  // fathername,
+  // lname,
+  // email,
+  // mode,
+  // location,
+  // gender,
+  // contactNo,
+  // whatsappNo,
+  // technology,
+  // academicYear,
+  // branch,
+  // dob,
+  // college,
+  // joiningDate,
+  // completionDate,

@@ -311,6 +311,11 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::get('get_enquiry_form_data', 'ImplantTrainingController@getPopupEnquiryFormData');
     Route::get('get_implant_training_data', 'ImplantTrainingController@getImplantTrainingData');
 
+    Route::post('get-certificate-list', 'TraningCertificateController@getCertificateList');
+    Route::post('add-certificate-details', 'TraningCertificateController@addCertificateDetails');
+    Route::post('get-certificate-details-admin', 'TraningCertificateController@getCertificateDetails');
+    Route::post('update-certificate-details', 'TraningCertificateController@updateCertificateDetails');
+
 
 });
 
@@ -427,6 +432,6 @@ Route::group([
     
     
     
-
+    Route::post('get-certificate-details', 'TraningCertificateController@getCertificateValidOrNot');
 });
 
