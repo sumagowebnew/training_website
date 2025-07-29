@@ -137,19 +137,19 @@ class TraningCertificateController extends Controller
         
             }else{
 
-                $update_certificate = TraningCertificate::where('id',$request->id );
-                $update_certificate->email_address = $request->get('email_address');
-                $update_certificate->first_name = $request->get('first_name');
-                $update_certificate->mother_name = $request->get('mother_name');
-                $update_certificate->father_name = $request->get('father_name');
-                $update_certificate->surname = $request->get('surname');
-                $update_certificate->mobile_no = $request->get('mobile_no');
-                $update_certificate->technology_name = $request->get('technology_name');
-                $update_certificate->college_name = $request->get('college_name');
-                $update_certificate->batch_no = $request->get('batch_no');
-                $update_certificate->training_mode = $request->get('training_mode');
-                $update_certificate->training_location = $request->get('training_location');
-                $update_certificate->update();
+                TraningCertificate::where('id',$request->id )->update([
+                                                            'email_address'=>$request->email_address,
+                                                            'first_name'=>$request->first_name,
+                                                            'mother_name'=>$request->mother_name,
+                                                            'father_name'=>$request->father_name,
+                                                            'surname'=>$request->surname,
+                                                            'mobile_no'=>$request->mobile_no,
+                                                            'technology_name'=>$request->technology_name,
+                                                            'college_name'=>$request->college_name,
+                                                            'batch_no'=>$request->batch_no,
+                                                            'training_mode'=>$request->training_mode,
+                                                            'training_location'=>$request->training_location
+                                                        ]);
 
                 return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
 
