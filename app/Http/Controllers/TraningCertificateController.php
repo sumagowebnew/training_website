@@ -31,7 +31,12 @@ class TraningCertificateController extends Controller
             
             if ($validator->fails())
             {
-                    return $validator->errors()->all();
+                    return response()->json([
+                                        'status' => 'error',
+                                        'message' => 'Validation failed',
+                                        'errors' => $validator->errors(),
+                                        'statusCode' => 422
+                                    ], 422);
         
             }else{
                 $certficate_data = TraningCertificate::where('certificate_no','=',$request->certificate_no)->get();
@@ -62,7 +67,12 @@ class TraningCertificateController extends Controller
             
             if ($validator->fails())
             {
-                    return $validator->errors()->all();
+                    return response()->json([
+                            'status' => 'error',
+                            'message' => 'Validation failed',
+                            'errors' => $validator->errors(),
+                            'statusCode' => 422
+                        ], 422);
         
             }else{
                     date_default_timezone_set('Asia/Kolkata');
@@ -101,7 +111,12 @@ class TraningCertificateController extends Controller
             
             if ($validator->fails())
             {
-                    return $validator->errors()->all();
+                    return response()->json([
+                                    'status' => 'error',
+                                    'message' => 'Validation failed',
+                                    'errors' => $validator->errors(),
+                                    'statusCode' => 422
+                                ], 422);
         
             }else{
 
@@ -134,7 +149,12 @@ class TraningCertificateController extends Controller
             
             if ($validator->fails())
             {
-                    return $validator->errors()->all();
+                    return response()->json([
+                                'status' => 'error',
+                                'message' => 'Validation failed',
+                                'errors' => $validator->errors(),
+                                'statusCode' => 422
+                            ], 422);
         
             }else{
 
