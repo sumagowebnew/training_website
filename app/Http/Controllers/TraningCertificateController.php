@@ -34,10 +34,10 @@ class TraningCertificateController extends Controller
                     return $validator->errors()->all();
         
             }else{
-                \DB::enableQueryLog(); // Enable query log
+                // \DB::enableQueryLog(); // Enable query log
 
                 $certficate_data = TraningCertificate::where('certificate_no','=',$request->certificate_no)->get();
-                return \DB::getQueryLog(); // Show results of log
+                // return \DB::getQueryLog(); // Show results of log
 
                 return response()->json(['data'=>$certficate_data,'status' => 'Success', 'message' => 'Fetched Cert All Data Successfully','StatusCode'=>'200']);
             }

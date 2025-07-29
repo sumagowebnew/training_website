@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TraningCertificate extends Model
 {
-    use SoftDeletes;
     protected $table = 'traning_certificate';
 }
 
