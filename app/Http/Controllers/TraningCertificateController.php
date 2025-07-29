@@ -113,7 +113,7 @@ class TraningCertificateController extends Controller
        
     }
 
-    public function updateCertificateDetails(Request $request, $id)
+    public function updateCertificateDetails(Request $request)
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -137,7 +137,7 @@ class TraningCertificateController extends Controller
         
             }else{
 
-                $update_certificate = TraningCertificate::where('id',$request->get('id') );
+                $update_certificate = TraningCertificate::where('id',$request->id );
                 $update_certificate->email_address = $request->get('email_address');
                 $update_certificate->first_name = $request->get('first_name');
                 $update_certificate->mother_name = $request->get('mother_name');
