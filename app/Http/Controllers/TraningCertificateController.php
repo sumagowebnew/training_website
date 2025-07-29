@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use  App\Models\TraningCertificate;
 use Validator;
+use DB;
 
 class TraningCertificateController extends Controller
 {
