@@ -22,7 +22,7 @@ class TraningCertificateController extends Controller
 
     public function getCertificateValidOrNot(Request $request)
     { 
-            return $request->certificate_no;
+            
           try {
             $validator = Validator::make($request->all(), [
                 'certificate_no'=>'required',
