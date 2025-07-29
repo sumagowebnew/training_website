@@ -117,6 +117,7 @@ class TraningCertificateController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
+                'id'=>'required',
                 'email_address'=>'required',
                 'first_name'=>'required',
                 'mother_name'=>'required',
