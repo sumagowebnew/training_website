@@ -14,7 +14,7 @@ class TraningDurationsController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'durations'=>'required',
+                'duration'=>'required',
             ]);
             
             if ($validator->fails())
