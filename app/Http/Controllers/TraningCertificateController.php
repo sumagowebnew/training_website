@@ -52,9 +52,7 @@ class TraningCertificateController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'email_address'=>'required',
                 'first_name'=>'required',
-                'mother_name'=>'required',
                 'father_name'=>'required',
                 'surname'=>'required',
                 'mobile_no'=>'required',
@@ -79,9 +77,7 @@ class TraningCertificateController extends Controller
 
                     $new_certificate = new TraningCertificate();
                     $new_certificate->timestamp = date("d/m/Y h:i:sa");
-                    $new_certificate->email_address = $request->get('email_address');
                     $new_certificate->first_name = $request->get('first_name');
-                    $new_certificate->mother_name = $request->get('mother_name');
                     $new_certificate->father_name = $request->get('father_name');
                     $new_certificate->surname = $request->get('surname');
                     $new_certificate->mobile_no = $request->get('mobile_no');
@@ -134,9 +130,7 @@ class TraningCertificateController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'id'=>'required',
-                'email_address'=>'required',
                 'first_name'=>'required',
-                'mother_name'=>'required',
                 'father_name'=>'required',
                 'surname'=>'required',
                 'mobile_no'=>'required',
@@ -159,9 +153,7 @@ class TraningCertificateController extends Controller
             }else{
 
                 TraningCertificate::where('id',$request->id )->update([
-                                                            'email_address'=>$request->email_address,
                                                             'first_name'=>$request->first_name,
-                                                            'mother_name'=>$request->mother_name,
                                                             'father_name'=>$request->father_name,
                                                             'surname'=>$request->surname,
                                                             'mobile_no'=>$request->mobile_no,
