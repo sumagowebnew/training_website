@@ -61,6 +61,7 @@ class TraningCertificateController extends Controller
                 'batch_no'=>'required',
                 'training_mode'=>'required',
                 'training_location'=>'required',
+                'duration'=>'required',
             ]);
             
             if ($validator->fails())
@@ -86,6 +87,7 @@ class TraningCertificateController extends Controller
                     $new_certificate->batch_no = $request->get('batch_no');
                     $new_certificate->training_mode = $request->get('training_mode');
                     $new_certificate->training_location = $request->get('training_location');
+                    $new_certificate->duration = $request->get('duration');
                     $new_certificate->certificate_no = date("dmYHis");
                     
                     $new_certificate->save();
@@ -139,6 +141,7 @@ class TraningCertificateController extends Controller
                 'batch_no'=>'required',
                 'training_mode'=>'required',
                 'training_location'=>'required',
+                'duration'=>'required',
             ]);
             
             if ($validator->fails())
@@ -161,7 +164,8 @@ class TraningCertificateController extends Controller
                                                             'college_name'=>$request->college_name,
                                                             'batch_no'=>$request->batch_no,
                                                             'training_mode'=>$request->training_mode,
-                                                            'training_location'=>$request->training_location
+                                                            'training_location'=>$request->training_location,
+                                                            'duration'=>$request->duration
                                                         ]);
 
                 return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
