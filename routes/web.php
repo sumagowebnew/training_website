@@ -317,9 +317,16 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update-certificate-details', 'TraningCertificateController@updateCertificateDetails');
 
 
-    Route::post('get-duration-list', 'TraningDurationsController@getDurationDetails');
+    Route::post('get-duration-list', 'TraningDurationsController@getDurationList');
+    Route::post('get-duration-single', 'TraningDurationsController@getDurationSingleDetails');
     Route::post('add-duration-details', 'TraningDurationsController@addDurationDetails');
     Route::post('update-duration-details', 'TraningDurationsController@updateDurationDetails');
+
+    Route::post('get-blog-list', 'BlogsController@index');
+    Route::post('get-blog-single', 'BlogsController@view'); 
+    Route::post('add-blog-details', 'BlogsController@add');
+    Route::post('update-blog-details', 'BlogsController@update');
+    Route::post('delete-blog-details', 'BlogsController@delete');
 
 
 });
