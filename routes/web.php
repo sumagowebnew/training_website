@@ -317,6 +317,11 @@ $router->group(['middleware' => 'auth','prefix' => 'api'], function ($router)
     Route::post('update-certificate-details', 'TraningCertificateController@updateCertificateDetails');
 
 
+    Route::post('get-duration-list', 'TraningDurationsController@getDurationDetails');
+    Route::post('add-duration-details', 'TraningDurationsController@addDurationDetails');
+    Route::post('update-duration-details', 'TraningDurationsController@updateDurationDetails');
+
+
 });
 
 Route::group([

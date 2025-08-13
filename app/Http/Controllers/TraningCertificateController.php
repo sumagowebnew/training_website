@@ -90,7 +90,7 @@ class TraningCertificateController extends Controller
                     
                     $new_certificate->save();
             
-                    return response()->json(['status' => 'Success', 'message' => 'Data SavedUploaded successfully','statusCode'=>'200']);
+                    return response()->json(['status' => 'Success', 'message' => 'Data Saved successfully','statusCode'=>'200']);
                 } 
         } catch (Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
