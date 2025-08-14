@@ -163,7 +163,12 @@ class BlogsController extends Controller
             $imageType = $explodeImage[1];
             $image_base64 = base64_decode($base64Image[1]);
 
-            $file = $request->id  . "." . $imageType;
+            $datetime = date("YmdHis");
+            $randomNumber = rand(1000, 9999);
+            $uniqueId = $datetime . $randomNumber;
+
+
+            $file = $uniqueId. "_".$request->id  . "." . $imageType;
             $file_dir = $folderPath . $file;
 
             file_put_contents($file_dir, $image_base64);
