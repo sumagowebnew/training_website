@@ -202,16 +202,17 @@ class BlogsController extends Controller
 
             $all_data = [];
             $blog = Blogs::where ('id',$request->id)->first();
+            if ($blog) {
+                $folderPath = public_path('all_web_data/images/blogImages/');
+                $imageName = basename($blog->images);
+                $fileToDelete = $folderPath . $imageName;
+                info($fileToDelete);
+                if (file_exists($fileToDelete)) {
+                    unlink($fileToDelete);
+                }
 
-            $folderPath = str_replace("\\", "/", storage_path()) . "/all_web_data/images/blogImages/";
-
-            $fileToDelete = $folderPath . $blog->images;
-
-            if (file_exists($fileToDelete)) {
-                unlink($fileToDelete);
+                $blog->delete();
             }
-
-            $blog->delete();
             return response()->json([
                 "status" => "Success",
                 "message" => "Deleted successfully",
