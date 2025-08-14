@@ -445,5 +445,6 @@ Route::group([
     
     
     Route::post('get-certificate-details', 'TraningCertificateController@getCertificateValidOrNot');
+    Route::post('get-blog-list', 'BlogsController@index');
 });
 
