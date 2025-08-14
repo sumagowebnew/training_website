@@ -37,8 +37,15 @@ class BlogsController extends Controller
             "id" => "required",
         ]);
 
-        if ($validator->fails()) {
-            return $validator->errors()->all();
+        if ($validator->fails())
+        {
+                return response()->json([
+                        'status' => 'error',
+                        'message' => 'Validation failed',
+                        'errors' => $validator->errors(),
+                        'statusCode' => 422
+                    ], 422);
+    
         } else {
 
             $banner = Blogs::Where("id", $request->id)->get();
@@ -63,8 +70,15 @@ class BlogsController extends Controller
             "images" => "required",
         ]);
 
-        if ($validator->fails()) {
-            return $validator->errors()->all();
+        if ($validator->fails())
+        {
+                return response()->json([
+                        'status' => 'error',
+                        'message' => 'Validation failed',
+                        'errors' => $validator->errors(),
+                        'statusCode' => 422
+                    ], 422);
+    
         } else {
             $blogImages = new Blogs();
 
@@ -110,9 +124,16 @@ class BlogsController extends Controller
             "images" => "required",
         ]);
 
-        if ($validator->fails()) {
-            return $validator->errors()->all();
-        } else {
+        if ($validator->fails())
+        {
+                return response()->json([
+                        'status' => 'error',
+                        'message' => 'Validation failed',
+                        'errors' => $validator->errors(),
+                        'statusCode' => 422
+                    ], 422);
+    
+        }else {
             $image = $request->images;
             createDirecrotory("/all_web_data/images/blogImages/");
             $folderPath = str_replace("\\", "/", storage_path()) . "/all_web_data/images/blogImages/";
@@ -146,8 +167,15 @@ class BlogsController extends Controller
             "id" => "required",
         ]);
 
-        if ($validator->fails()) {
-            return $validator->errors()->all();
+        if ($validator->fails())
+        {
+                return response()->json([
+                        'status' => 'error',
+                        'message' => 'Validation failed',
+                        'errors' => $validator->errors(),
+                        'statusCode' => 422
+                    ], 422);
+    
         } else {
 
 
