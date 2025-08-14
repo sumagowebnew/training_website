@@ -134,45 +134,52 @@ class BlogsController extends Controller
                     ], 422);
     
         }else {
-            return $request->images;
+            
+
             // $image = $request->images;
-            // // createDirecrotory("/all_web_data/images/blogImages/");
-
-            // $folderPath = storage_path('all_web_data/images/blogImages/');
-
-            // // Create directory if it doesn't exist
-            // if (!file_exists($folderPath)) {
-            //     mkdir($folderPath, 0777, true); // 0777 permissions and recursive creation
-            // }
-
-            // $folderPath = str_replace("\\", "/", storage_path()) . "/all_web_data/images/blogImages/";
+            // createDirecrotory("/all_web_data/images/blogImages/");
+            // $folderPath = str_replace("\\", "/", storage_path())."/all_web_data/images/blogImages/";
 
             // $base64Image = explode(";base64,", $image);
             // $explodeImage = explode("image/", $base64Image[0]);
             // $imageType = $explodeImage[1];
             // $image_base64 = base64_decode($base64Image[1]);
 
-            // $file = $request->id . "_updated" . "." . $imageType;
+            // $datetime = date("YmdHis");
+            // $randomNumber = rand(1000, 9999);
+            // $uniqueId = $datetime . $randomNumber;
+
+
+            // $file = $uniqueId. "_updated." . $imageType;
             // $file_dir = $folderPath . $file;
 
+            // file_put_contents($file_dir, $image_base64);
+
+
             $image = $request->images;
+
             createDirecrotory("/all_web_data/images/blogImages/");
-            $folderPath = str_replace("\\", "/", storage_path())."/all_web_data/images/blogImages/";
+            $folderPath = str_replace("\\", "/", storage_path()) . "/all_web_data/images/blogImages/";
 
-            $base64Image = explode(";base64,", $image);
-            $explodeImage = explode("image/", $base64Image[0]);
-            $imageType = $explodeImage[1];
-            $image_base64 = base64_decode($base64Image[1]);
+            if (strpos($image, ";base64,") === false) {
+                dd("Invalid image data");
+            }
 
-            $datetime = date("YmdHis");
-            $randomNumber = rand(1000, 9999);
-            $uniqueId = $datetime . $randomNumber;
+            list($meta, $data) = explode(";base64,", $image);
+            $imageType = explode("image/", $meta)[1] ?? 'png';
 
+            $image_base64 = base64_decode(str_replace(' ', '+', $data));
 
-            $file = $uniqueId. "_updated." . $imageType;
+            if ($image_base64 === false) {
+                dd("Base64 decode failed");
+            }
+
+            $uniqueId = date("YmdHis") . rand(1000, 9999);
+            $file = "{$uniqueId}_updated.{$imageType}";
             $file_dir = $folderPath . $file;
 
             file_put_contents($file_dir, $image_base64);
+
 
 
 
