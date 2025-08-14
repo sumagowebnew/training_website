@@ -206,7 +206,6 @@ class BlogsController extends Controller
                 $folderPath = storage_path('all_web_data/images/blogImages/');
                 $imageName = basename($blog->images);
                 $fileToDelete = $folderPath . $imageName;
-                info($fileToDelete);
                 if (file_exists($fileToDelete)) {
                     unlink($fileToDelete);
                 }
