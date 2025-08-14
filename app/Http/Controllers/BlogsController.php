@@ -135,7 +135,15 @@ class BlogsController extends Controller
     
         }else {
             $image = $request->images;
-            createDirecrotory("/all_web_data/images/blogImages/");
+            // createDirecrotory("/all_web_data/images/blogImages/");
+
+            $folderPath = storage_path('all_web_data/images/blogImages/');
+
+            // Create directory if it doesn't exist
+            if (!file_exists($folderPath)) {
+                mkdir($folderPath, 0777, true); // 0777 permissions and recursive creation
+            }
+
             $folderPath = str_replace("\\", "/", storage_path()) . "/all_web_data/images/blogImages/";
 
             $base64Image = explode(";base64,", $image);
