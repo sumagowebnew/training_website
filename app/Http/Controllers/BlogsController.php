@@ -134,6 +134,7 @@ class BlogsController extends Controller
                     ], 422);
     
         }else {
+            return $request->images;
             // $image = $request->images;
             // // createDirecrotory("/all_web_data/images/blogImages/");
 
@@ -168,7 +169,7 @@ class BlogsController extends Controller
             $uniqueId = $datetime . $randomNumber;
 
 
-            $file = $uniqueId. "_".$request->id  . "." . $imageType;
+            $file = $uniqueId. "_updated." . $imageType;
             $file_dir = $folderPath . $file;
 
             file_put_contents($file_dir, $image_base64);
