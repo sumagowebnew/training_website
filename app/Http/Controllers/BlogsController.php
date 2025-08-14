@@ -136,8 +136,16 @@ class BlogsController extends Controller
         }else {
             $image = $request->images;
 
+            $imageDelete = Blogs::where ('id',$request->id)->first();
+
             createDirecrotory("/all_web_data/images/blogImages/");
             $folderPath = str_replace("\\", "/", storage_path()) . "/all_web_data/images/blogImages/";
+
+            $fileToDelete = $folderPath . $imageDelete->images; // replace with your file name
+
+            if (file_exists($fileToDelete)) {
+                unlink($fileToDelete);
+            }
 
             if (strpos($image, ";base64,") === false) {
                 info("Invalid image data");
