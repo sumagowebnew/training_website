@@ -148,7 +148,7 @@ class BlogsController extends Controller
 
             file_put_contents($file_dir, $image_base64);
 
-            $image = Blogs::find($id);
+            $image = Blogs::where ('id',$request->id)->first();
             $image->images = $file;
             $image->title = $request->input("title");
             $image->description = $request->input("description");
@@ -180,8 +180,8 @@ class BlogsController extends Controller
 
 
             $all_data = [];
-            $courses = Blogs::find($id);
-            $courses->delete();
+            $blog = Blogs::where ('id',$request->id)->first();
+            $blog->delete();
             return response()->json([
                 "status" => "Success",
                 "message" => "Deleted successfully",
