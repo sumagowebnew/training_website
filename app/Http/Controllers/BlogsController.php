@@ -203,7 +203,7 @@ class BlogsController extends Controller
             $all_data = [];
             $blog = Blogs::where ('id',$request->id)->first();
             if ($blog) {
-                $folderPath = public_path('all_web_data/images/blogImages/');
+                $folderPath = storage_path('all_web_data/images/blogImages/');
                 $imageName = basename($blog->images);
                 $fileToDelete = $folderPath . $imageName;
                 info($fileToDelete);
