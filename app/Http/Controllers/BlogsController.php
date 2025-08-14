@@ -134,27 +134,41 @@ class BlogsController extends Controller
                     ], 422);
     
         }else {
+            // $image = $request->images;
+            // // createDirecrotory("/all_web_data/images/blogImages/");
+
+            // $folderPath = storage_path('all_web_data/images/blogImages/');
+
+            // // Create directory if it doesn't exist
+            // if (!file_exists($folderPath)) {
+            //     mkdir($folderPath, 0777, true); // 0777 permissions and recursive creation
+            // }
+
+            // $folderPath = str_replace("\\", "/", storage_path()) . "/all_web_data/images/blogImages/";
+
+            // $base64Image = explode(";base64,", $image);
+            // $explodeImage = explode("image/", $base64Image[0]);
+            // $imageType = $explodeImage[1];
+            // $image_base64 = base64_decode($base64Image[1]);
+
+            // $file = $request->id . "_updated" . "." . $imageType;
+            // $file_dir = $folderPath . $file;
+
             $image = $request->images;
-            // createDirecrotory("/all_web_data/images/blogImages/");
-
-            $folderPath = storage_path('all_web_data/images/blogImages/');
-
-            // Create directory if it doesn't exist
-            if (!file_exists($folderPath)) {
-                mkdir($folderPath, 0777, true); // 0777 permissions and recursive creation
-            }
-
-            $folderPath = str_replace("\\", "/", storage_path()) . "/all_web_data/images/blogImages/";
+            createDirecrotory("/all_web_data/images/blogImages/");
+            $folderPath = str_replace("\\", "/", storage_path())."/all_web_data/images/blogImages/";
 
             $base64Image = explode(";base64,", $image);
             $explodeImage = explode("image/", $base64Image[0]);
             $imageType = $explodeImage[1];
             $image_base64 = base64_decode($base64Image[1]);
 
-            $file = $request->id . "_updated" . "." . $imageType;
+            $file = $request->id  . "." . $imageType;
             $file_dir = $folderPath . $file;
 
             file_put_contents($file_dir, $image_base64);
+
+
 
             $image = Blogs::where ('id',$request->id)->first();
             $image->images = $file;
