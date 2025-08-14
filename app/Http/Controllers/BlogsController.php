@@ -154,11 +154,12 @@ class BlogsController extends Controller
 
             $uniqueId = date("YmdHis") . rand(1000, 9999);
             $file = "{$uniqueId}_updated.{$imageType}";
-
-            $file = $request->id . "." . $imageType;
             $file_dir = $folderPath . $file;
 
             file_put_contents($file_dir, $image_base64);
+
+
+
 
             $image = Blogs::where ('id',$request->id)->first();
             $image->images = $file;
