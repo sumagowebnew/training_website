@@ -14,7 +14,7 @@ class SubcoursesController extends Controller
     public function index(Request $request, $id)
     {
         //added groupby
-        $all_data = Subcourses::Join('course_fee_details', function($join) {
+        $all_data = Subcourses::leftJoin('course_fee_details', function($join) {
             $join->on('subcourses.id', '=', 'course_fee_details.sub_course_id');
           })
           ->where('subcourses.course_id',$id)->groupBy('course_fee_details.sub_course_id')
