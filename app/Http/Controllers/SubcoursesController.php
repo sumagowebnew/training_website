@@ -94,6 +94,7 @@ class SubcoursesController extends Controller
     ->LeftJoin('course_fee_details', 'subcourses.id', '=', 'course_fee_details.sub_course_id')
     ->LeftJoin('coursecategory', 'subcourses.course_id', '=', 'coursecategory.id')
     // ->groupBy('course_fee_details.sub_course_id')
+    ->where('is_active', 1)
       ->groupBy(
         'subcourses.course_id',
         'subcourses.id',
