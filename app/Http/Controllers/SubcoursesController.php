@@ -159,7 +159,7 @@ class SubcoursesController extends Controller
         $file_dir = $folderPath.$file;
 
         file_put_contents($file_dir, $image_base64);
-        $count->name = $request->name;
+        $count->name = $request->subcourses_name;
         $count->image = $request->image;
         $count->course_id = $request->course_id;
 
