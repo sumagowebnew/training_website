@@ -137,7 +137,7 @@ class SubcoursesController extends Controller
                 $programs = new Subcourses();
                 $programs->course_id = $request->course_id;
                 $programs->image = $file;
-                $programs->name = $request->name;
+                $programs->name = $request->subcourses_name;
                 $programs->save();
                 return response()->json(['status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
         }
