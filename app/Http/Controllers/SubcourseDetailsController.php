@@ -110,10 +110,16 @@ class SubcourseDetailsController extends Controller
             'custome_text'=>'required',
         ]);
         
-        if($validator->fails())
-        {
-                return $validator->errors()->all();
-        }else{
+          if ($validator->fails())
+            {
+                    return response()->json([
+                            'status' => 'error',
+                            'message' => 'Validation failed',
+                            'errors' => $validator->errors(),
+                            'statusCode' => 422
+                        ], 422);
+        
+            }else{
                
                 $existingRecord = SubcourseDetails::orderBy('id','DESC')->first();
                 $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
