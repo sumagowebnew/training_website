@@ -179,8 +179,8 @@ class SubcoursesController extends Controller
     public function delete($id)
     {
         $all_data=[];
-        $Contact_enquiries = Subcourses::find($id);
-        $Contact_enquiries->delete();
+        $Contact_enquiries = Subcourses::where('id',$id)->update(['is_active'=>0]);
+        // $Contact_enquiries->delete();
         return response()->json(['status' => 'Success', 'message' => 'Deleted successfully','StatusCode'=>'200']);
     }
 
