@@ -92,8 +92,17 @@ class SubcoursesController extends Controller
             'coursecategory.name AS coursename'           
         ])
     ->LeftJoin('course_fee_details', 'subcourses.id', '=', 'course_fee_details.sub_course_id')
-    ->join('coursecategory', 'subcourses.course_id', '=', 'coursecategory.id')
-    ->groupBy('course_fee_details.sub_course_id')
+    ->LeftJoin('coursecategory', 'subcourses.course_id', '=', 'coursecategory.id')
+    // ->groupBy('course_fee_details.sub_course_id')
+      ->groupBy(
+        'subcourses.course_id',
+        'subcourses.id',
+        'subcourses.image',
+        'subcourses.name',
+        'course_fee_details.sub_course_fee',
+        'course_fee_details.sub_course_duration',
+        'coursecategory.name'
+    )
     ->get();
 
           $response = [];
