@@ -113,6 +113,7 @@ class FunatworkdetailsController extends Controller
 
     public function Update(Request $request,$id)
     {
+        dd($request);
         $validator = Validator::make($request->all(), [
             'image'=>'required',
             'title'=>'required',
