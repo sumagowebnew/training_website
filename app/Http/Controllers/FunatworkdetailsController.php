@@ -125,7 +125,7 @@ class FunatworkdetailsController extends Controller
         
             }else{
                 try {
-                    $funatwork = Funatworkdetails::find($id);
+                    $funatwork = Funatworkdetails::where('id','=', $id)->first();
                     
                     // Check if there are any existing records
                     $existingRecord = Funatworkdetails::orderBy('id','DESC')->first();
