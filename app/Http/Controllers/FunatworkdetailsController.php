@@ -132,8 +132,8 @@ class FunatworkdetailsController extends Controller
                     // Check if there are any existing records
                     $existingRecord = Funatworkdetails::orderBy('id','DESC')->first();
                     $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
-                    $title = $request->title;
-                    $img_path = $request->image;
+                    $title = $request['title'];
+                    $img_path = $request['image'];
                     $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/funatworkdetails/";
                     $base64Image = explode(";base64,", $img_path);
                     $explodeImage = explode("image/", $base64Image[0]);
@@ -145,9 +145,9 @@ class FunatworkdetailsController extends Controller
             
                     file_put_contents($file_dir, $image_base64);
                     $funatwork->image = $file;
-                    $funatwork->funatworkcategoryid = $request->funatworkCategory_id;
-                    $funatwork->title = $request->title;
-                    $funatwork->description = $request->description;
+                    $funatwork->funatworkcategoryid = $request['funatworkCategory_id'];
+                    $funatwork->title = $request['title'];
+                    $funatwork->description = $request['description'];
                     // $funatwork->course_id = 001;
                     $funatwork->update();
             
