@@ -143,7 +143,7 @@ class FunatworkdetailsController extends Controller
             
                     file_put_contents($file_dir, $image_base64);
                     $funatwork->image = $file;
-                    $funatwork->funatworkcategoryid = $request->funatworkcategoryid;
+                    $funatwork->funatworkcategoryid = $request->funatworkCategory_id;
                     $funatwork->title = $request->title;
                     $funatwork->description = $request->description;
                     // $funatwork->course_id = 001;
