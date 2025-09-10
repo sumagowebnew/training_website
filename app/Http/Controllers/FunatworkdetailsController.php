@@ -128,8 +128,7 @@ class FunatworkdetailsController extends Controller
                     $funatwork = Funatworkdetails::where('id','=', $id)->first();
                     
                     // Check if there are any existing records
-                    $existingRecord = Funatworkdetails::orderBy('id','DESC')->first();
-                    $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
+                    $recordId = date("YmdHis") . sprintf("%03d", round(microtime(true) * 1000) % 1000);
                     $title = $request['title'];
                     $img_path = $request['image'];
                     $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/funatworkdetails/";
