@@ -8,6 +8,7 @@ use  App\Models\Subcourses;
 
 use App\Models\CourseFeeDetails;
 use Validator;
+use DB;
 
 class SubcoursesController extends Controller
 {
