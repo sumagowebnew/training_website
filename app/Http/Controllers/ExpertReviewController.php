@@ -11,7 +11,7 @@ class ExpertReviewController extends Controller
 {
     public function index(Request $request)
     {
-        $expertReview = ExpertReview::get();
+        $expertReview = ExpertReview::whereNotNull('deleted_at')->get();
 
         $response = [];
 

@@ -82,29 +82,45 @@ class SubcoursesController extends Controller
         //   ])->get();
           
 
-          $all_data = Subcourses::select([
-            'subcourses.course_id as course_id', 
-            'subcourses.id as subcourses_id', 
-            'subcourses.image as subcourses_image', 
-            'subcourses.name as subcourses_name', 
-            'course_fee_details.sub_course_fee',
-            'course_fee_details.sub_course_duration as sub_course_duration',
-            'coursecategory.name AS coursename'           
+    //       $all_data = Subcourses::select([
+    //         'subcourses.course_id as course_id', 
+    //         'subcourses.id as subcourses_id', 
+    //         'subcourses.image as subcourses_image', 
+    //         'subcourses.name as subcourses_name', 
+    //         'course_fee_details.sub_course_fee',
+    //         'course_fee_details.sub_course_duration as sub_course_duration',
+    //         'coursecategory.name AS coursename'           
+    //     ])
+    // ->LeftJoin('course_fee_details', 'subcourses.id', '=', 'course_fee_details.sub_course_id')
+    // ->LeftJoin('coursecategory', 'subcourses.course_id', '=', 'coursecategory.id')
+    // // ->groupBy('course_fee_details.sub_course_id')
+    // ->where('subcourses.is_active', 1)
+    //   ->groupBy(
+    //     'subcourses.course_id',
+    //     'subcourses.id',
+    //     'subcourses.image',
+    //     'subcourses.name',
+    //     'course_fee_details.sub_course_fee',
+    //     'course_fee_details.sub_course_duration',
+    //     'coursecategory.name'
+    // )
+    // ->get();
+
+
+        $all_data = Subcourses::select([
+            DB::raw('MIN(subcourses.course_id) as course_id'),
+            DB::raw('MIN(subcourses.id) as subcourses_id'),
+            DB::raw('MIN(subcourses.image) as subcourses_image'),
+            'subcourses.name as subcourses_name',
+            DB::raw('MAX(course_fee_details.sub_course_fee) as sub_course_fee'),
+            DB::raw('MAX(course_fee_details.sub_course_duration) as sub_course_duration'),
+            DB::raw('MIN(coursecategory.name) as coursename')
         ])
-    ->LeftJoin('course_fee_details', 'subcourses.id', '=', 'course_fee_details.sub_course_id')
-    ->LeftJoin('coursecategory', 'subcourses.course_id', '=', 'coursecategory.id')
-    // ->groupBy('course_fee_details.sub_course_id')
-    ->where('subcourses.is_active', 1)
-      ->groupBy(
-        'subcourses.course_id',
-        'subcourses.id',
-        'subcourses.image',
-        'subcourses.name',
-        'course_fee_details.sub_course_fee',
-        'course_fee_details.sub_course_duration',
-        'coursecategory.name'
-    )
-    ->get();
+        ->leftJoin('course_fee_details', 'subcourses.id', '=', 'course_fee_details.sub_course_id')
+        ->leftJoin('coursecategory', 'subcourses.course_id', '=', 'coursecategory.id')
+        ->where('subcourses.is_active', 1)
+        ->groupBy('subcourses.name')
+        ->get();
 
           $response = [];
           foreach ($all_data as $item) {
