@@ -19,7 +19,7 @@ class SubcoursesController extends Controller
             $join->on('subcourses.id', '=', 'course_fee_details.sub_course_id');
         })
             ->where('subcourses.course_id', $id)->groupBy('course_fee_details.sub_course_id')
-            ->where(['is_active' => 0])
+            ->where(['subcourses.is_active' => 0])
             ->select([
                 'subcourses.url',
                 'subcourses.course_id as course_id',
