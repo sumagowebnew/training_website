@@ -174,18 +174,20 @@ class SubcoursesController extends Controller
     {
         $count = Subcourses::find($id);
         $image = $request->image;
-        createDirecrotory('/all_web_data/images/subcourse/');
-        $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/subcourse/";
-        
-        $base64Image = explode(";base64,", $image);
-        $explodeImage = explode("image/", $base64Image[0]);
-        $imageType = $explodeImage[1];
-        $image_base64 = base64_decode($base64Image[1]);
+        if($request->image) {
+            createDirecrotory('/all_web_data/images/subcourse/');
+            $folderPath = str_replace('\\', '/', storage_path()) ."/all_web_data/images/subcourse/";
+            
+            $base64Image = explode(";base64,", $image);
+            $explodeImage = explode("image/", $base64Image[0]);
+            $imageType = $explodeImage[1];
+            $image_base64 = base64_decode($base64Image[1]);
 
-        $file = $id . '_updated.' . $imageType;
-        $file_dir = $folderPath.$file;
+            $file = $id . '_updated.' . $imageType;
+            $file_dir = $folderPath.$file;
 
-        file_put_contents($file_dir, $image_base64);
+            file_put_contents($file_dir, $image_base64);
+        }
         $count->name = $request->subcourses_name;
         $count->image = $request->image;
         $count->course_id = $request->course_id;
