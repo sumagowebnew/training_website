@@ -173,7 +173,6 @@ class SubcoursesController extends Controller
     public function update(Request $request, $id)
     {
         $count = Subcourses::find($id);
-        return $request->course_id;
         $image = $request->image;
         if($request->image) {
             createDirecrotory('/all_web_data/images/subcourse/');
@@ -191,9 +190,7 @@ class SubcoursesController extends Controller
             $count->image = $request->image;
         }
         $count->name = $request->subcourses_name;
-        
         $count->course_id = $request->course_id;
-
         $update_data = $count->update();
         return response()->json(['status' => 'Success', 'message' => 'Updated successfully','StatusCode'=>'200']);
     }
