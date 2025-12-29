@@ -19,6 +19,7 @@ class SubcoursesController extends Controller
             $join->on('subcourses.id', '=', 'course_fee_details.sub_course_id');
         })
             ->where('subcourses.course_id', $id)->groupBy('course_fee_details.sub_course_id')
+            ->where(['is_active' => 0])
             ->select([
                 'subcourses.url',
                 'subcourses.course_id as course_id',
@@ -199,7 +200,7 @@ class SubcoursesController extends Controller
     public function delete($id)
     {
         $all_data = [];
-        $Contact_enquiries = Subcourses::where('id', $id)->update(['is_active' => 0]);
+        $Contact_enquiries = Subcourses::where('id', $id)->update(['is_active' => 1]);
         // $Contact_enquiries->delete();
         return response()->json(['status' => 'Success', 'message' => 'Deleted successfully', 'StatusCode' => '200']);
     }
