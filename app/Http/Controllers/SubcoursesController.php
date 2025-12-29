@@ -173,7 +173,7 @@ class SubcoursesController extends Controller
     public function update(Request $request, $id)
     {
         $count = Subcourses::find($id);
-        return $request->subcourses_name;
+        return $request->course_id;
         $image = $request->image;
         if($request->image) {
             createDirecrotory('/all_web_data/images/subcourse/');
